@@ -1,4 +1,4 @@
-/** Share state lives in the hash query: #/route?s=<base64url json> */
+/** Share state lives in the hash query: #/route?b=<base64url json> */
 export function encodeState(obj: unknown): string {
   const json = JSON.stringify(obj);
   const bytes = new TextEncoder().encode(json);
@@ -19,18 +19,44 @@ export function decodeState<T>(s: string | null): T | null {
   }
 }
 
-export function readHash(): { route: string; params: URLSearchParams } {
-  const h = location.hash.replace(/^#/, '') || '/skills';
+export interface HashRoute { route: string; base: string; param: string | null; params: URLSearchParams }
+
+/** "#/community/abc?x=1" -> { route: "/community/abc", base: "/community", param: "abc" } */
+export function readHash(): HashRoute {
+  const h = location.hash.replace(/^#/, '') || '/';
   const [route, query = ''] = h.split('?');
-  return { route: route || '/skills', params: new URLSearchParams(query) };
+  const parts = (route || '/').split('/').filter(Boolean);
+  return {
+    route: route || '/',
+    base: parts.length ? `/${parts[0]}` : '/',
+    param: parts[1] ? decodeURIComponent(parts[1]) : null,
+    params: new URLSearchParams(query),
+  };
 }
 
-export function buildShareUrl(route: string, state: unknown): string {
+export function buildShareUrl(route: string, build: unknown): string {
   const url = new URL(location.href);
-  url.hash = `${route}?s=${encodeState(state)}`;
+  url.hash = `${route}?b=${encodeState(build)}`;
   return url.toString();
 }
 
 export async function copyText(text: string): Promise<boolean> {
-  try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
 }

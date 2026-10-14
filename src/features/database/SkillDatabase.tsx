@@ -1,158 +1,173 @@
-import { useMemo, useState } from 'react';
-import { useGame, useLoadedGame } from '../../data/GameDataContext';
+import { useMemo, useRef, useState } from 'react';
+import { BookOpen, Search, Timer, X } from 'lucide-react';
+import { useLoadedGame } from '../../data/GameDataContext';
 import type { ClassType, Skill } from '../../data/types';
-import { SkillIcon } from '../../components/SkillIcon';
-import { richText, fmtSec } from '../../lib/format';
-import { usePersistedState } from '../../lib/usePersistedState';
+import { SkillTile } from '../../components/SkillTile';
+import { SkillDetail } from '../../components/SkillDetail';
+import { ClassEmblem } from '../../components/ClassSelect';
+import { Card, CdChip, EmptyState, PageHeader, Segmented } from '../../components/ui';
+import { richText } from '../../lib/format';
+import { cdAt, fmtCdShort } from '../../lib/cooldown';
 
 type TypeFilter = 'all' | 'active' | 'passive' | 'stigma';
+type Sort = 'level' | 'name' | 'cd';
+
+const typeOf = (s: Skill): Exclude<TypeFilter, 'all'> => (s.isStigma ? 'stigma' : s.type);
 
 export function SkillDatabase() {
   const { data, t } = useLoadedGame();
-  const [cls, setCls] = usePersistedState<ClassType | 'all'>('dbClass', 'all');
+  const [cls, setCls] = useState<ClassType | 'all'>('all');
   const [type, setType] = useState<TypeFilter>('all');
   const [q, setQ] = useState('');
-  const [sort, setSort] = useState<'level' | 'name'>('level');
+  const [sort, setSort] = useState<Sort>('level');
+  const [onlyCd, setOnlyCd] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
-
+  const [lv, setLv] = useState(1);
+  const detailRef = useRef<HTMLDivElement>(null);
 
   const list = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return data.skills
       .filter((s) => cls === 'all' || s.classType === cls)
-      .filter((s) => type === 'all' || (type === 'stigma' ? s.isStigma : !s.isStigma && s.type === type))
+      .filter((s) => type === 'all' || typeOf(s) === type)
+      .filter((s) => !onlyCd || s.cooldownSec > 0)
       .filter((s) => !needle || s.name.toLowerCase().includes(needle) || s.description.toLowerCase().includes(needle))
-      .sort((a, b) => (sort === 'name' ? a.name.localeCompare(b.name) : a.classType.localeCompare(b.classType) || Number(a.isStigma) - Number(b.isStigma) || a.acquireLevel - b.acquireLevel || a.id - b.id));
-  }, [data, cls, type, q, sort]);
+      .sort((a, b) => {
+        if (sort === 'name') return a.name.localeCompare(b.name);
+        if (sort === 'cd') return b.cooldownSec - a.cooldownSec || a.name.localeCompare(b.name);
+        return a.classType.localeCompare(b.classType) || Number(a.isStigma) - Number(b.isStigma) || a.acquireLevel - b.acquireLevel || a.id - b.id;
+      });
+  }, [data, cls, type, q, sort, onlyCd]);
 
   const sel = selected != null ? data.skillById.get(selected) ?? null : null;
   const className = (c: ClassType) => data.classes.find((x) => x.classType === c)?.name ?? c;
 
+  const pick = (s: Skill) => {
+    setSelected(s.id);
+    setLv(1);
+    if (window.matchMedia('(max-width: 980px)').matches) {
+      requestAnimationFrame(() => detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  };
+
   return (
     <div className="page">
-      <section className="panel controls">
-        <div className="controls-row">
-          <label className="field">
-            <span>{t('class')}</span>
-            <select value={cls} onChange={(e) => setCls(e.target.value as ClassType | 'all')}>
-              <option value="all">{t('all')}</option>
-              {data.classes.map((c) => <option key={c.classType} value={c.classType}>{c.name}</option>)}
-            </select>
-          </label>
-          <label className="field">
-            <span>{t('type')}</span>
-            <select value={type} onChange={(e) => setType(e.target.value as TypeFilter)}>
-              <option value="all">{t('all')}</option>
-              <option value="active">{t('active')}</option>
-              <option value="passive">{t('passive')}</option>
-              <option value="stigma">{t('stigma')}</option>
-            </select>
-          </label>
-          <label className="field grow">
-            <span>{t('search')}</span>
-            <input type="search" value={q} placeholder={t('search')} onChange={(e) => setQ(e.target.value)} />
-          </label>
-          <label className="field">
-            <span>&nbsp;</span>
-            <select value={sort} onChange={(e) => setSort(e.target.value as 'level' | 'name')}>
-              <option value="level">{t('sortLevel')}</option>
-              <option value="name">{t('sortName')}</option>
-            </select>
-          </label>
+      <PageHeader icon={<BookOpen size={22} />} title={t('navDatabase')} subtitle={t('homeDatabaseText')} />
+
+      <Card className="filters">
+        <div className="class-chips" role="radiogroup" aria-label={t('class')}>
+          <button type="button" role="radio" aria-checked={cls === 'all'} className={`class-chip ${cls === 'all' ? 'on' : ''}`} onClick={() => setCls('all')}>
+            {t('allClasses')}
+          </button>
+          {data.classes.map((c) => (
+            <button key={c.classType} type="button" role="radio" aria-checked={cls === c.classType}
+              className={`class-chip ${cls === c.classType ? 'on' : ''}`} onClick={() => setCls(c.classType)}>
+              <ClassEmblem cls={c.classType} size={20} /> {c.name}
+            </button>
+          ))}
         </div>
-        <p className="muted small">{t('showing', { n: list.length })}</p>
-      </section>
+        <div className="filter-row">
+          <label className="search-field">
+            <Search size={16} />
+            <input type="search" value={q} placeholder={t('search')} onChange={(e) => setQ(e.target.value)} aria-label={t('search')} />
+            {q && <button type="button" className="icon-btn sm" onClick={() => setQ('')} aria-label={t('clear')}><X size={14} /></button>}
+          </label>
+          <Segmented<TypeFilter>
+            value={type}
+            onChange={setType}
+            label={t('type')}
+            options={[
+              { value: 'all', label: t('all') },
+              { value: 'active', label: t('active') },
+              { value: 'passive', label: t('passive') },
+              { value: 'stigma', label: t('stigma') },
+            ]}
+          />
+          <Segmented<Sort>
+            value={sort}
+            onChange={setSort}
+            label={t('sortBy')}
+            options={[
+              { value: 'level', label: t('sortLevel') },
+              { value: 'name', label: t('sortName') },
+              { value: 'cd', label: t('sortCd') },
+            ]}
+          />
+          <label className="toggle">
+            <input type="checkbox" checked={onlyCd} onChange={(e) => setOnlyCd(e.target.checked)} />
+            <span className="toggle-ui" />
+            <Timer size={14} /> {t('onlyWithCd')}
+          </label>
+          <span className="muted small push">{t('showing', { n: list.length })}</span>
+        </div>
+      </Card>
 
-      <div className="columns">
-        <section className="panel">
-          {list.length === 0 && <p className="muted">{t('noResults')}</p>}
-          <div className="db-grid">
-            {list.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                className={`db-card ${selected === s.id ? 'selected' : ''} ${s.isStigma ? 'stigma' : s.type}`}
-                onClick={() => setSelected(s.id)}
-              >
-                <SkillIcon icon={s.icon} size={48} />
-                <div className="db-card-body">
-                  <div className="skill-name">{s.name}</div>
-                  <div className="muted small">
-                    {className(s.classType)} · {s.isStigma ? t('stigma') : t(s.type)} · {t('lv')} {s.acquireLevel}
-                  </div>
-                  <div className="small desc-clamp">{richText(s.description)}</div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </section>
-        <aside className="panel side sticky">
-          {sel ? <DatabaseDetail skill={sel} className={className(sel.classType)} /> : <p className="muted small">{t('selectSkillHint')}</p>}
-        </aside>
-      </div>
-    </div>
-  );
-}
-
-function DatabaseDetail({ skill, className }: { skill: Skill; className: string }) {
-  const { t } = useGame();
-  return (
-    <div className="skill-detail">
-      <div className="detail-head">
-        <SkillIcon icon={skill.icon} size={56} />
+      <div className="split">
         <div>
-          <div className="skill-name big">{skill.name}</div>
-          <div className="muted small">{className} · {skill.isStigma ? t('stigma') : t(skill.type)}</div>
-          <div className="muted small">{t('acquireLevel')} {skill.acquireLevel} · {t('maxLevel')} {skill.maxLevel}</div>
-          <div className="muted small">{t('cooldown')}: {fmtSec(skill.cooldownSec)} · {t('castTime')}: {fmtSec(skill.castTimeSec)}</div>
+          {list.length === 0 ? <Card><EmptyState icon={<Search size={28} />} text={t('noResults')} /></Card> : (
+            <div className="card-grid db">
+              {list.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className={`skill-card ${typeOf(s)} ${selected === s.id ? 'selected' : ''}`}
+                  onClick={() => pick(s)}
+                >
+                  <SkillTile skill={s} size={52} tip={false} />
+                  <div className="sc-body">
+                    <div className="sc-name">{s.name}</div>
+                    <div className="sc-meta">
+                      <ClassEmblem cls={s.classType} size={14} /> {className(s.classType)}
+                      <span className={`type-tag ${typeOf(s)}`}>{t(typeOf(s))}</span>
+                      <span>{t('lv')} {s.acquireLevel}</span>
+                    </div>
+                    <div className="chips">
+                      <CdChip cd={s.cooldownSec} short />
+                      {s.castTimeSec > 0 && <span className="chip subtle">{t('castTime')} {s.castTimeSec}s</span>}
+                    </div>
+                    <div className="sc-desc">{richText(s.description)}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-      <p className="desc">{richText(skill.description)}</p>
 
-      {skill.parts && skill.parts.length > 0 && (
-        <>
-          <h3>{t('specialisations')}</h3>
-          <ul className="parts">
-            {skill.parts.map((p) => (
-              <li key={p.id}>
-                <SkillIcon icon={p.icon} size={28} />
-                <span><span className="muted">{t('lv')} {p.level}:</span> {richText(p.desc)}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-
-      {skill.chain && skill.chain.length > 0 && (
-        <>
-          <h3>{t('chainSkills')}</h3>
-          <ul className="parts">
-            {skill.chain.map((c) => (
-              <li key={c.id}>
-                <SkillIcon icon={c.icon} size={28} />
-                <span><b>{c.name}</b> <span className="muted">({c.rate}% {t('chainRate')}, {c.time}s {t('chainTime')})</span><br />{richText(c.desc[0] ?? '')}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-
-      <h3>{t('perLevel')}</h3>
-      <div className="table-wrap">
-        <table className="level-table">
-          <thead>
-            <tr><th>{t('lv')}</th><th>{t('description')}</th><th>{t('cooldown')}</th></tr>
-          </thead>
-          <tbody>
-            {skill.levels.map((l) => (
-              <tr key={l.level}>
-                <td>{l.level}</td>
-                <td>{richText(l.description)}</td>
-                <td>{fmtSec(l.cooldownSec)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <aside className="side sticky" ref={detailRef}>
+          <Card title={t('details')}>
+            {sel ? (
+              <>
+                <div className="db-class-line">
+                  <ClassEmblem cls={sel.classType} size={18} /> {className(sel.classType)} · {t('acquireLevel')} {sel.acquireLevel} · {t('maxLevel')} {sel.maxLevel}
+                </div>
+                {sel.levels.length > 1 && (
+                  <label className="range-field">
+                    <span>{t('level')} <b>{lv}</b></span>
+                    <input type="range" min={1} max={sel.levels.length} value={lv} onChange={(e) => setLv(Number(e.target.value))} />
+                  </label>
+                )}
+                <SkillDetail skill={sel} level={lv} cdr={0} />
+                <h4>{t('perLevel')}</h4>
+                <div className="table-wrap">
+                  <table className="table level-table">
+                    <thead>
+                      <tr><th>{t('lv')}</th><th>{t('cooldown')}</th><th>{t('description')}</th></tr>
+                    </thead>
+                    <tbody>
+                      {sel.levels.map((l) => (
+                        <tr key={l.level} className={l.level === lv ? 'on' : ''} onClick={() => setLv(l.level)}>
+                          <td>{l.level}</td>
+                          <td className="nowrap">{cdAt(sel, l.level) > 0 ? fmtCdShort(cdAt(sel, l.level)) : '–'}</td>
+                          <td>{richText(l.description)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            ) : <EmptyState icon={<BookOpen size={28} />} text={t('selectSkillHint')} />}
+          </Card>
+        </aside>
       </div>
     </div>
   );

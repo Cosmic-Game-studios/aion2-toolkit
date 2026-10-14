@@ -1,0 +1,123 @@
+import type { ClassType } from '../data/types';
+
+export type Faction = 'Light' | 'Dark';
+export interface StigmaSlot { id: number | null; lv: number }
+export interface MacroStep { id: number; delay: number }
+export interface Macro { id: string; name: string; key: string; steps: MacroStep[] }
+
+export const BAR_ROWS = 5;
+export const BAR_COLS = 12;
+export const BAR_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='];
+export const MAX_MACROS = 10;
+export const MAX_MACRO_STEPS = 20;
+export const DEFAULT_DELAY = 10;
+export const MAX_DELAY = 9900;
+
+export const CLASS_TYPES: ClassType[] = [
+  'Assassin', 'Chanter', 'Cleric', 'Elementalist', 'Fighter', 'Gladiator', 'Ranger', 'Sorcerer', 'Templar',
+];
+
+/**
+ * One complete character build. Shared by every calculator, the hotbar editor and the community upload.
+ * Kept compact because it travels in share links and API payloads.
+ */
+export interface Build {
+  v: 1;
+  /** class */
+  c: ClassType;
+  /** character level */
+  l: number;
+  /** faction (extra point sources differ) */
+  f: Faction;
+  /** enabled extra skill point source groups */
+  x: string[];
+  /** manual extra skill points */
+  e: number;
+  /** manual extra stigma shards */
+  se: number;
+  /** cooldown reduction in percent (manual) */
+  cdr: number;
+  /** skill levels by skill id (normal skills) */
+  lv: Record<string, number>;
+  /** 4 stigma slots */
+  st: StigmaSlot[];
+  /** Daevanion: learned nodes per board id, hex bitmask */
+  dv: Record<string, string>;
+  /** hotbar: "row:col" -> skill id; row 0 is the main (bottom) row */
+  bar: Record<string, number>;
+  /** skill ids with auto-use enabled */
+  auto: number[];
+  macros: Macro[];
+}
+
+export const emptyBuild = (c: ClassType, level = 45): Build => ({
+  v: 1, c, l: level, f: 'Light', x: [], e: 0, se: 0, cdr: 0,
+  lv: {}, st: [0, 1, 2, 3].map(() => ({ id: null, lv: 1 })), dv: {}, bar: {}, auto: [], macros: [],
+});
+
+export const slotKey = (row: number, col: number) => `${row}:${col}`;
+
+export const newMacroId = () => `m${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+
+const clampInt = (v: unknown, min: number, max: number, def: number) => {
+  const n = Math.round(Number(v));
+  return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : def;
+};
+const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
+const ID_MAX = 999_999_999;
+
+/** Validates and normalises an unknown value (share link, storage, API) into a Build. */
+export function normalizeBuild(raw: unknown): Build | null {
+  if (!isObj(raw)) return null;
+  const c = raw.c as ClassType;
+  if (!CLASS_TYPES.includes(c)) return null;
+  const b = emptyBuild(c);
+  b.l = clampInt(raw.l, 1, 100, 45);
+  b.f = raw.f === 'Dark' ? 'Dark' : 'Light';
+  b.x = Array.isArray(raw.x) ? raw.x.filter((s): s is string => typeof s === 'string' && s.length < 40).slice(0, 10) : [];
+  b.e = clampInt(raw.e, 0, 9999, 0);
+  b.se = clampInt(raw.se, 0, 9999, 0);
+  b.cdr = clampInt(raw.cdr, 0, 90, 0);
+  if (isObj(raw.lv)) {
+    for (const [k, v] of Object.entries(raw.lv)) if (/^\d{1,9}$/.test(k)) b.lv[k] = clampInt(v, 1, 40, 1);
+  }
+  if (Array.isArray(raw.st)) {
+    const st = raw.st as unknown[];
+    b.st = b.st.map((_, i) => {
+      const s = st[i];
+      if (!isObj(s)) return { id: null, lv: 1 };
+      const id = s.id == null ? null : clampInt(s.id, 0, ID_MAX, 0) || null;
+      return { id, lv: clampInt(s.lv, 1, 25, 1) };
+    });
+  }
+  if (isObj(raw.dv)) {
+    for (const [k, v] of Object.entries(raw.dv)) {
+      if (/^\d{1,6}$/.test(k) && typeof v === 'string' && /^[0-9a-f]{0,80}$/.test(v)) b.dv[k] = v;
+    }
+  }
+  if (isObj(raw.bar)) {
+    for (const [k, v] of Object.entries(raw.bar)) {
+      const m = /^(\d):(\d{1,2})$/.exec(k);
+      if (m && +m[1] < BAR_ROWS && +m[2] < BAR_COLS) {
+        const id = clampInt(v, 0, ID_MAX, 0);
+        if (id) b.bar[k] = id;
+      }
+    }
+  }
+  if (Array.isArray(raw.auto)) {
+    b.auto = [...new Set(raw.auto.map((v) => clampInt(v, 0, ID_MAX, 0)).filter(Boolean))].slice(0, 60);
+  }
+  if (Array.isArray(raw.macros)) {
+    b.macros = raw.macros.filter(isObj).slice(0, MAX_MACROS).map((m) => ({
+      id: typeof m.id === 'string' && /^[\w-]{1,24}$/.test(m.id) ? m.id : newMacroId(),
+      name: String(m.name ?? '').slice(0, 30),
+      key: String(m.key ?? '').slice(0, 12),
+      steps: Array.isArray(m.steps)
+        ? m.steps.filter(isObj).slice(0, MAX_MACRO_STEPS)
+          .map((s) => ({ id: clampInt(s.id, 0, ID_MAX, 0), delay: clampInt(s.delay, 0, MAX_DELAY, DEFAULT_DELAY) }))
+          .filter((s) => s.id)
+        : [],
+    }));
+  }
+  return b;
+}
