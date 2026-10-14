@@ -1,4 +1,4 @@
-import type { Board, BoardNode, ClassType, DaevanionData, GameData, Lang, Skill, SkillCosts, SkillPoints, ClassInfo } from './types';
+import type { Board, BoardNode, ClassType, ComboData, DaevanionData, GameData, Lang, Skill, SkillCosts, SkillPoints, ClassInfo } from './types';
 
 const cache = new Map<Lang, Promise<GameData>>();
 const STIGMA_UNLOCK_LEVEL = 22;
@@ -43,15 +43,18 @@ export function loadGameData(lang: Lang): Promise<GameData> {
   let p = cache.get(lang);
   if (!p) {
     p = (async () => {
-      const [classes, skills, costs, points, dv, learn] = await Promise.all([
+      const optional = <T,>(file: string) =>
+        fetch(`${base()}data/${file}.json`)
+          .then((r) => (r.ok && (r.headers.get('content-type') ?? '').includes('json') ? (r.json() as Promise<T>) : null))
+          .catch(() => null);
+      const [classes, skills, costs, points, dv, learn, combos] = await Promise.all([
         getJson<ClassInfo[]>(lang, 'classes'),
         getJson<Skill[]>(lang, 'skills'),
         getJson<SkillCosts>(lang, 'skill-costs'),
         getJson<SkillPoints>(lang, 'skill-points'),
         getJson<RawDaevanion>(lang, 'daevanion'),
-        fetch(`${base()}data/learn-levels.json`)
-          .then((r) => (r.ok && (r.headers.get('content-type') ?? '').includes('json') ? (r.json() as Promise<LearnLevels>) : null))
-          .catch(() => null),
+        optional<LearnLevels>('learn-levels'),
+        optional<ComboData>('combos'),
       ]);
       // dbaion2 reports acquireLevel 1 everywhere; overlay the real learn levels (by class + icon) where known.
       for (const s of skills) {
@@ -67,6 +70,7 @@ export function loadGameData(lang: Lang): Promise<GameData> {
         costs,
         points,
         daevanion: parseDaevanion(dv),
+        combos: combos ?? { impact: [], classes: {} },
       };
     })();
     cache.set(lang, p);

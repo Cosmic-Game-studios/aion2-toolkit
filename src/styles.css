@@ -509,6 +509,7 @@ button.chip { cursor: pointer; }
 .tone-gold { --tone: #e3b866; }
 .tone-slate { --tone: #9fb0c8; }
 .tone-rose { --tone: #ff7aa2; }
+.tone-green { --tone: #4fd1a1; }
 
 /* ---------- skill calculator ---------- */
 .points-grid { display: grid; grid-template-columns: minmax(220px, 1fr) auto auto; gap: 20px; align-items: end; }
@@ -799,6 +800,81 @@ button.chip { cursor: pointer; }
 .lv-name { font-size: 11px; line-height: 1.3; color: var(--text-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .upload-summary { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line-soft); color: var(--text-2); }
 
+/* ---------- specialisation picker ---------- */
+.spec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.spec-note { margin-top: 8px; }
+.eff-level { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; margin-bottom: 10px; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--line-soft); }
+.eff-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; color: var(--text-2); }
+.eff-sum b { color: #fff; font-variant-numeric: tabular-nums; }
+.eff-sum label { display: inline-flex; align-items: center; gap: 6px; cursor: help; }
+.eff-sum input { width: 52px; min-height: 28px; padding: 2px 6px; text-align: center; }
+.eff-total { margin-left: auto; font-size: 14px; }
+.eff-total b { color: var(--gold); font-size: 16px; }
+.slot-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.slot-pill {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600;
+  color: var(--muted); background: var(--surface-3); border: 1px dashed var(--line);
+}
+.slot-pill.open { color: var(--text-2); border-style: solid; }
+.slot-pill.used { color: #1a1408; background: var(--gold); border-color: var(--gold); }
+.parts.pick li { padding: 0; opacity: 1; background: none; }
+.parts.pick button {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 8px 10px; text-align: left; cursor: pointer;
+  border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--line-soft); color: var(--text-2); font: inherit; font-size: 13px;
+  transition: border-color .15s, background .15s;
+}
+.parts.pick button:hover:not(:disabled) { border-color: #3a4862; background: var(--surface-3); }
+.parts.pick button:disabled { cursor: not-allowed; }
+.parts.pick li.locked button, .parts.pick li.avail button:disabled { opacity: .5; }
+.parts.pick li.chosen button { border-color: rgba(227, 184, 102, .6); background: linear-gradient(90deg, rgba(227, 184, 102, .12), var(--surface-2)); color: var(--text); }
+.parts.pick li.chosen.inactive button { border-color: rgba(242, 184, 75, .45); background: var(--surface-2); }
+.pick-text { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.pick-state { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+.pick-state.ok { color: var(--ok); }
+.pick-state.warn { color: var(--warn); }
+.pick-box { flex: none; display: grid; place-items: center; width: 20px; height: 20px; margin-top: 4px; border-radius: 6px; border: 1px solid var(--line); color: #1a1408; }
+.parts.pick li.chosen .pick-box { background: var(--gold); border-color: var(--gold); }
+.sr-specs { display: inline-flex; gap: 3px; align-items: center; padding: 2px 4px; border-radius: 7px; background: rgba(227, 184, 102, .1); border: 1px solid rgba(227, 184, 102, .3); }
+.sr-specs .plain-icon { border-radius: 4px; }
+
+/* ---------- combos ---------- */
+.combo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.combo-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.combo-card {
+  --kc: var(--accent);
+  display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--kc);
+}
+.combo-card.kind-status { --kc: #b388ff; }
+.combo-card.kind-ref { --kc: var(--accent); }
+.combo-card.kind-burst { --kc: var(--gold); }
+.combo-card.kind-chance { --kc: var(--ok); }
+.combo-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.combo-head h3 { font-size: 15px; color: #fff; line-height: 1.3; }
+.combo-kind { display: block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--kc); margin-bottom: 2px; }
+.combo-state { flex: none; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; color: var(--muted); background: var(--surface-3); }
+.combo-state.ok { color: var(--ok); background: rgba(79, 209, 161, .12); }
+.combo-text { font-size: 13px; color: var(--text-2); }
+.combo-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: start; }
+.combo-col { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.combo-arrow { margin-top: 26px; color: var(--kc); }
+.combo-skills { display: flex; flex-direction: column; gap: 6px; }
+.combo-skill { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 4px 8px 4px 4px; border-radius: 10px; background: var(--surface-2); }
+.combo-skill.missing { opacity: .62; }
+.combo-skill.focus { box-shadow: inset 0 0 0 1px var(--kc); }
+.cs-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cs-name { font-size: 13px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.mini { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px; border-radius: 999px; font-size: 10.5px; font-weight: 600; color: var(--text-2); background: var(--surface-3); white-space: nowrap; }
+.mini.ok { color: var(--ok); }
+.mini.warn { color: var(--warn); }
+.combo-card.compact { padding: 10px; gap: 8px; }
+.combo-card.compact .combo-head h3 { font-size: 13px; }
+.combo-card.compact .combo-text { font-size: 12px; }
+.combo-card.compact .combo-flow { grid-template-columns: minmax(0, 1fr); }
+.combo-card.compact .combo-arrow { display: none; }
+.combo-card.compact .combo-col + .combo-col { padding-top: 6px; border-top: 1px dashed var(--line); }
+
 /* ---------- saved builds ---------- */
 .icon-btn.danger:hover { color: var(--bad); border-color: rgba(255, 107, 122, .5); background: rgba(255, 107, 122, .08); }
 .saved-new { display: flex; align-items: flex-end; gap: 12px; padding: 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line-soft); }
@@ -860,12 +936,14 @@ button.chip { cursor: pointer; }
 @keyframes slidein { from { opacity: 0; transform: translateX(16px); } }
 
 /* ---------- responsive ---------- */
+@media (max-width: 1180px) { .brand-text { display: none; } }
 @media (max-width: 1200px) {
   .stigma-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .split { grid-template-columns: minmax(0, 1fr) 360px; }
   .split.left { grid-template-columns: 300px minmax(0, 1fr); }
 }
 @media (max-width: 980px) {
+  .combo-grid { grid-template-columns: minmax(0, 1fr); }
   :root { --buildbar-h: 0px; }
   .split, .split.left, .detail-grid, .hero { grid-template-columns: minmax(0, 1fr); }
   .side.sticky, .buildbar ~ .main .side.sticky { position: static; max-height: none; overflow: visible; }
@@ -924,6 +1002,13 @@ button.chip { cursor: pointer; }
   .points-grid { grid-template-columns: minmax(0, 1fr); }
   .search-field { flex-basis: 100%; }
   .toasts { left: 16px; right: 16px; max-width: none; }
+  .filter-row .segmented { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .filter-row .segmented::-webkit-scrollbar { display: none; }
+  .filter-row .segmented button { flex: none; }
+  .combo-flow { grid-template-columns: minmax(0, 1fr); }
+  .combo-arrow { display: none; }
+  .combo-col + .combo-col { padding-top: 8px; border-top: 1px dashed var(--line); }
+  .eff-total { margin-left: 0; }
   .saved-new { flex-wrap: wrap; }
   .saved-new .emblem { display: none; }
   .saved-new .btn { flex: 1 1 100%; }

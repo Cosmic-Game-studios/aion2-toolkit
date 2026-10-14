@@ -38,10 +38,23 @@ export function validateBuild(raw) {
     v: 1, c: raw.c, l: int(raw.l, 1, 100, 45), f: raw.f === 'Dark' ? 'Dark' : 'Light',
     x: Array.isArray(raw.x) ? raw.x.filter((s) => typeof s === 'string' && /^[\w-]{1,40}$/.test(s)).slice(0, 10) : [],
     e: int(raw.e, 0, 9999, 0), se: int(raw.se, 0, 9999, 0), cdr: int(raw.cdr, 0, 90, 0),
-    lv: {}, st: [], dv: {}, bar: {}, auto: [], macros: [],
+    lv: {}, sp: {}, gx: {}, st: [], dv: {}, bar: {}, auto: [], macros: [],
   };
   if (isObj(raw.lv)) {
     for (const [k, v] of Object.entries(raw.lv).slice(0, 80)) if (/^\d{1,9}$/.test(k)) b.lv[k] = int(v, 1, 40, 1);
+  }
+  if (isObj(raw.sp)) {
+    for (const [k, v] of Object.entries(raw.sp).slice(0, 80)) {
+      if (!/^\d{1,9}$/.test(k) || !Array.isArray(v)) continue;
+      const ids = [...new Set(v.map((x) => int(x, 0, ID_MAX, 0)).filter(Boolean))].slice(0, 3);
+      if (ids.length) b.sp[k] = ids;
+    }
+  }
+  if (isObj(raw.gx)) {
+    for (const [k, v] of Object.entries(raw.gx).slice(0, 80)) {
+      const n = int(v, 0, 30, 0);
+      if (/^\d{1,9}$/.test(k) && n) b.gx[k] = n;
+    }
   }
   const st = Array.isArray(raw.st) ? raw.st : [];
   for (let i = 0; i < 4; i++) {

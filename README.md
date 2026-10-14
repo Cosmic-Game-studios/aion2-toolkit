@@ -15,10 +15,11 @@ All planner pages share one build per class (class, level, cooldown reduction, s
 | Route | What it does |
 |---|---|
 | `#/` | Start page with your current build, all tools and the latest community builds |
-| `#/skills` | Skill calculator: skill point budget (level + extra sources), level every active/passive skill 1–10, cooldown and MP per skill, cooldown by level |
+| `#/skills` | Skill calculator: skill point budget (level + extra sources), level every active/passive skill 1–10, cooldown and MP per skill, cooldown by level, **specialisations** (choose up to 3 per skill; slots open at effective skill level 8/12/20 = skill points + Daevanion skill nodes + manual gear levels; options need Lv. 8/12/16) |
 | `#/hotbar` | Hotbar & macros: 5 × 12 hotbar (drag & drop, click to place, right-click for auto-use), cooldown overview, **cooldown test mode** (click or press 1–0, -, = to see the cooldowns run), macro editor (up to 10 macros, 20 steps, delay per step, "from column"), 30-second rotation preview |
 | `#/stigma` | Stigma calculator: 4 slots (unlock at Lv. 22/27/32/37), stigma level 1–20, shard costs, specialisations at Lv. 5/10/15/20, cooldown per stigma |
 | `#/daevanion` | Daevanion boards: Nezekan, Zikel, Vaizel, Triniel, Azphel; learn/unlearn with dependency cascade, Shift+click for the cheapest route, stat and skill-level totals |
+| `#/combos` | Skill combos of your class, derived from the skill texts: status setups and payoffs (e.g. Knockdown → skills that only hit knocked-down targets, stagger gauge → stagger skills), skill links (cooldown reduction/reset, triggers, x1.5 boosts – incl. the specialisation that enables them), burst windows (self buffs or Defense debuffs followed by the hardest hitters) and effect-chance boosters. Marks which combos are ready in your build; the skill detail panel lists the combos of the selected skill |
 | `#/database` | Skill database: all 315 skills with class/type filters, search, sort by cooldown, per-level table |
 | `#/community` | Community builds: upload your build (incl. hotbar and macros), browse, search, like, load into the calculator; edit or delete your own uploads |
 
@@ -92,6 +93,7 @@ This runs three scripts (`scripts/`):
 - `fetch-data.mjs` – downloads `classes`, `skills`, `skill-costs`, `skill-points`, `daevanion` JSON in EN and DE from dbaion2.ru (drops the unused per-level effect lists from `skills.json`, about a third of its size)
 - `fetch-learn-levels.mjs` – reads the level that teaches each skill from endgametools.com class pages (dbaion2 reports level 1 for every skill); Brawler is not on the Global service yet and keeps level 1
 - `fetch-icons.mjs` – downloads every referenced skill / specialisation / chain icon plus the class icons (skips files that already exist)
+- `build-combos.mjs` – derives the skill combos from the English skill texts into `public/data/combos.json` (also available alone as `npm run data:combos`)
 
 Data notes:
 

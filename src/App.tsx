@@ -1,5 +1,5 @@
 import { useEffect, useState, type ComponentType } from 'react';
-import { BookOpen, Hexagon, Home, Keyboard, Sparkles, Swords, Users, type LucideIcon } from 'lucide-react';
+import { BookOpen, Hexagon, Home, Keyboard, Sparkles, Swords, Users, Workflow, type LucideIcon } from 'lucide-react';
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
@@ -16,6 +16,7 @@ import { SkillDatabase } from './features/database/SkillDatabase';
 import { StigmaCalculator } from './features/stigma/StigmaCalculator';
 import { DaevanionCalculator } from './features/daevanion/DaevanionCalculator';
 import { CommunityPage } from './features/community/CommunityPage';
+import { CombosPage } from './features/combos/CombosPage';
 
 interface RouteDef { path: string; key: StringKey; Icon: LucideIcon; Comp: ComponentType<{ param: string | null }>; planner?: boolean }
 
@@ -25,6 +26,7 @@ const ROUTES: RouteDef[] = [
   { path: '/hotbar', key: 'navHotbar', Icon: Keyboard, Comp: HotbarPage, planner: true },
   { path: '/stigma', key: 'navStigma', Icon: Sparkles, Comp: StigmaCalculator, planner: true },
   { path: '/daevanion', key: 'navDaevanion', Icon: Hexagon, Comp: DaevanionCalculator, planner: true },
+  { path: '/combos', key: 'navCombos', Icon: Workflow, Comp: CombosPage, planner: true },
   { path: '/database', key: 'navDatabase', Icon: BookOpen, Comp: SkillDatabase },
   { path: '/community', key: 'navCommunity', Icon: Users, Comp: CommunityPage },
 ];

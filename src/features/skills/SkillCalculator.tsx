@@ -7,7 +7,8 @@ import { SkillTile } from '../../components/SkillTile';
 import { SkillDetail } from '../../components/SkillDetail';
 import { Card, CdChip, LevelPips, Meter, PageHeader, Segmented } from '../../components/ui';
 import { maxBuyableLevel, skillPointStep, skillPointsTo } from '../../lib/skillCosts';
-import { buildCd, classSkills, isUnlocked, skillLevel, skillPointBudget, skillPointsSpent } from '../../lib/buildCalc';
+import { activeSpecs, buildCd, classSkills, effectiveLevel, isUnlocked, skillLevel, skillPointBudget, skillPointsSpent } from '../../lib/buildCalc';
+import { PlainIcon } from '../../components/SkillTile';
 import { applyCdr, cdAt } from '../../lib/cooldown';
 import type { Faction } from '../../state/build';
 
@@ -47,6 +48,8 @@ export function SkillCalculator() {
     const cum = skillPointsTo(costs, s.id, lvl);
     const next = lvl < max ? skillPointStep(costs, s.id, lvl + 1) : 0;
     const base = cdAt(s, lvl);
+    const specs = activeSpecs(data, build, s).map((id) => s.parts?.find((p) => p.id === id)).filter((p) => !!p);
+    const eff = effectiveLevel(data, build, s).total;
     return (
       <div
         key={s.id}
@@ -62,6 +65,12 @@ export function SkillCalculator() {
             {unlocked
               ? <span className="chip subtle"><Coins size={12} /> {cum}{next ? ` · +${next}` : ''}</span>
               : <span className="chip warn"><Lock size={12} /> {t('lockedUntil', { lvl: s.acquireLevel })}</span>}
+            {unlocked && eff > lvl && <span className="chip subtle" title={t('effLevel')}>{t('lv')} {eff}</span>}
+            {specs.length > 0 && (
+              <span className="sr-specs" title={specs.map((p) => p.desc.replace(/\*\*/g, '')).join(' · ')}>
+                {specs.map((p) => <PlainIcon key={p.id} icon={p.icon} size={20} />)}
+              </span>
+            )}
           </div>
         </div>
         <div className="sr-level" onClick={(e) => e.stopPropagation()}>
@@ -146,7 +155,7 @@ export function SkillCalculator() {
 
         <aside className="side sticky">
           <Card title={t('details')}>
-            {sel ? <SkillDetail skill={sel} level={skillLevel(data, build, sel)} locked={!isUnlocked(build, sel)} /> : <p className="muted">{t('selectSkillHint')}</p>}
+            {sel ? <SkillDetail skill={sel} level={skillLevel(data, build, sel)} locked={!isUnlocked(build, sel)} editable showCombos /> : <p className="muted">{t('selectSkillHint')}</p>}
           </Card>
         </aside>
       </div>

@@ -10,10 +10,11 @@
     "build": "tsc -b && vite build",
     "start": "npm run build && node server/index.mjs",
     "preview": "vite preview",
-    "data": "node scripts/fetch-data.mjs && node scripts/fetch-learn-levels.mjs && node scripts/fetch-icons.mjs",
+    "data": "node scripts/fetch-data.mjs && node scripts/fetch-learn-levels.mjs && node scripts/fetch-icons.mjs && node scripts/build-combos.mjs",
     "data:json": "node scripts/fetch-data.mjs",
     "data:levels": "node scripts/fetch-learn-levels.mjs",
-    "data:icons": "node scripts/fetch-icons.mjs"
+    "data:icons": "node scripts/fetch-icons.mjs",
+    "data:combos": "node scripts/build-combos.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.0",

@@ -163,7 +163,7 @@ export function StigmaCalculator() {
           <Card title={t('details')}>
             {sel ? (
               <>
-                <SkillDetail skill={sel} level={selSlot?.lv ?? 1} />
+                <SkillDetail skill={sel} level={selSlot?.lv ?? 1} showCombos />
                 <h4>{t('cost')}</h4>
                 <div className="table-wrap short">
                   <table className="table">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ArrowRight, BookOpen, FolderOpen, Hexagon, Keyboard, Sparkles, Swords, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, FolderOpen, Hexagon, Keyboard, Sparkles, Swords, Users, Workflow } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useBuild } from '../../state/BuildContext';
 import type { StringKey } from '../../i18n/strings';
@@ -15,6 +15,7 @@ const TOOLS: { href: string; title: StringKey; text: StringKey; Icon: typeof Swo
   { href: '#/hotbar', title: 'navHotbar', text: 'homeHotbarText', Icon: Keyboard, tone: 'teal' },
   { href: '#/stigma', title: 'navStigma', text: 'homeStigmaText', Icon: Sparkles, tone: 'violet' },
   { href: '#/daevanion', title: 'navDaevanion', text: 'homeDaevanionText', Icon: Hexagon, tone: 'gold' },
+  { href: '#/combos', title: 'navCombos', text: 'homeCombosText', Icon: Workflow, tone: 'green' },
   { href: '#/database', title: 'navDatabase', text: 'homeDatabaseText', Icon: BookOpen, tone: 'slate' },
   { href: '#/community', title: 'navCommunity', text: 'homeCommunityText', Icon: Users, tone: 'rose' },
 ];

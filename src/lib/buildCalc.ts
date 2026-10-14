@@ -2,7 +2,7 @@ import type { GameData, Skill } from '../data/types';
 import type { Build } from '../state/build';
 import { maxBuyableLevel, pointsAtLevel, skillPointsTo, stigmaShardsTo } from './skillCosts';
 import { STIGMA_SLOT_LEVELS } from './stigmaRules';
-import { boardCost, decodeLearned } from './daevanionGraph';
+import { boardCost, decodeLearned, nodeKey } from './daevanionGraph';
 import { applyCdr, cdAt } from './cooldown';
 
 export const classSkills = (data: GameData, build: Build) => data.skills.filter((s) => s.classType === build.c);
@@ -65,4 +65,59 @@ export function usableSkills(data: GameData, build: Build): Skill[] {
   return classSkills(data, build).filter((s) =>
     s.isStigma ? equipped.has(s.id) : s.type === 'active',
   );
+}
+
+// ---------- skill level bonuses & specialisations ----------
+
+const dvBonusCache = new WeakMap<Build['dv'], { c: Build['c']; map: Map<number, number> }>();
+
+/** Extra skill levels from learned Daevanion skill nodes, by skill id. */
+export function daevanionSkillBonus(data: GameData, build: Build): Map<number, number> {
+  const hit = dvBonusCache.get(build.dv);
+  if (hit && hit.c === build.c) return hit.map;
+  const map = new Map<number, number>();
+  for (const b of data.daevanion.classes[build.c]?.boards ?? []) {
+    const set = decodeLearned(b, build.dv[b.id] ?? '');
+    for (const n of b.nodes) {
+      if (n.kind !== 'K' || !set.has(nodeKey(n))) continue;
+      const id = Number(n.key);
+      map.set(id, (map.get(id) ?? 0) + (n.value ?? 0));
+    }
+  }
+  dvBonusCache.set(build.dv, { c: build.c, map });
+  return map;
+}
+
+/** Skill level including Daevanion and manual gear bonuses (what the game shows), capped at the skill's max level. */
+export function effectiveLevel(data: GameData, build: Build, skill: Skill) {
+  const base = skillLevel(data, build, skill);
+  if (skill.isStigma) return { base, dv: 0, gear: 0, total: base };
+  const dv = daevanionSkillBonus(data, build).get(skill.id) ?? 0;
+  const gear = build.gx?.[skill.id] ?? 0;
+  return { base, dv, gear, total: Math.min(skill.maxLevel || 40, base + dv + gear) };
+}
+
+/** Number of specialisation slots open at this effective level (normal skills: Lv. 8 / 12 / 20). */
+export const specSlotCount = (skill: Skill, level: number) => (skill.specSlots ?? []).filter((l) => level >= l).length;
+
+/**
+ * Specialisations that are active in this build.
+ * Stigmas unlock theirs automatically by stigma level; normal skills use the chosen parts that fit the open slots.
+ */
+export function activeSpecs(data: GameData, build: Build, skill: Skill): number[] {
+  const parts = skill.parts ?? [];
+  if (skill.partsAuto) {
+    const lv = skillLevel(data, build, skill);
+    return parts.filter((p) => lv >= p.level).map((p) => p.id);
+  }
+  const lv = effectiveLevel(data, build, skill).total;
+  const valid = (build.sp?.[skill.id] ?? []).filter((id) => parts.some((p) => p.id === id && lv >= p.level));
+  return valid.slice(0, specSlotCount(skill, lv));
+}
+
+/** Whether a skill can be used in this build: learned by level, and for stigmas equipped in an open slot. */
+export function skillInBuild(build: Build, skill: Skill): boolean {
+  if (!skill.isStigma) return isUnlocked(build, skill);
+  const open = unlockedSlots(build);
+  return build.st.some((s, i) => s.id === skill.id && open[i]);
 }

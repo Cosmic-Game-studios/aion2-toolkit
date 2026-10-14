@@ -1,4 +1,4 @@
-import { Droplet, Lock } from 'lucide-react';
+import { ArrowRight, Droplet, Lock } from 'lucide-react';
 import type { Skill } from '../data/types';
 import { useLoadedGame } from '../data/GameDataContext';
 import { useBuild } from '../state/BuildContext';
@@ -6,6 +6,9 @@ import { applyCdr, cdAt, cdVaries, fmtCdShort } from '../lib/cooldown';
 import { richText } from '../lib/format';
 import { SkillTile, PlainIcon } from './SkillTile';
 import { CdChip } from './ui';
+import { SpecPicker } from './SpecPicker';
+import { ComboCard } from '../features/combos/ComboCard';
+import { classCombos, comboSkillIds, sortCombos } from '../lib/combos';
 
 /** Groups consecutive levels with the same cooldown: "Lv. 1–4: 63s". */
 function cdRanges(skill: Skill, cdr: number) {
@@ -19,9 +22,18 @@ function cdRanges(skill: Skill, cdr: number) {
   return out;
 }
 
-interface Props { skill: Skill; level: number; locked?: boolean; cdr?: number }
+interface Props {
+  skill: Skill;
+  level: number;
+  locked?: boolean;
+  cdr?: number;
+  /** specialisations can be chosen (skill calculator) */
+  editable?: boolean;
+  /** list the combos this skill takes part in */
+  showCombos?: boolean;
+}
 
-export function SkillDetail({ skill, level, locked, cdr }: Props) {
+export function SkillDetail({ skill, level, locked, cdr, editable, showCombos }: Props) {
   const { t } = useLoadedGame();
   const { build } = useBuild();
   const red = cdr ?? build.cdr;
@@ -79,7 +91,7 @@ export function SkillDetail({ skill, level, locked, cdr }: Props) {
         </>
       )}
 
-      {skill.parts && skill.parts.length > 0 && (
+      {editable ? <SpecPicker skill={skill} /> : skill.parts && skill.parts.length > 0 && (
         <>
           <h4>{t('specialisations')}</h4>
           <ul className="parts">
@@ -92,6 +104,8 @@ export function SkillDetail({ skill, level, locked, cdr }: Props) {
           </ul>
         </>
       )}
+
+      {showCombos && <SkillCombos skillId={skill.id} />}
 
       {skill.chain && skill.chain.length > 0 && (
         <>
@@ -110,5 +124,22 @@ export function SkillDetail({ skill, level, locked, cdr }: Props) {
         </>
       )}
     </div>
+  );
+}
+
+/** Combos of the build's class that involve this skill (max. 4, the rest on the combos page). */
+function SkillCombos({ skillId }: { skillId: number }) {
+  const { t, data } = useLoadedGame();
+  const { build } = useBuild();
+  const list = sortCombos(data, build, classCombos(data, build).filter((c) => comboSkillIds(c).includes(skillId)));
+  if (!list.length) return null;
+  return (
+    <>
+      <h4 className="spec-head">{t('navCombos')} <span className="count">{list.length}</span></h4>
+      <div className="combo-list">
+        {list.slice(0, 4).map((c, i) => <ComboCard key={i} combo={c} focus={skillId} compact />)}
+      </div>
+      <a className="link small" href="#/combos">{t('allCombos')} <ArrowRight size={13} /></a>
+    </>
   );
 }

@@ -100,8 +100,19 @@ export interface DaevanionData {
   classes: Record<ClassType, DaevanionClass>;
 }
 
+/** Where a combo effect comes from: the skill text itself, one of its specialisations, or one of its chain skills. */
+export type ComboVia = null | { part: number; level: number } | { chain: string };
+export interface ComboSetup { id: number; status: string; chance: number; npc: boolean; cond: boolean; gauge?: number; via: ComboVia }
+export type Combo =
+  | { kind: 'status'; status: string; from: ComboSetup[]; to: { id: number; via: ComboVia }[] }
+  | { kind: 'ref'; rel: 'cdr' | 'reset' | 'trigger' | 'amplify'; from: number; to: number; value: number | null; via: ComboVia }
+  | { kind: 'burst'; from: number; stat: 'attack' | 'damage' | 'crit' | 'speed' | 'defense'; value: number; dur: number; to: number[] }
+  | { kind: 'chance'; from: number; which: 'any' | 'impact'; value: number; to: number[] };
+export interface ComboData { impact: string[]; classes: Partial<Record<ClassType, Combo[]>> }
+
 export interface GameData {
   lang: Lang;
+  combos: ComboData;
   classes: ClassInfo[];
   skills: Skill[];
   skillById: Map<number, Skill>;

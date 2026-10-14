@@ -11,6 +11,8 @@ export const BAR_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', 
 export const MAX_MACROS = 10;
 export const MAX_MACRO_STEPS = 20;
 export const DEFAULT_DELAY = 10;
+/** specialisation slots per skill */
+export const MAX_SPECS = 3;
 export const MAX_DELAY = 9900;
 
 export const CLASS_TYPES: ClassType[] = [
@@ -39,6 +41,10 @@ export interface Build {
   cdr: number;
   /** skill levels by skill id (normal skills) */
   lv: Record<string, number>;
+  /** chosen specialisations by skill id (part ids, in slot order, at most 3) */
+  sp: Record<string, number[]>;
+  /** extra skill levels from gear and other sources by skill id (manual) */
+  gx: Record<string, number>;
   /** 4 stigma slots */
   st: StigmaSlot[];
   /** Daevanion: learned nodes per board id, hex bitmask */
@@ -52,7 +58,7 @@ export interface Build {
 
 export const emptyBuild = (c: ClassType, level = 45): Build => ({
   v: 1, c, l: level, f: 'Light', x: [], e: 0, se: 0, cdr: 0,
-  lv: {}, st: [0, 1, 2, 3].map(() => ({ id: null, lv: 1 })), dv: {}, bar: {}, auto: [], macros: [],
+  lv: {}, sp: {}, gx: {}, st: [0, 1, 2, 3].map(() => ({ id: null, lv: 1 })), dv: {}, bar: {}, auto: [], macros: [],
 });
 
 export const slotKey = (row: number, col: number) => `${row}:${col}`;
@@ -80,6 +86,19 @@ export function normalizeBuild(raw: unknown): Build | null {
   b.cdr = clampInt(raw.cdr, 0, 90, 0);
   if (isObj(raw.lv)) {
     for (const [k, v] of Object.entries(raw.lv)) if (/^\d{1,9}$/.test(k)) b.lv[k] = clampInt(v, 1, 40, 1);
+  }
+  if (isObj(raw.sp)) {
+    for (const [k, v] of Object.entries(raw.sp)) {
+      if (!/^\d{1,9}$/.test(k) || !Array.isArray(v)) continue;
+      const ids = [...new Set(v.map((x) => clampInt(x, 0, ID_MAX, 0)).filter(Boolean))].slice(0, MAX_SPECS);
+      if (ids.length) b.sp[k] = ids;
+    }
+  }
+  if (isObj(raw.gx)) {
+    for (const [k, v] of Object.entries(raw.gx)) {
+      const n = clampInt(v, 0, 30, 0);
+      if (/^\d{1,9}$/.test(k) && n) b.gx[k] = n;
+    }
   }
   if (Array.isArray(raw.st)) {
     const st = raw.st as unknown[];
@@ -125,6 +144,7 @@ export function normalizeBuild(raw: unknown): Build | null {
 /** true when nothing was planned yet (only class, level and settings). */
 export const isEmptyBuild = (b: Build) =>
   Object.values(b.lv).every((v) => v <= 1)
+  && Object.values(b.sp).every((v) => v.length === 0)
   && b.st.every((s) => !s.id)
   && Object.values(b.dv).every((v) => !/[1-9a-f]/.test(v))
   && Object.keys(b.bar).length === 0
