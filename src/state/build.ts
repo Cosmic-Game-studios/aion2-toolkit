@@ -121,3 +121,22 @@ export function normalizeBuild(raw: unknown): Build | null {
   }
   return b;
 }
+
+/** true when nothing was planned yet (only class, level and settings). */
+export const isEmptyBuild = (b: Build) =>
+  Object.values(b.lv).every((v) => v <= 1)
+  && b.st.every((s) => !s.id)
+  && Object.values(b.dv).every((v) => !/[1-9a-f]/.test(v))
+  && Object.keys(b.bar).length === 0
+  && b.macros.length === 0;
+
+const stable = (v: unknown): unknown => {
+  if (Array.isArray(v)) return v.map(stable);
+  if (v && typeof v === 'object') {
+    return Object.fromEntries(Object.entries(v).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)).map(([k, x]) => [k, stable(x)]));
+  }
+  return v;
+};
+
+/** Same planned content, regardless of key order. */
+export const sameBuild = (a: Build, b: Build) => JSON.stringify(stable(a)) === JSON.stringify(stable(b));

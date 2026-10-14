@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link2, RotateCcw, Timer, Upload, Minus, Plus } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { FolderOpen, Link2, RotateCcw, Timer, Upload, Minus, Plus } from 'lucide-react';
 import { useLoadedGame } from '../data/GameDataContext';
 import { useBuild } from '../state/BuildContext';
 import { daevanionTotals, shardBudget, shardsSpent, skillPointBudget, skillPointsSpent } from '../lib/buildCalc';
@@ -8,6 +8,8 @@ import { ClassSelect } from './ClassSelect';
 import { Meter } from './ui';
 import { useToast } from './Toast';
 import { UploadDialog } from '../features/community/UploadDialog';
+import { SavedBuildsDialog } from './SavedBuildsDialog';
+import { useSavedBuilds } from '../state/savedBuilds';
 import { COMMUNITY_ENABLED } from '../lib/communityApi';
 
 /** Sticky strip on every planner page: class, level, cooldown reduction, budgets and build actions. */
@@ -16,6 +18,10 @@ export function BuildBar() {
   const { build, setBuild, resetBuild } = useBuild();
   const toast = useToast();
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [savedOpen, setSavedOpen] = useState(false);
+  const savedCount = useSavedBuilds().length;
+  const closeUpload = useCallback(() => setUploadOpen(false), []);
+  const closeSaved = useCallback(() => setSavedOpen(false), []);
 
   const sp = skillPointBudget(data, build);
   const shards = shardBudget(data, build);
@@ -38,7 +44,7 @@ export function BuildBar() {
         </div>
 
         <label className="bb-field cdr-field" title={t('cdrHint')}>
-          <span className="eyebrow"><Timer size={12} /> {t('cdr')}</span>
+          <span className="eyebrow"><Timer size={12} /> <span className="hide-sm">{t('cdr')}</span><span className="show-sm">{t('cdrShort')}</span></span>
           <span className="suffix-input">
             <input type="number" min={0} max={90} value={build.cdr} onChange={(e) => setBuild({ cdr: Math.min(90, Math.max(0, Math.round(Number(e.target.value)) || 0)) })} />
             <span>%</span>
@@ -52,6 +58,10 @@ export function BuildBar() {
         </div>
 
         <div className="bb-actions">
+          <button type="button" className="btn ghost" title={t('myBuilds')} onClick={() => setSavedOpen(true)}>
+            <FolderOpen size={16} /> <span className="hide-sm">{t('myBuilds')}</span>
+            {savedCount > 0 && <span className="count">{savedCount}</span>}
+          </button>
           <button
             type="button"
             className={`btn ${COMMUNITY_ENABLED ? 'ghost' : 'primary'}`}
@@ -73,7 +83,8 @@ export function BuildBar() {
           </button>
         </div>
       </div>
-      {uploadOpen && <UploadDialog onClose={() => setUploadOpen(false)} />}
+      {uploadOpen && <UploadDialog onClose={closeUpload} />}
+      {savedOpen && <SavedBuildsDialog onClose={closeSaved} />}
     </div>
   );
 }

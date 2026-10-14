@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface Props { open: boolean; title: string; onClose: () => void; children: ReactNode; footer?: ReactNode; wide?: boolean }
@@ -19,7 +20,8 @@ export function Modal({ open, title, onClose, children, footer, wide }: Props) {
     };
   }, [open, onClose]);
   if (!open) return null;
-  return (
+  // portal: ancestors with backdrop-filter (build bar) would otherwise trap the fixed backdrop
+  return createPortal(
     <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className={`modal ${wide ? 'wide' : ''}`} role="dialog" aria-modal="true" aria-label={title} ref={ref}>
         <header className="modal-head">
@@ -29,6 +31,7 @@ export function Modal({ open, title, onClose, children, footer, wide }: Props) {
         <div className="modal-body">{children}</div>
         {footer && <footer className="modal-foot">{footer}</footer>}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

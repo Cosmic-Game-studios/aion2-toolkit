@@ -10,6 +10,8 @@ type Patch = Partial<Build> | ((b: Build) => Build);
 
 interface Ctx {
   build: Build;
+  /** the planner's current build of every class touched so far */
+  builds: Partial<Record<ClassType, Build>>;
   setBuild: (patch: Patch) => void;
   setClass: (c: ClassType) => void;
   /** Replace the build of its class and make it active (share link, community import). */
@@ -82,8 +84,8 @@ export function BuildProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<Ctx>(
-    () => ({ build, setBuild, setClass, importBuild, resetBuild, importedFromLink: imported }),
-    [build, setBuild, setClass, importBuild, resetBuild, imported],
+    () => ({ build, builds: store.builds, setBuild, setClass, importBuild, resetBuild, importedFromLink: imported }),
+    [build, store.builds, setBuild, setClass, importBuild, resetBuild, imported],
   );
   return <BuildCtx.Provider value={value}>{children}</BuildCtx.Provider>;
 }

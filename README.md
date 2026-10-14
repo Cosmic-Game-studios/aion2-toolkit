@@ -10,6 +10,8 @@ Oberfläche und Spieltexte auf **Englisch und Deutsch** (Umschalter oben rechts)
 
 All planner pages share one build per class (class, level, cooldown reduction, skills, stigmas, Daevanion, hotbar, macros). It is saved in the browser and can be shared as a link or uploaded to the community.
 
+**My builds / Meine Builds** (folder button in the build bar): save any number of named builds in the browser (up to 50), load, rename, overwrite or delete them, copy a share link per build, and export/import them as a JSON file for a backup or another device. Saved builds also appear on the start page.
+
 | Route | What it does |
 |---|---|
 | `#/` | Start page with your current build, all tools and the latest community builds |
@@ -87,7 +89,7 @@ npm run data
 
 This runs three scripts (`scripts/`):
 
-- `fetch-data.mjs` – downloads `classes`, `skills`, `skill-costs`, `skill-points`, `daevanion` JSON in EN and DE from dbaion2.ru
+- `fetch-data.mjs` – downloads `classes`, `skills`, `skill-costs`, `skill-points`, `daevanion` JSON in EN and DE from dbaion2.ru (drops the unused per-level effect lists from `skills.json`, about a third of its size)
 - `fetch-learn-levels.mjs` – reads the level that teaches each skill from endgametools.com class pages (dbaion2 reports level 1 for every skill); Brawler is not on the Global service yet and keeps level 1
 - `fetch-icons.mjs` – downloads every referenced skill / specialisation / chain icon plus the class icons (skips files that already exist)
 

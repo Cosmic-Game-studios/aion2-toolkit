@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ArrowRight, BookOpen, Hexagon, Keyboard, Sparkles, Swords, Users } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { ArrowRight, BookOpen, FolderOpen, Hexagon, Keyboard, Sparkles, Swords, Users } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useBuild } from '../../state/BuildContext';
 import type { StringKey } from '../../i18n/strings';
@@ -7,6 +7,8 @@ import { ClassEmblem, useClassName } from '../../components/ClassSelect';
 import { BuildFacts } from '../community/UploadDialog';
 import { BuildCard } from '../community/BuildCard';
 import { COMMUNITY_ENABLED, listBuilds, type BuildSummary } from '../../lib/communityApi';
+import { useSavedBuilds } from '../../state/savedBuilds';
+import { SavedBuildsDialog, useLoadSaved } from '../../components/SavedBuildsDialog';
 
 const TOOLS: { href: string; title: StringKey; text: StringKey; Icon: typeof Swords; tone: string }[] = [
   { href: '#/skills', title: 'navSkills', text: 'homeSkillsText', Icon: Swords, tone: 'blue' },
@@ -22,6 +24,10 @@ export function HomePage() {
   const { build } = useBuild();
   const className = useClassName();
   const [latest, setLatest] = useState<BuildSummary[] | null>(null);
+  const saved = useSavedBuilds();
+  const loadSaved = useLoadSaved();
+  const [manageOpen, setManageOpen] = useState(false);
+  const closeManage = useCallback(() => setManageOpen(false), []);
 
   useEffect(() => {
     if (!COMMUNITY_ENABLED) return;
@@ -65,6 +71,28 @@ export function HomePage() {
           </a>
         ))}
       </section>
+
+      {saved.length > 0 && (
+        <section>
+          <div className="section-head">
+            <h2>{t('myBuilds')}</h2>
+            <button type="button" className="link" onClick={() => setManageOpen(true)}>{t('manage')} <ArrowRight size={14} /></button>
+          </div>
+          <div className="saved-grid">
+            {saved.slice(0, 6).map((e) => (
+              <button key={e.id} type="button" className="saved-tile" onClick={() => { if (loadSaved(e)) location.hash = '/skills'; }}>
+                <ClassEmblem cls={e.build.c} size={40} />
+                <div>
+                  <strong>{e.name}</strong>
+                  <span>{className(e.build.c)} · {t('lv')} {e.build.l}</span>
+                </div>
+                <FolderOpen size={16} className="push muted" />
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+      {manageOpen && <SavedBuildsDialog onClose={closeManage} />}
 
       {latest && latest.length > 0 && (
         <section>
