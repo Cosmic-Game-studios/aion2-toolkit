@@ -3,6 +3,9 @@ import type { Build } from '../state/build';
 import { normalizeBuild } from '../state/build';
 import { storage } from './storage';
 
+/** Community features need the API server; static hosts (GitHub Pages) build with VITE_COMMUNITY=off. */
+export const COMMUNITY_ENABLED = import.meta.env.VITE_COMMUNITY !== 'off';
+
 const API = `${(import.meta.env.VITE_API_BASE as string | undefined) ?? ''}/api`;
 
 export interface BuildSummary {

@@ -3,6 +3,7 @@ import { BookOpen, Hexagon, Home, Keyboard, Sparkles, Swords, Users, type Lucide
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
+import { COMMUNITY_ENABLED } from './lib/communityApi';
 import { useBuild } from './state/BuildContext';
 import { LangSwitch } from './components/LangSwitch';
 import { Credits } from './components/Credits';
@@ -57,11 +58,11 @@ export default function App() {
           </span>
           <span className="brand-text">
             <strong>{t('appTitle')}</strong>
-            <small>{t('appTagline')}</small>
+            <small>{t(COMMUNITY_ENABLED ? 'appTagline' : 'appTaglineLocal')}</small>
           </span>
         </a>
         <nav className="nav" aria-label="Main">
-          {ROUTES.filter((r) => r.path !== '/').map(({ path, key, Icon }) => (
+          {ROUTES.filter((r) => r.path !== '/' && (COMMUNITY_ENABLED || r.path !== '/community')).map(({ path, key, Icon }) => (
             <a key={path} href={`#${path}`} className={path === current.path ? 'active' : ''} aria-current={path === current.path ? 'page' : undefined}>
               <Icon size={16} />
               <span>{t(key)}</span>

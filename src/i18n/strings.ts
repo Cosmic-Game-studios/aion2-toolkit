@@ -228,6 +228,9 @@ const en = {
   barCount: '{n} hotbar slots',
   importedFromLink: 'Shared build loaded',
   tryAgain: 'Try again',
+  appTaglineLocal: 'Skills · Hotbar · Stigma · Daevanion',
+  homeHeroTextLocal: 'Level skills, pick stigmas, map out Daevanion boards, set up your hotbar and macros – and share the build as a link.',
+  communityDisabled: 'Community builds are not available on this site yet. Until then, share your build with the link button in the build bar.',
   searchBuilds: 'Search builds…',
   buildsCount: '{n} builds',
 };
@@ -462,6 +465,9 @@ const de: typeof en = {
   barCount: '{n} Leisten-Slots',
   importedFromLink: 'Geteilter Build geladen',
   tryAgain: 'Erneut versuchen',
+  appTaglineLocal: 'Skills · Skill-Leiste · Stigma · Daevanion',
+  homeHeroTextLocal: 'Skills leveln, Stigmen wählen, Daevanion-Tafeln planen, Skill-Leiste und Makros einrichten – und den Build per Link teilen.',
+  communityDisabled: 'Community-Builds sind auf dieser Seite noch nicht verfügbar. Teile deinen Build so lange über den Link-Knopf in der Build-Leiste.',
   searchBuilds: 'Builds suchen…',
   buildsCount: '{n} Builds',
 };

@@ -12,7 +12,7 @@ import { SkillTile } from '../../components/SkillTile';
 import { ClassEmblem, useClassName } from '../../components/ClassSelect';
 import { useToast } from '../../components/Toast';
 import {
-  ApiError, deleteBuild, getBuild, isMine, listBuilds, reportBuild, toggleLike,
+  ApiError, COMMUNITY_ENABLED, deleteBuild, getBuild, isMine, listBuilds, reportBuild, toggleLike,
   type BuildEntry, type BuildList,
 } from '../../lib/communityApi';
 import { classSkills, skillLevel } from '../../lib/buildCalc';
@@ -27,7 +27,18 @@ import { BuildCard, fmtDate } from './BuildCard';
 import { UploadDialog } from './UploadDialog';
 
 export function CommunityPage({ param }: { param: string | null }) {
+  if (!COMMUNITY_ENABLED) return <CommunityDisabled />;
   return param ? <BuildDetail id={param} /> : <BuildListView />;
+}
+
+function CommunityDisabled() {
+  const { t } = useLoadedGame();
+  return (
+    <div className="page">
+      <PageHeader icon={<Users size={22} />} title={t('communityTitle')} subtitle={t('communityText')} />
+      <Card><EmptyState icon={<Link2 size={32} />} text={t('communityDisabled')} /></Card>
+    </div>
+  );
 }
 
 /* ---------------------------------------------------------------- list */

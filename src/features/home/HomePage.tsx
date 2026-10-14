@@ -6,7 +6,7 @@ import type { StringKey } from '../../i18n/strings';
 import { ClassEmblem, useClassName } from '../../components/ClassSelect';
 import { BuildFacts } from '../community/UploadDialog';
 import { BuildCard } from '../community/BuildCard';
-import { listBuilds, type BuildSummary } from '../../lib/communityApi';
+import { COMMUNITY_ENABLED, listBuilds, type BuildSummary } from '../../lib/communityApi';
 
 const TOOLS: { href: string; title: StringKey; text: StringKey; Icon: typeof Swords; tone: string }[] = [
   { href: '#/skills', title: 'navSkills', text: 'homeSkillsText', Icon: Swords, tone: 'blue' },
@@ -24,6 +24,7 @@ export function HomePage() {
   const [latest, setLatest] = useState<BuildSummary[] | null>(null);
 
   useEffect(() => {
+    if (!COMMUNITY_ENABLED) return;
     listBuilds({ sort: 'new', limit: 3 }).then((r) => setLatest(r.items), () => setLatest(null));
   }, []);
 
@@ -32,10 +33,12 @@ export function HomePage() {
       <section className="hero">
         <div className="hero-text">
           <h1>{t('homeHeroTitle')}</h1>
-          <p>{t('homeHeroText')}</p>
+          <p>{t(COMMUNITY_ENABLED ? 'homeHeroText' : 'homeHeroTextLocal')}</p>
           <div className="hero-actions">
             <a className="btn primary lg" href="#/skills"><Swords size={18} /> {t('navSkills')}</a>
-            <a className="btn ghost lg" href="#/community"><Users size={18} /> {t('navCommunity')}</a>
+            {COMMUNITY_ENABLED
+              ? <a className="btn ghost lg" href="#/community"><Users size={18} /> {t('navCommunity')}</a>
+              : <a className="btn ghost lg" href="#/hotbar"><Keyboard size={18} /> {t('navHotbar')}</a>}
           </div>
         </div>
         <a className="hero-build card" href="#/skills">
@@ -53,7 +56,7 @@ export function HomePage() {
       </section>
 
       <section className="tool-grid">
-        {TOOLS.map(({ href, title, text, Icon, tone }) => (
+        {TOOLS.filter((x) => COMMUNITY_ENABLED || x.href !== '#/community').map(({ href, title, text, Icon, tone }) => (
           <a key={href} href={href} className={`tool-tile tone-${tone}`}>
             <span className="tool-icon"><Icon size={22} /></span>
             <strong>{t(title)}</strong>

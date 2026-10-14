@@ -37,6 +37,14 @@ npm run dev:all    # frontend (http://localhost:5173) + community server (port 8
 | `npm run build` | Production build in `dist/` |
 | `npm start` | Build, then serve `dist/` **and** the API from one Node process on port 8787 |
 
+## GitHub Pages
+
+`.github/workflows/pages.yml` builds the site on every push to `main` and publishes it to GitHub Pages.
+The Pages build sets `VITE_COMMUNITY=off`: all planners, the database and share links work, the community pages are hidden because Pages cannot run the server.
+
+One-time setup in the repository: **Settings > Pages > Build and deployment > Source: GitHub Actions**.
+The site is then available at `https://<user>.github.io/<repository>/`.
+
 ## Community server
 
 `server/index.mjs` has no dependencies (Node ≥ 20). Builds are stored in `server/data/builds.json` (created automatically, not in git).

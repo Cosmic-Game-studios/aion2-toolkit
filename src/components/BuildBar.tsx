@@ -8,6 +8,7 @@ import { ClassSelect } from './ClassSelect';
 import { Meter } from './ui';
 import { useToast } from './Toast';
 import { UploadDialog } from '../features/community/UploadDialog';
+import { COMMUNITY_ENABLED } from '../lib/communityApi';
 
 /** Sticky strip on every planner page: class, level, cooldown reduction, budgets and build actions. */
 export function BuildBar() {
@@ -53,7 +54,7 @@ export function BuildBar() {
         <div className="bb-actions">
           <button
             type="button"
-            className="btn ghost"
+            className={`btn ${COMMUNITY_ENABLED ? 'ghost' : 'primary'}`}
             title={t('copyLink')}
             onClick={async () => {
               const url = buildShareUrl(readHash().base, build);
@@ -62,9 +63,11 @@ export function BuildBar() {
           >
             <Link2 size={16} /> <span className="hide-sm">{t('copyLink')}</span>
           </button>
-          <button type="button" className="btn primary" title={t('uploadBuild')} onClick={() => setUploadOpen(true)}>
-            <Upload size={16} /> <span className="hide-sm">{t('uploadBuild')}</span>
-          </button>
+          {COMMUNITY_ENABLED && (
+            <button type="button" className="btn primary" title={t('uploadBuild')} onClick={() => setUploadOpen(true)}>
+              <Upload size={16} /> <span className="hide-sm">{t('uploadBuild')}</span>
+            </button>
+          )}
           <button type="button" className="icon-btn" title={t('resetAll')} aria-label={t('resetAll')} onClick={() => { if (confirm(t('resetConfirm'))) resetBuild(); }}>
             <RotateCcw size={16} />
           </button>
