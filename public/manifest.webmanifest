@@ -1,7 +1,7 @@
 {
-  "name": "AION 2 Toolkit",
-  "short_name": "AION 2 Toolkit",
-  "description": "AION 2 build planner: skills, hotbar & macros, stigma and Daevanion boards (EN/DE).",
+  "name": "Daevaforge – AION 2 Build Planner",
+  "short_name": "Daevaforge",
+  "description": "Daevaforge – AION 2 build planner: skills, specialisations, stigmas, Daevanion boards, hotbar and macro (EN/DE).",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

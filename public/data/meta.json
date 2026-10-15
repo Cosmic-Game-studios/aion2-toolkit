@@ -1,0 +1,47 @@
+{
+  "client": "global",
+  "source": "https://dbaion2.ru",
+  "updatedAt": "2026-10-02T16:45:59.000Z",
+  "files": {
+    "de/classes": {
+      "etag": "W/\"6abfdfad-21a\"",
+      "lastModified": "Fri, 02 Oct 2026 16:45:33 GMT"
+    },
+    "de/daevanion": {
+      "etag": "W/\"6abfdfc7-4e37b\"",
+      "lastModified": "Fri, 02 Oct 2026 16:45:59 GMT"
+    },
+    "de/skill-costs": {
+      "etag": "W/\"6abfdfae-84b8\"",
+      "lastModified": "Fri, 02 Oct 2026 16:45:34 GMT"
+    },
+    "de/skill-points": {
+      "etag": "W/\"6abfdfb0-3cc2\"",
+      "lastModified": "Fri, 02 Oct 2026 16:45:36 GMT"
+    },
+    "de/skills": {
+      "etag": "W/\"6abfdfad-4c7b21\"",
+      "lastModified": "Fri, 02 Oct 2026 16:45:33 GMT"
+    },
+    "en/classes": {
+      "etag": "W/\"6ab2fb29-210\"",
+      "lastModified": "Tue, 22 Sep 2026 22:03:21 GMT"
+    },
+    "en/daevanion": {
+      "etag": "W/\"6ab2faf8-49061\"",
+      "lastModified": "Tue, 22 Sep 2026 22:02:32 GMT"
+    },
+    "en/skill-costs": {
+      "etag": "W/\"6ab2facf-8ddc\"",
+      "lastModified": "Tue, 22 Sep 2026 22:01:51 GMT"
+    },
+    "en/skill-points": {
+      "etag": "W/\"6ab2fae3-3703\"",
+      "lastModified": "Tue, 22 Sep 2026 22:02:11 GMT"
+    },
+    "en/skills": {
+      "etag": "W/\"6ab556ff-46da01\"",
+      "lastModified": "Thu, 24 Sep 2026 16:59:43 GMT"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { maxBuyableLevel, pointsAtLevel, skillPointsTo, stigmaShardsTo } from '.
 import { STIGMA_SLOT_LEVELS } from './stigmaRules';
 import { boardCost, decodeLearned, nodeKey } from './daevanionGraph';
 import { applyCdr, cdAt } from './cooldown';
+import { skillCap } from './levelCap';
 
 export const classSkills = (data: GameData, build: Build) => data.skills.filter((s) => s.classType === build.c);
 
@@ -23,7 +24,7 @@ export function skillPointBudget(data: GameData, build: Build) {
   const base = pointsAtLevel(data.points, build.l).skill;
   const groups = data.points[build.f] ?? [];
   const extra = groups.filter((g, i) => build.x.includes(`${g.kind}-${i}`)).reduce((a, g) => a + g.points, 0);
-  return { base, extra, manual: build.e, total: base + extra + build.e };
+  return { base, extra, manual: build.e, total: Math.max(0, base + extra + build.e) };
 }
 
 export function skillPointsSpent(data: GameData, build: Build) {
@@ -39,7 +40,7 @@ export const unlockedSlots = (build: Build) => STIGMA_SLOT_LEVELS.map((l) => bui
 
 export function shardBudget(data: GameData, build: Build) {
   const base = pointsAtLevel(data.points, build.l).stigma;
-  return { base, manual: build.se, total: base + build.se };
+  return { base, manual: build.se, total: Math.max(0, base + build.se) };
 }
 
 export function shardsSpent(data: GameData, build: Build) {
@@ -88,13 +89,14 @@ export function daevanionSkillBonus(data: GameData, build: Build): Map<number, n
   return map;
 }
 
-/** Skill level including Daevanion and manual gear bonuses (what the game shows), capped at the skill's max level. */
+/** Skill level including Daevanion and manual gear bonuses (what the game shows), capped at the current in-game max level. */
 export function effectiveLevel(data: GameData, build: Build, skill: Skill) {
   const base = skillLevel(data, build, skill);
-  if (skill.isStigma) return { base, dv: 0, gear: 0, total: base };
+  if (skill.isStigma) return { base, dv: 0, gear: 0, cap: skillCap(skill), total: base };
   const dv = daevanionSkillBonus(data, build).get(skill.id) ?? 0;
   const gear = build.gx?.[skill.id] ?? 0;
-  return { base, dv, gear, total: Math.min(skill.maxLevel || 40, base + dv + gear) };
+  const cap = skillCap(skill);
+  return { base, dv, gear, cap, total: Math.min(cap, base + dv + gear) };
 }
 
 /** Number of specialisation slots open at this effective level (normal skills: Lv. 8 / 12 / 20). */

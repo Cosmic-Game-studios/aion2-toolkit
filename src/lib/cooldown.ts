@@ -1,4 +1,5 @@
 import type { Skill } from '../data/types';
+import { capLevels } from './levelCap';
 
 /** Cooldown in seconds at a given skill level (falls back to the base value). */
 export const cdAt = (s: Skill, lv: number): number =>
@@ -31,5 +32,5 @@ export function fmtCdLong(cd: number): string {
   return s ? `${m} min ${s} s` : `${m} min`;
 }
 
-/** True when the cooldown changes between levels 1 and maxLevel. */
-export const cdVaries = (s: Skill) => new Set(s.levels.map((l) => l.cooldownSec)).size > 1;
+/** True when the cooldown changes between level 1 and the current in-game max level. */
+export const cdVaries = (s: Skill) => new Set(capLevels(s).map((l) => l.cooldownSec)).size > 1;

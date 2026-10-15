@@ -1,4 +1,4 @@
-import { Timer } from 'lucide-react';
+import { Timer, Zap } from 'lucide-react';
 import type { GameData } from '../../data/types';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { Build } from '../../state/build';
@@ -21,28 +21,31 @@ export function CooldownOverview({ data, build, timers, now = 0 }: { data: GameD
   const max = Math.max(1, ...items.map((i) => i.cd));
 
   return (
-    <Card title={t('cdOverview')} icon={<Timer size={16} />}>
+    <Card title={t('cdOverview')} icon={<Timer size={16} />} className="cd-card">
       <p className="muted small">{t('cdOverviewHint')}</p>
       {items.length === 0 ? <EmptyState text={t('cdEmpty')} /> : (
         <ul className="cd-list">
           {items.map(({ s, cd }) => {
             const st = timers ? timerState(timers[s.id], now) : null;
+            const running = !!st && !st.zero;
             return (
-              <li key={s.id}>
+              <li key={s.id} className={running ? 'running' : ''}>
                 <SkillTile skill={s} level={skillLevel(data, build, s)} size={32} showCd={false} />
                 <div className="cd-main">
                   <div className="cd-name">
                     <span>{s.name}</span>
-                    {auto.has(s.id) && <span className="mini-tag auto">A</span>}
-                    {s.isStigma && <span className="mini-tag stigma">S</span>}
+                    {auto.has(s.id) && (
+                      <span className="mini-tag auto" role="img" aria-label={t('autoUse')} title={t('autoUse')}><Zap size={11} strokeWidth={2.5} aria-hidden /></span>
+                    )}
+                    {s.isStigma && <span className="mini-tag stigma" role="img" aria-label={t('stigma')} title={t('stigma')}>S</span>}
                   </div>
                   <div className={`cd-bar cd-${cdTier(cd)}`}>
                     <span style={{ width: `${(cd / max) * 100}%` }}>
-                      {st && !st.zero && <i style={{ width: `${st.frac * 100}%` }} />}
+                      {running && <i style={{ width: `${st.frac * 100}%` }} />}
                     </span>
                   </div>
                 </div>
-                <strong className={`cd-val cd-text-${cdTier(cd)}`}>{st && !st.zero ? `${st.sec.toFixed(1)} s` : cd > 0 ? fmtCdLong(cd) : '–'}</strong>
+                <strong className={`cd-val cd-text-${cdTier(cd)}`}>{running ? `${st.sec.toFixed(1)} s` : cd > 0 ? fmtCdLong(cd) : '–'}</strong>
               </li>
             );
           })}

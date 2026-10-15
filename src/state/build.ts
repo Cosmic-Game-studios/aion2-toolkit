@@ -1,15 +1,32 @@
 import type { ClassType } from '../data/types';
+import { GAME_LEVEL_CAP } from '../lib/levelCap';
 
 export type Faction = 'Light' | 'Dark';
 export interface StigmaSlot { id: number | null; lv: number }
-export interface MacroStep { id: number; delay: number }
+/** one macro step presses one hotbar key (column 0-11); the key uses the lowest ready skill of its stack */
+export interface MacroStep { k: number; delay: number }
 export interface Macro { id: string; name: string; key: string; steps: MacroStep[] }
 
-export const BAR_ROWS = 5;
+/** skills stacked on one key (the bottom one has priority) */
+export const BAR_ROWS = 4;
 export const BAR_COLS = 12;
-export const BAR_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='];
-export const MAX_MACROS = 10;
-export const MAX_MACRO_STEPS = 20;
+/** default keys of the 12 quick slots (Quick Use 1-12); the last four are the stigma slots */
+export const BAR_KEYS = ['R', 'T', '1', '2', '3', '4', 'Q', 'E', '5', '6', '7', '8'];
+export const NORMAL_COLS = [0, 1, 2, 3, 4, 5, 6, 7];
+/** quick slot 1 holds the basic attack – in game it is the left mouse button */
+export const BASIC_COL = 0;
+export const STIGMA_COLS = [8, 9, 10, 11];
+/**
+ * Order of the keys as the in-game skill window shows them: 1–4 | 5–8 | Q, E, basic attack, T.
+ * Only the display order – the column indices above stay, so saved builds and links keep working.
+ * Stigmas can go on any key in game; 5–8 is just where most players put them.
+ */
+export const BAR_GROUPS: number[][] = [[2, 3, 4, 5], [8, 9, 10, 11], [6, 7, 0, 1]];
+export const BAR_ORDER = BAR_GROUPS.flat();
+/** the game has one skill macro with one key */
+export const MAX_MACROS = 1;
+/** our own cap: the game does not document one, and twelve keys rarely need more */
+export const MAX_MACRO_STEPS = 12;
 export const DEFAULT_DELAY = 10;
 /** specialisation slots per skill */
 export const MAX_SPECS = 3;
@@ -33,7 +50,7 @@ export interface Build {
   f: Faction;
   /** enabled extra skill point source groups */
   x: string[];
-  /** manual extra skill points */
+  /** manual extra skill points (negative: the player has fewer than level and sources give) */
   e: number;
   /** manual extra stigma shards */
   se: number;
@@ -63,6 +80,16 @@ export const emptyBuild = (c: ClassType, level = 45): Build => ({
 
 export const slotKey = (row: number, col: number) => `${row}:${col}`;
 
+/** skills on one key, bottom (priority) first */
+export const keyStack = (b: Build, col: number): number[] =>
+  Array.from({ length: BAR_ROWS }, (_, row) => b.bar[slotKey(row, col)]).filter((id): id is number => !!id);
+
+/** the key a skill sits on (-1 when it is not on the bar); turns old skill-based macro steps into keys */
+const keyOf = (b: Build, id: number) => {
+  for (const [k, v] of Object.entries(b.bar)) if (v === id) return Number(k.split(':')[1]);
+  return -1;
+};
+
 export const newMacroId = () => `m${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
 const clampInt = (v: unknown, min: number, max: number, def: number) => {
@@ -78,11 +105,11 @@ export function normalizeBuild(raw: unknown): Build | null {
   const c = raw.c as ClassType;
   if (!CLASS_TYPES.includes(c)) return null;
   const b = emptyBuild(c);
-  b.l = clampInt(raw.l, 1, 100, 45);
+  b.l = clampInt(raw.l, 1, GAME_LEVEL_CAP, GAME_LEVEL_CAP);
   b.f = raw.f === 'Dark' ? 'Dark' : 'Light';
   b.x = Array.isArray(raw.x) ? raw.x.filter((s): s is string => typeof s === 'string' && s.length < 40).slice(0, 10) : [];
-  b.e = clampInt(raw.e, 0, 9999, 0);
-  b.se = clampInt(raw.se, 0, 9999, 0);
+  b.e = clampInt(raw.e, -9999, 9999, 0);
+  b.se = clampInt(raw.se, -9999, 9999, 0);
   b.cdr = clampInt(raw.cdr, 0, 90, 0);
   if (isObj(raw.lv)) {
     for (const [k, v] of Object.entries(raw.lv)) if (/^\d{1,9}$/.test(k)) b.lv[k] = clampInt(v, 1, 40, 1);
@@ -132,9 +159,12 @@ export function normalizeBuild(raw: unknown): Build | null {
       name: String(m.name ?? '').slice(0, 30),
       key: String(m.key ?? '').slice(0, 12),
       steps: Array.isArray(m.steps)
-        ? m.steps.filter(isObj).slice(0, MAX_MACRO_STEPS)
-          .map((s) => ({ id: clampInt(s.id, 0, ID_MAX, 0), delay: clampInt(s.delay, 0, MAX_DELAY, DEFAULT_DELAY) }))
-          .filter((s) => s.id)
+        ? m.steps.filter(isObj)
+          .map((s) => ({ k: 'k' in s ? clampInt(s.k, -1, BAR_COLS - 1, -1) : keyOf(b, clampInt(s.id, 0, ID_MAX, 0)), delay: clampInt(s.delay, 0, MAX_DELAY, DEFAULT_DELAY), old: !('k' in s) }))
+          // old macros listed each skill of a stack: one step per key is enough
+          .filter((s, i, all) => s.k >= 0 && !(s.old && i > 0 && all[i - 1].k === s.k))
+          .map(({ k, delay }) => ({ k, delay }))
+          .slice(0, MAX_MACRO_STEPS)
         : [],
     }));
   }

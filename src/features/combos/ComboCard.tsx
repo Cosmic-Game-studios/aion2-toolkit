@@ -1,137 +1,232 @@
-import type { ReactNode } from 'react';
-import { ArrowRight, Check, CircleSlash } from 'lucide-react';
-import type { Combo, ComboSetup, ComboVia } from '../../data/types';
+import { Fragment, useEffect, useId, useRef, useState } from 'react';
+import { ArrowRight, BookOpen, Check, ChevronDown, CircleSlash, ExternalLink, Layers, Quote, Users } from 'lucide-react';
+import type { ComboSkill, CuratedCombo } from '../../data/combos';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useBuild } from '../../state/BuildContext';
 import { SkillTile } from '../../components/SkillTile';
-import { activeSpecs, skillInBuild } from '../../lib/buildCalc';
-import { comboReady, statusName } from '../../lib/combos';
+import { SkillText, skillTextPlain, tipLevel } from '../../components/SkillText';
+import { useSkillTip } from '../../components/SkillTooltip';
+import { InfoTip } from '../../components/InfoTip';
+import { matches, MQ } from '../../components/hooks';
+import { activeSpecs, isUnlocked, skillInBuild } from '../../lib/buildCalc';
+import { statusName } from '../../lib/combos';
+import { richText } from '../../lib/format';
 import type { StringKey } from '../../i18n/strings';
+import { comboState, type ComboState } from './comboState';
 
-/** Skill icon + name with badges for specialisation / chain source, chance and build state. */
-function ComboSkill({ id, via, focus, extra }: { id: number; via?: ComboVia; focus?: number | null; extra?: ReactNode }) {
+/**
+ * Skill icon + name (hover, keyboard focus or a tap shows the skill card), a badge when the combo needs one of its
+ * specialisations, and – when something is missing in the build – a link to the page where the player adds it.
+ * `neutral`: the combo belongs to another class than the build (skill database), so no build state is shown.
+ */
+function ComboSkillTile({ r, focus, neutral }: { r: ComboSkill; focus?: number | null; neutral?: boolean }) {
   const { t, data } = useLoadedGame();
   const { build } = useBuild();
-  const s = data.skillById.get(id);
+  const s = data.skillById.get(r.id);
+  const tip = useSkillTip(s, s ? tipLevel(s) : 1, { tap: true });
   if (!s) return null;
-  const usable = skillInBuild(build, s);
-  const part = via && 'part' in via ? via : null;
-  const partOn = part ? activeSpecs(data, build, s).includes(part.part) : true;
-  return (
-    <span className={`combo-skill ${usable ? '' : 'missing'} ${focus === id ? 'focus' : ''}`} title={usable ? undefined : t('notInBuild')}>
-      <SkillTile skill={s} size={34} dim={!usable} />
-      <span className="cs-text">
-        <span className="cs-name">{s.name}</span>
-        <span className="cs-badges">
-          {part && (
-            <span className={`mini ${partOn ? 'ok' : 'warn'}`}>
-              {t(s.partsAuto ? 'viaStigmaSpec' : 'viaSpec', { lvl: part.level })}
-              {partOn ? <Check size={10} /> : s.partsAuto ? null : ` · ${t('specNotChosen')}`}
-            </span>
-          )}
-          {via && 'chain' in via && <span className="mini">{t('viaChain', { name: via.chain })}</span>}
-          {extra}
-        </span>
-      </span>
-    </span>
-  );
-}
+  const usable = neutral || skillInBuild(build, s);
+  const unlocked = neutral || isUnlocked(build, s);
+  const part = r.part ? s.parts?.find((p) => p.id === r.part) : undefined;
+  const partOn = neutral || !part || activeSpecs(data, build, s).includes(part.id);
 
-function setupBadges(f: ComboSetup, t: (k: StringKey, v?: Record<string, string | number>) => string) {
-  return (
-    <>
-      {f.gauge ? <span className="mini">{t('gauge', { n: f.gauge })}</span> : f.chance > 0 && f.chance < 100 ? <span className="mini">{f.chance} %</span> : null}
-      {f.npc && <span className="mini">NPC 100 %</span>}
-      {f.cond && <span className="mini">{t('conditional')}</span>}
-    </>
-  );
-}
-
-const KIND_TITLE: Record<Combo['kind'], StringKey> = {
-  status: 'comboKind_status', ref: 'comboKind_ref', burst: 'comboKind_burst', chance: 'comboKind_chance',
-};
-
-export function ComboCard({ combo: c, focus = null, compact }: { combo: Combo; focus?: number | null; compact?: boolean }) {
-  const { t, data, lang } = useLoadedGame();
-  const { build } = useBuild();
-  const ready = comboReady(data, build, c);
-  const name = (id: number) => data.skillById.get(id)?.name ?? String(id);
-
-  let title: string;
-  let text: string | null = null;
-  let left: ReactNode;
-  let right: ReactNode;
-  let leftLabel: string | null = null;
-  let rightLabel: string | null = null;
-
-  switch (c.kind) {
-    case 'status': {
-      const st = statusName(c.status, lang);
-      title = t('statusComboTitle', { status: st });
-      leftLabel = c.status === 'Stagger' ? t('comboStaggerCauses') : c.status === 'Impact' ? t('comboImpactCauses') : t('comboCauses', { status: st });
-      rightLabel = t('comboUses', { status: st });
-      // the same skill can appear for several statuses of the Impact group: show it once
-      const seen = new Set<string>();
-      left = c.from.filter((f) => { const k = `${f.id}:${JSON.stringify(f.via)}`; if (seen.has(k)) return false; seen.add(k); return true; })
-        .map((f) => (
-          <ComboSkill key={`${f.id}-${f.status}-${JSON.stringify(f.via)}`} id={f.id} via={f.via} focus={focus}
-            extra={<>{c.status === 'Impact' && <span className="mini">{statusName(f.status, lang)}</span>}{setupBadges(f, t)}</>} />
-        ));
-      right = c.to.map((x) => <ComboSkill key={`${x.id}-${JSON.stringify(x.via)}`} id={x.id} via={x.via} focus={focus} />);
-      break;
-    }
-    case 'ref': {
-      title = t('refComboTitle');
-      const v = { a: name(c.from), b: name(c.to), n: c.value ?? 0 };
-      text = c.rel === 'cdr' ? t(c.value ? 'comboRef_cdr' : 'comboRef_cdrPlain', v)
-        : c.rel === 'reset' ? t('comboRef_reset', v)
-          : c.rel === 'trigger' ? t(c.value ? 'comboRef_triggerChance' : 'comboRef_trigger', v)
-            : t('comboRef_amplify', v);
-      left = <ComboSkill id={c.from} via={c.via} focus={focus} />;
-      right = <ComboSkill id={c.to} focus={focus} />;
-      break;
-    }
-    case 'burst': {
-      title = t('burstComboTitle');
-      const effect = t(`burstEffect_${c.stat}` as StringKey, { n: c.value });
-      text = t('burstText', { a: name(c.from), effect, s: c.dur });
-      left = <ComboSkill id={c.from} focus={focus} />;
-      right = c.to.map((id) => <ComboSkill key={id} id={id} focus={focus} />);
-      break;
-    }
-    case 'chance': {
-      title = t('chanceComboTitle');
-      text = t(c.which === 'impact' ? 'chanceText_impact' : 'chanceText_any', { a: name(c.from), n: c.value });
-      left = <ComboSkill id={c.from} focus={focus} />;
-      right = c.to.map((id) => <ComboSkill key={id} id={id} focus={focus} />);
-      break;
+  // the way out when the combo does not work yet
+  let fix: { href: string; label: string } | null = null;
+  if (!neutral && unlocked) {
+    if (!usable && s.isStigma) fix = { href: `#/stigma/${s.id}`, label: t('comboEquipStigma') };
+    else if (usable && !partOn) {
+      fix = s.partsAuto
+        ? { href: `#/stigma/${s.id}`, label: t('comboRaiseStigma') }
+        : { href: `#/skills/${s.id}`, label: t('comboChooseSpec') };
     }
   }
 
   return (
-    <article className={`combo-card kind-${c.kind} ${ready ? 'ready' : ''} ${compact ? 'compact' : ''}`}>
-      <header className="combo-head">
-        <div>
-          {!compact && <span className="combo-kind">{t(KIND_TITLE[c.kind])}</span>}
-          <h3>{title}</h3>
-        </div>
-        <span className={`combo-state ${ready ? 'ok' : ''}`} title={ready ? t('comboReady') : t('notInBuild')}>
-          {ready ? <Check size={14} /> : <CircleSlash size={14} />}
-          {!compact && <span>{ready ? t('comboReady') : t('notInBuild')}</span>}
+    <span className={`combo-skill ${usable ? '' : 'missing'} ${focus === r.id ? 'focus' : ''}`}>
+      <span className="cs-main" tabIndex={0} {...tip}>
+        <SkillTile skill={s} size={34} dim={!usable} tip={false} />
+        <span className="cs-text">
+          <span className="cs-name">{s.name}</span>
+          {part && (
+            <span className={`mini ${neutral ? '' : partOn ? 'ok' : 'warn'}`} title={part.desc}>
+              {t(s.partsAuto ? 'viaStigmaSpec' : 'viaSpec', { lvl: part.level })}
+              {!neutral && partOn && <><Check size={12} aria-hidden /><span className="sr-only">{t('specActive')}</span></>}
+              {!neutral && !partOn && !s.partsAuto && ` · ${t('specNotChosen')}`}
+            </span>
+          )}
+          {!unlocked && <span className="mini">{t('lockedUntil', { lvl: s.acquireLevel })}</span>}
         </span>
+      </span>
+      {fix && (
+        <a className="cs-fix" href={fix.href} onClick={(e) => e.stopPropagation()}>
+          {fix.label} <ArrowRight size={14} aria-hidden />
+        </a>
+      )}
+    </span>
+  );
+}
+
+const STATE_ICON = { ready: Check, spec: Layers, missing: CircleSlash } as const;
+const STATE_LABEL: Record<ComboState, StringKey> = { ready: 'comboReady', spec: 'comboNeedsSpec', missing: 'notInBuild' };
+const STATE_CLASS: Record<ComboState, string> = { ready: 'ok', spec: 'warn', missing: '' };
+
+/** Ready / needs a specialisation / not in the build: icon + text (icon only with a hidden label in compact cards). */
+function StatePill({ state, iconOnly }: { state: ComboState; iconOnly?: boolean }) {
+  const { t } = useLoadedGame();
+  const Icon = STATE_ICON[state];
+  const label = t(STATE_LABEL[state]);
+  return (
+    <span className={`combo-state ${STATE_CLASS[state]} ${iconOnly ? 'icon-only' : ''}`} title={iconOnly ? label : undefined}>
+      <Icon size={14} aria-hidden />
+      <span className={iconOnly ? 'sr-only' : undefined}>{label}</span>
+    </span>
+  );
+}
+
+interface Props {
+  combo: CuratedCombo;
+  /** skill to highlight (detail panels list the combos of one skill) */
+  focus?: number | null;
+  /** short card for detail panels: no tags, no "how to play it" */
+  compact?: boolean;
+  /** "how to play it" starts open (the combos page's "Show all details") */
+  defaultOpen?: boolean;
+  /** the combo is of another class than the build: no build state, no links into the planner */
+  neutral?: boolean;
+}
+
+/**
+ * One hand-checked combo. Collapsed it shows tags, title, state, setup (any of them) → payoff and why it works;
+ * "How to play it" opens the keys, macro order, usage and the proof from the skill texts.
+ */
+export function ComboCard({ combo: c, focus = null, compact, defaultOpen = false, neutral }: Props) {
+  const { t, data, lang } = useLoadedGame();
+  const { build } = useBuild();
+  const state = neutral ? null : comboState(data, build, c);
+  const [open, setOpen] = useState(defaultOpen);
+  const moreRef = useRef<HTMLButtonElement>(null);
+  const toggled = useRef(false);
+  const bodyId = `combo-${useId().replace(/:/g, '')}`;
+  const tx = (x: { de: string; en: string }) => x[lang] ?? x.en;
+  const name = (id: number) => data.skillById.get(id)?.name;
+  const stack = (c.stack ?? []).map((id) => data.skillById.get(id)).filter((s) => !!s);
+  const meta = [
+    ...c.content.map((x) => t(`comboContent_${x}` as StringKey)),
+    ...(c.status ? [statusName(c.status, lang)] : []),
+    ...(c.window ? [t('comboWindow', { s: c.window })] : []),
+  ].join(' · ');
+
+  // an opened card spans the whole row on wide screens: keep the button the player pressed in view
+  useEffect(() => {
+    if (!toggled.current) return;
+    toggled.current = false;
+    moreRef.current?.scrollIntoView({ block: 'nearest', behavior: matches(MQ.reducedMotion) ? 'auto' : 'smooth' });
+  }, [open]);
+
+  const skills = (list: ComboSkill[], or: boolean) => list.map((r, i) => (
+    <Fragment key={`${r.id}-${r.part ?? 0}`}>
+      {or && i > 0 && <span className="combo-or">{t('comboOr')}</span>}
+      <ComboSkillTile r={r} focus={focus} neutral={neutral} />
+    </Fragment>
+  ));
+
+  return (
+    <article className={`combo-card kind-${c.kind} rating-${c.rating} ${state ? `is-${state}` : ''} ${compact ? 'compact' : ''} ${open && !compact ? 'open' : ''}`}>
+      <header className="combo-head">
+        {!compact && (
+          <div className="combo-tags">
+            <span className={`combo-rating r-${c.rating}`}>{t(`comboRating_${c.rating}` as StringKey)}</span>
+            <span className="combo-kind">{t(`comboKind_${c.kind}` as StringKey)}</span>
+            {meta && <span className="combo-meta">{meta}</span>}
+            {state && <StatePill state={state} />}
+          </div>
+        )}
+        <div className="combo-title">
+          <h3>{skillTextPlain(tx(c.title), name)}</h3>
+          {compact && state && <StatePill state={state} iconOnly />}
+        </div>
       </header>
-      {text && <p className="combo-text">{text}</p>}
+
       <div className="combo-flow">
         <div className="combo-col">
-          {leftLabel && <span className="eyebrow">{leftLabel}</span>}
-          <div className="combo-skills">{left}</div>
+          <span className="eyebrow">{t('comboSetup')}</span>
+          <div className="combo-skills">{skills(c.setup, true)}</div>
         </div>
         <ArrowRight className="combo-arrow" size={18} aria-hidden />
         <div className="combo-col">
-          {rightLabel && <span className="eyebrow">{rightLabel}</span>}
-          <div className="combo-skills">{right}</div>
+          <span className="eyebrow">{t('comboPayoff')}</span>
+          <div className="combo-skills">{skills(c.payoff, false)}</div>
         </div>
       </div>
+
+      <p className="combo-text"><SkillText text={tx(c.text)} /></p>
+
+      {!compact && (
+        <>
+          <button
+            ref={moreRef}
+            type="button"
+            className="combo-more"
+            aria-expanded={open}
+            aria-controls={bodyId}
+            onClick={() => { toggled.current = true; setOpen((v) => !v); }}
+          >
+            <BookOpen size={16} aria-hidden />
+            <span className="combo-more-label">{t('comboHow')}</span>
+            {!open && stack.length > 1 && (
+              <span className="combo-more-stack" aria-hidden>
+                {stack.map((s) => <SkillTile key={s.id} skill={s} size={22} showCd={false} tip={false} />)}
+              </span>
+            )}
+            <ChevronDown size={16} className="chev" aria-hidden />
+          </button>
+
+          <div id={bodyId} className="combo-more-body" hidden={!open}>
+            <div className="combo-how">
+              <p><SkillText text={tx(c.how)} /></p>
+              {stack.length > 1 && (
+                <div className="combo-stack">
+                  <span className="combo-stack-label">{t('comboStack')}</span>
+                  {stack.map((s, i) => (
+                    <span key={s.id} className="combo-stack-item">
+                      {i > 0 && <ArrowRight size={12} aria-hidden />}
+                      <SkillTile skill={s} size={30} showCd={false} />
+                    </span>
+                  ))}
+                  <InfoTip text={t('comboStackHint')} />
+                </div>
+              )}
+            </div>
+            <div className="combo-side">
+              {c.usage && <p className="combo-usage"><Users size={14} aria-hidden /> <span>{tx(c.usage)}</span></p>}
+              <details className="combo-proof">
+                <summary><Quote size={14} aria-hidden /> {t('comboEvidence')} <ChevronDown size={14} className="chev" aria-hidden /></summary>
+                <ul>
+                  {c.evidence.map((e, i) => {
+                    const s = data.skillById.get(e.id);
+                    const part = e.part ? s?.parts?.find((p) => p.id === e.part) : undefined;
+                    return (
+                      <li key={i}>
+                        <b>{s?.name ?? e.id}</b>
+                        {part && <span className="muted"> · {t('viaSpec', { lvl: part.level })}</span>}
+                        {e.chain && <span className="muted"> · {t('viaChain', { name: e.chain })}</span>}
+                        : {lang === 'de' ? '„' : '“'}{richText(e[lang] ?? e.en)}{lang === 'de' ? '“' : '”'}
+                      </li>
+                    );
+                  })}
+                </ul>
+                {!!c.sources?.length && (
+                  <p className="combo-sources">
+                    {c.sources.map((x) => (
+                      <a key={x.href} href={x.href} target="_blank" rel="noreferrer noopener">{x.label} <ExternalLink size={12} aria-hidden /></a>
+                    ))}
+                  </p>
+                )}
+              </details>
+            </div>
+          </div>
+        </>
+      )}
     </article>
   );
 }

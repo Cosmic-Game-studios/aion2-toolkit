@@ -1,4 +1,5 @@
 // Downloads every skill / specialisation / chain icon referenced in public/data/en/skills.json
+// and public/data/learn-levels.json
 // into public/icons/<ICON_ID>.webp, plus class emblems into public/emblems/.
 // Icons are NCSOFT material (AION 2); fan-site mirrors: dbaion2.ru, endgametools.com.
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
@@ -33,6 +34,9 @@ for (const s of skills) {
   for (const p of s.parts ?? []) if (p.icon) ids.add(p.icon);
   for (const c of s.chain ?? []) if (c.icon) ids.add(c.icon);
 }
+// Global-client icons that replace dbaion2's (see fetch-learn-levels.mjs)
+const learn = JSON.parse(await readFile(join(ROOT, 'public', 'data', 'learn-levels.json'), 'utf8').catch(() => '{}'));
+for (const [, icon] of Object.values(learn.skills ?? {})) if (icon) ids.add(icon);
 console.log(`${ids.size} unique icons referenced`);
 const missing = [];
 let done = 0, skipped = 0;

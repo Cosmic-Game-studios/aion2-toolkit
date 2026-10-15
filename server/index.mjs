@@ -1,4 +1,4 @@
-// AION 2 Toolkit community server: build sharing API + static hosting of the built frontend.
+// Daevaforge community server: build sharing API + static hosting of the built frontend.
 // No dependencies (Node >= 20). Storage: server/data/builds.json (atomic writes).
 //
 //   PORT=8787 node server/index.mjs
@@ -347,4 +347,4 @@ createServer(async (req, res) => {
     if (!res.headersSent) fail(res, e.status ?? 500, e.status ? e.message : 'server error');
     if (!e.status) console.error(e);
   }
-}).listen(PORT, HOST, () => console.log(`AION 2 Toolkit server on http://${HOST}:${PORT}`));
+}).listen(PORT, HOST, () => console.log(`Daevaforge server on http://${HOST}:${PORT}`));

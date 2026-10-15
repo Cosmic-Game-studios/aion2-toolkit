@@ -6,6 +6,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # called by update-data.yml after it committed new game data
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: false
 
 permissions:
   contents: read
@@ -21,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -29,6 +37,9 @@ jobs:
       - run: npm run build
         env:
           VITE_COMMUNITY: 'off'
+          # optional ads (README > Ads); empty variables keep them off
+          VITE_ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
+          VITE_ADSENSE_SLOT_RAIL: ${{ vars.ADSENSE_SLOT_RAIL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

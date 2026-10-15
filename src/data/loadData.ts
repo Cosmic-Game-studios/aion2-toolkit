@@ -1,9 +1,10 @@
-import type { Board, BoardNode, ClassType, ComboData, DaevanionData, GameData, Lang, Skill, SkillCosts, SkillPoints, ClassInfo } from './types';
+import type { Board, BoardNode, ClassType, DaevanionData, DataMeta, GameData, Lang, Skill, SkillCosts, SkillPoints, ClassInfo } from './types';
 
 const cache = new Map<Lang, Promise<GameData>>();
 const STIGMA_UNLOCK_LEVEL = 22;
 
-interface LearnLevels { levels: Partial<Record<ClassType, Record<string, number>>> }
+/** Global-client facts per skill id: the level that teaches it and the icon the game shows. */
+interface LearnLevels { skills?: Record<string, [level: number, icon: string]> }
 
 const base = () => import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
@@ -47,30 +48,32 @@ export function loadGameData(lang: Lang): Promise<GameData> {
         fetch(`${base()}data/${file}.json`)
           .then((r) => (r.ok && (r.headers.get('content-type') ?? '').includes('json') ? (r.json() as Promise<T>) : null))
           .catch(() => null);
-      const [classes, skills, costs, points, dv, learn, combos] = await Promise.all([
+      const [classes, skills, costs, points, dv, learn, meta] = await Promise.all([
         getJson<ClassInfo[]>(lang, 'classes'),
         getJson<Skill[]>(lang, 'skills'),
         getJson<SkillCosts>(lang, 'skill-costs'),
         getJson<SkillPoints>(lang, 'skill-points'),
         getJson<RawDaevanion>(lang, 'daevanion'),
         optional<LearnLevels>('learn-levels'),
-        optional<ComboData>('combos'),
+        optional<DataMeta>('meta'),
       ]);
-      // dbaion2 reports acquireLevel 1 everywhere; overlay the real learn levels (by class + icon) where known.
+      // dbaion2 reports acquireLevel 1 everywhere and some Korean-client icons; overlay the Global learn level and icon.
       for (const s of skills) {
-        const lvl = learn?.levels?.[s.classType]?.[s.icon];
-        if (lvl != null) s.acquireLevel = lvl;
-        else if (s.isStigma) s.acquireLevel = Math.max(s.acquireLevel, STIGMA_UNLOCK_LEVEL);
+        const known = learn?.skills?.[s.id];
+        if (known) {
+          s.acquireLevel = known[0];
+          if (known[1]) s.icon = known[1];
+        } else if (s.isStigma) s.acquireLevel = Math.max(s.acquireLevel, STIGMA_UNLOCK_LEVEL);
       }
       return {
         lang,
+        meta,
         classes,
         skills,
         skillById: new Map(skills.map((s) => [s.id, s])),
         costs,
         points,
         daevanion: parseDaevanion(dv),
-        combos: combos ?? { impact: [], classes: {} },
       };
     })();
     cache.set(lang, p);

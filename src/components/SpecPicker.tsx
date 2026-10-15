@@ -1,17 +1,59 @@
-import { Check, Lock } from 'lucide-react';
+import { Check, Info, Lock } from 'lucide-react';
 import type { Skill } from '../data/types';
 import { useLoadedGame } from '../data/GameDataContext';
 import { useBuild } from '../state/BuildContext';
 import { MAX_SPECS } from '../state/build';
 import { activeSpecs, effectiveLevel, specSlotCount } from '../lib/buildCalc';
+import { GAME_SKILL_CAP } from '../lib/levelCap';
 import { richText } from '../lib/format';
 import { PlainIcon } from './SkillTile';
+import { NumberField } from './ui';
+import { InfoTip } from './InfoTip';
+
+/**
+ * Effective skill level of a normal skill: bought level + Daevanion skill nodes + gear (editable), capped at the
+ * in-game maximum. Specialisation slots follow it.
+ */
+export function EffLevel({ skill }: { skill: Skill }) {
+  const { t, data } = useLoadedGame();
+  const { build, setBuild } = useBuild();
+  const eff = effectiveLevel(data, build, skill);
+  const atCap = eff.base + eff.dv + eff.gear >= eff.cap;
+  const setGear = (n: number) => setBuild((b) => {
+    const gx = { ...b.gx };
+    const v = Math.min(GAME_SKILL_CAP, Math.max(0, Math.round(n) || 0));
+    if (v) gx[skill.id] = v; else delete gx[skill.id];
+    return { ...b, gx };
+  });
+  return (
+    <div className="eff-level">
+      <div className="eff-head">
+        <span className="eff-label">{t('effLevel')}</span>
+        <span className="eff-total">
+          <b>{eff.total}</b><span className="muted"> / {eff.cap}</span>
+          {atCap && <span className="chip accent">{t('levelMax')}</span>}
+        </span>
+      </div>
+      <div className="eff-sum">
+        <span>= <b>{eff.base}</b> {t('fromPointsShort')}</span>
+        <span>+ <b>{eff.dv}</b> {t('navDaevanion')}</span>
+        <label className="eff-gear">
+          <span aria-hidden>+</span>
+          <NumberField value={eff.gear} min={0} max={GAME_SKILL_CAP} onChange={setGear} aria-label={t('gearLevels')} />
+          <span>{t('gearLevels')}</span>
+        </label>
+        <InfoTip text={<>{t('gearHint')} {t('levelCapHint', { n: eff.cap })}</>} label={t('gearLevels')} />
+      </div>
+    </div>
+  );
+}
 
 /**
  * Specialisation slots of a normal skill: open slots follow the effective skill level (Lv. 8 / 12 / 20),
  * each option has its own level requirement. Stigma specialisations unlock by themselves and are only listed.
+ * `inTab`: shown under a "Specialisations" tab next to an EffLevel box, so no heading and no level box of its own.
  */
-export function SpecPicker({ skill }: { skill: Skill }) {
+export function SpecPicker({ skill, inTab }: { skill: Skill; inTab?: boolean }) {
   const { t, data } = useLoadedGame();
   const { build, setBuild } = useBuild();
   const parts = skill.parts ?? [];
@@ -20,18 +62,18 @@ export function SpecPicker({ skill }: { skill: Skill }) {
   if (skill.partsAuto) {
     const on = new Set(activeSpecs(data, build, skill));
     return (
-      <>
-        <h4>{t('specialisations')}</h4>
-        <p className="muted small spec-note">{t('specAuto')}</p>
+      <div className="spec-picker">
+        {!inTab && <h4 className="spec-head">{t('specialisations')}</h4>}
+        <p className="field-hint">{t('specAuto')}</p>
         <ul className="parts">
           {parts.map((p) => (
             <li key={p.id} className={on.has(p.id) ? 'on' : ''}>
               <PlainIcon icon={p.icon} size={28} />
-              <span><span className="lv-tag">{t('lv')} {p.level}</span>{richText(p.desc)}</span>
+              <span><span className="lv-tag">{!on.has(p.id) && <Lock size={11} aria-hidden />} {t('lv')} {p.level}</span>{richText(p.desc)}</span>
             </li>
           ))}
         </ul>
-      </>
+      </div>
     );
   }
 
@@ -40,6 +82,8 @@ export function SpecPicker({ skill }: { skill: Skill }) {
   const slotLevels = skill.specSlots ?? [];
   const chosen = build.sp?.[skill.id] ?? [];
   const active = new Set(activeSpecs(data, build, skill));
+  const full = active.size >= slots || chosen.length >= MAX_SPECS;
+  const nextSlot = slotLevels.find((l) => eff.total < l);
 
   const toggle = (id: number) => setBuild((b) => {
     const cur = b.sp?.[skill.id] ?? [];
@@ -48,58 +92,55 @@ export function SpecPicker({ skill }: { skill: Skill }) {
     if (next.length) sp[skill.id] = next; else delete sp[skill.id];
     return { ...b, sp };
   });
-  const setGear = (n: number) => setBuild((b) => {
-    const gx = { ...b.gx };
-    const v = Math.min(30, Math.max(0, Math.round(n) || 0));
-    if (v) gx[skill.id] = v; else delete gx[skill.id];
-    return { ...b, gx };
-  });
+
+  // why options cannot be picked right now – visible, not only in a tooltip
+  const hint = slots === 0 && nextSlot != null
+    ? t('specTeaserLocked', { lvl: nextSlot })
+    : full
+      ? [t('specFull'), nextSlot != null ? t('specNextSlot', { lvl: nextSlot, now: eff.total }) : ''].filter(Boolean).join(' ')
+      : '';
 
   return (
-    <>
-      <h4 className="spec-head">
-        {t('specialisations')}
-        <span className="count">{t('specSlotsUsed', { n: active.size, max: slots })}</span>
-      </h4>
-      <div className="eff-level">
-        <span className="eyebrow">{t('effLevel')}</span>
-        <div className="eff-sum">
-          <span><b>{eff.base}</b> {t('fromPointsShort')}</span>
-          <span>+ <b>{eff.dv}</b> {t('navDaevanion')}</span>
-          <label title={t('gearHint')}>
-            + <input type="number" min={0} max={30} value={eff.gear} onChange={(e) => setGear(Number(e.target.value))} aria-label={t('gearLevels')} /> {t('gearLevels')}
-          </label>
-          <span className="eff-total">= <b>{eff.total}</b></span>
-        </div>
-        <div className="slot-row" aria-label={t('specSlots')}>
-          {slotLevels.map((l, i) => (
-            <span key={l} className={`slot-pill ${eff.total >= l ? 'open' : ''} ${i < active.size ? 'used' : ''}`}>
-              {eff.total >= l ? (i < active.size ? <Check size={12} /> : null) : <Lock size={11} />} {t('lv')} {l}
-            </span>
-          ))}
-        </div>
+    <div className="spec-picker">
+      {!inTab && (
+        <h4 className="spec-head">
+          {t('specialisations')}
+          <span className="count">{t('specSlotsUsed', { n: active.size, max: slots })}</span>
+        </h4>
+      )}
+      {!inTab && <EffLevel skill={skill} />}
+      <div className="spec-status">
+        <ul className="slot-row" aria-label={t('specSlots')}>
+          {slotLevels.map((l, i) => {
+            const open = eff.total >= l;
+            const used = open && i < active.size;
+            return (
+              <li key={l} className={`slot-pill ${open ? 'open' : ''} ${used ? 'used' : ''}`}>
+                {used ? <Check size={12} aria-hidden /> : !open ? <Lock size={12} aria-hidden /> : null}
+                {t('lv')} {l}
+                <span className="sr-only"> – {used ? t('specActive') : open ? t('slotEmpty') : t('specLocked', { lvl: l })}</span>
+              </li>
+            );
+          })}
+        </ul>
+        {inTab && <span className="spec-used">{t('specSlotsUsed', { n: active.size, max: slots })}</span>}
       </div>
+      {hint && <p className="spec-hint" role="note"><Info size={14} aria-hidden /> {hint}</p>}
       <ul className="parts pick">
         {parts.map((p) => {
           const isChosen = chosen.includes(p.id);
           const isActive = active.has(p.id);
           const reachable = eff.total >= p.level;
-          const canAdd = reachable && active.size < slots && chosen.length < MAX_SPECS;
+          const canAdd = reachable && !full;
           const disabled = !isChosen && !canAdd;
           return (
             <li key={p.id} className={`${isActive ? 'on chosen' : isChosen ? 'chosen inactive' : reachable ? 'avail' : 'locked'}`}>
-              <button
-                type="button"
-                aria-pressed={isChosen}
-                disabled={disabled}
-                title={!reachable ? t('specLocked', { lvl: p.level }) : disabled ? t('specFull') : undefined}
-                onClick={() => toggle(p.id)}
-              >
+              <button type="button" aria-pressed={isChosen} disabled={disabled} onClick={() => toggle(p.id)}>
                 <PlainIcon icon={p.icon} size={30} />
                 <span className="pick-text">
                   <span className="lv-tag">{t('lv')} {p.level}</span>{richText(p.desc)}
                   {isChosen && <small className={isActive ? 'pick-state ok' : 'pick-state warn'}>{isActive ? t('specActive') : t('specInactive')}</small>}
-                  {!reachable && !isChosen && <small className="pick-state"><Lock size={11} /> {t('specLocked', { lvl: p.level })}</small>}
+                  {!reachable && !isChosen && <small className="pick-state"><Lock size={12} aria-hidden /> {t('specLocked', { lvl: p.level })}</small>}
                 </span>
                 <span className="pick-box" aria-hidden>{isChosen && <Check size={14} />}</span>
               </button>
@@ -107,7 +148,7 @@ export function SpecPicker({ skill }: { skill: Skill }) {
           );
         })}
       </ul>
-      <p className="muted small spec-note">{t('specPickHint')} {t('specItemHint')}</p>
-    </>
+      <p className="field-hint spec-note">{t('specItemHint')}</p>
+    </div>
   );
 }

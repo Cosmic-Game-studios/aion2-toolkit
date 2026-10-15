@@ -19,10 +19,13 @@ interface Props {
   children?: ReactNode;
 }
 
-/** Framed skill icon: type-coloured border, cooldown badge, optional level badge and hover tooltip. */
+/**
+ * Framed skill icon: type-coloured border, cooldown badge, optional level badge and tooltip (hover, keyboard focus,
+ * and a tap where the tile is not part of a link or button).
+ */
 export function SkillTile({ skill, level = 1, size = 44, showCd = true, showLevel = false, tip = true, dim, cdr, className = '', children }: Props) {
   const { build } = useBuild();
-  const tipProps = useSkillTip(tip ? skill : undefined, level);
+  const tipProps = useSkillTip(tip ? skill : undefined, level, { tap: true });
   const cd = applyCdr(cdAt(skill, level), cdr ?? build.cdr);
   const kind = skill.isStigma ? 'stigma' : skill.type;
   return (

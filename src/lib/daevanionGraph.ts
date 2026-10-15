@@ -3,7 +3,7 @@ import type { Board, BoardNode } from '../data/types';
 export const nodeKey = (n: { x: number; y: number }) => `${n.x},${n.y}`;
 const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]] as const;
 
-export function startNode(board: Board): BoardNode {
+function startNode(board: Board): BoardNode {
   return board.nodes.find((n) => n.kind === 'S') ?? board.nodes[0];
 }
 

@@ -1,0 +1,57 @@
+# Checks the game data (global client, via dbaion2.ru) every 6 hours. When a patch changed skills,
+# costs, points or Daevanion boards, the new files are committed to main and the site is redeployed.
+# Unchanged files are not downloaded again (ETag), so a run without a patch costs almost nothing.
+name: Update game data
+
+on:
+  schedule:
+    - cron: '23 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run data
+      # make sure the site still builds with the new data before anything is committed
+      - run: npm run build
+        env:
+          VITE_COMMUNITY: 'off'
+      - id: commit
+        run: |
+          git add -A public
+          if git diff --cached --quiet; then
+            echo "No data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Cosmic-Game-studios"
+          git config user.email "81530719+Cosmic-Game-studios@users.noreply.github.com"
+          git commit -m "Update game data from the global client ($(date -u +%Y-%m-%d))"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  # pushes made with GITHUB_TOKEN do not start other workflows, so the deploy is called from here
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    uses: ./.github/workflows/pages.yml
+    with:
+      ref: main

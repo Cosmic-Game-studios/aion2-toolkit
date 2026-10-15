@@ -34,10 +34,36 @@ export function readHash(): HashRoute {
   };
 }
 
+/** planner pages a shared build may open on; anything else (home, database, guides …) opens the skills page */
+const SHARE_ROUTES = ['/skills', '/stigma', '/daevanion', '/hotbar', '/combos'];
+export const shareRoute = (route: string) => (SHARE_ROUTES.includes(route) ? route : '/skills');
+
 export function buildShareUrl(route: string, build: unknown): string {
   const url = new URL(location.href);
-  url.hash = `${route}?b=${encodeState(build)}`;
+  url.search = '';
+  url.hash = `${shareRoute(route)}?b=${encodeState(build)}`;
   return url.toString();
+}
+
+export type ShareResult = 'shared' | 'copied' | 'cancelled' | 'failed';
+
+/**
+ * Touch devices with a share sheet (WhatsApp, Discord …) get it; everywhere else the link is copied.
+ * No UI here – useBuildActions().share() adds the toasts and the fallback dialog.
+ */
+export async function shareOrCopy(url: string, title: string): Promise<ShareResult> {
+  const nav = typeof navigator !== 'undefined' ? navigator : null;
+  const touch = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
+  if (nav?.share && touch) {
+    try {
+      await nav.share({ title, url });
+      return 'shared';
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return 'cancelled';
+      // NotAllowedError etc.: fall back to copying
+    }
+  }
+  return (await copyText(url)) ? 'copied' : 'failed';
 }
 
 export async function copyText(text: string): Promise<boolean> {
@@ -45,18 +71,24 @@ export async function copyText(text: string): Promise<boolean> {
     await navigator.clipboard.writeText(text);
     return true;
   } catch {
+    const prev = document.activeElement as HTMLElement | null;
     try {
       const ta = document.createElement('textarea');
       ta.value = text;
+      ta.readOnly = true; // no on-screen keyboard on phones
       ta.style.position = 'fixed';
+      ta.style.top = '0';
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
+      ta.setSelectionRange(0, text.length);
       const ok = document.execCommand('copy');
       ta.remove();
       return ok;
     } catch {
       return false;
+    } finally {
+      prev?.focus?.({ preventScroll: true });
     }
   }
 }
