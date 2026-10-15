@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType } from 'react';
-import { BookOpen, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Users, Workflow, type LucideIcon } from 'lucide-react';
+import { BookOpen, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
@@ -26,6 +26,8 @@ import { CombosPage } from './features/combos/CombosPage';
 
 // the biggest page loads on demand: all guide texts
 const GuidesPage = lazy(() => import('./features/guides/GuidesPage').then((m) => ({ default: m.GuidesPage })));
+// the top 10 per class (its data loads with the page, per class)
+const TopPage = lazy(() => import('./features/top/TopPage').then((m) => ({ default: m.TopPage })));
 
 type Group = 'start' | 'planner' | 'knowledge' | 'community';
 
@@ -51,6 +53,7 @@ const ROUTES: RouteDef[] = [
   { path: '/combos', key: 'navCombos', Icon: Workflow, Comp: CombosPage, group: 'planner', planner: true, tab: true },
   { path: '/database', key: 'navDatabase', Icon: BookOpen, Comp: SkillDatabase, group: 'knowledge' },
   { path: '/guides', key: 'navGuides', Icon: ScrollText, Comp: GuidesPage, group: 'knowledge' },
+  { path: '/top', key: 'navTop', Icon: Trophy, Comp: TopPage, group: 'knowledge' },
   { path: '/community', key: 'navCommunity', Icon: Users, Comp: CommunityPage, group: 'community' },
 ];
 

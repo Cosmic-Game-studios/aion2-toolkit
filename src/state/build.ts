@@ -1,5 +1,5 @@
 import type { ClassType } from '../data/types';
-import { GAME_LEVEL_CAP } from '../lib/levelCap';
+import { GAME_LEVEL_CAP, GAME_SKILL_CAP } from '../lib/levelCap';
 
 export type Faction = 'Light' | 'Dark';
 export interface StigmaSlot { id: number | null; lv: number }
@@ -123,7 +123,7 @@ export function normalizeBuild(raw: unknown): Build | null {
   }
   if (isObj(raw.gx)) {
     for (const [k, v] of Object.entries(raw.gx)) {
-      const n = clampInt(v, 0, 30, 0);
+      const n = clampInt(v, 0, GAME_SKILL_CAP, 0);
       if (/^\d{1,9}$/.test(k) && n) b.gx[k] = n;
     }
   }

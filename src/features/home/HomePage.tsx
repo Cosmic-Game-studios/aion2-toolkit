@@ -1,7 +1,7 @@
 import { useEffect, useId, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
 import {
   ArrowDown, ArrowRight, BookOpen, Check, ChevronDown, FolderOpen, Globe2, Hexagon, Keyboard, Languages, Lock,
-  Save, ScrollText, Share2, Sparkles, Swords, Users, Workflow,
+  Save, ScrollText, Share2, Sparkles, Swords, Trophy, Users, Workflow,
 } from 'lucide-react';
 import type { ClassType, Lang } from '../../data/types';
 import { useLoadedGame } from '../../data/GameDataContext';
@@ -202,6 +202,7 @@ export function HomePage() {
   const tools: { href: string; title: StringKey; text: StringKey; Icon: typeof Swords; tone: string }[] = [
     { href: '#/database', title: 'navDatabase', text: 'homeDatabaseText', Icon: BookOpen, tone: 'slate' },
     { href: '#/guides', title: 'navGuides', text: 'homeGuidesText', Icon: ScrollText, tone: 'rose' },
+    { href: '#/top', title: 'navTop', text: 'homeTopText', Icon: Trophy, tone: 'gold' },
     ...(COMMUNITY_ENABLED ? [{ href: '#/community', title: 'navCommunity' as StringKey, text: 'homeCommunityText' as StringKey, Icon: Users, tone: 'teal' }] : []),
   ];
 

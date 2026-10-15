@@ -52,7 +52,7 @@ export function validateBuild(raw) {
   }
   if (isObj(raw.gx)) {
     for (const [k, v] of Object.entries(raw.gx).slice(0, 80)) {
-      const n = int(v, 0, 30, 0);
+      const n = int(v, 0, 40, 0); // GAME_SKILL_CAP in src/lib/levelCap.ts
       if (/^\d{1,9}$/.test(k) && n) b.gx[k] = n;
     }
   }

@@ -1,0 +1,65 @@
+# Reads the top 10 players of every class with their builds from AION2 Index (aion2index.com) once a day.
+# The script asks for one page at a time with pauses (about 570 pages, 30 minutes), respects robots.txt and stops
+# without writing anything when the site answers with errors. Changed files in public/data/top/ are committed to main
+# and the site is redeployed; a day without changes creates no commit.
+name: Update top builds
+
+on:
+  schedule:
+    - cron: '41 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: top-builds-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # the script stops before its first page when robots.txt's Crawl-delay would make the run longer than
+      # TOP_BUDGET_MIN minutes; keep it about 10 below timeout-minutes (setup and build) and raise both together
+      - run: npm run top
+        env:
+          TOP_BUDGET_MIN: 50
+      # make sure the site still builds with the new data before anything is committed
+      - run: npm run build
+        env:
+          VITE_COMMUNITY: 'off'
+      - id: commit
+        run: |
+          git add public/data/top
+          if git diff --cached --quiet; then
+            echo "No changes in the top builds."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Cosmic-Game-studios"
+          git config user.email "81530719+Cosmic-Game-studios@users.noreply.github.com"
+          git commit -m "Update top builds from AION2 Index ($(date -u +%Y-%m-%d))"
+          # the game data job pushes to main as well
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  # pushes made with GITHUB_TOKEN do not start other workflows, so the deploy is called from here
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    uses: ./.github/workflows/pages.yml
+    with:
+      ref: main
