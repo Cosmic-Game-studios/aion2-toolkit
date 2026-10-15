@@ -2569,7 +2569,7 @@ button.bp-row:active { background: var(--surface-2); }
   .class-tile.on:hover { border-color: var(--gold); background: var(--gold-soft); }
 }
 
-/* "Global client · data of … · checked every 6 h": opens the FAQ answer about the data */
+/* "Global client · data of …": opens the FAQ answer about the data */
 .data-badge {
   display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 32px; padding: var(--sp-1) var(--sp-3);
   border-radius: var(--r-lg); border: 1px solid rgba(79, 209, 161, .3); background: rgba(79, 209, 161, .08); color: var(--ok);

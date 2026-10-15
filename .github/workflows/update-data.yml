@@ -1,11 +1,11 @@
-# Checks the game data (global client, via dbaion2.ru) every 6 hours. When a patch changed skills,
-# costs, points or Daevanion boards, the new files are committed to main and the site is redeployed.
-# Unchanged files are not downloaded again (ETag), so a run without a patch costs almost nothing.
+# Checks the game data (global client, via dbaion2.ru). When a patch changed skills, costs, points or
+# Daevanion boards, the new files are committed to main and the site is redeployed. Unchanged files are
+# not downloaded again (ETag), so a run without a patch costs almost nothing.
+# The 6-hourly schedule is paused: dbaion2's terms (revision of 27 Sep 2026) forbid automated
+# collection without written permission. Runs only by hand (Actions > Update game data > Run workflow).
 name: Update game data
 
 on:
-  schedule:
-    - cron: '23 */6 * * *'
   workflow_dispatch:
 
 permissions:

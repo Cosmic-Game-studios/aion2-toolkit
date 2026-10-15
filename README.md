@@ -109,7 +109,7 @@ All game data comes from the **global client (NA/EU)**, not the Korean service: 
 The data is committed in `public/data/` and the icons in `public/icons/` and `public/emblems/`, so the app runs offline.
 `public/data/meta.json` records the client, the source and the newest upstream change; the app shows it as "data as of" in the footer and on the home page.
 
-**Automatic updates:** `.github/workflows/update-data.yml` runs every 6 hours. It asks the source only for files that changed since the last run (ETag), checks that the new files are plausible, builds the site, and only then commits the new data to `main` and redeploys GitHub Pages. A run without a patch changes nothing. To update right after a patch: *Actions > Update game data > Run workflow*.
+**Updates:** `.github/workflows/update-data.yml` (its 6-hourly schedule is paused: dbaion2's terms of 27 Sep 2026 forbid automated collection without written permission, so it runs only by hand). It asks the source only for files that changed since the last run (ETag), checks that the new files are plausible, builds the site, and only then commits the new data to `main` and redeploys GitHub Pages. A run without a patch changes nothing. To update right after a patch: *Actions > Update game data > Run workflow*.
 GitHub pauses scheduled workflows after 60 days without any repository activity; *Run workflow* or any push starts them again.
 
 To refresh everything locally:
