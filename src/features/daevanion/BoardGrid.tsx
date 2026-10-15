@@ -31,7 +31,8 @@ interface Props {
 }
 
 const SIZE = 15;
-const ARROWS: Record<string, [number, number]> = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] };
+/** [dx, dy] per arrow key: x is the row, y the column (see boardBox) */
+const ARROWS: Record<string, [number, number]> = { ArrowRight: [0, 1], ArrowLeft: [0, -1], ArrowDown: [1, 0], ArrowUp: [-1, 0] };
 
 /** The nearest node in a direction (straight line first, then the closest diagonal neighbour). */
 function step(board: Board, from: BoardNode, dx: number, dy: number): BoardNode | null {
@@ -136,7 +137,7 @@ function BoardGridView({
             type="button"
             data-k={k}
             className={cls}
-            style={{ gridColumn: n.x - box.minX + 1, gridRow: n.y - box.minY + 1 }}
+            style={{ gridColumn: n.y - box.minY + 1, gridRow: n.x - box.minX + 1 }}
             tabIndex={k === tabKey ? 0 : -1}
             aria-disabled={n.kind === 'S' || undefined}
             aria-current={selectedKey === k || undefined}

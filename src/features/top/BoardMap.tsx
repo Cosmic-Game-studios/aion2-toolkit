@@ -14,7 +14,8 @@ import { boardBox, nodeText } from '../daevanion/dvModel';
  * Phones: "Zoom" shows the board with touch-sized nodes in a box that pans with one finger (like the planner's board).
  */
 
-const ARROWS: Record<string, [number, number]> = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] };
+/** [dx, dy] per arrow key: x is the row, y the column (see boardBox) */
+const ARROWS: Record<string, [number, number]> = { ArrowRight: [0, 1], ArrowLeft: [0, -1], ArrowDown: [1, 0], ArrowUp: [-1, 0] };
 const GRADES = ['Common', 'Rare', 'Legend', 'Unique'] as const;
 
 /** The nearest node in a direction (straight line first, then the closest diagonal neighbour). */
@@ -112,7 +113,7 @@ export function BoardMap({ board, mode }: { board: Board; mode: Mode }) {
                 type="button"
                 data-k={k}
                 className={cls}
-                style={{ gridColumn: n.x - box.minX + 1, gridRow: n.y - box.minY + 1, '--p': `${Math.round(14 + share * 66)}%` } as CSSProperties}
+                style={{ gridColumn: n.y - box.minY + 1, gridRow: n.x - box.minX + 1, '--p': `${Math.round(14 + share * 66)}%` } as CSSProperties}
                 tabIndex={k === tabKey ? 0 : -1}
                 aria-label={describe(n)}
                 onClick={() => setSel(k)}

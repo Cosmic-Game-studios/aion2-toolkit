@@ -124,7 +124,7 @@ function HeroBuild({ href }: { href: string }) {
             <span
               key={nodeKey(n)}
               className={`lp-node g-${n.grade} k-${n.kind} ${learned.has(nodeKey(n)) ? 'on' : ''}`}
-              style={{ gridColumn: n.x, gridRow: n.y } as CSSProperties}
+              style={{ gridColumn: n.y, gridRow: n.x } as CSSProperties}
             />
           ))}
         </div>

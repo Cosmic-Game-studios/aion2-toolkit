@@ -411,8 +411,8 @@ export function DaevanionCalculator({ param }: { param?: string | null }) {
   // small tip next to the node under the mouse (the full details are in the inspector)
   const box = boardBox(board);
   const tip = canHover && hover && board.nodes.includes(hover) && !zoomed ? (() => {
-    const col = hover.x - box.minX;
-    const row = hover.y - box.minY;
+    const col = hover.y - box.minY;
+    const row = hover.x - box.minX;
     const fx = (col + 0.5) / box.cols;
     const below = row < 2;
     const fy = (below ? row + 1 : row) / box.rows;

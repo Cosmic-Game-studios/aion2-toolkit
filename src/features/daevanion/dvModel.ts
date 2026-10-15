@@ -3,7 +3,11 @@ import type { Build } from '../../state/build';
 import { nodeKey, nodeMap } from '../../lib/daevanionGraph';
 import { CLASS_STATS } from '../../lib/statPriority';
 
-/** The part of the 15 × 15 grid a board really uses (11 × 11, 13 × 13 or 15 × 15). */
+/**
+ * The part of the 15 × 15 grid a board really uses (11 × 11, 13 × 13 or 15 × 15).
+ * A node's x is its ROW and y its column, as the game lays the board out (node id = (x - 1) * 15 + y, row by row;
+ * dbaion2 and AION2 Index draw it the same way): grid row = x - minX + 1, grid column = y - minY + 1.
+ */
 export interface BoardBox { minX: number; minY: number; cols: number; rows: number }
 
 const boxes = new WeakMap<Board, BoardBox>();
@@ -19,7 +23,7 @@ export function boardBox(board: Board): BoardBox {
     if (n.y > maxY) maxY = n.y;
   }
   const box = board.nodes.length
-    ? { minX, minY, cols: maxX - minX + 1, rows: maxY - minY + 1 }
+    ? { minX, minY, cols: maxY - minY + 1, rows: maxX - minX + 1 }
     : { minX: 1, minY: 1, cols: 15, rows: 15 };
   boxes.set(board, box);
   return box;
