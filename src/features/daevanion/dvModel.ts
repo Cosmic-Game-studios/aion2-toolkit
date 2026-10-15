@@ -65,6 +65,12 @@ export function nodeGains(nodes: BoardNode[], skillById: Map<number, Skill>): st
   return [...sums.values()].map((g) => `${g.label} +${g.value}`);
 }
 
+/** A node's value as the board draws it: "12", "1.5k" (empty for a node without a value). */
+export function nodeValueShort(n: BoardNode): string {
+  if (n.value == null) return '';
+  return n.value >= 1000 ? `${Math.round(n.value / 100) / 10}k` : String(n.value);
+}
+
 /** Display text of a node: "Attack +3", a skill node with the skill's name. */
 export function nodeText(n: BoardNode, skillById: Map<number, Skill>): string {
   if (n.kind === 'S') return n.label;

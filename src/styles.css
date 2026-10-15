@@ -3693,51 +3693,34 @@ button.bp-row:active { background: var(--surface-2); }
 }
 
 .top-board-wrap { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
-.top-board, .top-legend { --node-base: #0b0f15; }
-.top-board {
-  display: grid; grid-template-columns: repeat(var(--cols, 15), minmax(0, 1fr)); grid-template-rows: repeat(var(--rows, 15), minmax(0, 1fr));
-  gap: 2px; aspect-ratio: var(--cols, 15) / var(--rows, 15); width: 100%; max-width: min(100%, calc(var(--cols, 15) * 30px + 16px));
-  margin-inline: auto; padding: 8px; border-radius: var(--r-lg); container-type: inline-size;
-  background: radial-gradient(circle at 50% 50%, rgba(227, 184, 102, .07), rgba(6, 9, 13, .6) 70%); border: 1px solid var(--line-soft);
+.top-legend { --node-base: #0b0f15; }
+.top-legend .lg-count { flex: none; }
+/* the planner's board and nodes (.board-grid, .node), read-only: a tap or the arrow keys only pick the node to describe */
+.top-grid .node { cursor: default; }
+/* count badge: how many of the top players learned the node (bright on chosen nodes, muted on the others) */
+.top-grid .node.counted { overflow: visible; }
+.node-heat, .lg-count {
+  display: grid; place-items: center; min-width: 17px; height: 17px; padding: 0 3px; border-radius: var(--r-pill);
+  font: 700 var(--fs-2xs)/1 var(--font); font-variant-numeric: tabular-nums; pointer-events: none;
+  border: 1px solid var(--line-strong); background: var(--node-base); color: var(--text-2);
 }
-/* a node: colour = grade, shape = kind, fill (--p) = share of players (heat map) or learned (one player) */
-.tn {
-  --g: var(--common);
-  position: relative; display: grid; place-items: center; min-width: 0; min-height: 0; padding: 0; overflow: hidden; cursor: default;
-  border-radius: 3px; border: 1px solid var(--g); color: var(--text-strong);
-  background: color-mix(in srgb, var(--g) var(--p, 14%), var(--node-base));
-  transition: transform .1s, box-shadow var(--dur-fast);
-}
-.tn.g-Rare { --g: var(--rare); }
-.tn.g-Legend { --g: var(--legend); }
-.tn.g-Unique { --g: var(--unique); }
-.tn.k-K { border-radius: 50%; }
-.tn.k-S { --g: var(--gold); border-radius: 50%; background: radial-gradient(circle, var(--gold) 30%, rgba(227, 184, 102, .15) 34%); }
-/* nobody learned it / not learned: a dashed outline instead of a fill */
-.tn.off { border-style: dashed; border-color: color-mix(in srgb, var(--g) 55%, var(--node-base)); background: var(--node-base); }
-.tn.sel { box-shadow: 0 0 0 2px var(--node-base), 0 0 0 4px var(--accent); z-index: 2; }
-.top-board .tn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; z-index: 3; }
-@media (hover: hover) { .top-board .tn:hover { transform: scale(1.15); z-index: 2; } }
-/* white with a dark halo: readable on every fill, from a faint 1/10 to a full 10/10 */
-.tn-n { font: 700 var(--fs-2xs)/1 var(--font); letter-spacing: -.02em; font-variant-numeric: tabular-nums; pointer-events: none; text-shadow: 0 0 2px #000, 0 0 3px #000; }
-/* counts only where a node is at least ~17 px wide */
-@container (max-width: 282px) { .top-board.size-l .tn-n { display: none; } }
-@container (max-width: 244px) { .top-board.size-m .tn-n { display: none; } }
-@container (max-width: 206px) { .top-board.size-s .tn-n { display: none; } }
-/* phones: "Zoom" shows the board with touch-sized nodes (--tap-sm) in a box that pans with one finger, as in the planner */
+.node-heat { position: absolute; right: -5px; bottom: -5px; z-index: 1; }
+.node.learned .node-heat, .lg-count { border-color: var(--g, var(--common)); color: var(--text-strong); }
+/* counts only where a node is at least ~30 px wide, else they cover the node (phones: Zoom shows them) */
+@container (max-width: 491px) { .top-grid.size-l .node-heat { display: none; } }
+@container (max-width: 425px) { .top-grid.size-m .node-heat { display: none; } }
+@container (max-width: 359px) { .top-grid.size-s .node-heat { display: none; } }
 .top-board-tools { display: flex; justify-content: flex-end; }
 .top-board-wrap.zoomed .top-board-scroll {
   max-height: min(70vh, 560px); max-height: min(70dvh, 560px); overflow: auto; overscroll-behavior: contain;
   border: 1px solid var(--line); border-radius: var(--r-md);
 }
-/* columns of exactly --tap-sm: n nodes + (n - 1) gaps of 2 px + 2 × 8 px padding */
-.top-board-wrap.zoomed .top-board { width: calc(var(--cols, 15) * (var(--tap-sm) + 2px) + 14px); max-width: none; border: 0; border-radius: 0; }
+/* ~44 px per column, as the planner's zoom */
+.top-board-wrap.zoomed .top-grid { width: calc(var(--cols, 15) * 44px); max-width: none; border: 0; border-radius: 0; }
 /* the node in focus; two lines are reserved, so the legend does not move */
 .top-board-info { min-height: calc(2 * var(--lh-snug) * 1em); font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); text-align: center; }
 .top-legend { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 14px; font-size: var(--fs-xs); color: var(--muted); }
 .top-legend li { display: inline-flex; align-items: center; gap: 6px; }
-.top-scale { display: inline-block; flex: none; width: 48px; height: 10px; border-radius: var(--r-xs); background: linear-gradient(90deg, color-mix(in srgb, var(--common) 14%, var(--node-base)), var(--common)); border: 1px solid var(--common); }
-.lg-swatch { display: inline-block; flex: none; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--common); background: var(--common); }
 
 /* the players: one row each (a button), the build opens below it */
 .top-players { display: flex; flex-direction: column; gap: var(--sp-2); container-type: inline-size; }
@@ -3830,3 +3813,25 @@ button.bp-row:active { background: var(--surface-2); }
 .top-foot-label { font-weight: 600; color: var(--text); }
 .top-foot a { display: inline-flex; align-items: center; gap: 3px; font-weight: 500; }
 @media (pointer: coarse) { .top-foot a { min-height: var(--tap-sm); } }
+
+/* recommended build (TopRecommendation): keys & macro | stigmas + levels, the Daevanion board across both columns */
+.top-rec-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); }
+.top-rec-actions .top-note { margin-top: 0; }
+.top-rec-loading { padding: var(--sp-4) 0; color: var(--muted); }
+.top-rec-side { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; }
+.top-rec-dv { grid-column: 1 / -1; }
+.top-rec-macro { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.top-rec-macro-label { font-weight: 700; color: var(--text-strong); }
+.top-rec-macro ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.top-rec-macro li { display: inline-flex; align-items: center; gap: 4px; }
+.top-rec-macro li + li::before { content: '→'; color: var(--muted); }
+.top-rec-macro .top-note { flex-basis: 100%; margin-top: 0; }
+.top-rec-tile { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.top-rec-count { font-size: var(--fs-xs); line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; }
+.top-rec-link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--sp-2); font-size: var(--fs-sm); }
+.top-rec-levellist { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 6px var(--sp-3); }
+.top-rec-levellist > li { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+.top-rec-dv-sum { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+/* what to pick: the recommended nodes keep the planner's "learned" look, the others step back */
+.top-rec-dv .top-grid .node:not(.learned):not(.kind-S):not(.selected):not(:focus-visible),
+.top-rec-dv .top-legend .lg-node:not(.learned):not(.round) { filter: saturate(.35) brightness(.6); }

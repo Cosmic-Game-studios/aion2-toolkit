@@ -60,8 +60,11 @@ export function unlearn(board: Board, learned: Set<string>, node: BoardNode): Se
   return next;
 }
 
-/** Cheapest set of additional nodes connecting the learned tree to `target` (Dijkstra on node cost). */
-export function cheapestPath(board: Board, learned: Set<string>, target: BoardNode): BoardNode[] | null {
+/**
+ * Cheapest set of additional nodes connecting the learned tree to `target` (Dijkstra on node cost). `allow`: the
+ * new nodes the path may use (default: all).
+ */
+export function cheapestPath(board: Board, learned: Set<string>, target: BoardNode, allow?: (n: BoardNode) => boolean): BoardNode[] | null {
   const map = nodeMap(board);
   const start = startNode(board);
   const tree = new Set(learned);
@@ -83,6 +86,7 @@ export function cheapestPath(board: Board, learned: Set<string>, target: BoardNo
     for (const nb of neighbours(cur, map)) {
       if (nb.kind === 'S') continue;
       const nk = nodeKey(nb);
+      if (allow && !tree.has(nk) && !allow(nb)) continue;
       const nd = d + (tree.has(nk) ? 0 : nb.cost);
       if (nd < (dist.get(nk) ?? Infinity)) {
         dist.set(nk, nd);

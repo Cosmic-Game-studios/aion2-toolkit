@@ -102,6 +102,11 @@ function PlayerBoards({ p, boards }: { p: TopPlayer; boards: Board[] }) {
   const [id, setId] = useState<number | null>(null);
   const board = known.find((b) => b.id === id) ?? known[0];
   const learned = useMemo(() => (board ? decodeLearned(board, p.build.dv[String(board.id)] ?? '') : new Set<string>()), [board, p.build.dv]);
+  // skills the player uses (on a skill bar or a slotted stigma): green dot on their skill nodes, as in the planner
+  const mine = useMemo(() => new Set([
+    ...p.skills.filter((s) => s.bar).map((s) => String(s.id)),
+    ...p.stigmas.filter((s) => s.slot).map((s) => String(s.id)),
+  ]), [p.skills, p.stigmas]);
   if (!board) return null;
   // open nodes at the source but no build: the board page could not be read, and an empty map would call them all
   // "not learned"
@@ -121,7 +126,7 @@ function PlayerBoards({ p, boards }: { p: TopPlayer; boards: Board[] }) {
       />
       {unread
         ? <p className="top-note">{t('topBoardUnread')}</p>
-        : <BoardMap key={board.id} board={board} mode={{ learned }} />}
+        : <BoardMap key={board.id} board={board} learned={learned} mine={mine} />}
     </section>
   );
 }

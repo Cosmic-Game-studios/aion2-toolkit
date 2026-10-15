@@ -3,7 +3,7 @@ import type { Board, BoardNode, Skill } from '../../data/types';
 import { nodeKey } from '../../lib/daevanionGraph';
 import { iconUrl } from '../../data/loadData';
 import { useGame } from '../../data/GameDataContext';
-import { boardBox, frontier } from './dvModel';
+import { boardBox, frontier, nodeValueShort } from './dvModel';
 
 /** How a node was activated: `touch` = finger or pen (select first, learn on the second tap). */
 export interface NodeClickInfo { shift: boolean; touch: boolean }
@@ -150,7 +150,7 @@ function BoardGridView({
           >
             {skill
               ? <img src={iconUrl(skill.icon)} alt="" draggable={false} loading="lazy" decoding="async" />
-              : n.kind === 'S' ? <span className="start-dot" /> : <span className="node-val" aria-hidden>{abbr(n)}</span>}
+              : n.kind === 'S' ? <span className="start-dot" /> : <span className="node-val" aria-hidden>{nodeValueShort(n)}</span>}
             {isMine && <span className="node-mine" aria-hidden />}
           </button>
         );
@@ -163,8 +163,3 @@ function BoardGridView({
 export const BoardGrid = memo(BoardGridView);
 
 export const BOARD_SIZE = SIZE;
-
-function abbr(n: BoardNode): string {
-  if (n.value == null) return '';
-  return n.value >= 1000 ? `${Math.round(n.value / 100) / 10}k` : String(n.value);
-}

@@ -9,13 +9,21 @@ import type { GameData } from './types';
  * the data of the UI language.
  */
 export function useEnglishData(): GameData | null {
+  return useEnglishDataState().en;
+}
+
+/** The English game data and whether loading it failed (`en` stays null then). */
+export function useEnglishDataState(): { en: GameData | null; failed: boolean } {
   const { data } = useLoadedGame();
-  const [en, setEn] = useState<GameData | null>(data.lang === 'en' ? data : null);
+  const [state, setState] = useState<{ en: GameData | null; failed: boolean }>({ en: data.lang === 'en' ? data : null, failed: false });
   useEffect(() => {
-    if (data.lang === 'en') { setEn(data); return; }
+    if (data.lang === 'en') { setState({ en: data, failed: false }); return; }
     let alive = true;
-    loadGameData('en').then((d) => { if (alive) setEn(d); }, () => { if (alive) setEn(null); });
+    loadGameData('en').then(
+      (d) => { if (alive) setState({ en: d, failed: false }); },
+      () => { if (alive) setState({ en: null, failed: true }); },
+    );
     return () => { alive = false; };
   }, [data]);
-  return en;
+  return state;
 }

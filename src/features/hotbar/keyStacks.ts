@@ -1,7 +1,8 @@
 import type { DragEvent } from 'react';
 import type { GameData, Skill } from '../../data/types';
 import { BAR_ORDER, BAR_ROWS, BASIC_COL, keyStack, slotKey, type Build } from '../../state/build';
-import { buildCd } from '../../lib/buildCalc';
+import { activeSpecs, buildCd } from '../../lib/buildCalc';
+import { CLASS_MECHANICS } from '../../data/mechanics';
 import { parseFacts } from '../../lib/skillFacts';
 
 const text = (s: Skill) => s.levels[0]?.description ?? s.description ?? '';
@@ -22,13 +23,28 @@ export function attackKeys(data: GameData, build: Build): number[] {
   }));
 }
 
-/** The skill that blocks a key: the lowest skill has no cooldown, so it is always ready and the skills above never fire. */
-export function keyBlocker(data: GameData, build: Build, col: number): Skill | null {
-  const st = stackSkills(data, build, col);
-  return st.length > 1 && buildCd(data, build, st[0]) <= 0 ? st[0] : null;
+/**
+ * A skill that only works under a condition (the boss staggers, a status on the target, a stack count …; see the skill
+ * mechanics), unless a chosen specialisation lifts it: it is not always ready, so the skills above it still fire.
+ */
+function conditional(data: GameData, build: Build, s: Skill): boolean {
+  const mech = CLASS_MECHANICS[s.classType]?.find((m) => m.id === s.id);
+  if (!mech?.use?.length) return false;
+  const specs = mech.useVia?.some((v) => v.free) ? activeSpecs(data, build, s) : [];
+  return !mech.useVia?.some((v) => v.free && specs.includes(v.part));
 }
 
-/** Slots ("row:col") whose skill never fires, with the skill below that blocks them. */
+/**
+ * The skill that blocks a key: the lowest skill below the top one without cooldown and without condition – it is always
+ * ready, so the skills above it never fire. (A stagger skill under the filler on T is fine: it fires only while the boss
+ * staggers; a skill without cooldown above it still blocks the rest.)
+ */
+export function keyBlocker(data: GameData, build: Build, col: number): Skill | null {
+  const st = stackSkills(data, build, col);
+  return st.find((s, i) => i < st.length - 1 && buildCd(data, build, s) <= 0 && !conditional(data, build, s)) ?? null;
+}
+
+/** Slots ("row:col") whose skill never fires (the ones above the blocker), with the skill below that blocks them. */
 export function blockedSlots(data: GameData, build: Build): Map<string, Skill> {
   const out = new Map<string, Skill>();
   for (const col of BAR_ORDER) {
@@ -38,7 +54,7 @@ export function blockedSlots(data: GameData, build: Build): Map<string, Skill> {
     for (let row = 0; row < BAR_ROWS; row++) {
       const id = build.bar[slotKey(row, col)];
       if (!id || !data.skillById.has(id)) continue;
-      if (!seenBlocker) { seenBlocker = true; continue; }
+      if (!seenBlocker) { seenBlocker = id === blocker.id; continue; }
       out.set(slotKey(row, col), blocker);
     }
   }

@@ -1,10 +1,9 @@
-import { useState, type ReactNode } from 'react';
-import { BarChart3, Hexagon, Shield, Sparkles, Swords } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { BarChart3, Shield, Sparkles, Swords } from 'lucide-react';
 import type { StringKey } from '../../i18n/strings';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { GearSlotStat, TopStats } from './topStats';
 import { fmtAvg, fmtInt, gearGroup, gradeClass, slotName, type GearGroup } from './topFormat';
-import { BoardMap, BoardPicker } from './BoardMap';
 import { Frac, SkillIcon } from './parts';
 
 export const GEAR_GROUPS: { id: GearGroup; key: StringKey }[] = [
@@ -132,29 +131,6 @@ function SkillStats({ s }: { s: TopStats }) {
   );
 }
 
-function DaevanionStats({ s }: { s: TopStats }) {
-  const { t, lang } = useLoadedGame();
-  const boards = s.boards.filter((b) => b.board && b.players > 0);
-  const [id, setId] = useState<number | null>(null);
-  const cur = boards.find((b) => b.id === id) ?? boards[0];
-  if (!cur) return null;
-  return (
-    <TopCard title={t('topDaevanion')} icon={<Hexagon size={18} aria-hidden />} className="top-dv">
-      <BoardPicker
-        label={t('dvBoardsLabel')}
-        value={cur.id}
-        onChange={setId}
-        boards={boards.map((b) => {
-          const meta = t('topAvgNodes', { n: fmtAvg(b.avgOpen, lang), total: b.total });
-          return { id: b.id, name: b.board!.name, meta, label: `${b.board!.name}: ${meta}` };
-        })}
-      />
-      {cur.heatOf > 0 && <BoardMap key={cur.id} board={cur.board!} mode={{ heat: cur.heat, of: cur.heatOf }} />}
-      {cur.heatOf < s.players && <p className="top-note">{t('topHeatUnread', { n: s.players - cur.heatOf, m: s.players })}</p>}
-    </TopCard>
-  );
-}
-
 export function GearRows({ rows, of }: { rows: GearSlotStat[]; of: number }) {
   const { t, lang } = useLoadedGame();
   return (
@@ -211,7 +187,6 @@ export function TopStatsView({ s, headingId }: { s: TopStats; headingId: string 
         <Overview s={s} />
         <StigmaStats s={s} />
         <SkillStats s={s} />
-        <DaevanionStats s={s} />
         <GearStats s={s} />
       </div>
     </section>

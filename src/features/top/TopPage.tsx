@@ -7,10 +7,12 @@ import { CLASS_TYPES } from '../../state/build';
 import { unreleasedClasses } from '../../lib/classInfo';
 import { ClassEmblem, useClassName } from '../../components/ClassSelect';
 import { EmptyState, PageHeader } from '../../components/ui';
+import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { useTopFile, useTopIndex } from './topData';
 import { topStats } from './topStats';
 import { fmtInt, ISSUES_URL, METABOT_BOARDS, METABOT_SLUG, metabotClassUrl, SOURCE_FALLBACK } from './topFormat';
 import { TopStatsView } from './TopStatsView';
+import { TopRecommendation } from './TopRecommendation';
 import { PlayerList } from './PlayerList';
 import { Ago } from './parts';
 
@@ -84,6 +86,7 @@ export function TopPage({ param, visit }: { param: string | null; visit: number 
   const { build } = useBuild();
   const className = useClassName();
   const [index, retryIndex] = useTopIndex();
+  const recId = useId();
   const statsId = useId();
   const playersId = useId();
   const pickerId = useId();
@@ -177,6 +180,9 @@ export function TopPage({ param, visit }: { param: string | null; visit: number 
         </div>
       ) : (
         <>
+          <ErrorBoundary inline resetKey={cls}>
+            <TopRecommendation key={`r-${cls}`} cls={cls} players={loaded.players} stats={stats} headingId={recId} />
+          </ErrorBoundary>
           <TopStatsView key={`s-${cls}`} s={stats} headingId={statsId} />
           <PlayerList key={`p-${cls}`} players={loaded.players} boards={boards} headingId={playersId} />
         </>
