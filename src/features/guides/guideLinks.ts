@@ -34,4 +34,4 @@ export const classGuideHref = (cls: ClassType, section?: number): string | null 
 export const CLASS_GUIDE_SECTION = { glance: 0, group: 1, skills: 2, rotation: 3, build: 4, hotbar: 5, mistakes: 6, sources: 7 } as const;
 
 /** The general guides that planner pages may point to. */
-export const GUIDE_IDS = { macros: 'macros', speedrun: 'speedrun-45', crafting: 'gathering-crafting' } as const;
+export const GUIDE_IDS = { macros: 'macros', speedrun: 'speedrun-45', crafting: 'gathering-crafting', craftingGear: 'crafting-gear' } as const;

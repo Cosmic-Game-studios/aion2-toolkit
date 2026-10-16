@@ -13,7 +13,7 @@ export const gatheringCrafting: Guide = {
     de: 'Wie Sammeln und die fünf Handwerksberufe funktionieren, wie du sie am schnellsten levelst und welche Fehler dich Zeit und Kinah kosten.',
     en: 'How gathering and the five crafting professions work, how to level them fastest and which mistakes cost you time and Kinah.',
   },
-  updated: '2026-10-14',
+  updated: '2026-10-16',
   tags: [
     { de: 'Sammeln', en: 'Gathering' },
     { de: 'Handwerk', en: 'Crafting' },
@@ -168,6 +168,12 @@ export const gatheringCrafting: Guide = {
             { de: 'Ein Treffer während des Herstellens zählt als Fehlschlag – **stell nur an sicheren Orten her**.', en: 'Getting hit while crafting counts as a failure – **only craft in safe places**.' },
           ],
         },
+        {
+          type: 'links',
+          items: [
+            { href: '#/guides/crafting-gear', label: { de: 'Waffen & Rüstung bis Dragon Lord herstellen', en: 'Craft weapons & armor up to Dragon Lord' }, primary: true },
+          ],
+        },
       ],
     },
     {
@@ -238,7 +244,7 @@ export const gatheringCrafting: Guide = {
             { href: 'https://allthings.how/aion-2-how-to-upgrade-essence-extraction-to-professional/', label: 'allthings.how – Essence Extraction to Professional' },
             { href: 'https://aion2atlas.app/guides/essence-extraction/', label: 'aion2atlas – Essence Extraction' },
             { href: 'https://games.gg/aion-2/guides/aion-2-market-guide/', label: 'games.gg – Market guide' },
-            { href: 'https://aion2hub.com/updates/aion-2-global-update-2026-10-14', label: 'aion2hub – Global update 14 Oct 2026' },
+            { href: 'https://aion2.plaync.com/en-us/board/update/view?articleId=6acf20d007b77e214688a7ac', label: 'NCSOFT – Global patch notes 13/14 Oct 2026' },
           ],
         },
       ],
