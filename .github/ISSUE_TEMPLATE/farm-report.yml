@@ -1,0 +1,39 @@
+# A problem with a spot on the farm map. Every spot's "Report a problem" link opens this form with the field `spot`
+# filled in through the address (?spot=<id>), so keep that id. The maintainer fixes or removes the spot by hand in
+# public/data/farm/spots.json.
+name: Report a farm spot
+description: A spot on the farm map is wrong, gone or a duplicate. / Ein Spot auf der Farmkarte ist falsch, weg oder doppelt.
+title: "[Farm report] "
+labels: ["farm-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tell us what is wrong with this spot. The maintainer checks it and fixes or removes the spot.
+
+        Sag uns, was mit diesem Spot nicht stimmt. Der Maintainer prüft das und korrigiert oder entfernt den Spot.
+  - type: input
+    id: spot
+    attributes:
+      label: Spot id / Spot-ID
+      description: Filled in by the farm map page. / Wird von der Farmkarten-Seite ausgefüllt.
+      placeholder: "12-3"
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Problem
+      options:
+        - Wrong place / Falscher Ort
+        - Gone after a patch / Nach einem Patch weg
+        - Duplicate / Doppelt
+        - Wrong details / Falsche Angaben
+        - Inappropriate / Unangemessen
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What is wrong, and what would be right? Only what you saw yourself in the game. / Was stimmt nicht, und was wäre richtig? Nur was du selbst im Spiel gesehen hast.

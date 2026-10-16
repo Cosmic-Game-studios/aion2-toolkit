@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType } from 'react';
-import { BookOpen, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
+import { BookOpen, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, Map as MapIcon, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
@@ -28,6 +28,8 @@ import { CombosPage } from './features/combos/CombosPage';
 const GuidesPage = lazy(() => import('./features/guides/GuidesPage').then((m) => ({ default: m.GuidesPage })));
 // the top 10 per class (its data loads with the page, per class)
 const TopPage = lazy(() => import('./features/top/TopPage').then((m) => ({ default: m.TopPage })));
+// the farm map: spots players found in the game (its data loads with the page)
+const FarmPage = lazy(() => import('./features/farm/FarmPage').then((m) => ({ default: m.FarmPage })));
 
 type Group = 'start' | 'planner' | 'knowledge' | 'community';
 
@@ -41,6 +43,8 @@ interface RouteDef {
   tab?: boolean;
   /** shorter label for the phone navigation and the phone tab grid */
   short?: StringKey;
+  /** more addresses that open the page (a shorter or an older name) */
+  alias?: string[];
 }
 
 // planner tabs in the order a build is filled in (same as PLANNER_FLOW)
@@ -54,6 +58,7 @@ const ROUTES: RouteDef[] = [
   { path: '/database', key: 'navDatabase', Icon: BookOpen, Comp: SkillDatabase, group: 'knowledge' },
   { path: '/guides', key: 'navGuides', Icon: ScrollText, Comp: GuidesPage, group: 'knowledge' },
   { path: '/top', key: 'navTop', Icon: Trophy, Comp: TopPage, group: 'knowledge' },
+  { path: '/farm', alias: ['/map'], key: 'navFarm', short: 'navFarmShort', Icon: MapIcon, Comp: FarmPage, group: 'knowledge' },
   { path: '/community', key: 'navCommunity', Icon: Users, Comp: CommunityPage, group: 'community' },
 ];
 
@@ -167,7 +172,7 @@ export default function App() {
     return () => { window.removeEventListener('hashchange', onHash); document.removeEventListener('click', onClick); };
   }, []);
 
-  const current = ROUTES.find((r) => r.path === hash.base) ?? ROUTES[0];
+  const current = ROUTES.find((r) => r.path === hash.base || r.alias?.includes(hash.base)) ?? ROUTES[0];
   const Page = current.Comp;
 
   // a new page starts at the top and screen readers continue in the content (not when only a page parameter changed)

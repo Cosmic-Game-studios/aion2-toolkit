@@ -1,0 +1,32 @@
+# Farm spots sent from the farm map page (#/farm). The page opens this form with the field `spots` filled in through the
+# address (?spots=...), so keep that id. When the maintainer adds the label farm-approved,
+# .github/workflows/farm-spots.yml imports the spots (scripts/farm-import.mjs). The script looks for the ticked option
+# of `own` by its first words ("I saw these spots myself"): change it there too if the label changes.
+name: Farm spots
+description: Add spots you saw in the game to the farm map. / Trag Spots, die du im Spiel gesehen hast, in die Farmkarte ein.
+title: "[Farm] "
+labels: ["farm-spot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **How it works:** note your spots on the farm map page of Daevaforge and submit them there; the page fills in the list below. Only spots you saw yourself in the game: nothing copied from other sites or maps. The maintainer checks the spots and approves them; they then appear on the map and this issue is closed. Your GitHub name is visible on this issue.
+
+        **So geht's:** Trag deine Spots auf der Farmkarten-Seite von Daevaforge ein und schick sie dort ab; die Seite füllt die Liste unten aus. Nur Spots, die du selbst im Spiel gesehen hast: nichts von anderen Seiten oder Karten übernommen. Der Maintainer prüft die Spots und gibt sie frei; dann erscheinen sie auf der Karte und dieses Issue wird geschlossen. Dein GitHub-Name ist in diesem Issue sichtbar.
+  - type: textarea
+    id: spots
+    attributes:
+      label: Spots
+      description: Filled in by the farm map page; leave it as it is. / Wird von der Farmkarten-Seite ausgefüllt; lass es so, wie es ist.
+      placeholder: '{"v":1,"spots":[...]}'
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: own
+    attributes:
+      label: Own observation / Eigene Beobachtung
+      description: Ich habe diese Spots selbst im Spiel gesehen und nicht von anderen Seiten oder Karten übernommen.
+      options:
+        - label: I saw these spots myself in the game and did not copy them from other sites or maps
+          required: true

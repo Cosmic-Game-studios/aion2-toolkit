@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, type ReactNode, type RefObject } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, type MouseEvent as ReactMouseEvent, type ReactNode, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useOptionalGame } from '../data/GameDataContext';
@@ -65,6 +65,11 @@ export function Modal({ open, title, onClose, children, footer, wide, size, shee
   // keep the latest onClose without re-running the open effect (callers often pass inline functions)
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
+  // when the dialog opened; set during the commit, so no press can reach the backdrop before it
+  const openedAt = useRef(0);
+  useLayoutEffect(() => {
+    if (open) openedAt.current = performance.now();
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -128,9 +133,17 @@ export function Modal({ open, title, onClose, children, footer, wide, size, shee
 
   if (!open) return null;
   const sz = size ?? (wide ? 'wide' : 'md');
+  // the second press of a double-click or double-tap whose first press opened the dialog lands on the backdrop:
+  // it must not close it (and lose what the dialog holds); a deliberate backdrop click is a first press later on
+  const onBackdrop = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (e.target !== e.currentTarget || e.detail >= 2 || performance.now() - openedAt.current <= 300) return;
+    // the press must not move the focus: the dialog gives it back to the button that opened it
+    e.preventDefault();
+    onClose();
+  };
   // portal: ancestors with backdrop-filter (build bar) would otherwise trap the fixed backdrop
   return createPortal(
-    <div className={`modal-backdrop ${sheet ? 'sheet' : ''}`} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div className={`modal-backdrop ${sheet ? 'sheet' : ''}`} onMouseDown={onBackdrop}>
       <div
         className={`modal ${sz} ${sz === 'wide' ? 'wide' : ''} ${sheet ? 'sheet' : ''} ${className}`}
         role="dialog"

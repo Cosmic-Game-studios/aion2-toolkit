@@ -10,7 +10,6 @@ export function Credits() {
       {meta && (
         <p className="data-status">
           <Globe2 size={13} aria-hidden /> {t('dataStatus', { date: meta.updatedAt ? fmtDate(meta.updatedAt, lang) : '–' })}
-          <span className="muted"> · {t('dataAuto')}</span>
         </p>
       )}
       <p>{t('credits')}</p>

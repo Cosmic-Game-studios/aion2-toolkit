@@ -15,7 +15,8 @@
     "data:levels": "node scripts/fetch-learn-levels.mjs",
     "data:icons": "node scripts/fetch-icons.mjs",
     "check:curated": "node scripts/check-curated.mjs",
-    "top": "node scripts/fetch-top-builds.mjs"
+    "top": "node scripts/fetch-top-builds.mjs",
+    "data:farm-tcimba": "node scripts/farm-tcimba.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.1.0",

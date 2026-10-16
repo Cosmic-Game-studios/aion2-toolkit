@@ -3,7 +3,7 @@
    The page background (body) is intentionally unchanged.
 
    Foundation first (tokens, base, focus, utilities, controls, touch); the area sections follow.
-   Rules for every section (full list with values: scratchpad ui/foundation.md):
+   Rules for every section (the values are the :root tokens below):
    - font sizes from the type scale (--fs-*). Nothing below 12px; --fs-2xs (11px) only for tiny tile corner badges.
    - spacing --sp-*, radii --r-*, shadows --shadow-*, stacking --z-*, control heights --control-h* (they grow to
      touch size on coarse pointers by themselves - never hard-code 26/28/30/34px heights on controls).
@@ -2472,6 +2472,11 @@ button.bp-row:active { background: var(--surface-2); }
 @keyframes slidein { from { opacity: 0; transform: translateX(16px); } }
 @media (max-width: 640px) {
   .toasts { left: var(--sp-4); right: var(--sp-4); width: auto; }
+  /* a toast with a button: the message keeps the width, the button moves under it */
+  .toast:has(.toast-action) { flex-wrap: wrap; }
+  .toast:has(.toast-action) .toast-msg { flex-basis: calc(100% - 80px); }
+  .toast:has(.toast-action) .toast-close { order: 1; }
+  .toast:has(.toast-action) .toast-action { order: 2; margin-left: 27px; }
   /* a bottom sheet is open: toasts move to the top so they do not cover its buttons */
   body:has(.modal-backdrop) .toasts { top: calc(var(--sp-3) + env(safe-area-inset-top)); bottom: auto; }
 }
@@ -3835,3 +3840,609 @@ button.bp-row:active { background: var(--surface-2); }
 /* what to pick: the recommended nodes keep the planner's "learned" look, the others step back */
 .top-rec-dv .top-grid .node:not(.learned):not(.kind-S):not(.selected):not(:focus-visible),
 .top-rec-dv .top-legend .lg-node:not(.learned):not(.round) { filter: saturate(.35) brightness(.6); }
+
+/* ---------- farm map: map view ---------- */
+/* ==========================================================================
+   Farm map view (FarmMap.tsx): the region picture with the spots, own pan and zoom
+   ========================================================================== */
+.fm { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; scroll-margin-top: calc(var(--topbar-h) + var(--sp-3)); }
+.fm-frame { position: relative; min-width: 0; }
+/* the view: as tall as the picture's aspect ratio within limits; every touch gesture on it belongs to the map */
+.fm-surface {
+  position: relative; isolation: isolate; width: 100%; min-width: 0; /* no width taken over from min-height through the ratio */
+  aspect-ratio: var(--fm-ratio, 4 / 3); min-height: 280px; max-height: min(72vh, 760px); max-height: min(72dvh, 760px);
+  overflow: hidden; overflow: clip;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--input);
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  cursor: grab;
+}
+/* over a marker on the canvas (FarmMap sets data-hover); never while dragging or placing a spot */
+.fm-surface[data-hover] { cursor: pointer; }
+.fm-surface[data-moving] { cursor: grabbing; }
+.fm-surface.picking { cursor: crosshair; }
+/* the picture would cover an outline, so the focus ring is drawn on top of it */
+.fm-surface:focus-visible { outline: none; }
+.fm-surface::after { content: ''; position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none; }
+.fm-surface:focus-visible::after { box-shadow: inset 0 0 0 2px var(--focus); }
+
+/* the layers: the picture at its natural size, moved by one transform that FarmMap writes. Bottom to top: the picture
+   with the area names, the marker canvas (not moved, FarmMap draws it for each view), the selected marker and the pick
+   ghost. */
+.fm-layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.fm-surface[data-moving] .fm-layer { will-change: transform; }
+.fm-layer > img { display: block; width: 100%; height: 100%; max-width: none; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.fm-canvas { position: absolute; inset: 0; pointer-events: none; }
+.fm-canvas > canvas { display: block; width: 100%; height: 100%; }
+/* the map itself takes the clicks on the canvas (FarmMap finds the nearest marker); only the button reaches above it */
+.fm-top { pointer-events: none; }
+.fm-top > .fm-marker { pointer-events: auto; }
+
+/* the selected marker (the others are drawn on the canvas after these rules, farmCanvas.ts: keep both in step).
+   Counter-scaled with --fm-k, so it keeps its size on screen. Never a transition on transform: it follows the zoom
+   every frame. The icon sits on the group colour (--fc); a shape tells the states apart, not the colour. */
+.fm-marker {
+  position: absolute; z-index: 1; display: grid; place-items: center;
+  width: 28px; height: 28px; margin: 0; padding: 0; border-radius: 50%;
+  border: 2px solid #0b0f15; background: var(--fc, var(--accent)); color: #0b0f15;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+  transform: translate(-50%, -50%) scale(var(--fm-k, 1));
+  cursor: pointer; transition: box-shadow var(--dur-fast);
+}
+/* a larger hit area than the badge */
+.fm-marker::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; }
+.fm-marker > svg { pointer-events: none; }
+/* a spot of the AION2 Interactive Map data: smaller, so the players' own spots stand out among hundreds (zoomed out,
+   the canvas draws them as 11 px dots; the selected one keeps its icon) */
+.fm-marker.src { width: 22px; height: 22px; border-width: 1.5px; }
+.fm-marker.src > svg { width: 12px; height: 12px; }
+/* area names: counter-scaled like the markers, under them, never in the way of a click */
+.fm-areas { position: absolute; inset: 0; pointer-events: none; }
+.fm-area {
+  position: absolute; width: max-content; max-width: 9em; transform: translate(-50%, -50%) scale(var(--fm-k, 1));
+  font-size: var(--fs-xs); font-weight: 600; line-height: 1.15; text-align: center; letter-spacing: .01em;
+  color: #e6edf5; text-shadow: 0 0 3px #0b0f15, 0 1px 2px #0b0f15, 0 0 6px #0b0f15;
+}
+/* not on the map yet: the player's own draft, or sent and waiting for approval */
+.fm-marker.pending { background: var(--surface-solid); color: var(--fc, var(--accent)); border: 2px dashed var(--fc, var(--accent)); opacity: .85; }
+.fm-marker.on {
+  z-index: 2; opacity: 1;
+  transform: translate(-50%, -50%) scale(calc(var(--fm-k, 1) * 1.3));
+  box-shadow: 0 0 0 2px #0b0f15, 0 0 0 4px var(--text-strong), 0 2px 10px rgba(0, 0, 0, .7);
+}
+.fm-marker:focus-visible { z-index: 3; outline: 2px solid var(--focus); outline-offset: 4px; }
+/* a found spot: the check badge the canvas draws on its found look (farmCanvas BADGE_R / BADGE_AT), over the lower
+   right of the disc; the selected marker itself is not dimmed */
+.fm-check {
+  position: absolute; left: 85%; top: 85%; display: grid; place-items: center;
+  width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; pointer-events: none;
+  background: var(--text-strong); color: #0b0f15; box-shadow: 0 0 0 1.5px #0b0f15;
+}
+.fm-check > svg { width: 9px; height: 9px; }
+.fm-marker.src .fm-check { width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+.fm-marker.src .fm-check > svg { width: 7.5px; height: 7.5px; }
+/* pick mode: a click anywhere sets the position, the markers stay quiet */
+.fm-surface.picking .fm-marker { pointer-events: none; opacity: .5; }
+@media (hover: hover) {
+  .fm-marker:hover { z-index: 2; box-shadow: 0 0 0 2px #0b0f15, 0 0 0 4px var(--fc, var(--accent)), 0 2px 8px rgba(0, 0, 0, .7); }
+}
+@media (pointer: coarse) {
+  .fm-marker { width: 32px; height: 32px; }
+  .fm-marker::before { inset: -5px; }
+}
+/* the ring of .fm-marker:hover around the marker under the mouse (the canvas draws the marker itself on top of its
+   neighbours); sized like the marker's look (farmCanvas.ts) */
+.fm-ring {
+  position: absolute; z-index: 1; width: 28px; height: 28px; border-radius: 50%; pointer-events: none;
+  transform: translate(-50%, -50%) scale(var(--fm-k, 1));
+  box-shadow: 0 0 0 2px #0b0f15, 0 0 0 4px var(--fc, var(--accent)), 0 2px 8px rgba(0, 0, 0, .7);
+}
+.fm-ring[data-look='draft'] { opacity: .85; }
+.fm-ring[data-look='src'] { width: 22px; height: 22px; }
+.fm-ring[data-look='dot'] { width: 11px; height: 11px; }
+@media (pointer: coarse) {
+  .fm-ring:where([data-look='spot'], [data-look='draft']) { width: 32px; height: 32px; }
+}
+/* the name of the marker under the mouse; FarmMap places it over the marker, inside the view. It is the frame's
+   child, after the zoom buttons: inside the surface (isolated) it would lie under them */
+.fm-tip {
+  position: absolute; left: 0; top: 0; z-index: 4; max-width: min(260px, calc(100% - 8px)); padding: 3px 8px;
+  border: 1px solid var(--line-strong); border-radius: var(--r-sm); background: var(--surface-solid); box-shadow: var(--shadow-sm);
+  color: var(--text); font-size: var(--fs-xs); line-height: var(--lh-snug); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* pick mode: the position the spot has now */
+.fm-ghost {
+  position: absolute; z-index: 3; width: 30px; height: 30px; border-radius: 50%; pointer-events: none;
+  border: 2px dashed var(--text-strong); background: rgba(95, 180, 255, .3); box-shadow: 0 0 0 2px rgba(11, 15, 21, .85);
+  transform: translate(-50%, -50%) scale(var(--fm-k, 1));
+}
+.fm-ghost::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
+  border-radius: 50%; background: var(--text-strong);
+}
+/* keyboard picking: Enter takes the point under the crosshair (shown while the map has keyboard focus) */
+.fm-cross {
+  position: absolute; left: 50%; top: 50%; z-index: 2; display: none; color: var(--text-strong); pointer-events: none;
+  transform: translate(-50%, -50%); filter: drop-shadow(0 0 1px #000) drop-shadow(0 0 3px rgba(0, 0, 0, .8));
+}
+.fm-surface:focus-visible > .fm-cross { display: block; }
+
+/* zoom buttons over the top right corner of the map */
+.fm-tools { position: absolute; top: var(--sp-2); right: var(--sp-2); z-index: 4; display: flex; flex-direction: column; gap: var(--sp-1); }
+.fm-tools .icon-btn { background: var(--surface-solid); box-shadow: var(--shadow-sm); }
+.fm-tools .icon-btn[aria-disabled='true'] { background: var(--surface-solid); }
+@media (hover: hover) {
+  .fm-tools .icon-btn:hover:where(:not([aria-disabled='true'])) { background: var(--surface-3); }
+}
+
+/* pick mode banner above the map */
+.fm-pickbar {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) var(--sp-3); border: 1px solid var(--accent); border-radius: var(--r-md); background: var(--accent-soft);
+}
+.fm-pickbar > svg { flex: none; color: var(--accent); }
+.fm-pick-text {
+  display: flex; flex-direction: column; gap: 2px; flex: 1 1 240px; min-width: 0;
+  font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2);
+}
+.fm-pick-text strong { color: var(--text-strong); }
+.fm-pickbar kbd { margin-left: var(--sp-1); }
+
+/* the picture failed to load (over the map), or there is none */
+.fm-msg {
+  position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--sp-2); padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface-2);
+  color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-snug); text-align: center;
+}
+.fm-msg > svg { color: var(--muted); }
+.fm-msg-static { position: static; min-height: 200px; border: 1px solid var(--line); }
+.fm-help { font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--muted); }
+
+@media (max-width: 980px) {
+  .fm-surface { max-height: min(64vh, 640px); max-height: min(64dvh, 640px); }
+}
+@media (max-width: 640px) {
+  .fm-surface { min-height: 240px; max-height: 62vh; max-height: 62dvh; border-radius: var(--r-md); }
+  .fm-msg { border-radius: var(--r-md); }
+  .fm-tools { top: 6px; right: 6px; }
+  .fm-pickbar { padding: var(--sp-2); }
+  .fm-pickbar .btn { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fm-marker, .fm-tools .icon-btn { transition: none; }
+}
+
+/* ---------- farm map: page ---------- */
+/* ---------- farm map page (features/farm: FarmPage, FarmFilters, SpotList) ---------- */
+/* Header, faction switch and region chips; below them the filters in a sticky left column (280 px) and the map and
+   the spot cards on the right. One column up to 980 px; below 768 px (FARM_MOBILE in FarmFilters.tsx) the map takes
+   the whole width, and everything of the filters but the search moves into a bottom sheet, as does the selected
+   spot's card. Group colours come in as --fc (farmIcons GROUP_COLOR); the card text and badges never rely on the
+   colour alone. */
+.farm-page { gap: var(--sp-5); }
+.farm-how {
+  display: flex; align-items: flex-start; gap: var(--sp-2); max-width: 760px; margin-top: calc(var(--sp-2) * -1);
+  font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2);
+}
+.farm-how > svg { flex: none; margin-top: 2px; color: var(--accent); }
+.farm-h2 { font-size: var(--fs-lg); font-weight: 700; line-height: var(--lh-tight); color: var(--text-strong); }
+.farm-h3 { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-md); font-weight: 650; line-height: var(--lh-tight); color: var(--text-strong); }
+.farm-h3 .count { margin-left: 0; }
+.farm-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--fc, var(--accent)); }
+
+/* faction and region */
+.farm-where { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4); }
+.farm-regions { display: flex; flex-wrap: wrap; gap: var(--sp-2); min-width: 0; }
+.farm-region {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--control-h); padding: 0 14px;
+  border-radius: var(--r-pill); border: 1px solid var(--control-border); background: var(--surface); color: var(--text-2);
+  font-size: var(--fs-sm); font-weight: 600; white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+.farm-region .count { margin: 0 -6px 0 0; }
+.farm-region.on { border-color: var(--accent); background: var(--accent-soft); color: var(--text-strong); box-shadow: inset 0 0 0 1px var(--accent); }
+.farm-region.on .count { background: var(--accent-soft); color: var(--text-strong); }
+.farm-region:active { background: var(--surface-2); }
+.farm-region:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* layout: filters | map and list */
+.farm-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
+.farm-side {
+  position: sticky; top: calc(var(--topbar-h) + var(--sp-4)); min-width: 0; border-radius: var(--r-lg);
+  max-height: calc(100vh - var(--topbar-h) - 2 * var(--sp-4)); max-height: calc(100dvh - var(--topbar-h) - 2 * var(--sp-4));
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.farm-main { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0; }
+.farm-drafts, .farm-map { min-width: 0; border-radius: var(--r-lg); scroll-margin-top: calc(var(--topbar-h) + var(--sp-4)); }
+.farm-nomap {
+  display: flex; align-items: flex-start; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-lg);
+  border: 1px dashed var(--line-strong); background: var(--surface); color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-snug);
+}
+.farm-nomap > svg { flex: none; margin-top: 1px; color: var(--muted); }
+/* the other source's credit (CC BY-NC 4.0 asks for the name, the licence and the changes) */
+.farm-credit { display: flex; align-items: flex-start; gap: var(--sp-2); margin: var(--sp-4) 0 0; font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--text-2); }
+.farm-credit > svg { flex: none; margin-top: 1px; color: var(--muted); }
+.farm-more { margin-top: var(--sp-3); }
+/* the map with the selected spot's card right under it */
+.farm-mapwrap { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.farm-sel { position: relative; min-width: 0; scroll-margin: calc(var(--topbar-h) + var(--sp-4)) 0 calc(var(--bottom-nav-h, 0px) + var(--sp-4)); }
+.farm-sel .farm-cards { grid-template-columns: minmax(0, 1fr); }
+.farm-card.preview { padding-right: 52px; border-color: var(--accent); }
+.farm-sel-close { position: absolute; top: var(--sp-2); right: var(--sp-2); }
+
+/* filters */
+.farm-filters {
+  display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; padding: var(--sp-4);
+  border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line);
+}
+.farm-filters .farm-h2 { font-size: var(--fs-md); }
+.farm-search { flex: none; min-width: 0; }
+/* the search box and its list of places to jump to (FarmSearch), laid over the filters under the box */
+.farm-search-wrap { position: relative; min-width: 0; }
+.farm-kbd { flex: none; margin-right: var(--sp-1); color: var(--muted); }
+.farm-jump {
+  position: absolute; top: calc(100% + var(--sp-1)); left: 0; right: 0; z-index: var(--z-popover);
+  max-height: min(420px, 55vh); overflow-y: auto; overscroll-behavior: contain; padding: var(--sp-1);
+  border: 1px solid var(--line-strong); border-radius: var(--r-md); background: var(--surface-solid); box-shadow: var(--shadow);
+}
+.farm-jump-group + .farm-jump-group { margin-top: var(--sp-1); padding-top: var(--sp-1); border-top: 1px solid var(--line-soft); }
+.farm-jump-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); padding: 6px var(--sp-2) 4px;
+  font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2);
+}
+.farm-jump-n { flex: none; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+.farm-jump-opt { display: flex; align-items: center; gap: var(--sp-2); min-height: 40px; padding: 4px var(--sp-2); border-radius: var(--r-sm); cursor: pointer; }
+.farm-jump-ico { flex: none; color: var(--fc, var(--muted)); }
+.farm-jump-text { display: flex; flex-direction: column; min-width: 0; }
+.farm-jump-name { font-size: var(--fs-sm); font-weight: 600; line-height: var(--lh-snug); color: var(--text-strong); overflow-wrap: anywhere; }
+.farm-jump-sub { font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--text-2); overflow-wrap: anywhere; }
+/* the option the arrow keys reached: a ring as well as the fill */
+.farm-jump-opt[aria-selected='true'] { background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent); }
+/* layer presets over the category groups: each one sets every category at once */
+.farm-presets { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.farm-preset-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.farm-fline { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-2); }
+.farm-result { font-size: var(--fs-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+.farm-fbody { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; }
+.farm-fgroup { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+.farm-fgroup-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.farm-fgroup-name {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-width: 0;
+  font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2);
+}
+.farm-fgroup-all {
+  flex: none; min-height: 28px; padding: 0 var(--sp-2); border: 0; border-radius: var(--r-sm); background: none;
+  color: var(--accent); font-size: var(--fs-xs); font-weight: 600; cursor: pointer;
+}
+.farm-fgroup-all:active { background: var(--surface-2); }
+.farm-fgroup-all:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.farm-cats { display: flex; flex-direction: column; }
+.farm-cat {
+  display: flex; align-items: center; gap: var(--sp-2); min-height: 32px; margin: 0 -6px; padding: 2px 6px;
+  border-radius: var(--r-sm); color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-snug); cursor: pointer;
+}
+.farm-cat input { flex: none; margin: 0; }
+.farm-cat-ico { flex: none; color: var(--fc); }
+.farm-cat-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.farm-cat-n { flex: none; min-width: 2ch; text-align: right; font-size: var(--fs-xs); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* nothing of this kind in the region yet: quieter, still readable */
+.farm-cat.zero .farm-cat-name, .farm-cat.zero .farm-cat-n { color: var(--faint); }
+/* every spot of the category found ("118/118" says it in numbers too) */
+.farm-cat.done .farm-cat-n { color: var(--ok); }
+.farm-cat:has(input:focus-visible) { background: var(--surface-2); }
+.farm-level { display: flex; flex-direction: column; gap: var(--sp-2); }
+.farm-level-row { display: flex; align-items: center; gap: var(--sp-2); color: var(--muted); }
+.farm-level-row input { width: 72px; text-align: center; font-variant-numeric: tabular-nums; }
+.farm-onlypos { align-self: flex-start; }
+
+/* the progress block at the end of the filters (FarmProgress) */
+.farm-progress { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); min-width: 0; }
+.farm-progress-sum { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); font-variant-numeric: tabular-nums; }
+.farm-progress-actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+/* a link set the categories for this visit: said where the filters are, with the two ways on */
+.farm-linkcats {
+  display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--accent); border-radius: var(--r-md); background: var(--accent-soft);
+}
+.farm-linkcats p { display: flex; align-items: flex-start; gap: var(--sp-2); font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+.farm-linkcats p > svg { flex: none; margin-top: 2px; color: var(--accent); }
+.farm-linkcats-actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+/* the dialog that saves and loads the progress */
+.farm-progress-dialog .modal-body { display: flex; flex-direction: column; gap: var(--sp-5); }
+.farm-progress-part { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.farm-progress-part + .farm-progress-part { padding-top: var(--sp-5); border-top: 1px solid var(--line-soft); }
+.farm-code {
+  min-height: 0; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--fs-xs); line-height: var(--lh-snug); word-break: break-all;
+}
+.farm-progress-mode { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
+.farm-progress-error { display: flex; align-items: flex-start; gap: var(--sp-2); font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--bad); }
+.farm-progress-error > svg { flex: none; margin-top: 2px; }
+
+/* phones: "Layers & filters" opens the filters' sheet; the search and the result line stay on the page */
+.farm-sheet-btn { width: 100%; justify-content: flex-start; }
+.farm-sheet-btn .count { margin-left: auto; background: var(--accent-soft); color: var(--text-strong); }
+
+/* spot list */
+.farm-list { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0; }
+.farm-group { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.farm-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--sp-3); }
+.farm-card {
+  display: flex; align-items: flex-start; gap: var(--sp-3); min-width: 0; padding: var(--sp-3);
+  border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  /* the card scrolls into view after a marker click: clear of the top bar and the bottom navigation */
+  scroll-margin: calc(var(--topbar-h) + var(--sp-4)) 0 calc(var(--bottom-nav-h, 0px) + var(--sp-4));
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.farm-card.has-map { cursor: pointer; }
+/* the player's own spots: dashed like their pending markers */
+.farm-card.pending { border-style: dashed; border-color: var(--line-strong); background: var(--surface-2); }
+.farm-card.on { border-style: solid; border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 3px rgba(95, 180, 255, .14); }
+.farm-card:has(:focus-visible):not(.on) { border-color: var(--line-strong); }
+.farm-ico { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: var(--r-md); background: var(--fc); color: var(--bg); }
+.farm-card.pending .farm-ico { background: transparent; color: var(--fc); border: 2px dashed var(--fc); }
+.farm-card-main { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
+.farm-card-name {
+  margin: 0; font-size: var(--fs-base); font-weight: 650; line-height: var(--lh-snug); text-transform: none; letter-spacing: 0;
+  color: var(--text-strong); overflow-wrap: anywhere;
+}
+.farm-card-meta { display: flex; flex-wrap: wrap; gap: 2px var(--sp-2); font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--muted); }
+.farm-card-meta > span + span::before { content: '·'; margin-right: var(--sp-2); color: var(--faint); }
+.farm-lv { font-weight: 600; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.farm-status {
+  display: inline-flex; align-items: center; gap: 5px; align-self: flex-start; max-width: 100%; min-height: 22px; padding: 2px 8px;
+  border-radius: var(--r-md); border: 1px solid rgba(227, 184, 102, .35); background: var(--gold-soft); color: var(--gold);
+  font-size: var(--fs-xs); font-weight: 600; line-height: var(--lh-snug);
+}
+.farm-status > svg { flex: none; }
+.farm-status.sent { border-color: rgba(95, 180, 255, .35); background: var(--accent-soft); color: var(--accent); }
+.farm-status.found { border-color: rgba(79, 209, 161, .35); background: rgba(79, 209, 161, .1); color: var(--ok); }
+.farm-card-area { display: flex; align-items: flex-start; gap: 6px; font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); overflow-wrap: anywhere; }
+.farm-card-area > svg { flex: none; margin-top: 2px; color: var(--muted); }
+.farm-drops { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
+.farm-drops-label { font-size: var(--fs-xs); font-weight: 600; color: var(--muted); }
+.farm-drops .chip { height: auto; min-height: 24px; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.farm-card-note { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); overflow-wrap: anywhere; }
+.farm-card-by { font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--muted); overflow-wrap: anywhere; }
+.farm-card-actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: 2px; }
+.farm-empty { padding: 0; }
+.farm-empty .empty { padding: var(--sp-8) var(--sp-4); }
+
+/* loading */
+.farm-skeleton { display: flex; flex-direction: column; gap: var(--sp-3); }
+.farm-skeleton .loading { justify-content: flex-start; padding: 0; }
+.farm-sk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: var(--sp-3); }
+.farm-sk-card { height: 140px; border-radius: var(--r-lg); }
+
+@media (hover: hover) {
+  .farm-region:hover:not(.on) { border-color: var(--control-border-hover); color: var(--text-strong); }
+  .farm-cat:hover { background: var(--surface-2); color: var(--text-strong); }
+  .farm-fgroup-all:hover { background: var(--surface-2); color: var(--accent-hover); }
+  .farm-jump-opt:hover:not([aria-selected='true']) { background: var(--surface-2); }
+  .farm-card.has-map:hover:not(.on) { border-color: var(--line-strong); }
+}
+@media (pointer: coarse) {
+  .farm-cat, .farm-fgroup-all { min-height: var(--tap-sm); }
+  .farm-jump-opt { min-height: var(--tap); }
+}
+/* touch screens have no "/" key to show */
+@media (hover: none) { .farm-kbd { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .farm-region, .farm-card { transition: none; }
+}
+
+/* narrow: one column, the filters scroll with the page; their groups sit side by side where there is room */
+@media (max-width: 980px) {
+  .farm-layout { grid-template-columns: minmax(0, 1fr); }
+  .farm-side { position: static; max-height: none; overflow: visible; }
+  .farm-fbody { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: var(--sp-4) var(--sp-5); align-items: start; }
+  .farm-presets { grid-column: 1 / -1; }
+}
+/* phones: 16 px gutter from .main; faction and region rows fill the width, card buttons share their row */
+@media (max-width: 640px) {
+  .farm-page, .farm-layout, .farm-main { gap: var(--sp-4); }
+  .farm-page .page-actions .btn { flex: 1 1 auto; }
+  .farm-where { flex-direction: column; align-items: stretch; gap: var(--sp-3); }
+  .farm-where .segmented { display: flex; width: 100%; }
+  .farm-where .segmented button { flex: 1 1 0; min-width: 0; padding: 0 var(--sp-2); }
+  .farm-region { flex: 1 1 auto; justify-content: center; }
+  .farm-filters { padding: var(--sp-3); }
+  .farm-nomap { padding: var(--sp-3); }
+  .farm-card-actions .btn { flex: 1 1 auto; }
+}
+
+/* FARM_MOBILE (below 768 px): the map from edge to edge (out of the page gutter of .main) and about 70 % of the screen
+   high, but never taller than the room between the top bar and the bottom navigation, so the page can still be
+   scrolled past it. The filters and the selected spot's card are bottom sheets (Modal). */
+@media (max-width: 767px) {
+  .farm-map .fm-frame { margin-inline: calc(var(--sp-6) * -1); }
+  .farm-map .fm-surface {
+    aspect-ratio: auto; min-height: 240px; max-height: none; border-radius: 0; border-inline: 0;
+    height: 70vh;
+    height: min(70dvh, calc(100dvh - var(--topbar-h) - var(--bottom-nav-h, 0px) - env(safe-area-inset-bottom) - var(--sp-6)));
+  }
+  .farm-map .fm-msg { border-radius: 0; }
+  /* edge to edge: the zoom buttons stay clear of a notch in landscape */
+  .farm-map .fm-tools { right: max(6px, env(safe-area-inset-right)); }
+  /* Modal pads for the home indicator only up to 640 px; these sheets go up to 767 px and keep clear of a notch too */
+  .farm-sheet { padding-inline: env(safe-area-inset-left) env(safe-area-inset-right); }
+  .farm-sheet .modal-foot { padding-bottom: calc(var(--sp-3) + env(safe-area-inset-bottom)); }
+  .farm-sheet .modal-body:last-child { padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom)); }
+  body:has(.farm-sheet) .toasts { top: calc(var(--sp-3) + env(safe-area-inset-top)); bottom: auto; }
+  /* under the map here (FarmPage): no pull towards the page header */
+  .farm-main > .farm-how { margin-top: 0; }
+  /* the result line on a row of its own, the two buttons under it */
+  .farm-filter-sheet .modal-foot .farm-result { flex: 1 1 100%; }
+}
+@media (max-width: 640px) {
+  .farm-map .fm-frame { margin-inline: calc(var(--sp-4) * -1); }
+}
+/* the card's sheet leaves the selected marker in sight above it (no blur), but the shade is dark enough to say the map
+   is out of reach while the sheet is open (a dialog: a press on the shade only closes it); the sheet is the card's frame */
+.modal-backdrop:has(> .farm-card-sheet) { background: rgba(4, 6, 10, .55); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.farm-card-sheet .farm-cards { grid-template-columns: minmax(0, 1fr); }
+.farm-card-sheet .farm-card.preview { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+
+/* ---------- farm map: contribute ---------- */
+/* ---------- farm map: spot form (SpotForm.tsx) ---------- */
+/* A .form in a Modal. Hints, counters and errors sit inside the field's <label class="field-block">, so .ff-form rules
+   undo the label text style of .field-block > span for them. Categories are radio chips with the group colour --fc. */
+.ff-form { gap: var(--sp-4); }
+.ff-fieldset { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; margin: 0; padding: 0; border: 0; }
+.ff-label { display: inline-flex; align-items: center; gap: 5px; padding: 0; font-size: var(--fs-xs); font-weight: 600; color: var(--text-2); }
+.ff-form .field-hint { display: block; font-weight: 400; color: var(--muted); }
+.ff-form .ff-error { display: block; font-size: var(--fs-xs); font-weight: 600; line-height: var(--lh-snug); color: var(--bad); }
+.ff-form .ff-count { display: inline-block; align-self: flex-end; flex: none; font-size: var(--fs-xs); font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ff-form .ff-count.over { font-weight: 700; color: var(--bad); }
+.ff-form .ff-hint-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3); font-weight: 400; }
+.ff-form :is(input, textarea)[aria-invalid='true'] { border-color: var(--bad); }
+.ff-form textarea { min-height: 76px; }
+
+/* category chips */
+.ff-cats { display: flex; flex-direction: column; gap: var(--sp-3); }
+.ff-cat-group { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ff-cat-group-name { font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ff-cat-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.ff-cat { position: relative; display: inline-flex; min-width: 0; max-width: 100%; cursor: pointer; }
+.ff-cat input { position: absolute; opacity: 0; pointer-events: none; }
+.ff-cat-ui {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-height: var(--control-h-sm); padding: 4px 12px 4px 9px;
+  border-radius: var(--r-pill); border: 1px solid var(--control-border); background: var(--surface-2); color: var(--text-2);
+  font-size: var(--fs-sm); font-weight: 600; line-height: 1.2;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+.ff-cat-icon { flex: none; color: var(--fc, var(--accent)); }
+.ff-cat-name { min-width: 0; overflow-wrap: anywhere; }
+.ff-cat-check { display: none; flex: none; color: var(--accent); }
+/* the chosen chip: blue ring and a check mark, so the state does not rely on colour */
+.ff-cat input:checked + .ff-cat-ui { border-color: var(--accent); background: var(--accent-soft); color: var(--text-strong); box-shadow: inset 0 0 0 1px var(--accent); }
+.ff-cat input:checked + .ff-cat-ui .ff-cat-check { display: inline-block; }
+.ff-cat input:focus-visible + .ff-cat-ui { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ff-cat:active .ff-cat-ui { background: var(--surface-3); }
+.ff-fieldset.invalid .ff-cat-ui { border-color: var(--bad); }
+@media (hover: hover) {
+  .ff-cat:hover input:not(:checked) + .ff-cat-ui { border-color: var(--control-border-hover); color: var(--text-strong); }
+}
+
+/* position on the region picture */
+.ff-pos { display: flex; flex-direction: column; gap: 6px; padding: 10px var(--sp-3); border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-soft); }
+.ff-pos-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+.ff-pos-state { display: inline-flex; align-items: center; gap: 6px; margin-right: auto; font-size: var(--fs-sm); color: var(--muted); }
+.ff-pos-state > svg { flex: none; }
+.ff-pos-state.set { font-weight: 600; color: var(--ok); }
+
+/* monster level */
+.ff-levels { display: flex; align-items: flex-end; gap: var(--sp-2); }
+.ff-level { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-xs); font-weight: 600; color: var(--text-2); }
+.ff-level input { width: 88px; font-variant-numeric: tabular-nums; }
+.ff-level-dash { padding-bottom: 8px; color: var(--muted); }
+
+/* "I saw this myself": framed, so it reads as a statement and not as a setting */
+.ff-own-wrap { display: flex; flex-direction: column; gap: 6px; }
+.ff-own {
+  align-items: flex-start; padding: 10px var(--sp-3); border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-strong);
+  font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text);
+}
+.ff-own input { flex: none; margin: 1px 0 0; }
+.ff-own:focus-within { border-color: var(--accent); }
+.ff-own.invalid { border-color: var(--bad); }
+
+@media (max-width: 640px) {
+  .ff-cat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ff-cat-ui { width: 100%; min-height: var(--tap-sm); border-radius: var(--r-md); }
+  .ff-pos-state { flex-basis: 100%; }
+  .ff-pos-row .btn { flex: 1 1 auto; }
+  .ff-level { flex: 1 1 0; min-width: 0; }
+  .ff-level input { width: 100%; }
+  .ff-own { padding: var(--sp-3); }
+}
+
+/* ---------- farm map: your spots (DraftsPanel.tsx) ---------- */
+/* A card with the player's drafts grouped by region and the links that open the prefilled GitHub issues. Drafts are
+   not on the map yet: their icon is dashed like the pending markers. Its width depends on where the page puts it, so
+   the layout follows the card (container queries). */
+.fd-panel { display: flex; flex-direction: column; gap: var(--sp-3); container-type: inline-size; }
+.fd-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-2); }
+.fd-head h2 { display: flex; align-items: center; gap: var(--sp-2); border-radius: var(--r-sm); font-size: var(--fs-md); font-weight: 650; color: var(--text-strong); }
+.fd-head h2 > svg { flex: none; color: var(--accent); }
+.fd-head h2 .count { margin-left: 0; }
+.fd-chevron { transition: transform var(--dur) var(--ease-out); }
+.fd-toggle[aria-expanded='true'] .fd-chevron { transform: rotate(180deg); }
+.fd-status { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+
+.fd-groups { display: flex; flex-direction: column; gap: var(--sp-3); }
+.fd-group { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fd-region { display: flex; align-items: center; gap: 2px; font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+/* a container of its own: in the two-column layout each row follows its column, not the whole panel */
+.fd-list { display: flex; flex-direction: column; gap: 6px; container-type: inline-size; }
+.fd-row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "icon main badge tools";
+  align-items: center; gap: var(--sp-1) var(--sp-3); padding: 6px 6px 6px 8px;
+  border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-soft);
+}
+.fd-icon {
+  grid-area: icon; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex: none;
+  border-radius: 50%; border: 2px dashed var(--fc, var(--accent)); color: var(--fc, var(--accent));
+  background: color-mix(in srgb, var(--fc, var(--accent)) 14%, transparent);
+}
+.fd-main { grid-area: main; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.fd-name { font-size: var(--fs-sm); line-height: var(--lh-snug); overflow-wrap: anywhere; }
+.fd-sub { display: flex; flex-wrap: wrap; gap: 0 var(--sp-2); min-width: 0; font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--muted); }
+.fd-sub > span + span:not(:empty)::before { content: '·'; margin-right: var(--sp-2); color: var(--faint); }
+.fd-where { display: inline-flex; align-items: center; gap: 3px; min-width: 0; overflow-wrap: anywhere; }
+.fd-where > svg { flex: none; }
+.fd-badge {
+  grid-area: badge; display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: var(--r-pill);
+  border: 1px dashed var(--control-border); color: var(--text-2); font-size: var(--fs-xs); font-weight: 600; white-space: nowrap;
+}
+.fd-badge > svg { flex: none; }
+.fd-badge.sent { border-style: solid; border-color: rgba(79, 209, 161, .45); background: rgba(79, 209, 161, .1); color: var(--ok); }
+/* too long to send (no link), or on the map in its earlier version: both need the player */
+.fd-badge:is(.toolong, .onmap) { border-style: solid; border-color: rgba(242, 184, 75, .4); background: rgba(242, 184, 75, .08); color: var(--warn); }
+.fd-tools { grid-area: tools; display: flex; gap: 4px; }
+
+.fd-submit { display: flex; flex-direction: column; gap: var(--sp-2); padding-top: var(--sp-3); border-top: 1px solid var(--line-soft); }
+.fd-submit-title { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 700; color: var(--text-strong); }
+.fd-submit-title > svg { flex: none; color: var(--accent); }
+.fd-how { display: flex; flex-direction: column; gap: 4px; }
+.fd-how li { display: flex; align-items: flex-start; gap: var(--sp-2); font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--text-2); }
+.fd-how li > svg { flex: none; margin-top: 1px; color: var(--accent); }
+.fd-parts { font-size: var(--fs-xs); font-weight: 600; line-height: var(--lh-snug); color: var(--text); }
+.fd-links { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-1); }
+/* long German labels wrap inside the button instead of widening the card */
+.fd-link { white-space: normal; text-align: left; padding-top: 4px; padding-bottom: 4px; }
+.fd-link > svg { flex: none; }
+.fd-link-n {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, .16); font-size: var(--fs-xs); font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.btn.ghost .fd-link-n { background: var(--surface-3); color: var(--text-2); }
+.fd-again { display: flex; flex-direction: column; gap: 6px; margin-top: var(--sp-1); }
+.fd-toolong { margin: var(--sp-1) 0 0; }
+.fd-toolong-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; line-height: var(--lh-snug); }
+.fd-fix-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.fd-fix-list .btn { white-space: normal; text-align: left; }
+
+/* a wide card (the page stacked below 980 px): two region columns */
+@container (min-width: 720px) {
+  .fd-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+/* a narrow card (side column, phones): the badge moves under the name and takes the whole row, so a long German date
+   wraps instead of running under the edit and delete buttons */
+@container (max-width: 420px) {
+  .fd-row { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "icon main tools" ". badge badge"; }
+  .fd-badge { justify-self: start; max-width: 100%; height: auto; min-height: 22px; padding-block: 2px; white-space: normal; }
+  .fd-tools { align-self: start; }
+  .fd-links .fd-link { flex: 1 1 100%; justify-content: flex-start; }
+}
+@media (max-width: 640px) {
+  .fd-panel { padding: var(--sp-4); }
+  .fd-links .fd-link { flex: 1 1 100%; min-height: var(--tap); }
+  .fd-row { padding: var(--sp-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ff-cat-ui, .fd-chevron { transition: none; }
+}

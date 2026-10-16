@@ -1,0 +1,106 @@
+# Adds the farm spots of an approved issue to the farm map. Players send spots from the farm map page as an issue
+# (form .github/ISSUE_TEMPLATE/farm-spot.yml, label farm-spot); the maintainer checks them and adds the label
+# farm-approved. scripts/farm-import.mjs reads the issue from the event file, never through the shell, checks every
+# spot and adds the valid ones to public/data/farm/spots.json. The job builds the site, commits the file to main,
+# comments a summary, closes the issue and redeploys GitHub Pages. When nothing could be added, it comments why, removes
+# farm-approved and leaves the issue open; when the import fails, it comments a link to the run. Add the label again to
+# retry: the import skips spots that are on the map already.
+name: Import farm spots
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+jobs:
+  import:
+    # only people who can label issues start an import
+    if: github.event.label.name == 'farm-approved' && contains(github.event.issue.labels.*.name, 'farm-spot')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # one import at a time, each on the newest main. queue: max lets up to 100 approvals wait their turn; the default
+    # (single) keeps only one waiting run and cancels it when the next approval comes, which would drop that issue
+    concurrency:
+      group: farm-spots
+      cancel-in-progress: false
+      queue: max
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    env:
+      # the issue's text never reaches a command line: the script reads it from the event file
+      NUMBER: ${{ github.event.issue.number }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # exit code 0: spots added, 3: nothing to add (the summary says why), anything else: the import failed
+      - id: import
+        run: |
+          code=0
+          node --experimental-strip-types scripts/farm-import.mjs --summary "$RUNNER_TEMP/farm-summary.md" || code=$?
+          if [ "$code" = 0 ]; then
+            echo "added=true" >> "$GITHUB_OUTPUT"
+          elif [ "$code" = 3 ]; then
+            echo "added=false" >> "$GITHUB_OUTPUT"
+          else
+            exit "$code"
+          fi
+      # make sure the site still builds with the new spots before anything is committed
+      - if: steps.import.outputs.added == 'true'
+        run: npm run build
+        env:
+          VITE_COMMUNITY: 'off'
+      - id: commit
+        if: steps.import.outputs.added == 'true'
+        run: |
+          git add public/data/farm/spots.json
+          git config user.name "Cosmic-Game-studios"
+          git config user.email "81530719+Cosmic-Game-studios@users.noreply.github.com"
+          git commit -m "Add farm spots from issue #$NUMBER"
+          # the data jobs push to main as well
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/farm-summary.md"
+          gh issue close "$NUMBER"
+      # nothing added: say why and drop the approval, so adding the label again starts a new import
+      - if: steps.import.outputs.added == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/farm-summary.md"
+          gh issue edit "$NUMBER" --remove-label farm-approved
+      # a failure after the push (only the comment or closing) needs no note: the spots are in and the deploy still runs
+      - if: failure() && steps.commit.outputs.changed != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh issue comment "$NUMBER" --body "The import of these spots failed, nothing was added. The maintainer will look into it: $run_url
+
+          Der Import dieser Spots ist fehlgeschlagen, es wurde nichts hinzugefügt. Der Maintainer kümmert sich darum."
+          gh issue edit "$NUMBER" --remove-label farm-approved
+
+  # pushes made with GITHUB_TOKEN do not start other workflows, so the deploy is called from here. !cancelled() keeps
+  # it running when the import job failed after its push (comment or closing), so pushed spots always go live
+  deploy:
+    needs: import
+    if: ${{ !cancelled() && needs.import.outputs.changed == 'true' }}
+    uses: ./.github/workflows/pages.yml
+    with:
+      ref: main
