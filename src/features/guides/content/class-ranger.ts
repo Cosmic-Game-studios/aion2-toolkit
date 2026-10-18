@@ -122,6 +122,40 @@ export const rangerGuide = classGuide({
       de: 'Vor Stufe 14 fehlt dir [[14010000|Deadshot]], vor Stufe 22 hast du keine Stigmen – lass diese Schritte einfach weg.',
       en: 'Before level 14 you do not have [[14010000|Deadshot]], before level 22 you have no stigmas – simply skip those steps.',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Markieren', en: 'Mark' },
+          text: { de: '[[14090000|Marking Shot]] gibt dir **Letalität**: +300 Krit.-Treffer', en: '[[14090000|Marking Shot]] gives you **Precision**: +300 Critical Hit' },
+          tag: { de: 'Taste E', en: 'Key E' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Wirbelwind', en: 'Gale' },
+          text: { de: '[[14110000|Gale Arrow]]: 10 s lang +7 % Kampftempo und +7 % PvE-Schaden', en: '[[14110000|Gale Arrow]]: +7% Combat Speed and +7% PvE damage for 10 s' },
+          tag: { de: 'Taste 1', en: 'Key 1' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Buffs', en: 'Buffs' },
+          text: { de: "[[14310000|Vaizel's Authority]] (+20 % Angriffskraft) und [[14220000|Bow of Blessing]] (+200 Krit.-Treffer, +100 Präzision)", en: "[[14310000|Vaizel's Authority]] (+20% Attack) and [[14220000|Bow of Blessing]] (+200 Critical Hit, +100 Accuracy)" },
+          tag: { de: 'Tasten 5 · 6', en: 'Keys 5 · 6' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Feuerkugel', en: 'Orb' },
+          text: { de: '[[14380000|Supporting Fire]] schießt 15 s lang mit (30 s ab Stigma-Stufe 10)', en: '[[14380000|Supporting Fire]] shoots along for 15 s (30 s from stigma level 10)' },
+          tag: { de: 'Taste 7', en: 'Key 7' },
+          tone: 'teal',
+        },
+        {
+          title: { de: 'Burst, dann Makro', en: 'Burst, then macro' },
+          text: { de: '[[14010000|Deadshot]] voll aufladen, danach Makro und linke Maustaste', en: '[[14010000|Deadshot]] fully charged, then the macro and the left mouse button' },
+          tag: { de: 'Taste Q', en: 'Key Q' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -182,6 +216,18 @@ export const rangerGuide = classGuide({
       { de: "Passive, die von selbst Zusatztreffer auslösen (jede höchstens einmal pro Sekunde): **[[14800000|Hunter's Soul]]** (ab Stufe 25: bei Krits), **[[14720000|Concentrated Fire]]** (ab Stufe 6: gegen Ziele mit Schaden über Zeit, z. B. der Blutung von [[14050000|Drill Dart]]), **[[14770000|Rooting Eye]]** (ab Stufe 17: gegen verlangsamte Ziele) und **[[14780000|Melee Fire]]** (ab Stufe 21: bei jedem Treffer). Die Top 10 bringen alle vier im Median auf 10.", en: "Passives that add extra hits by themselves (each at most once per second): **[[14800000|Hunter's Soul]]** (from level 25: on crits), **[[14720000|Concentrated Fire]]** (from level 6: on targets taking damage over time, e.g. the bleed from [[14050000|Drill Dart]]), **[[14770000|Rooting Eye]]** (from level 17: on slowed targets) and **[[14780000|Melee Fire]]** (from level 21: on any hit). The top 10 take all four to 10 (median)." },
       { de: 'Zum Überleben **[[14710000|Vigilant Eye]]** (ab Stufe 1: +200 Ausweichen, +15 % max. LP auf Stufe 10) und **[[14790000|Revitalization Contract]]** (ab Stufe 23: Widerstand gegen Statuseffekte; fallen deine LP auf 10 %, heilt er dich sofort, auf Stufe 10 um 44 %, einmal pro 60 s) – auch die bringen die Top 10 im Median auf 10. Dazu **[[14070000|Suppressing Arrow]]** (ab Stufe 12) und **[[14170000|Explosion Trap]]** (ab Stufe 8): Top 10 im Median 9, manche lassen sie auf 1.', en: 'For survival **[[14710000|Vigilant Eye]]** (from level 1: +200 Evasion, +15% Max HP at level 10) and **[[14790000|Revitalization Contract]]** (from level 23: Status Effect Resist; when your HP drops to 10% it heals you at once, by 44% at level 10, once every 60 s) – the top 10 take these to 10 as well (median). Plus **[[14070000|Suppressing Arrow]]** (from level 12) and **[[14170000|Explosion Trap]]** (from level 8): top 10 median 9, some leave them at 1.' },
       { de: "Zuletzt **[[14330000|Arrow Scattershot]]**: Er geht nur gegen taumelnde Gegner, und 6 der Top 10 lassen ihn auf Stufe 1–3 (4 bringen ihn auf 10). Restpunkte gehen in [[14260000|Defiance]] (kürzere Abklingzeit: 60 s auf Stufe 1, 51 s auf Stufe 10), [[14730000|Wind Vigor]] und [[14760000|Unyielding Resolve]].", en: "Last **[[14330000|Arrow Scattershot]]**: it only works on staggered enemies, and 6 of the top 10 keep it at level 1–3 (4 take it to 10). Leftover points go into [[14260000|Defiance]] (shorter cooldown: 60 s at level 1, 51 s at level 10), [[14730000|Wind Vigor]] and [[14760000|Unyielding Resolve]]." },
+    ],
+    levels: [
+      { id: 14740000 /* Focused Eye */, level: 26, bought: 10, dv: 4, gear: 12, passive: true },
+      { id: 14750000 /* Hunter's Resolve */, level: 24.5, bought: 10, dv: 4, gear: 9.5, passive: true },
+      { id: 14010000 /* Deadshot */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 14340000 /* Tempest Shot */, level: 19.5, bought: 10, dv: 4, gear: 5.5 },
+      { id: 14050000 /* Drill Dart */, level: 19, bought: 10, dv: 4, gear: 5 },
+      { id: 14110000 /* Gale Arrow */, level: 17.5, bought: 10, dv: 4, gear: 4 },
+      { id: 14020000 /* Snipe */, level: 16.5, bought: 10, dv: 4, gear: 2.5 },
+      { id: 14080000 /* Burst Arrow */, level: 16.5, bought: 10, dv: 4, gear: 2 },
+      { id: 14090000 /* Marking Shot */, level: 14, bought: 10, dv: 3, gear: 1.5 },
+      { id: 14130000 /* Snare Shot */, level: 14, bought: 9.5, dv: 4, gear: 0.5 },
     ],
     specs: [
       {
@@ -396,9 +442,10 @@ export const rangerGuide = classGuide({
   power: {
     asOf: '2026-10-18',
     intro: {
-      de: "Die Top 10 der Waldläufer haben im Median **250K** Kampfkraft bei Gegenstandsstufe **3.420** (Spanne 244–257K) – Platz 1 der acht Klassen und mit ≈73 Kampfkraft pro Gegenstandsstufe auch der höchste Wert. Sie legen im Median +63K pro Woche zu, mehr als jede andere Klasse.",
-      en: "The top 10 Rangers have a median **250K** Combat Power at item level **3,420** (range 244–257K) – 1st of the eight classes and, at ≈73 Combat Power per item level, also the highest value. They gain a median +63K per week, more than any other class.",
+      de: "Die Top 10 der Waldläufer haben im Median **250K** Kampfkraft bei Gegenstandsstufe **3.420** (Spanne 244–257K) – Platz 1 der acht Klassen und mit ≈73 Kampfkraft pro Gegenstandsstufe auch der höchste Wert. Sie legen im Median +68K pro Woche zu, mehr als jede andere Klasse.",
+      en: "The top 10 Rangers have a median **250K** Combat Power at item level **3,420** (range 244–257K) – 1st of the eight classes and, at ≈73 Combat Power per item level, also the highest value. They gain a median +68K per week, more than any other class.",
     },
+    stats: { cp: 249551.5, cpMin: 244263, cpMax: 256545, itemLevel: 3420, cpPerLevel: 73.28, weekly: 68050, weeklyOf: 9, rank: { cp: 1, itemLevel: 2, cpPerLevel: 1, weekly: 1 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Bow und Guard – alle zehn auf +15 mit Amplified +5.",
@@ -426,6 +473,15 @@ export const rangerGuide = classGuide({
       { id: 14220000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
       { id: 14380000, note: { de: '10 von 10 · Median Stufe 18', en: '10 of 10 · median level 18' } },
       { id: 14060000, note: { de: '5 von 10 · Median Stufe 15', en: '5 of 10 · median level 15' } },
+    ],
+    slotted: [
+      { id: 14310000 /* Vaizel's Authority */, n: 10, level: 20 },
+      { id: 14380000 /* Supporting Fire */, n: 10, level: 18 },
+      { id: 14220000 /* Bow of Blessing */, n: 9, level: 20 },
+      { id: 14060000 /* Griffon Arrow */, n: 5, level: 15 },
+      { id: 14360000 /* Explosive Arrow */, n: 3, level: 10 },
+      { id: 14120000 /* Ambush Kick */, n: 2, level: 13.5 },
+      { id: 14350000 /* Mother Nature's Breath */, n: 1, level: 19 },
     ],
     tips: [
       {

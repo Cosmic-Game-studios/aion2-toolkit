@@ -1,6 +1,34 @@
 import type { ClassType } from '../../../data/types';
-import type { Guide, GuideBlock, GuideSection, L10n } from '../types';
+import type { ChartTone, Guide, GuideBlock, GuideCell, GuideSection, L10n } from '../types';
 import { GUIDE_IDS, guideHref } from '../guideLinks';
+
+/** a phase of the opener in the rotation diagram (a flow block); texts may use [[id|name]] */
+export interface ClassFlowStep {
+  title: L10n;
+  text?: L10n;
+  /** e.g. the key, as a string for both languages or { de, en } */
+  tag?: GuideCell;
+  /** blue = buff, violet = debuff, slate = movement / setup, gold = burst, teal = filler or heal */
+  tone?: ChartTone;
+}
+
+/**
+ * Key numbers of the top 10 of the class (public/data/top/<Class>.json, read on `power.asOf`). All values are medians
+ * over the players; `rank` is the place of the class among the eight classes (1 = highest) for the same median.
+ */
+export interface ClassTopStats {
+  cp: number;
+  cpMin: number;
+  cpMax: number;
+  itemLevel: number;
+  /** median of Combat Power ÷ item level per player */
+  cpPerLevel: number;
+  /** median of the Combat Power gained in the last 7 days (`cp7d`), over the players that have a value */
+  weekly: number;
+  /** how many of the 10 have a 7-day value */
+  weeklyOf: number;
+  rank: { cp: number; itemLevel: number; cpPerLevel: number; weekly: number };
+}
 
 /**
  * Shared layout of the class guides: every class guide has the same sections in the same order,
@@ -19,10 +47,22 @@ export interface ClassGuideInput {
   forWhom: L10n;
   party: { dungeon: L10n[]; boss?: L10n; pvp: L10n; solo?: L10n };
   skills: { id: number; note: L10n }[];
-  rotation: { intro?: L10n; blocks: { title: L10n; steps: { id: number; note?: L10n }[] }[]; tips: L10n[] };
+  rotation: {
+    intro?: L10n;
+    /** the opener in a few phases (buffs → debuff → burst → filler), shown above the rotation blocks; keep it to 3–6 */
+    flow?: { title?: L10n; caption?: L10n; items: ClassFlowStep[] };
+    blocks: { title: L10n; steps: { id: number; note?: L10n }[] }[];
+    tips: L10n[];
+  };
   build: {
     intro?: L10n;
     points: L10n[];
+    /**
+     * how high the top 10 take their most important skills (public/data/top, `power.asOf`), shown after the skill point
+     * steps: medians over the players of the shown skill level and of its parts (bought with skill points, from
+     * Daevanion nodes, from gear). At most 10, highest first.
+     */
+    levels?: { id: number; level: number; bought: number; dv: number; gear: number; passive?: boolean }[];
     specs: { id: number; parts: number[]; note?: L10n }[];
     stigmas: { title: L10n; items: { id: number; note: L10n }[] }[];
     daevanion: L10n[];
@@ -41,10 +81,17 @@ export interface ClassGuideInput {
   power: {
     asOf: string;
     intro: L10n;
+    /** key number tiles under the intro; must match the medians the intro quotes */
+    stats?: ClassTopStats;
     gear: L10n[];
     arcana: L10n;
     /** stigmas to take to level 20 first, most important first */
     stigmas: { id: number; note: L10n }[];
+    /**
+     * every stigma the top 10 have in a slot: how many of the 10 (`n`) and the median level of those players, most
+     * slotted first. Shown as a bar chart after `stigmas`; the stigmas of that list are gold, the others grey.
+     */
+    slotted?: { id: number; n: number; level: number }[];
     tips: L10n[];
   };
   sources: { href: string; label: string }[];
@@ -53,6 +100,113 @@ export interface ClassGuideInput {
 }
 
 const sec = (de: string, en: string, blocks: GuideBlock[]): GuideSection => ({ title: { de, en }, blocks });
+
+type Lang = keyof L10n;
+/** 1.234,5 / 1,234.5 */
+const num = (n: number, lang: Lang, digits = 1) =>
+  new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: digits }).format(n);
+const both = (f: (lang: Lang) => string): L10n => ({ de: f('de'), en: f('en') });
+/** 240364 → 240K (the way the class texts quote Combat Power) */
+const kilo = (n: number) => `${Math.round(n / 1000)}K`;
+const ordinal = (n: number) => {
+  const t = n % 100;
+  return `${n}${t >= 11 && t <= 13 ? 'th' : n % 10 === 1 ? 'st' : n % 10 === 2 ? 'nd' : n % 10 === 3 ? 'rd' : 'th'}`;
+};
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** 2026-10-18 → 18.10.2026 / 18 Oct 2026 */
+const date = (iso: string): L10n => {
+  const [y, m, d] = iso.split('-');
+  return { de: `${d}.${m}.${y}`, en: `${+d} ${MONTHS[+m - 1]} ${y}` };
+};
+const topSource = (asOf: string): L10n => {
+  const d = date(asOf);
+  return { de: `AION2 Index, Top 10 der Klasse, ${d.de}.`, en: `AION2 Index, top 10 of the class, ${d.en}.` };
+};
+/**
+ * Median weekly gain of the top 10 of each class on 2026-10-18 (lowest and highest class, players without a 7-day
+ * value left out). Update together with the class files' `power.stats`.
+ */
+const WEEKLY_RANGE = '38–68K';
+
+/** "Highest Combat Power": the key numbers of the top 10 as tiles */
+function statTiles(s: ClassTopStats): GuideBlock {
+  const place = (r: number): L10n => ({ de: `Platz ${r} von 8 Klassen`, en: `${ordinal(r)} of 8 classes` });
+  return {
+    type: 'stats',
+    items: [
+      {
+        value: kilo(s.cp),
+        label: { de: 'Kampfkraft (Median)', en: 'Combat Power (median)' },
+        note: both((l) => `${l === 'de' ? 'Spanne' : 'range'} ${Math.round(s.cpMin / 1000)}–${kilo(s.cpMax)} · ${place(s.rank.cp)[l]}`),
+        tone: 'gold',
+      },
+      {
+        value: both((l) => num(Math.round(s.itemLevel), l, 0)),
+        label: { de: 'Gegenstandsstufe (Median)', en: 'Item level (median)' },
+        note: place(s.rank.itemLevel),
+        tone: 'blue',
+      },
+      {
+        value: `≈${Math.round(s.cpPerLevel)}`,
+        label: { de: 'Kampfkraft pro Gegenstandsstufe', en: 'Combat Power per item level' },
+        note: { de: `Median der 10 Spieler · Platz ${s.rank.cpPerLevel} von 8`, en: `median of the 10 players · ${ordinal(s.rank.cpPerLevel)} of 8` },
+        tone: 'teal',
+      },
+      {
+        value: `+${kilo(s.weekly)}`,
+        label: { de: 'Zuwachs pro Woche (Median)', en: 'Gain per week (median)' },
+        note: {
+          de: `in den letzten 7 Tagen, ${s.weeklyOf} von 10 mit Wert · Platz ${s.rank.weekly} von 8`,
+          en: `in the last 7 days, ${s.weeklyOf} of 10 have a value · ${ordinal(s.rank.weekly)} of 8`,
+        },
+        tone: 'green',
+      },
+    ],
+  };
+}
+
+/** "Core build": how high the top 10 take their skills */
+function levelsChart(items: NonNullable<ClassGuideInput['build']['levels']>, asOf: string): GuideBlock {
+  const src = topSource(asOf);
+  return {
+    type: 'bars',
+    title: { de: 'So hoch bringen die Top 10 ihre wichtigsten Skills', en: 'How high the top 10 take their key skills' },
+    caption: {
+      de: `Median der angezeigten Skillstufe, darunter die Mediane der Teile: mit Skillpunkten gekauft (höchstens 10), von Daevanion-Knoten, von der Ausrüstung – Mediane ergeben zusammen nicht immer genau die Gesamtstufe. Über 10 lohnt es sich weiter: Aktive Skills bekommen auf Skillstufe 12 und 20 je einen weiteren Spezialisierungs-Platz und auf 12 und 16 neue Optionen. Gold: aktive Skills, Türkis: passive. ${src.de}`,
+      en: `Median shown skill level, with the medians of its parts underneath: bought with skill points (10 at most), from Daevanion nodes, from gear – medians do not always add up to the total exactly. Going past 10 still pays: active skills get another specialisation slot at skill levels 12 and 20 and new options at 12 and 16. Gold: active skills, teal: passives. ${src.en}`,
+    },
+    items: items.map((s) => ({
+      label: `[[${s.id}]]`,
+      value: s.level,
+      note: {
+        de: `${num(s.bought, 'de')} gekauft · +${num(s.dv, 'de')} Daevanion · +${num(s.gear, 'de')} Ausrüstung`,
+        en: `${num(s.bought, 'en')} bought · +${num(s.dv, 'en')} Daevanion · +${num(s.gear, 'en')} gear`,
+      },
+      tone: (s.passive ? 'teal' : 'gold') as ChartTone,
+    })),
+  };
+}
+
+/** "Highest Combat Power": which stigmas the top 10 slot (gold: the "level 20 first" list) */
+function slottedChart(items: NonNullable<ClassGuideInput['power']['slotted']>, first: Set<number>, asOf: string): GuideBlock {
+  const src = topSource(asOf);
+  return {
+    type: 'bars',
+    title: { de: 'Welche Stigmen die Top 10 einsetzen', en: 'Which stigmas the top 10 slot' },
+    caption: {
+      de: `Wie viele der Top 10 das Stigma in einem ihrer 4 Stigma-Plätze haben, darunter die Median-Stufe dieser Spieler (auf ganze Stufen gerundet). Gold: die Stigmen aus der Liste oben, grau: die Alternativen. ${src.de}`,
+      en: `How many of the top 10 have the stigma in one of their 4 stigma slots, with the median level of those players underneath (rounded to whole levels). Gold: the stigmas of the list above, grey: the alternatives. ${src.en}`,
+    },
+    max: 10,
+    items: items.map((s) => ({
+      label: `[[${s.id}]]`,
+      value: s.n,
+      display: { de: `${s.n} von 10`, en: `${s.n} of 10` },
+      note: { de: `Median Stufe ${Math.round(s.level)}`, en: `median level ${Math.round(s.level)}` },
+      tone: (first.has(s.id) ? 'gold' : 'slate') as ChartTone,
+    })),
+  };
+}
 
 /**
  * questlog.gg class slugs. Its terms (version of 2026-09-29) forbid taking over its data or showing its pages
@@ -113,6 +267,17 @@ export function classGuide(g: ClassGuideInput): Guide {
     },
   ];
   if (g.rotation.intro) rotation.push({ type: 'text', text: g.rotation.intro });
+  if (g.rotation.flow?.items.length) {
+    rotation.push({
+      type: 'flow',
+      title: g.rotation.flow.title ?? { de: 'Die Eröffnung auf einen Blick', en: 'The opener at a glance' },
+      caption: g.rotation.flow.caption ?? {
+        de: 'Kurzfassung der Eröffnung von unten, in Phasen. Die einzelnen Skills folgen darunter, die Tasten bei „Leiste & Makro“.',
+        en: 'The opener below in short, as phases. The single skills follow underneath, the keys under “Hotbar & macro”.',
+      },
+      items: g.rotation.flow.items,
+    });
+  }
   for (const b of g.rotation.blocks) rotation.push({ type: 'rotation', title: b.title, steps: b.steps });
   rotation.push({ type: 'list', items: g.rotation.tips });
 
@@ -121,6 +286,9 @@ export function classGuide(g: ClassGuideInput): Guide {
   build.push(
     { type: 'heading', text: { de: 'Skillpunkte – in dieser Reihenfolge', en: 'Skill points – in this order' } },
     { type: 'steps', items: g.build.points.map((title) => ({ title })) },
+  );
+  if (g.build.levels?.length) build.push(levelsChart(g.build.levels, g.power.asOf));
+  build.push(
     { type: 'heading', text: { de: 'Spezialisierungen', en: 'Specialisations' } },
     { type: 'specs', items: g.build.specs },
   );
@@ -136,22 +304,28 @@ export function classGuide(g: ClassGuideInput): Guide {
     ],
   });
 
-  const power: GuideBlock[] = [
-    { type: 'text', text: g.power.intro },
+  const asOf = date(g.power.asOf);
+  const charts = g.power.stats || g.power.slotted?.length;
+  const power: GuideBlock[] = [{ type: 'text', text: g.power.intro }];
+  if (g.power.stats) power.push(statTiles(g.power.stats));
+  power.push(
     { type: 'heading', text: { de: 'Ausrüstung der Top 10', en: 'Gear of the top 10' } },
     { type: 'list', items: g.power.gear },
     { type: 'heading', text: { de: 'Arcana', en: 'Arcana' } },
     { type: 'text', text: g.power.arcana },
     { type: 'heading', text: { de: 'Diese Stigmen zuerst auf Stufe 20', en: 'Take these stigmas to level 20 first' } },
     { type: 'skills', items: g.power.stigmas },
+  );
+  if (g.power.slotted?.length) power.push(slottedChart(g.power.slotted, new Set(g.power.stigmas.map((s) => s.id)), g.power.asOf));
+  power.push(
     { type: 'list', items: g.power.tips },
     {
       type: 'callout',
       tone: 'info',
       title: { de: 'Stand', en: 'As of' },
       text: {
-        de: `Die Zahlen zu den Top 10 stammen vom ${g.power.asOf.split('-').reverse().join('.')} (AION2 Index). Die Spitze legt pro Woche um rund 35–65K Kampfkraft zu – die aktuellen Werte zeigt die Top-10-Seite.`,
-        en: `The top 10 numbers are from ${g.power.asOf} (AION2 Index). The top gains about 35–65K Combat Power per week – the top 10 page shows the current values.`,
+        de: `Die Zahlen zu den Top 10 in diesem Abschnitt${charts ? ' (Text, Kacheln und Diagramm)' : ''} stammen vom ${asOf.de} (AION2 Index). **Median** heißt: der mittlere Wert – die Hälfte der zehn Spieler liegt darüber, die Hälfte darunter. Die Top 10 der acht Klassen legen im Median ${WEEKLY_RANGE} Kampfkraft pro Woche zu – die aktuellen Werte zeigt die Top-10-Seite.`,
+        en: `The top 10 numbers in this section${charts ? ' (text, tiles and chart)' : ''} are from ${asOf.en} (AION2 Index). **Median** means the middle value – half of the ten players are above it, half below. The top 10 of the eight classes gain a median ${WEEKLY_RANGE} Combat Power per week – the top 10 page shows the current values.`,
       },
     },
     {
@@ -162,7 +336,7 @@ export function classGuide(g: ClassGuideInput): Guide {
         { href: '#/stigma', label: { de: 'Stigmen planen', en: 'Plan stigmas' }, cls: g.cls },
       ],
     },
-  ];
+  );
 
   const sources: GuideBlock[] = [
     {

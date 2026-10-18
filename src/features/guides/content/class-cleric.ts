@@ -153,6 +153,40 @@ export const clericGuide = classGuide({
       de: "Als Kleriker machst du immer zwei Dinge: heilen und angreifen. Heilung geht vor – aber nur, wenn jemand sie wirklich braucht. Den Rest der Zeit greifst du an.",
       en: "As a Cleric you always do two things: heal and attack. Healing comes first – but only when someone really needs it. The rest of the time you attack.",
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Vor dem Kampf', en: 'Before the pull' },
+          text: { de: '[[17440000|Noble Aura]] kämpft 5 Minuten mit; [[17410000|Light of Protection]] einmal anschalten (nicht mit Kantor)', en: '[[17440000|Noble Aura]] fights with you for 5 minutes; switch on [[17410000|Light of Protection]] once (not with a Chanter)' },
+          tag: { de: 'Tasten 8 · 7', en: 'Keys 8 · 7' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Gruppe heilen', en: 'Heal the group' },
+          text: { de: '[[17090000|Light of Regeneration]] zum Kampfbeginn: heilt die Gruppe 30 Sekunden lang', en: '[[17090000|Light of Regeneration]] at the pull: heals the group for 30 seconds' },
+          tag: { de: 'Taste 3', en: 'Key 3' },
+          tone: 'teal',
+        },
+        {
+          title: { de: 'Buff', en: 'Buff' },
+          text: { de: '[[17430000|Prayer of Amplification]]: kurz mehr Angriffskraft', en: '[[17430000|Prayer of Amplification]]: more Attack for a short time' },
+          tag: { de: 'Taste 5', en: 'Key 5' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Debuffs', en: 'Debuffs' },
+          text: { de: '[[17070000|Chain of Torment]] markiert den Boss, dazu [[17080000|Debilitating Mark]]', en: '[[17070000|Chain of Torment]] marks the boss, plus [[17080000|Debilitating Mark]]' },
+          tag: { de: 'Tasten 1 · 2', en: 'Keys 1 · 2' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Burst, dann Makro', en: 'Burst, then macro' },
+          text: { de: '[[17400000|Earth Punishment]] (ab Stufe 5 trifft dein Hauptangriff dann immer kritisch), [[17060000|Bolt]] voll aufladen, dann das Makro', en: '[[17400000|Earth Punishment]] (from level 5 your main attack then always crits), [[17060000|Bolt]] fully charged, then the macro' },
+          tag: { de: 'Tasten 6 · E', en: 'Keys 6 · E' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -233,6 +267,18 @@ export const clericGuide = classGuide({
         de: "Endgame: Über Stufe 10 kommen Skills nur mit den Daevanion-Tafeln (bis +4) und der Ausrüstung. Die Top 10 haben im Median [[17350000|Condemnation]], [[17730000|Empyrean Lord's Grace]] und [[17780000|Earth's Grace]] auf 20, [[17040000|Judgment Thunder]], [[17060000|Bolt]] und [[17120000|Radiant Recovery]] auf rund 18, [[17090000|Light of Regeneration]], [[17100000|Healing Light]], [[17010000|Earth's Retribution]] und [[17150000|Divine Aura]] auf 16. Später kommen auch [[17060000|Bolt]], [[17010000|Earth's Retribution]] und [[17150000|Divine Aura]] auf 20",
         en: "Endgame: above level 10, skills only rise through the Daevanion boards (up to +4) and your gear. At the median the top 10 have [[17350000|Condemnation]], [[17730000|Empyrean Lord's Grace]] and [[17780000|Earth's Grace]] at 20, [[17040000|Judgment Thunder]], [[17060000|Bolt]] and [[17120000|Radiant Recovery]] at about 18, [[17090000|Light of Regeneration]], [[17100000|Healing Light]], [[17010000|Earth's Retribution]] and [[17150000|Divine Aura]] at 16. Later [[17060000|Bolt]], [[17010000|Earth's Retribution]] and [[17150000|Divine Aura]] go to 20 as well",
       },
+    ],
+    levels: [
+      { id: 17730000 /* Empyrean Lord's Grace */, level: 20.5, bought: 10, dv: 4, gear: 6.5, passive: true },
+      { id: 17350000 /* Condemnation */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 17780000 /* Earth's Grace */, level: 20, bought: 10, dv: 4, gear: 5.5, passive: true },
+      { id: 17040000 /* Judgment Thunder */, level: 18.5, bought: 10, dv: 4, gear: 4.5 },
+      { id: 17060000 /* Bolt */, level: 18, bought: 10, dv: 4, gear: 4 },
+      { id: 17120000 /* Radiant Recovery */, level: 18, bought: 10, dv: 4, gear: 4 },
+      { id: 17010000 /* Earth's Retribution */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 17090000 /* Light of Regeneration */, level: 16, bought: 10, dv: 4, gear: 2.5 },
+      { id: 17100000 /* Healing Light */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 17150000 /* Divine Aura */, level: 16, bought: 10, dv: 4, gear: 2 },
     ],
     specs: [
       {
@@ -530,9 +576,10 @@ export const clericGuide = classGuide({
   power: {
     asOf: '2026-10-18',
     intro: {
-      de: "Die Top 10 der Kleriker haben im Median **210K** Kampfkraft bei Gegenstandsstufe **3.182** (Spanne 204–222K) – Platz 8 der acht Klassen, ≈66 Kampfkraft pro Gegenstandsstufe. Heiler zeigen weniger Kampfkraft als Schadensklassen; vergleiche dich darum mit anderen Klerikern. Dafür legen die Top-Kleriker mit +55K pro Woche am zweitschnellsten zu.",
-      en: "The top 10 Clerics have a median **210K** Combat Power at item level **3,182** (range 204–222K) – 8th of the eight classes, ≈66 Combat Power per item level. Healers show less Combat Power than damage classes, so compare yourself with other Clerics. In return the top Clerics grow second fastest at +55K per week.",
+      de: "Die Top 10 der Kleriker haben im Median **210K** Kampfkraft bei Gegenstandsstufe **3.182** (Spanne 204–222K) – Platz 8 der acht Klassen, ≈66 Kampfkraft pro Gegenstandsstufe. Heiler zeigen weniger Kampfkraft als Schadensklassen; vergleiche dich darum mit anderen Klerikern. Dafür legen die Top-Kleriker mit +55K pro Woche am drittschnellsten zu (nach Waldläufer und Magier).",
+      en: "The top 10 Clerics have a median **210K** Combat Power at item level **3,182** (range 204–222K) – 8th of the eight classes, ≈66 Combat Power per item level. Healers show less Combat Power than damage classes, so compare yourself with other Clerics. In return the top Clerics grow third fastest at +55K per week (after Ranger and Sorcerer).",
     },
+    stats: { cp: 210389, cpMin: 204319, cpMax: 222167, itemLevel: 3181.5, cpPerLevel: 66.29, weekly: 54831.5, weeklyOf: 10, rank: { cp: 8, itemLevel: 7, cpPerLevel: 8, weekly: 3 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Mace auf +15 mit Amplified +5 (9 von 10); der Guard ebenfalls +15 (8 Splendent, 2 Nuakum).",
@@ -560,6 +607,15 @@ export const clericGuide = classGuide({
       { id: 17430000, note: { de: '9 von 10 · Median Stufe 18', en: '9 of 10 · median level 18' } },
       { id: 17440000, note: { de: '8 von 10 · Median Stufe 18', en: '8 of 10 · median level 18' } },
       { id: 17410000, note: { de: '9 von 10 · Median Stufe 16', en: '9 of 10 · median level 16' } },
+    ],
+    slotted: [
+      { id: 17400000 /* Earth Punishment */, n: 10, level: 20 },
+      { id: 17430000 /* Prayer of Amplification */, n: 9, level: 18 },
+      { id: 17410000 /* Light of Protection */, n: 9, level: 16 },
+      { id: 17440000 /* Noble Aura */, n: 8, level: 17.5 },
+      { id: 17420000 /* Yustiel's Power */, n: 2, level: 5.5 },
+      { id: 17270000 /* Salvation */, n: 1, level: 20 },
+      { id: 17390000 /* Summon Resurrection */, n: 1, level: 5 },
     ],
     tips: [
       {

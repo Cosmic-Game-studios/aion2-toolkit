@@ -62,6 +62,40 @@ export const spiritmasterGuide = classGuide({
       de: 'Kurz gesagt: Du kämpfst mit einem Geist an deiner Seite. Jeder Geist-Skill gibt dir ein Element, bei 4 Elementen setzt du [[16300000|Elemental Fusion]] ein. Geister übernehmen deine Werte, wenn sie erscheinen – also immer **erst buffen, dann beschwören**.',
       en: 'In short: you fight with a spirit at your side. Every spirit skill gives you an element, and at Four Elements you use [[16300000|Elemental Fusion]]. Spirits copy your stats when they appear – so always **buff first, then summon**.',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Buffs zuerst', en: 'Buffs first' },
+          text: { de: "[[16370000|Flame Blessing]] und [[16190000|Enhance: Spirit's Benediction]] – Geister übernehmen deine Werte beim Erscheinen", en: "[[16370000|Flame Blessing]] and [[16190000|Enhance: Spirit's Benediction]] – spirits copy your stats when they appear" },
+          tag: { de: 'Tasten 8 · 6', en: 'Keys 8 · 6' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Burst-Geist', en: 'Burst spirit' },
+          text: { de: '[[16250000|Summon: Ancient Spirit]]: 30 s Burst', en: '[[16250000|Summon: Ancient Spirit]]: 30 s burst' },
+          tag: { de: 'Taste 7', en: 'Key 7' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Schwächen', en: 'Debuff' },
+          text: { de: '[[16150000|Jointstrike: Corrode]]: +10 % Geist-Schaden', en: '[[16150000|Jointstrike: Corrode]]: +10% spirit damage' },
+          tag: { de: 'Taste 5', en: 'Key 5' },
+          tone: 'violet',
+        },
+        {
+          title: { de: '4 Elemente sammeln', en: 'Collect 4 elements' },
+          text: { de: 'Wasser-, Erd-, Wind- und zuletzt Feuergeist beschwören – jeder Geist-Skill bringt ein Element', en: 'Summon the Water, Earth, Wind and last the Fire Spirit – every spirit skill gives you an element' },
+          tag: { de: '4× Taste 4', en: '4× key 4' },
+          tone: 'slate',
+        },
+        {
+          title: { de: 'Fusion, dann Makro', en: 'Fusion, then macro' },
+          text: { de: '[[16300000|Elemental Fusion]] bei 4 Elementen, dann [[16140000|Jointstrike: Curse]] und das Makro', en: '[[16300000|Elemental Fusion]] at Four Elements, then [[16140000|Jointstrike: Curse]] and the macro' },
+          tag: { de: 'Tasten 1 · 2', en: 'Keys 1 · 2' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -115,6 +149,18 @@ export const spiritmasterGuide = classGuide({
       { de: "Dann die Schadens-Passive auf 10, jedes, sobald du es lernst – fast alle der Top 10 haben sie auf 10: [[16730000|Spirit's Descent]] (ab Stufe 9: 10 s Zusatzschaden nach jeder Beschwörung), das Passiv [[16740000|Corrode]] (ab 11, nicht das Stigma: +190 Krit.-Treffer auf Stufe 10), [[16750000|Spirit Revitalization]] (ab 13: Deine Treffer verkürzen mit 20 % Chance die Abklingzeit der Beschwörungen um 1 s), [[16760000|Mental Focus]] (ab 15: +3 % Wucht – die Chance, dass ein Treffer doppelten Schaden macht), [[16800000|Consecutive Countercurrent]] (ab 17: Zusatzschaden gegen Ziele mit Schaden über Zeit, etwa von deinem Fluch) und [[16780000|Element Unification]] (ab 25: Jeder Treffer eines Geist-Skills gibt dir und deinem Geist 10 s lang +2 % Krit.-Schadensverstärkung, bis zu 5-mal).", en: "Then the damage passives to 10, each as soon as you learn it – almost all of the top 10 have them at 10: [[16730000|Spirit's Descent]] (from level 9: 10 s of extra damage after every summon), the passive [[16740000|Corrode]] (from 11, not the stigma: +190 Critical Hit at level 10), [[16750000|Spirit Revitalization]] (from 13: your hits have a 20% chance to cut the summon cooldowns by 1 s), [[16760000|Mental Focus]] (from 15: +3% Double Chance – the chance of a hit dealing double damage), [[16800000|Consecutive Countercurrent]] (from 17: extra damage on targets taking damage over time, e.g. from your curse) and [[16780000|Element Unification]] (from 25: every spirit skill hit gives you and your spirit +2% Critical Damage Boost for 10 s, up to 5 times)." },
       { de: '[[16720000|Spirit Protection]] (ab Stufe 6: auf Stufe 10 +20 % Verteidigung für dich und deinen Geist) auf 10 – so halten es 7 der Top 10.', en: '[[16720000|Spirit Protection]] (from level 6: +20% Defense for you and your spirit at level 10) to 10 – 7 of the top 10 do so.' },
       { de: "Was übrig bleibt: [[16200000|Defiance]] (die meisten der Top 10: 8–10), [[16770000|Spirit Communion]], [[16790000|Revitalization Contract]] und [[16070000|Soul's Cry]]. Soul's Cry ist vor allem fürs PvP: MetaRoad und Inven lassen ihn im PvE weg, 6 der Top 10 nehmen ihn trotzdem auf 10.", en: "Whatever is left: [[16200000|Defiance]] (most of the top 10: 8–10), [[16770000|Spirit Communion]], [[16790000|Revitalization Contract]] and [[16070000|Soul's Cry]]. Soul's Cry is mostly for PvP: MetaRoad and Inven skip it in PvE, 6 of the top 10 still take it to 10." },
+    ],
+    levels: [
+      { id: 16710000 /* Spirit Strike */, level: 22, bought: 10, dv: 4, gear: 8, passive: true },
+      { id: 16300000 /* Elemental Fusion */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 16760000 /* Mental Focus */, level: 20, bought: 10, dv: 4, gear: 6.5, passive: true },
+      { id: 16040000 /* Combustion */, level: 19.5, bought: 10, dv: 4, gear: 5.5 },
+      { id: 16780000 /* Element Unification */, level: 18, bought: 10, dv: 4, gear: 3, passive: true },
+      { id: 16100000 /* Summon: Fire Spirit */, level: 17.5, bought: 10, dv: 4, gear: 3.5 },
+      { id: 16010000 /* Cold Shock */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 16110000 /* Summon: Water Spirit */, level: 15.5, bought: 10, dv: 3.5, gear: 2 },
+      { id: 16140000 /* Jointstrike: Curse */, level: 15.5, bought: 10, dv: 4, gear: 2 },
+      { id: 16330000 /* Dimensional Control */, level: 14, bought: 10, dv: 4, gear: 0 },
     ],
     specs: [
       { id: 16300000 /* Elemental Fusion */, parts: [16300020 /* Elemental Fusion: Extra damage after 3s on hit */, 16300030 /* Elemental Fusion: +10 all Element Boost on hit */, 16300050 /* Elemental Fusion: 25% chance to regain Four Elements */], note: { de: 'Mehr Schaden pro Treffer, später mit etwas Glück die 4 Elemente gleich zurück. Nimm nicht die Auflade-Option (Stufe 12): Dann musst du [[16300000|Elemental Fusion]] von Hand aufladen – das Makro kann das nicht.', en: 'More damage per hit, later a chance to get Four Elements right back. Do not take the charge option (level 12): then you would have to charge [[16300000|Elemental Fusion]] by hand – the macro cannot do that.' } },
@@ -191,6 +237,7 @@ export const spiritmasterGuide = classGuide({
       de: "Die Top 10 der Beschwörer haben im Median **217K** Kampfkraft bei Gegenstandsstufe **3.403** (Spanne 213–243K) – die dritthöchste Gegenstandsstufe aller Klassen, aber nur ≈67 Kampfkraft pro Stufe, so wenig wie Kantor, Templer und Kleriker. Vergleiche dich darum mit anderen Beschwörern, nicht mit der Gesamtliste.",
       en: "The top 10 Spiritmasters have a median **217K** Combat Power at item level **3,403** (range 213–243K) – the third-highest item level of all classes, but only ≈67 Combat Power per level, as little as Chanter, Templar and Cleric. So compare yourself with other Spiritmasters, not with the overall list.",
     },
+    stats: { cp: 216901.5, cpMin: 213013, cpMax: 243039, itemLevel: 3403, cpPerLevel: 67.42, weekly: 50609, weeklyOf: 9, rank: { cp: 6, itemLevel: 3, cpPerLevel: 5, weekly: 5 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Orb und Guard – alle zehn auf +15 mit Amplified +5.",
@@ -218,6 +265,15 @@ export const spiritmasterGuide = classGuide({
       { id: 16250000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
       { id: 16370000, note: { de: '8 von 10 · Median Stufe 20', en: '8 of 10 · median level 20' } },
       { id: 16150000, note: { de: '8 von 10 · Median Stufe 13', en: '8 of 10 · median level 13' } },
+    ],
+    slotted: [
+      { id: 16190000 /* Enhance: Spirit's Benediction */, n: 10, level: 20 },
+      { id: 16250000 /* Summon: Ancient Spirit */, n: 10, level: 20 },
+      { id: 16370000 /* Flame Blessing */, n: 8, level: 20 },
+      { id: 16150000 /* Jointstrike: Corrode */, n: 8, level: 13 },
+      { id: 16170000 /* Command: Proxy */, n: 2, level: 14.5 },
+      { id: 16240000 /* Jointstrike: Destructive Attack */, n: 1, level: 20 },
+      { id: 16230000 /* Seize Magic */, n: 1, level: 20 },
     ],
     tips: [
       {

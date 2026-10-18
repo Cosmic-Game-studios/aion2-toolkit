@@ -122,6 +122,40 @@ export const assassinGuide = classGuide({
       de: 'Vor Stufe 22 hast du noch keine Stigmen: Lass diese Schritte weg und eröffne direkt mit [[13070000|Shadowstrike]]. Vor Stufe 14 fehlt dir auch [[13130000|Insignia Explosion]].',
       en: 'Before level 22 you have no stigmas yet: skip those steps and open right away with [[13070000|Shadowstrike]]. Before level 14 you also do not have [[13130000|Insignia Explosion]].',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Buffs', en: 'Buffs' },
+          text: { de: '[[13390000|Swift Contract]] (+20 % Kampftempo) und [[13310000|Illusive Clone]] (+20 % Zusatzschaden)', en: '[[13390000|Swift Contract]] (+20% Combat Speed) and [[13310000|Illusive Clone]] (+20% extra damage)' },
+          tag: { de: 'Tasten 5 · 6', en: 'Keys 5 · 6' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Hinter den Boss', en: 'Behind the boss' },
+          text: { de: '[[13070000|Shadowstrike]] springt hinter den Boss und betäubt ihn', en: '[[13070000|Shadowstrike]] jumps behind the boss and stuns it' },
+          tag: { de: 'Taste 4', en: 'Key 4' },
+          tone: 'slate',
+        },
+        {
+          title: { de: 'Von hinten', en: 'From behind' },
+          text: { de: '[[13300000|Triniel\'s Dagger]]: +30 % von hinten, ab Stigma-Stufe 10 kürzt er deine Abklingzeiten', en: '[[13300000|Triniel\'s Dagger]]: +30% from behind, from stigma level 10 it cuts your cooldowns' },
+          tag: { de: 'Taste 7', en: 'Key 7' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Glyphen setzen', en: 'Stack Insignias' },
+          text: { de: '[[13270000|Savage Fang]] setzt 5 Glyphen auf einmal', en: '[[13270000|Savage Fang]] puts 5 Insignias on the boss at once' },
+          tag: { de: 'Taste 8', en: 'Key 8' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Explosion, dann Makro', en: 'Explosion, then macro' },
+          text: { de: '[[13130000|Insignia Explosion]] mit vollen Glyphen, danach Makro und linke Maustaste ([[13010000|Quick Slice]])', en: '[[13130000|Insignia Explosion]] with full Insignias, then the macro and the left mouse button ([[13010000|Quick Slice]])' },
+          tag: { de: 'Taste 2', en: 'Key 2' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -180,6 +214,18 @@ export const assassinGuide = classGuide({
       { de: 'Dann **[[13070000|Shadowstrike]]** (zuerst auf 8, für die Spezialisierung mit mehr Krit-Schaden), **[[13340000|Storm Rampage]]**, **[[13050000|Flash Slice]]** und **[[13360000|Infiltrate]]** nach und nach auf Stufe 10.', en: 'Then **[[13070000|Shadowstrike]]** (to 8 first, for the specialisation with more crit damage), **[[13340000|Storm Rampage]]**, **[[13050000|Flash Slice]]** and **[[13360000|Infiltrate]]** step by step to level 10.' },
       { de: 'Dann die übrigen Passiven auf 10, wie die meisten der Top 10: **[[13770000|Ambush Stance]]** (ab 17; nach jedem Skill, der dich bewegt, 10 s lang 50 % Chance auf einen Zusatztreffer), **[[13710000|Heightened Sixth Sense]]** (auf Stufe 10 +1.500 LP und +15 % max. LP, heilt dich beim Ausweichen), **[[13780000|Defense Break]]** (ab 21; Treffer auf ein betäubtes oder niedergeworfenes Ziel senken 10 s lang seine Verteidigung um 30 %) und **[[13790000|Revitalization Contract]]** (ab 23; mehr Widerstand gegen Statuseffekte, und fällst du auf 10 % LP, heilt er dich einmal pro Minute um 44 %).', en: 'Then the other passives to 10, like most of the top 10: **[[13770000|Ambush Stance]]** (from 17; after every skill that moves you, 10 s with a 50% chance for an extra hit), **[[13710000|Heightened Sixth Sense]]** (at level 10 +1,500 HP and +15% max HP, heals you when you evade), **[[13780000|Defense Break]]** (from 21; hits on a stunned or knocked-down target lower its Defense by 30% for 10 s) and **[[13790000|Revitalization Contract]]** (from 23; more Status Effect Resist, and if you drop to 10% HP it heals you for 44% once a minute).' },
       { de: 'Zuletzt – diese lassen die Top 10 niedriger, weil die Punkte nicht für alles auf 10 reichen: **[[13210000|Whirlwind Slice]]** (Median 2,5; geht nur nach dem Ausweichen), **[[13220000|Shadow Fall]]** (5,5; vor allem fürs PvP), **[[13730000|Apply Poison]]** (7) und **[[13260000|Defiance]]** (7,5).', en: 'Last – the top 10 keep these lower because the points do not stretch to everything at 10: **[[13210000|Whirlwind Slice]]** (median 2.5; only works after you evade), **[[13220000|Shadow Fall]]** (5.5; mostly for PvP), **[[13730000|Apply Poison]]** (7) and **[[13260000|Defiance]]** (7.5).' },
+    ],
+    levels: [
+      { id: 13740000 /* Rear Smite */, level: 24.5, bought: 10, dv: 4, gear: 10, passive: true },
+      { id: 13750000 /* Assault Stance */, level: 23, bought: 10, dv: 4, gear: 8.5, passive: true },
+      { id: 13350000 /* Heart Gore */, level: 20.5, bought: 10, dv: 4, gear: 6.5 },
+      { id: 13130000 /* Insignia Explosion */, level: 19.5, bought: 10, dv: 4, gear: 5.5 },
+      { id: 13720000 /* Exploit Weakness */, level: 19, bought: 10, dv: 4, gear: 5.5, passive: true },
+      { id: 13760000 /* Impact Hit */, level: 19, bought: 10, dv: 4, gear: 5, passive: true },
+      { id: 13010000 /* Quick Slice */, level: 17.5, bought: 10, dv: 4, gear: 3.5 },
+      { id: 13100000 /* Savage Roar */, level: 15, bought: 10, dv: 4, gear: 2 },
+      { id: 13060000 /* Ambush */, level: 14, bought: 10, dv: 4, gear: 1.5 },
+      { id: 13070000 /* Shadowstrike */, level: 14, bought: 10, dv: 3.5, gear: 0.5 },
     ],
     specs: [
       {
@@ -392,6 +438,7 @@ export const assassinGuide = classGuide({
       de: "Die Top 10 der Assassinen haben im Median **228K** Kampfkraft bei Gegenstandsstufe **3.355** (Spanne 220–254K) – Platz 4 der acht Klassen, ≈70 Kampfkraft pro Gegenstandsstufe. Die Ausrüstung ist fast fertig; der Unterschied liegt bei den Arcana und der fünften Daevanion-Tafel.",
       en: "The top 10 Assassins have a median **228K** Combat Power at item level **3,355** (range 220–254K) – 4th of the eight classes, ≈70 Combat Power per item level. The gear is nearly done; the difference lies in the Arcana and the fifth Daevanion board.",
     },
+    stats: { cp: 228454.5, cpMin: 220400, cpMax: 254328, itemLevel: 3354.5, cpPerLevel: 69.56, weekly: 46892, weeklyOf: 10, rank: { cp: 4, itemLevel: 4, cpPerLevel: 4, weekly: 7 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Dagger und Guard – alle zehn auf +15 mit Amplified +5.",
@@ -419,6 +466,16 @@ export const assassinGuide = classGuide({
       { id: 13390000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
       { id: 13300000, note: { de: '7 von 10 · Median Stufe 17', en: '7 of 10 · median level 17' } },
       { id: 13270000, note: { de: '7 von 10 · Median Stufe 15', en: '7 of 10 · median level 15' } },
+    ],
+    slotted: [
+      { id: 13310000 /* Illusive Clone */, n: 10, level: 20 },
+      { id: 13390000 /* Swift Contract */, n: 9, level: 20 },
+      { id: 13300000 /* Triniel's Dagger */, n: 7, level: 17 },
+      { id: 13270000 /* Savage Fang */, n: 7, level: 15 },
+      { id: 13020000 /* Throw Shadowblade */, n: 2, level: 18.5 },
+      { id: 13180000 /* Shadow Walk */, n: 2, level: 17.5 },
+      { id: 13080000 /* Evasion Stance */, n: 2, level: 10 },
+      { id: 13230000 /* Aerial Bind */, n: 1, level: 19 },
     ],
     tips: [
       {

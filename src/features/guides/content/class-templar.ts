@@ -126,6 +126,40 @@ export const templarGuide = classGuide({
       de: 'Die Grundregel beim Templer: **erst ein Schild-Angriff, dann** [[12240000|Judgment]]. Jeder Schild-Angriff öffnet ein kurzes Fenster (2–3 s), in dem [[12240000|Judgment]] geht. Erst danach kommt der nächste Schild-Angriff. Bis Skillstufe 16 („Abklingzeit entfernt“) hat [[12240000|Judgment]] selbst 5 s Abklingzeit – dann geht noch nicht jedes Fenster.',
       en: 'The basic rule for the Templar: **first a shield attack, then** [[12240000|Judgment]]. Every shield attack opens a short window (2–3 s) in which [[12240000|Judgment]] works. Only after that comes the next shield attack. Until skill level 16 (“Remove cooldown”), [[12240000|Judgment]] itself has a 5 s cooldown – so not every window can be used yet.',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Buffs', en: 'Buffs' },
+          text: { de: '[[12230000|Noble Armor]] vor dem Kampf (5 Minuten mehr max. LP), [[12450000|Battlefield Banner]] für mehr Angriff', en: '[[12230000|Noble Armor]] before the fight (more max HP for 5 minutes), [[12450000|Battlefield Banner]] for more Attack' },
+          tag: { de: 'Tasten 6 · 8', en: 'Keys 6 · 8' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Aus der Entfernung', en: 'From range' },
+          text: { de: '[[12090000|Punishment]] voll aufladen, solange noch kein Fenster offen ist', en: '[[12090000|Punishment]] fully charged while no window is open yet' },
+          tag: { de: 'Taste 4', en: 'Key 4' },
+          tone: 'slate',
+        },
+        {
+          title: { de: 'Erstes Fenster', en: 'First window' },
+          text: { de: '[[12070000|Doom Shield]] bringt dich aus bis zu 20 m an den Boss und öffnet 3 s – sofort [[12240000|Judgment]]', en: '[[12070000|Doom Shield]] takes you to the boss from up to 20 m and opens 3 s – [[12240000|Judgment]] right away' },
+          tag: { de: 'Tasten 5 · 1', en: 'Keys 5 · 1' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Aggro und Schwächung', en: 'Enmity and weakening' },
+          text: { de: '[[12120000|Taunt]] zieht den Boss auf dich: -10 % Angriff, weniger Präzision', en: '[[12120000|Taunt]] pulls the boss onto you: -10% Attack, less Accuracy' },
+          tag: { de: 'Taste 7', en: 'Key 7' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Schild-Angriff → Urteil', en: 'Shield attack → Judgment' },
+          text: { de: '[[12100000|Shield Smite]], [[12350000|Warding Strike]] – nach jedem [[12240000|Judgment]], dann das Makro', en: '[[12100000|Shield Smite]], [[12350000|Warding Strike]] – each followed by [[12240000|Judgment]], then the macro' },
+          tag: { de: 'Taste 1', en: 'Key 1' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung am Boss', en: 'Opener at the boss' },
@@ -217,6 +251,18 @@ export const templarGuide = classGuide({
         de: 'Der Rest zum Schluss: [[12260000|Defiance]] (jede Stufe kürzt die Abklingzeit um 1 s), [[12790000|Survival Willpower]] (+35 % Widerstand gegen Statuseffekte auf Skillstufe 10 – stark im PvP) und [[12750000|Guarding Seal]]. [[12720000|Warding Shield]] gibt seine +200 Block schon auf Stufe 1. Lass [[12340000|Flash Rampage]] auf Stufe 1: Der Skill trifft nur taumelnde Ziele, und die Top 10 lassen ihn auf 1 (Median).',
         en: 'The rest at the end: [[12260000|Defiance]] (every level takes 1 s off its cooldown), [[12790000|Survival Willpower]] (+35% Status Effect Resist at skill level 10 – strong in PvP) and [[12750000|Guarding Seal]]. [[12720000|Warding Shield]] gives its +200 Block already at level 1. Leave [[12340000|Flash Rampage]] at level 1: it only hits staggered targets, and the top 10 keep it at 1 (median).',
       },
+    ],
+    levels: [
+      { id: 12780000 /* Fury */, level: 22, bought: 10, dv: 4, gear: 7.5, passive: true },
+      { id: 12760000 /* Impact Hit */, level: 20.5, bought: 10, dv: 4, gear: 6.5, passive: true },
+      { id: 12240000 /* Judgment */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 12770000 /* Insulting Roar */, level: 19.5, bought: 10, dv: 4, gear: 6, passive: true },
+      { id: 12040000 /* Pummel */, level: 18.5, bought: 10, dv: 4, gear: 4.5 },
+      { id: 12010000 /* Vicious Strike */, level: 17.5, bought: 10, dv: 4, gear: 3.5 },
+      { id: 12090000 /* Punishment */, level: 16.5, bought: 10, dv: 4, gear: 2.5 },
+      { id: 12350000 /* Warding Strike */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 12430000 /* Shield Rush */, level: 15, bought: 10, dv: 4, gear: 2 },
+      { id: 12100000 /* Shield Smite */, level: 14, bought: 10, dv: 3, gear: 1 },
     ],
     specs: [
       {
@@ -489,6 +535,7 @@ export const templarGuide = classGuide({
       de: "Die Top 10 der Templer haben im Median **214K** Kampfkraft bei Gegenstandsstufe **3.176** (Spanne 201–239K) – Platz 7 der acht Klassen. Mit ≈66 Kampfkraft pro Gegenstandsstufe zeigt der Templer weniger als die Schadensklassen; vergleiche dich darum mit anderen Templern, nicht mit der Gesamtliste.",
       en: "The top 10 Templars have a median **214K** Combat Power at item level **3,176** (range 201–239K) – 7th of the eight classes. At ≈66 Combat Power per item level the Templar shows less than the damage classes, so compare yourself with other Templars, not with the overall list.",
     },
+    stats: { cp: 213710.5, cpMin: 200585, cpMax: 239461, itemLevel: 3175.5, cpPerLevel: 66.31, weekly: 52966.5, weeklyOf: 8, rank: { cp: 7, itemLevel: 8, cpPerLevel: 7, weekly: 4 } },
     gear: [
       {
         de: "**Waffe:** Splendent Ebony / Wise Dragon Lord Longsword – alle zehn auf +15 mit Amplified +5. Die Waffe ist das Erste, was bei den Top-Templern fertig ist.",
@@ -516,6 +563,18 @@ export const templarGuide = classGuide({
       { id: 12120000, note: { de: '5 von 10 · Median Stufe 20', en: '5 of 10 · median level 20' } },
       { id: 12070000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
       { id: 12230000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
+    ],
+    slotted: [
+      { id: 12070000 /* Doom Shield */, n: 8, level: 15 },
+      { id: 12230000 /* Noble Armor */, n: 8, level: 15 },
+      { id: 12450000 /* Battlefield Banner */, n: 7, level: 20 },
+      { id: 12120000 /* Taunt */, n: 5, level: 20 },
+      { id: 12110000 /* Shield of Protection */, n: 5, level: 15 },
+      { id: 12220000 /* Grapple */, n: 3, level: 15 },
+      { id: 12320000 /* Nezekan's Shield */, n: 1, level: 20 },
+      { id: 12410000 /* Executing Blade */, n: 1, level: 20 },
+      { id: 12310000 /* Empyrean Lord's Punishment */, n: 1, level: 15 },
+      { id: 12190000 /* Second Skin */, n: 1, level: 15 },
     ],
     tips: [
       {

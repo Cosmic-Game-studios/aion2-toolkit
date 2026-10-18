@@ -63,6 +63,40 @@ export const sorcererGuide = classGuide({
       de: 'Kurz gesagt: Feuer-Skills machen den Schaden, Eis- und Wasser-Skills bremsen Gegner und halten sie fest. Achte auf deine **MP**: Ab 50 % MP gibt dir [[15720000|Robe of Earth]] mehr Krit.-Treffer, ab 25 % gibt dir [[15780000|Grace of Enhancement]] mehr Schaden.',
       en: 'In short: fire skills do the damage, ice and water skills slow enemies and hold them in place. Watch your **MP**: at 50% MP or more [[15720000|Robe of Earth]] gives you more Critical Hit, at 25% or more [[15780000|Grace of Enhancement]] gives you more damage.',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Buffs', en: 'Buffs' },
+          text: { de: '[[15310000|Wish of Concentration]] und [[15400000|Element Enhancement]] (+20 % Feuer- und Wasserangriff) – nur für den Boss', en: '[[15310000|Wish of Concentration]] and [[15400000|Element Enhancement]] (+20% Fire and Water Attack) – only for the boss' },
+          tag: { de: 'Tasten 4 · 5', en: 'Keys 4 · 5' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Schaden verstärken', en: 'Amplify damage' },
+          text: { de: "[[15320000|Delayed Explosion]] (4 s lang +15 % Schaden) und [[15110000|Winter's Shackles]] (mit Spezialisierung 5 s lang +20 % PvE-Schaden)", en: "[[15320000|Delayed Explosion]] (+15% damage for 4 s) and [[15110000|Winter's Shackles]] (with its specialisation +20% PvE damage for 5 s)" },
+          tag: { de: 'Tasten 8 · 3', en: 'Keys 8 · 3' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Burst', en: 'Burst' },
+          text: { de: '[[15060000|Hellfire]] sofort voll aufladen', en: '[[15060000|Hellfire]] fully charged right away' },
+          tag: { de: 'Taste E', en: 'Key E' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Schaden über Zeit', en: 'Damage over time' },
+          text: { de: '[[15390000|Fire Wall]] und [[15200000|Cold Storm]] machen danach 10 s lang Schaden über Zeit', en: '[[15390000|Fire Wall]] and [[15200000|Cold Storm]] keep dealing damage over time for 10 s' },
+          tag: { de: 'Tasten 6 · 7', en: 'Keys 6 · 7' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Festhalten, dann Makro', en: 'Hold, then macro' },
+          text: { de: '[[15280000|Bittercold Wind]] hält fest, danach Makro und linke Maustaste ([[15210000|Flame Arrow]])', en: '[[15280000|Bittercold Wind]] holds in place, then the macro and the left mouse button ([[15210000|Flame Arrow]])' },
+          tag: { de: 'Taste 2', en: 'Key 2' },
+          tone: 'teal',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -112,6 +146,18 @@ export const sorcererGuide = classGuide({
       { de: 'Die Passive, die die meisten der Top 10 auf 10 bringen: [[15710000|Fire Mark]] (das Zeichen macht mehr Zusatzschaden), [[15720000|Robe of Earth]] (ab Stufe 6; auf Stufe 10 +25 % max. MP und +150 Krit.-Treffer ab 50 % MP), [[15800000|Vitality Evaporation]] (ab Stufe 25; auf Stufe 10 ein Zusatztreffer, solange das Ziel mehr als 61 % LP hat) und [[15780000|Grace of Enhancement]] (ab Stufe 21) – dessen +20 % PvE-Schaden gibt es schon auf Stufe 1, weitere Stufen stärken nur seinen Zusatztreffer. Darum bekommt dieses Passiv seine Punkte zuletzt.', en: 'The passives most of the top 10 take to 10: [[15710000|Fire Mark]] (the mark deals more extra damage), [[15720000|Robe of Earth]] (from level 6; at level 10 +25% Max MP and +150 Critical Hit at 50% MP or more), [[15800000|Vitality Evaporation]] (from level 25; at level 10 an extra hit while the target has more than 61% HP) and [[15780000|Grace of Enhancement]] (from level 21) – its +20% PvE damage works already at level 1, more levels only strengthen its extra hit. So this passive gets its points last.' },
       { de: 'Dann [[15150000|Frost]], [[15220000|Frost Burst]] und [[15090000|Ice Chain]] auf 10 (7–8 der Top 10 tun das) und [[15240000|Defiance]] (ab Stufe 16): Jede Stufe senkt seine Abklingzeit um 1 s (51 s auf Stufe 10) – Abklingzeitverringerung wirkt bei ihm nicht.', en: 'Then [[15150000|Frost]], [[15220000|Frost Burst]] and [[15090000|Ice Chain]] to 10 (7–8 of the top 10 do) and [[15240000|Defiance]] (from level 16): every level cuts its cooldown by 1 s (51 s at level 10) – Cooldown Reduction does not work on it.' },
       { de: 'Mit den restlichen Punkten: [[15750000|Robe of Cold]] (mehr Verteidigung), [[15760000|Absorb Essence]] (MP bei Treffern), [[15730000|Cold Snap]], [[15790000|Revitalization Contract]] und [[15770000|Grace of Resistance]] – die Top 10 haben sie im Median auf 5–10, sie kommen zuletzt. [[15010000|Flame Scattershot]] lässt du auf Stufe 1: 6 der Top 10 lassen ihn auf 1–3. Die anderen 4 haben ihn auf 10 – ab Skillstufe 16 senkt seine Spezialisierung bei jedem Treffer alle Abklingzeiten um 1 s. Das lohnt sich erst, wenn alles andere steht.', en: 'With the points left: [[15750000|Robe of Cold]] (more Defense), [[15760000|Absorb Essence]] (MP on hits), [[15730000|Cold Snap]], [[15790000|Revitalization Contract]] and [[15770000|Grace of Resistance]] – the top 10 have them at a median of 5–10, they come last. Leave [[15010000|Flame Scattershot]] at level 1: 6 of the top 10 keep it at 1–3. The other 4 have it at 10 – from skill level 16 its specialisation cuts all cooldowns by 1 s on every hit. That only pays off once everything else is in place.' },
+    ],
+    levels: [
+      { id: 15740000 /* Robe of Flame */, level: 24, bought: 10, dv: 4, gear: 11, passive: true },
+      { id: 15060000 /* Hellfire */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 15310000 /* Wish of Concentration */, level: 19.5, bought: 10, dv: 4, gear: 4.5 },
+      { id: 15050000 /* Blaze */, level: 18, bought: 10, dv: 4, gear: 4 },
+      { id: 15040000 /* Firestorm */, level: 17.5, bought: 10, dv: 4, gear: 3.5 },
+      { id: 15710000 /* Fire Mark */, level: 17.5, bought: 10, dv: 4, gear: 4, passive: true },
+      { id: 15210000 /* Flame Arrow */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 15280000 /* Bittercold Wind */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 15110000 /* Winter's Shackles */, level: 15.5, bought: 10, dv: 4, gear: 1.5 },
+      { id: 15720000 /* Robe of Earth */, level: 14, bought: 10, dv: 2, gear: 2, passive: true },
     ],
     specs: [
       { id: 15060000 /* Hellfire */, parts: [15060010 /* Hellfire: +30% Skill Speed */, 15060040 /* Hellfire: Ignores Block and Evasion and lands as Multi-Hit */, 15060050 /* Hellfire: -15s cooldown */], note: { de: 'Schneller aufladen, Mehrfachtreffer und öfter einsetzen. Mit zwei Plätzen (Skillstufe 12–19) nimm +30 % Fähigkeitstempo und die Option der Stufe 12; ab Stufe 16 ersetzt −15 s Abklingzeit die Option der Stufe 12, ab Stufe 20 hast du alle drei.', en: 'Charge faster, extra hits (Multi-Hit) and use it more often. With two slots (skill level 12–19) take +30% Skill Speed and the level-12 option; from level 16 the −15 s cooldown replaces the level-12 option, at level 20 you have all three.' } },
@@ -189,6 +235,7 @@ export const sorcererGuide = classGuide({
       de: "Die Top 10 der Magier haben im Median **233K** Kampfkraft bei Gegenstandsstufe **3.327** (Spanne 222–250K) – Platz 3 der acht Klassen und mit ≈71 Kampfkraft pro Gegenstandsstufe Platz 2. Offen sind vor allem Arcana, Gürtel und die fünfte Daevanion-Tafel.",
       en: "The top 10 Sorcerers have a median **233K** Combat Power at item level **3,327** (range 222–250K) – 3rd of the eight classes and 2nd at ≈71 Combat Power per item level. What is still open is mainly Arcana, the belt and the fifth Daevanion board.",
     },
+    stats: { cp: 232539, cpMin: 222427, cpMax: 250420, itemLevel: 3327, cpPerLevel: 71.2, weekly: 63680.5, weeklyOf: 8, rank: { cp: 3, itemLevel: 5, cpPerLevel: 2, weekly: 2 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Spellbook – alle zehn auf +15 mit Amplified +5; der Guard ebenso (einer noch Nuakum).",
@@ -216,6 +263,17 @@ export const sorcererGuide = classGuide({
       { id: 15390000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
       { id: 15320000, note: { de: '7 von 10 · Median Stufe 20', en: '7 of 10 · median level 20' } },
       { id: 15200000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
+    ],
+    slotted: [
+      { id: 15400000 /* Element Enhancement */, n: 9, level: 20 },
+      { id: 15390000 /* Fire Wall */, n: 9, level: 20 },
+      { id: 15200000 /* Cold Storm */, n: 8, level: 15 },
+      { id: 15320000 /* Delayed Explosion */, n: 7, level: 20 },
+      { id: 15230000 /* Arctic Armor */, n: 2, level: 15 },
+      { id: 15410000 /* Hibernation */, n: 2, level: 12.5 },
+      { id: 15160000 /* Steel Barrier */, n: 1, level: 20 },
+      { id: 15120000 /* Glacial Smite */, n: 1, level: 10 },
+      { id: 15300000 /* Lumiel's Space */, n: 1, level: 10 },
     ],
     tips: [
       {

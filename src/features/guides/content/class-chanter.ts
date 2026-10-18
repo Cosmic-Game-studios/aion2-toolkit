@@ -146,6 +146,40 @@ export const chanterGuide = classGuide({
       de: "Als Kantor stärkst du zuerst die Gruppe, dann schlägst du zu. Dein Schaden kommt in kurzen Fenstern: erst ein Skill, der [[18100000|Dark Crush]] öffnet, dann sofort [[18100000|Dark Crush]].",
       en: "As a Chanter you first make the group stronger, then you strike. Your damage comes in short windows: first a skill that opens [[18100000|Dark Crush]], then [[18100000|Dark Crush]] right away.",
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Vor dem Kampf', en: 'Before the pull' },
+          text: { de: '[[18190000|Undefeated Mantra]] anschalten', en: 'Switch on [[18190000|Undefeated Mantra]]' },
+          tag: { de: 'Taste 8', en: 'Key 8' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Hinstürmen', en: 'Rush in' },
+          text: { de: '[[18090000|Rushing Smash]] bringt dich zum Boss und gibt 100 MP', en: '[[18090000|Rushing Smash]] takes you to the boss and gives 100 MP' },
+          tag: { de: 'Taste 4', en: 'Key 4' },
+          tone: 'slate',
+        },
+        {
+          title: { de: 'Gruppen-Buff', en: 'Group buff' },
+          text: { de: '[[18250000|Power of the Storm]], wenn die Gruppe loslegt', en: '[[18250000|Power of the Storm]] when the group starts its burst' },
+          tag: { de: 'Taste 6', en: 'Key 6' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Fenster öffnen', en: 'Open the window' },
+          text: { de: '[[18290000|Spinning Strike]] öffnet das Fenster – sofort [[18100000|Dark Crush]]', en: '[[18290000|Spinning Strike]] opens the window – [[18100000|Dark Crush]] right after' },
+          tag: { de: 'Taste 1', en: 'Key 1' },
+          tone: 'gold',
+        },
+        {
+          title: { de: 'Wieder öffnen, dann Makro', en: 'Reopen, then macro' },
+          text: { de: "[[18060000|Impactful Crush]] und [[18330000|Marchutan's Wrath]] öffnen es erneut, jedes Mal folgt [[18100000|Dark Crush]]; dann das Makro", en: "[[18060000|Impactful Crush]] and [[18330000|Marchutan's Wrath]] open it again, each followed by [[18100000|Dark Crush]]; then the macro" },
+          tag: { de: 'Tasten 1 · 7', en: 'Keys 1 · 7' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
@@ -229,6 +263,18 @@ export const chanterGuide = classGuide({
         de: "Später mit Tafeln und Ausrüstung: [[18100000|Dark Crush]] zuerst auf 16 (dann fällt seine Abklingzeit weg), dann 20 – und [[18750000|Attack Preparation]] und [[18760000|Impact Hit]] genauso hoch (bei den Top 10 um 22), [[18800000|Wind's Promise]] um 18. [[18010000|Onslaught]], [[18290000|Spinning Strike]] und [[18040000|Incandescent Blow]] auf 16–17, [[18120000|Recuperation]] auf 12–16, den Rest auf 12",
         en: "Later with boards and gear: [[18100000|Dark Crush]] to 16 first (that removes its cooldown), then 20 – and [[18750000|Attack Preparation]] and [[18760000|Impact Hit]] just as high (about 22 in the top 10), [[18800000|Wind's Promise]] to about 18. [[18010000|Onslaught]], [[18290000|Spinning Strike]] and [[18040000|Incandescent Blow]] to 16–17, [[18120000|Recuperation]] to 12–16, the rest to 12",
       },
+    ],
+    levels: [
+      { id: 18750000 /* Attack Preparation */, level: 22, bought: 10, dv: 4, gear: 7.5, passive: true },
+      { id: 18760000 /* Impact Hit */, level: 21.5, bought: 10, dv: 4, gear: 7.5, passive: true },
+      { id: 18100000 /* Dark Crush */, level: 21, bought: 10, dv: 4, gear: 7 },
+      { id: 18800000 /* Wind's Promise */, level: 18.5, bought: 10, dv: 4, gear: 4.5, passive: true },
+      { id: 18010000 /* Onslaught */, level: 17, bought: 10, dv: 4, gear: 3 },
+      { id: 18040000 /* Incandescent Blow */, level: 17, bought: 10, dv: 4, gear: 3 },
+      { id: 18290000 /* Spinning Strike */, level: 17, bought: 10, dv: 4, gear: 3 },
+      { id: 18060000 /* Impactful Crush */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 18120000 /* Recuperation */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 18090000 /* Rushing Smash */, level: 15, bought: 10, dv: 3.5, gear: 2 },
     ],
     specs: [
       {
@@ -508,6 +554,7 @@ export const chanterGuide = classGuide({
       de: "Die Top 10 der Kantoren haben im Median **217K** Kampfkraft bei Gegenstandsstufe **3.233** (Spanne 202–264K) – Platz 5 der acht Klassen, ≈67 Kampfkraft pro Gegenstandsstufe. Die Spanne ist die größte aller Klassen: Platz 1 hat mit 264K die höchste Kampfkraft aller 80 Top-Spieler.",
       en: "The top 10 Chanters have a median **217K** Combat Power at item level **3,233** (range 202–264K) – 5th of the eight classes, ≈67 Combat Power per item level. The range is the widest of all classes: 1st place has 264K, the highest Combat Power of all 80 top players.",
     },
+    stats: { cp: 217342.5, cpMin: 201980, cpMax: 263992, itemLevel: 3232.5, cpPerLevel: 67.22, weekly: 37803, weeklyOf: 8, rank: { cp: 5, itemLevel: 6, cpPerLevel: 6, weekly: 8 } },
     gear: [
       {
         de: "**Waffe:** Splendent Ebony / Wise Dragon Lord Staff (7 von 10), zwei spielen das **Enraged Kromede Rod**, einer den Splendent White Dragon Lord Staff – alle zehn auf +15 mit Amplified +5.",
@@ -535,6 +582,15 @@ export const chanterGuide = classGuide({
       { id: 18250000, note: { de: '8 von 10 · Median Stufe 20', en: '8 of 10 · median level 20' } },
       { id: 18420000, note: { de: '6 von 10 · Median Stufe 20', en: '6 of 10 · median level 20' } },
       { id: 18330000, note: { de: '8 von 10 · Median Stufe 16', en: '8 of 10 · median level 16' } },
+    ],
+    slotted: [
+      { id: 18190000 /* Undefeated Mantra */, n: 10, level: 20 },
+      { id: 18250000 /* Power of the Storm */, n: 8, level: 20 },
+      { id: 18330000 /* Marchutan's Wrath */, n: 8, level: 15.5 },
+      { id: 18420000 /* Guardian Blessing */, n: 6, level: 20 },
+      { id: 18160000 /* Sprint Mantra */, n: 5, level: 15 },
+      { id: 18140000 /* Focused Defense */, n: 2, level: 10 },
+      { id: 18700000 /* Assault Shock */, n: 1, level: 20 },
     ],
     tips: [
       {

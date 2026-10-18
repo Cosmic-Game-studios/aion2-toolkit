@@ -129,6 +129,40 @@ export const gladiatorGuide = classGuide({
       de: 'Jeder Kampf beginnt mit der Eröffnung von Hand. Danach hältst du Makro-Taste und linke Maustaste gedrückt. Welche Taste was macht, steht weiter unten bei „Leiste & Makro“.',
       en: 'Every fight starts with the opener by hand. After that you hold the macro key and the left mouse button. Which key does what is listed further down under “Hotbar & macro”.',
     },
+    flow: {
+      items: [
+        {
+          title: { de: 'Buffs', en: 'Buffs' },
+          text: { de: "[[11250000|Zikel's Blessing]] und [[11400000|Lunge Stance]]: Angriff und Kampftempo je +20 %", en: "[[11250000|Zikel's Blessing]] and [[11400000|Lunge Stance]]: Attack and Combat Speed +20% each" },
+          tag: { de: 'Tasten 5 · 6', en: 'Keys 5 · 6' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Ran an den Boss', en: 'Close in' },
+          text: { de: '[[11190000|Leaping Slam]]: Sprung bis 20 m', en: '[[11190000|Leaping Slam]]: leap of up to 20 m' },
+          tag: { de: 'Taste E', en: 'Key E' },
+          tone: 'slate',
+        },
+        {
+          title: { de: 'Schadens-Buff', en: 'Damage buff' },
+          text: { de: '[[11100000|Ruinous Blow]]: „Kampfbereitschaft“, 20 s lang +20 % Schaden', en: '[[11100000|Ruinous Blow]]: “Prepare for Battle”, +20% damage for 20 s' },
+          tag: { de: 'Taste Q', en: 'Key Q' },
+          tone: 'blue',
+        },
+        {
+          title: { de: 'Burst-Fenster', en: 'Burst window' },
+          text: { de: '[[11390000|Rage Burst]] senkt den Angriff des Bosses, 10 s mehr Schaden; [[11110000|Focused Block]] blockt den ersten Boss-Angriff', en: "[[11390000|Rage Burst]] lowers the boss's Attack, 10 s more damage; [[11110000|Focused Block]] blocks the first boss attack" },
+          tag: { de: 'Tasten 8 · 4', en: 'Keys 8 · 4' },
+          tone: 'violet',
+        },
+        {
+          title: { de: 'Burst, dann Makro', en: 'Burst, then macro' },
+          text: { de: '[[11170000|Overhead Slam]] – geht jetzt auch am Boss – so oft es geht, danach Makro und linke Maustaste', en: '[[11170000|Overhead Slam]] – now it works on the boss too – as often as you can, then the macro and the left mouse button' },
+          tag: { de: 'Taste 1', en: 'Key 1' },
+          tone: 'gold',
+        },
+      ],
+    },
     blocks: [
       {
         title: { de: 'Eröffnung am Boss', en: 'Opener at the boss' },
@@ -204,6 +238,18 @@ export const gladiatorGuide = classGuide({
         de: 'Zuletzt die Skills, bei denen die Top 10 sparen: [[11300000|Aerial Snare]] (im Median Stufe 7–8), [[11770000|Destructive Impulse]], [[11720000|Protection Armor]] und [[11280000|Sword Aura Rampage]]. Den letzten – er trifft nur taumelnde Ziele – lässt die Hälfte der Top 10 ganz ohne Punkte, die andere Hälfte bringt ihn auf 10. Seine Spezialisierung „-1 s auf alle Abklingzeiten bei jedem Treffer“ gibt es erst auf Skillstufe 16.',
         en: 'Last, the skills the top 10 save on: [[11300000|Aerial Snare]] (median level 7–8), [[11770000|Destructive Impulse]], [[11720000|Protection Armor]] and [[11280000|Sword Aura Rampage]]. The last one only hits staggered targets – half of the top 10 give it no points at all, the other half take it to 10. Its specialisation “-1 s on all cooldowns with every hit” only unlocks at skill level 16.',
       },
+    ],
+    levels: [
+      { id: 11750000 /* Attack Preparation */, level: 23, bought: 10, dv: 4, gear: 9, passive: true },
+      { id: 11170000 /* Overhead Slam */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 11100000 /* Ruinous Blow */, level: 20, bought: 10, dv: 4, gear: 6 },
+      { id: 11010000 /* Rending Blow */, level: 18.5, bought: 10, dv: 4, gear: 4.5 },
+      { id: 11760000 /* Impact Hit */, level: 18.5, bought: 10, dv: 4, gear: 4.5, passive: true },
+      { id: 11780000 /* Experienced Counterstrike */, level: 17.5, bought: 10, dv: 4, gear: 3.5, passive: true },
+      { id: 11360000 /* Rush Strike */, level: 17, bought: 10, dv: 4, gear: 4 },
+      { id: 11800000 /* Murderous Burst */, level: 16.5, bought: 10, dv: 4, gear: 3, passive: true },
+      { id: 11190000 /* Leaping Slam */, level: 16, bought: 10, dv: 4, gear: 2 },
+      { id: 11020000 /* Keen Strike */, level: 14, bought: 10, dv: 4, gear: 0.5 },
     ],
     specs: [
       {
@@ -500,6 +546,7 @@ export const gladiatorGuide = classGuide({
       de: "Die Top 10 der Gladiatoren haben im Median **240K** Kampfkraft bei Gegenstandsstufe **3.432** (Spanne 226–254K) – Platz 2 der acht Klassen, ≈70 Kampfkraft pro Gegenstandsstufe. Kein anderer Top-10-Kreis ist so gleichmäßig ausgebaut: Alle zehn tragen das komplette Set auf Gegenstandsstufe 102.",
       en: "The top 10 Gladiators have a median **240K** Combat Power at item level **3,432** (range 226–254K) – 2nd of the eight classes, ≈70 Combat Power per item level. No other top 10 is built up as evenly: all ten wear the full item level 102 set.",
     },
+    stats: { cp: 240364, cpMin: 225545, cpMax: 254176, itemLevel: 3432, cpPerLevel: 70.24, weekly: 48821, weeklyOf: 9, rank: { cp: 2, itemLevel: 1, cpPerLevel: 3, weekly: 6 } },
     gear: [
       {
         de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Greatsword und Guard – alle zehn auf +15 mit Amplified +5.",
@@ -528,10 +575,19 @@ export const gladiatorGuide = classGuide({
       { id: 11390000, note: { de: '10 von 10 · Median Stufe 18', en: '10 of 10 · median level 18' } },
       { id: 11110000, note: { de: '4 von 10 · Median Stufe 15', en: '4 of 10 · median level 15' } },
     ],
+    slotted: [
+      { id: 11400000 /* Lunge Stance */, n: 10, level: 20 },
+      { id: 11390000 /* Rage Burst */, n: 10, level: 17.5 },
+      { id: 11250000 /* Zikel's Blessing */, n: 9, level: 20 },
+      { id: 11110000 /* Focused Block */, n: 4, level: 15 },
+      { id: 11410000 /* Wave Armor */, n: 3, level: 16 },
+      { id: 11340000 /* Lifestealing Blade */, n: 3, level: 11 },
+      { id: 11080000 /* Blade Toss */, n: 1, level: 15 },
+    ],
     tips: [
       {
-        de: "**Das Set ist fertig:** Die Top-Gladiatoren legen im Median „nur“ +40K pro Woche zu, weniger als die meisten Klassen. Was noch dazukommt, kommt vor allem aus Daevanion-Knoten, Titeln und den letzten Arcana-Stufen.",
-        en: "**The set is done:** the top Gladiators gain a median of “only” +40K per week, less than most classes. What still comes on top comes mostly from Daevanion nodes, titles and the last Arcana levels.",
+        de: "**Das Set ist fertig:** Die Top-Gladiatoren legen im Median „nur“ +49K pro Woche zu, weniger als die meisten Klassen. Was noch dazukommt, kommt vor allem aus Daevanion-Knoten, Titeln und den letzten Arcana-Stufen.",
+        en: "**The set is done:** the top Gladiators gain a median of “only” +49K per week, less than most classes. What still comes on top comes mostly from Daevanion nodes, titles and the last Arcana levels.",
       },
       {
         de: "**Amulett und Gürtel:** Beide gelingen bis +10 immer (eine Schriftrolle pro Stufe) – bring sie hoch, bevor du über +10 hinaus verzauberst.",
