@@ -467,7 +467,7 @@ export const pets: Guide = {
             ['**Gladiator**', both('Cogni: Attack, Critical Hit, Damage Boost · Special: Double Chance'), both('Cogni (Might, Critical Hit)')],
             [{ de: '**Templer**', en: '**Templar**' }, both('Cogni: Damage Tolerance, Defense, Block · HP Increase %'), both('Cogni (HP), Natura (Critical Hit Resist), Varian (Evasion, Constitution)')],
             [{ de: '**Assassine**', en: '**Assassin**' }, both('Cogni: Critical Hit, Attack, Damage Boost'), both('Cogni (Critical Hit, Might)')],
-            [{ de: '**Waldläufer**', en: '**Ranger**' }, both('Cogni: Critical Hit, Attack, Accuracy'), both('Cogni, Fera (Accuracy)')],
+            [{ de: '**Waldläufer**', en: '**Ranger**' }, both('Cogni: Accuracy, Attack, Damage Boost'), both('Cogni, Fera (Accuracy)')],
             [{ de: '**Magier**', en: '**Sorcerer**' }, both('Cogni: Damage Boost, Attack, Critical Hit'), both('Cogni')],
             [{ de: '**Beschwörer**', en: '**Spiritmaster**' }, both('Cogni: Attack, Damage Boost'), both('Cogni')],
             [{ de: '**Kleriker**', en: '**Cleric**' }, { de: 'Erst Überleben: Damage Tolerance, HP Increase % – dann Cogni: Attack', en: 'Survival first: Damage Tolerance, HP Increase % – then Cogni: Attack' }, both('Cogni (HP), Varian')],
