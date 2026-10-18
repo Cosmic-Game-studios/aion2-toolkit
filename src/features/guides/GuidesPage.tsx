@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import {
   ArrowLeft, ArrowRight, ArrowUp, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Info,
-  LayoutGrid, Lightbulb, RotateCcw, ScrollText, TriangleAlert,
+  LayoutGrid, Lightbulb, RotateCcw, ScrollText, Search, TriangleAlert, X,
 } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { Lang, Skill } from '../../data/types';
@@ -18,10 +18,14 @@ import { MQ, matches, useDocumentTitle } from '../../components/hooks';
 import { richText, fmtDate } from '../../lib/format';
 import { readHash } from '../../lib/shareLink';
 import { storage } from '../../lib/storage';
-import type { Guide, GuideBlock, GuideCategory, GuideCell, L10n } from './types';
+import type { Guide, GuideCategory, GuideBlock, L10n } from './types';
 import { GUIDES } from './content';
 import { guideHref } from './guideLinks';
 import { GUIDE_ICONS } from './guideIcons';
+import { blockText, cell, pick } from './blockText';
+import { BarsChart, CompareChart, FlowChart, LineChart, SharesChart, StatsTiles } from './GuideCharts';
+import { buildGuideIndex, hitHref, searchGuides, type GuideResult } from './guideSearch';
+import { fold, queryTokens } from '../search/searchIndex';
 
 const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'basics', key: 'guideCatBasics' },
@@ -29,30 +33,9 @@ const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'world', key: 'guideCatWorld' },
 ];
 
-const pick = (x: L10n, lang: Lang) => x[lang] ?? x.en;
-const cell = (x: GuideCell, lang: Lang) => (typeof x === 'string' ? x : pick(x, lang));
 const smooth = (): ScrollBehavior => (matches(MQ.reducedMotion) ? 'auto' : 'smooth');
 
 /* ---------------------------------------------------------------- reading time and position */
-
-/** Everything a reader reads in a block (skill tiles count a few words each for looking at them). */
-function blockWords(b: GuideBlock, lang: Lang): { texts: string[]; tiles: number } {
-  const tx = (x?: L10n) => (x ? pick(x, lang) : '');
-  switch (b.type) {
-    case 'text': case 'heading': return { texts: [tx(b.text)], tiles: 0 };
-    case 'steps': return { texts: b.items.flatMap((s) => [tx(s.title), tx(s.text)]), tiles: 0 };
-    case 'list': case 'checklist': return { texts: b.items.map((x) => tx(x)), tiles: 0 };
-    case 'callout': return { texts: [tx(b.title), tx(b.text)], tiles: 0 };
-    case 'facts': return { texts: b.items.flatMap((f) => [tx(f.label), tx(f.value)]), tiles: 0 };
-    case 'table': return { texts: [tx(b.caption), ...b.head.map((c) => cell(c, lang)), ...b.rows.flat().map((c) => cell(c, lang))], tiles: 0 };
-    case 'links': return { texts: b.items.map((l) => tx(l.label)), tiles: 0 };
-    case 'sources': return { texts: b.items.map((s) => s.label), tiles: 0 };
-    case 'skills': return { texts: b.items.map((i) => tx(i.note)), tiles: b.items.length };
-    case 'keys': return { texts: b.items.map((k) => tx(k.note)), tiles: b.items.length };
-    case 'rotation': return { texts: [tx(b.title), ...b.steps.map((s) => tx(s.note))], tiles: b.steps.length };
-    case 'specs': return { texts: b.items.map((i) => tx(i.note)), tiles: b.items.reduce((a, i) => a + 1 + i.parts.length * 2, 0) };
-  }
-}
 
 const minutesCache = new Map<string, number>();
 /** Reading time in minutes (about 200 words a minute). */
@@ -67,7 +50,7 @@ function readingMinutes(g: Guide, lang: Lang): number {
   for (const s of g.sections) {
     count(pick(s.title, lang));
     for (const b of s.blocks) {
-      const { texts, tiles } = blockWords(b, lang);
+      const { texts, tiles } = blockText(b, lang);
       texts.forEach(count);
       words += tiles * 6;
     }
@@ -290,7 +273,45 @@ function Block({ b, guideId, index }: { b: GuideBlock; guideId: string; index: s
           })}
         </ul>
       );
+    case 'bars': return <BarsChart b={b} />;
+    case 'shares': return <SharesChart b={b} />;
+    case 'line': return <LineChart b={b} />;
+    case 'flow': return <FlowChart b={b} />;
+    case 'compare': return <CompareChart b={b} />;
+    case 'stats': return <StatsTiles b={b} />;
   }
+}
+
+/* ---------------------------------------------------------------- a search hit inside a guide */
+
+/**
+ * Marks the words of a search in one block (#/guides/<id>?s=…&b=…&q=…) with the CSS Custom Highlight API, so the
+ * guide's markup stays as it is; browsers without it still get the block's gold flash (charts.css).
+ */
+function markHit(el: HTMLElement, q: string): () => void {
+  el.classList.remove('g-hit');
+  void el.offsetWidth; // restart the flash when the same block is opened again
+  el.classList.add('g-hit');
+  const tokens = queryTokens(q);
+  const reg = (globalThis.CSS as { highlights?: Map<string, unknown> } | undefined)?.highlights;
+  const HL = (globalThis as { Highlight?: new (...r: Range[]) => unknown }).Highlight;
+  if (!tokens.length || !reg || !HL) return () => el.classList.remove('g-hit');
+  const ranges: Range[] = [];
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+    const raw = n.nodeValue ?? '';
+    const { text, map } = fold(raw);
+    for (const tk of tokens) {
+      for (let i = text.indexOf(tk); i >= 0; i = text.indexOf(tk, i + tk.length)) {
+        const r = document.createRange();
+        r.setStart(n, map[i]);
+        r.setEnd(n, map[i + tk.length - 1] + 1);
+        ranges.push(r);
+      }
+    }
+  }
+  reg.set('guide-hit', new HL(...ranges));
+  return () => { reg.delete('guide-hit'); el.classList.remove('g-hit'); };
 }
 
 /** Ticks are remembered per browser so a player can keep track while playing. */
@@ -443,17 +464,26 @@ function GuideView({ g, visit }: { g: Guide; visit: number }) {
   // start at the top, or at the section of a deep link (#/guides/<id>?s=3); after the app's own scroll on page change.
   // A link to the guide that is already open (quick search, Back) goes there again. After a link inside the app the
   // focus follows to the section (or the title), so keyboard and screen reader users continue reading there.
+  // A search hit (&b=<block>&q=<query>) goes to the block itself and marks the words.
   const firstVisit = useRef(visit);
   useEffect(() => {
     const again = visit !== firstVisit.current;
+    let unmark = () => {};
     const raf = requestAnimationFrame(() => {
-      const s = Number(readHash().params.get('s'));
-      const el = s > 0 ? document.getElementById(`g-${s}`) : null;
-      if (el) el.scrollIntoView({ block: 'start' });
+      const p = readHash().params;
+      const s = Number(p.get('s'));
+      const b = p.get('b');
+      const el = s > 0 || b != null ? document.getElementById(`g-${s}`) : null;
+      // the section's children: its title, then one element per block
+      const block = el && b != null ? el.parentElement?.children[Number(b) + 1] : null;
+      if (block instanceof HTMLElement) {
+        block.scrollIntoView({ block: 'center' });
+        unmark = markHit(block, p.get('q') ?? '');
+      } else if (el) el.scrollIntoView({ block: 'start' });
       else window.scrollTo({ top: 0 });
       if (again || (el && visit > 0)) (el ?? titleRef.current)?.focus({ preventScroll: true });
     });
-    return () => cancelAnimationFrame(raf);
+    return () => { cancelAnimationFrame(raf); unmark(); };
   }, [g.id, visit]);
 
   const toTop = () => {
@@ -575,10 +605,72 @@ function FeaturedGuide({ g }: { g: Guide }) {
   );
 }
 
+/* ---------------------------------------------------------------- search */
+
+/** a snippet with the matching words in <mark> */
+function Marked({ text, ranges }: { text: string; ranges: [number, number][] }) {
+  const out: (string | { m: string })[] = [];
+  let at = 0;
+  for (const [a, b] of ranges) {
+    if (a > at) out.push(text.slice(at, a));
+    out.push({ m: text.slice(a, b) });
+    at = b;
+  }
+  if (at < text.length) out.push(text.slice(at));
+  return <>{out.map((p, i) => (typeof p === 'string' ? <Fragment key={i}>{p}</Fragment> : <mark key={i}>{p.m}</mark>))}</>;
+}
+
+const SHOW_HITS = 3;
+
+/** One guide in the results: the guide itself, then its best matching paragraphs (more on request). */
+function GuideResultCard({ r, q }: { r: GuideResult; q: string }) {
+  const { t, lang } = useLoadedGame();
+  const [all, setAll] = useState(false);
+  const cat = CATEGORIES.find((c) => c.id === r.guide.category);
+  const hits = all ? r.hits : r.hits.slice(0, SHOW_HITS);
+  return (
+    <li className={`g-result tone-${r.guide.tone}`}>
+      <a className="g-result-head" href={guideHref(r.guide.id)} onClick={rememberList}>
+        <GuideMark g={r.guide} size={18} />
+        <span>
+          <strong>{pick(r.guide.title, lang)}</strong>
+          <span className="g-result-meta">
+            {cat && t(cat.key)} · {r.hits.length === 0 ? t('gsTitleHit') : r.hits.length === 1 ? t('gsResultsOne') : t('gsHits', { n: r.hits.length })}
+          </span>
+        </span>
+        <ArrowRight size={16} aria-hidden />
+      </a>
+      {hits.length > 0 && (
+        <ul className="g-hits">
+          {hits.map((h) => (
+            <li key={`${h.section}-${h.block}`}>
+              <a href={hitHref(r.guide.id, h, q)} onClick={rememberList}>
+                <span className="g-hit-sec">{h.section + 1} · {h.sectionTitle}</span>
+                <span className="g-hit-text"><Marked text={h.snippet} ranges={h.ranges} /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {r.hits.length > SHOW_HITS && !all && (
+        <button type="button" className="btn ghost sm g-hits-more" onClick={() => setAll(true)}>{t('gsMore', { n: r.hits.length - SHOW_HITS })}</button>
+      )}
+    </li>
+  );
+}
+
 function GuideList({ notFound }: { notFound: boolean }) {
-  const { t } = useLoadedGame();
+  const { t, lang, data } = useLoadedGame();
   const { build, picked } = useBuild();
   const mine = picked ? GUIDES.find((g) => g.cls === build.c) : undefined;
+  const [q, setQ] = useState(() => readHash().params.get('q') ?? '');
+  const [cat, setCat] = useState<GuideCategory | 'all'>('all');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const index = useMemo(() => buildGuideIndex(GUIDES, lang, (id) => data.skillById.get(id)?.name), [lang, data]);
+  const results = useMemo(() => searchGuides(index, q), [index, q]);
+  const cats = results ? CATEGORIES.filter((c) => results.some((r) => r.guide.category === c.id)) : [];
+  const shown = results?.filter((r) => cat === 'all' || r.guide.category === cat) ?? null;
+  const hitCount = shown?.reduce((a, r) => a + Math.max(1, r.hits.length), 0) ?? 0;
 
   // back from a guide: the same place in the list; otherwise the top (the app does not scroll when only the guide changes)
   useLayoutEffect(() => {
@@ -586,11 +678,77 @@ function GuideList({ notFound }: { notFound: boolean }) {
     listY = null;
   }, []);
 
+  // the query is part of the address, so Back from a hit returns to the same results
+  useEffect(() => {
+    const url = q.trim() ? `#/guides?q=${encodeURIComponent(q.trim())}` : '#/guides';
+    if (location.hash !== url) history.replaceState(history.state, '', url);
+  }, [q]);
+  useEffect(() => { if (cat !== 'all' && !cats.some((c) => c.id === cat)) setCat('all'); }, [cats, cat]);
+
+  // "/" jumps to the search field (the quick search leaves "/" to a page with its own search)
+  useEffect(() => {
+    const onKey = (e: globalThis.KeyboardEvent) => {
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const el = e.target as HTMLElement | null;
+      if (el?.closest('input, textarea, select, [contenteditable="true"]') || document.querySelector('.modal-backdrop')) return;
+      e.preventDefault();
+      inputRef.current?.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const openFirst = () => {
+    const r = shown?.[0];
+    if (!r) return;
+    rememberList();
+    location.hash = r.hits[0] ? hitHref(r.guide.id, r.hits[0], q) : guideHref(r.guide.id);
+  };
+
   return (
     <div className="page guides-page">
       <PageHeader icon={<ScrollText size={22} />} title={t('navGuides')} subtitle={t('guidesText')} />
       {notFound && <p className="hint-box warn" role="status"><Info size={15} aria-hidden /> {t('guideNotFound')}</p>}
-      {GUIDES.length === 0 ? <Card><EmptyState icon={<ScrollText size={28} aria-hidden />} text={t('noGuides')} /></Card> : (
+      <div className="g-search" role="search">
+        <label className="search-field">
+          <Search size={16} aria-hidden />
+          <input
+            ref={inputRef}
+            type="search"
+            value={q}
+            placeholder={t('gsPlaceholder')}
+            onChange={(e) => setQ(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); openFirst(); } }}
+            aria-label={t('gsLabel')}
+            aria-keyshortcuts="/"
+            aria-describedby="g-search-hint"
+            enterKeyHint="search"
+          />
+          {q ? (
+            <button type="button" className="icon-btn sm" onClick={() => { setQ(''); inputRef.current?.focus(); }} aria-label={t('gsClear')}><X size={14} /></button>
+          ) : <kbd className="db-kbd" aria-hidden>/</kbd>}
+        </label>
+        <p id="g-search-hint" className="g-search-hint">{t('gsHint')}</p>
+      </div>
+      {shown ? (
+        <section className="g-results" aria-label={t('gsLabel')}>
+          <div className="g-results-bar">
+            <p role="status" className="g-results-count">
+              {shown.length === 0 ? t('gsNone', { q: q.trim() }) : hitCount === 1 ? t('gsResultsOne') : t('gsResults', { n: hitCount, g: shown.length })}
+            </p>
+            {cats.length > 1 && (
+              <div className="g-results-cats" role="group" aria-label={t('gsFilter')}>
+                {[{ id: 'all' as const, label: t('gsAll') }, ...cats.map((c) => ({ id: c.id, label: t(c.key) }))].map((c) => (
+                  <button key={c.id} type="button" className={`chip ${cat === c.id ? 'on' : ''}`} aria-pressed={cat === c.id} onClick={() => setCat(c.id)}>{c.label}</button>
+                ))}
+              </div>
+            )}
+          </div>
+          <ol className="g-result-list">
+            {shown.map((r) => <GuideResultCard key={r.guide.id} r={r} q={q} />)}
+          </ol>
+        </section>
+      ) : GUIDES.length === 0 ? <Card><EmptyState icon={<ScrollText size={28} aria-hidden />} text={t('noGuides')} /></Card> : (
         <>
           {mine && <FeaturedGuide g={mine} />}
           {CATEGORIES.map(({ id, key }) => {
