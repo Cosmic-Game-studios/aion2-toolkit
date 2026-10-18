@@ -23,10 +23,12 @@ export type GuideBlock =
    */
   | { type: 'table'; caption?: L10n; head: GuideCell[]; rows: GuideCell[][]; grid?: boolean }
   /**
+   * `href`: one address, or one per language (a site with its own German pages);
+   * http(s) addresses open in a new tab;
    * `cls`: the link switches the planner to this class first (planner links in a class guide);
    * `download`: a file of the site (e.g. a PDF) that the browser saves instead of opening
    */
-  | { type: 'links'; items: { href: string; label: L10n; primary?: boolean; cls?: ClassType; download?: boolean }[] }
+  | { type: 'links'; items: { href: GuideCell; label: L10n; primary?: boolean; cls?: ClassType; download?: boolean }[] }
   | { type: 'sources'; items: { href: string; label: string }[] }
   /** skills with icon, name and a short note */
   | { type: 'skills'; items: { id: number; note: L10n }[] }

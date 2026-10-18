@@ -170,19 +170,26 @@ function Block({ b, guideId, index }: { b: GuideBlock; guideId: string; index: s
     case 'links':
       return (
         <div className="g-links">
-          {b.items.map((l) => (
-            <a
-              key={l.href}
-              className={`btn ${l.primary ? 'primary' : 'ghost'}`}
-              href={l.href}
-              download={l.download || undefined}
-              onClick={l.cls ? () => setClass(l.cls!) : undefined}
-            >
-              {l.download && <Download size={15} aria-hidden />}
-              {tx(l.label)}
-              {!l.download && <ArrowRight size={15} aria-hidden />}
-            </a>
-          ))}
+          {b.items.map((l) => {
+            const href = cell(l.href, lang);
+            const ext = /^https?:\/\//.test(href);
+            return (
+              <a
+                key={href}
+                className={`btn ${l.primary ? 'primary' : 'ghost'}`}
+                href={href}
+                target={ext ? '_blank' : undefined}
+                rel={ext ? 'noreferrer noopener' : undefined}
+                download={l.download || undefined}
+                onClick={l.cls ? () => setClass(l.cls!) : undefined}
+              >
+                {l.download && <Download size={15} aria-hidden />}
+                {tx(l.label)}
+                {ext ? <ExternalLink size={15} aria-hidden /> : !l.download && <ArrowRight size={15} aria-hidden />}
+                {ext && <span className="sr-only"> ({t('gdNewTab')})</span>}
+              </a>
+            );
+          })}
         </div>
       );
     case 'sources':

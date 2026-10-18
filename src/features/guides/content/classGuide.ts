@@ -40,6 +40,46 @@ export interface ClassGuideInput {
 
 const sec = (de: string, en: string, blocks: GuideBlock[]): GuideSection => ({ title: { de, en }, blocks });
 
+/**
+ * questlog.gg class slugs. Its terms (version of 2026-09-29) forbid taking over its data or showing its pages
+ * inside another site, so the guides only link there: the class guide and the build lists, which sort by likes.
+ */
+const QUESTLOG: Record<ClassType, string> = {
+  Gladiator: 'gladiator', Templar: 'templar', Assassin: 'assassin', Ranger: 'ranger', Sorcerer: 'sorcerer',
+  Elementalist: 'elementalist', Cleric: 'cleric', Chanter: 'chanter', Fighter: 'fighter',
+};
+const questlog = (path: string) => ({ de: `https://questlog.gg/aion-2/de/${path}`, en: `https://questlog.gg/aion-2/en/${path}` });
+
+function communityBuilds(cls: ClassType): GuideBlock[] {
+  const slug = QUESTLOG[cls];
+  return [
+    {
+      type: 'text',
+      text: {
+        de: 'Auf **questlog.gg** gibt es einen eigenen Guide für diese Klasse. Er zeigt, welche Ausrüstung, Stigmen und Skills in den öffentlichen Builds der Spieler am häufigsten vorkommen; die Erklärtexte dort gibt es nur auf Englisch. Dazu kommen die Builds selbst: Charakter-Builds (Ausrüstung) und Skill-Builds (Skillpunkte und Stigmen), die meistgelikten stehen oben.',
+        en: '**questlog.gg** has its own guide for this class. It shows which gear, stigmas and skills come up most in the players’ public builds. Then there are the builds themselves: character builds (gear) and skill builds (skill points and stigmas), with the most-liked at the top.',
+      },
+    },
+    {
+      type: 'callout',
+      tone: 'tip',
+      title: { de: 'So findest du gute Builds', en: 'How to spot a good build' },
+      text: {
+        de: 'Likes zeigen, was beliebt ist, nicht ob ein Build noch aktuell ist. Stell oben die Region auf **Global**, achte auf das Datum und die Tags (PvE, PvP, Budget, Endgame) und vergleiche den Build mit dem Kern-Build oben. Ein Build mit vielen Likes von vor Monaten passt nach einem Patch oft nicht mehr.',
+        en: 'Likes show what is popular, not whether a build is still current. Set the region at the top to **Global**, check the date and the tags (PvE, PvP, budget, endgame), and compare the build with the core build above. A build with many likes from months ago often no longer fits after a patch.',
+      },
+    },
+    {
+      type: 'links',
+      items: [
+        { href: questlog(`classes/${slug}`), label: { de: 'Klassen-Guide auf Questlog', en: 'Class guide on Questlog' }, primary: true },
+        { href: questlog(`character-builder?class=${slug}`), label: { de: 'Charakter-Builds', en: 'Character builds' } },
+        { href: questlog(`skill-builder?class=${slug}`), label: { de: 'Skill-Builds', en: 'Skill builds' } },
+      ],
+    },
+  ];
+}
+
 export function classGuide(g: ClassGuideInput): Guide {
   const party: GuideBlock[] = [
     { type: 'heading', text: { de: 'In Dungeons', en: 'In dungeons' } },
@@ -131,6 +171,7 @@ export function classGuide(g: ClassGuideInput): Guide {
         { type: 'links', items: [{ href: '#/guides/macros', label: { de: 'Makro-Guide lesen', en: 'Read the macro guide' } }, { href: '#/hotbar', label: { de: 'Makro im Planer bauen', en: 'Build the macro in the planner' }, cls: g.cls }] },
       ]),
       sec('Häufige Fehler', 'Common mistakes', [{ type: 'list', items: g.mistakes }]),
+      sec('Community-Builds', 'Community builds', communityBuilds(g.cls)),
       sec('Quellen', 'Sources', sources),
     ],
   };
