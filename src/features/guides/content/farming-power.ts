@@ -1,10 +1,10 @@
 import type { Guide, L10n } from '../types';
 
 /*
- * Farming & power. Numbers checked on 2026-10-19 against: Raid Relay's Kinah guide for the global client (Kinah per claim,
- * run times, the server-wide run counter, hours and Kinah per week, 16 Oct), metabot.gg (entry caps and refills, dungeon
+ * Farming & power. Numbers checked on 2026-10-19 against: Raid Relay's Kina guide for the global client (Kina per claim,
+ * run times, the server-wide run counter, hours and Kina per week, 16 Oct), metabot.gg (entry caps and refills, dungeon
  * gates, Combat Power statistics, Abyss), daevaguides.com (Odyle Energy, Wind Breeze limits from NC's 14 Oct notes) and
- * the AION2 Index ranking (19 Oct). The Kinah-per-week figures are cubes only: 21 claims of 40 Odyle per character and week.
+ * the AION2 Index ranking (19 Oct). The Kina-per-week figures are cubes only: 21 claims of 40 Odyle per character and week.
  * The printable PDF is the version of 18 Oct and still has the older figures.
  */
 
@@ -28,7 +28,7 @@ const pdfLink = {
   items: [{ href: PDF, download: true, primary: true, label: { de: 'PDF herunterladen (22 Seiten, englisch)', en: 'Download the PDF (22 pages)' } }],
 };
 
-/** Kinah per claim (40 Odyle) and its gate, Raid Relay (global client, 16 Oct 2026); run times timed by the author or estimated (≈). */
+/** Kina per claim (40 Odyle) and its gate, Raid Relay (global client, 16 Oct 2026); run times timed by the author or estimated (≈). */
 const CLAIMS: { label: string; kina: number; ilv: string; time: string; transcendence: boolean }[] = [
   { label: 'Conquest 1★ · Krao Cave, Draupnir', kina: 200, ilv: '700', time: '8', transcendence: false },
   { label: 'Conquest 2★ · Urugugu Canyon, Vakron', kina: 300, ilv: '1,400', time: '10', transcendence: false },
@@ -40,7 +40,7 @@ const CLAIMS: { label: string; kina: number; ilv: string; time: string; transcen
 ];
 
 /**
- * Kinah per week from Conquest 2★ cubes (300K per claim, 21 claims per character) for 1–8 characters on one server.
+ * Kina per week from Conquest 2★ cubes (300K per claim, 21 claims per character) for 1–8 characters on one server.
  * Free: one claim per run, runs past 84 on the server pay 80 → 60 → 40 → 20%. Membership: two claims per run, so
  * 8 characters stay inside the 84 full runs.
  */
@@ -61,24 +61,24 @@ export const farmingPower: Guide = {
   tone: 'violet',
   category: 'world',
   title: {
-    de: 'Farming & Power: Kinah, Gegenstandsstufe, Kampfkraft und AP',
-    en: 'Farming & power: Kinah, item level, Combat Power and AP',
+    de: 'Farming & Power: Kina, Gegenstandsstufe, Kampfkraft und AP',
+    en: 'Farming & power: Kina, item level, Combat Power and AP',
   },
   summary: {
-    de: 'Wie du die vier Zahlen des Fortschritts so schnell wie möglich hochtreibst – solo oder mit Twinks, gratis oder mit Membership, für Elyos und Asmodier: Kinah pro Lauf und Stunde, Routen für jeden Tag, Wochenplan, Checklisten und die Obergrenzen pro Woche.',
-    en: 'How to push the four numbers of progress as fast as possible – solo or with alts, free or with Membership, for Elyos and Asmodians: Kinah per run and per hour, routes for every day, a week plan, checklists and the weekly ceilings.',
+    de: 'Wie du die vier Zahlen des Fortschritts so schnell wie möglich hochtreibst – solo oder mit Twinks, gratis oder mit Membership, für Elyos und Asmodier: Kina pro Lauf und Stunde, Routen für jeden Tag, Wochenplan, Checklisten und die Obergrenzen pro Woche.',
+    en: 'How to push the four numbers of progress as fast as possible – solo or with alts, free or with Membership, for Elyos and Asmodians: Kina per run and per hour, routes for every day, a week plan, checklists and the weekly ceilings.',
   },
   updated: '2026-10-19',
   tags: [
     { de: 'Farming', en: 'Farming' },
-    { de: 'Kinah', en: 'Kinah' },
+    { de: 'Kina', en: 'Kina' },
     { de: 'Gegenstandsstufe', en: 'Item level' },
     { de: 'Kampfkraft', en: 'Combat Power' },
     { de: 'Abyss-Punkte', en: 'Abyss Points' },
   ],
   basis: {
-    de: 'Recherche zum globalen Server, PvE (Stand 19.10.2026): Kinah-Werte und Zeiten aus einem gemessenen Spieler-Guide, Obergrenzen und Freischaltungen aus den Client-Daten, die Rangliste von AION2 Index. Die AP-Mengen und die Zeiten der Routen sind Schätzungen zum Planen; Werte können sich mit Patches ändern.',
-    en: 'Research for the global server, PvE (as of 19 Oct 2026): Kinah values and times from a measured player guide, caps and unlocks from the client data, the AION2 Index ranking. The AP amounts and the route times are estimates for planning; values can change with patches.',
+    de: 'Recherche zum globalen Server, PvE (Stand 19.10.2026): Kina-Werte und Zeiten aus einem gemessenen Spieler-Guide, Obergrenzen und Freischaltungen aus den Client-Daten, die Rangliste von AION2 Index. Die AP-Mengen und die Zeiten der Routen sind Schätzungen zum Planen; Werte können sich mit Patches ändern.',
+    en: 'Research for the global server, PvE (as of 19 Oct 2026): Kina values and times from a measured player guide, caps and unlocks from the client data, the AION2 Index ranking. The AP amounts and the route times are estimates for planning; values can change with patches.',
   },
   sections: [
     {
@@ -87,8 +87,8 @@ export const farmingPower: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Vier Zahlen entscheiden über deinen Fortschritt in AION 2: **Kinah** (die Währung), **Gegenstandsstufe (iLv)** (die Summe deiner Ausrüstung), **Kampfkraft (CP)** (der Stärkewert) und **Abyss-Punkte (AP)** (die Währung für Stigmen und Daevanion). Dieser Guide zeigt, wie du alle vier so schnell wie möglich hochtreibst – solo oder mit mehreren Charakteren, als Elyos oder Asmodier.',
-            en: 'Four numbers decide your progress in AION 2: **Kinah** (the currency), **item level (iLv)** (the total of your gear), **Combat Power (CP)** (the strength score) and **Abyss Points (AP)** (the currency for stigmas and Daevanion). This guide shows how to push all four as fast as possible – solo or with several characters, as Elyos or Asmodian.',
+            de: 'Vier Zahlen entscheiden über deinen Fortschritt in AION 2: **Kina** (die Währung), **Gegenstandsstufe (iLv)** (die Summe deiner Ausrüstung), **Kampfkraft (CP)** (der Stärkewert) und **Abyss-Punkte (AP)** (die Währung für Stigmen und Daevanion). Dieser Guide zeigt, wie du alle vier so schnell wie möglich hochtreibst – solo oder mit mehreren Charakteren, als Elyos oder Asmodier.',
+            en: 'Four numbers decide your progress in AION 2: **Kina** (the currency), **item level (iLv)** (the total of your gear), **Combat Power (CP)** (the strength score) and **Abyss Points (AP)** (the currency for stigmas and Daevanion). This guide shows how to push all four as fast as possible – solo or with several characters, as Elyos or Asmodian.',
           },
         },
         pdfLink,
@@ -97,13 +97,13 @@ export const farmingPower: Guide = {
           type: 'table',
           head: ['#', { de: 'Regel', en: 'Rule' }, { de: 'Warum', en: 'Why' }, { de: 'Bringt', en: 'Feeds' }],
           rows: [
-            ['1', { de: '**Odyle-Energie nie voll laufen lassen**', en: '**Never let Odyle Energy cap**' }, { de: 'Deine größte Kinah-Quelle – sie speichert gratis nur 4 Tage 16 Std. (Membership 7 Tage).', en: 'Your biggest Kinah source – free it only banks 4 days 16 h (Membership 7 days).' }, 'Kinah'],
-            ['2', { de: '**5 Duty Missions täglich auf dem Main**', en: '**5 Duty Missions every day on your main**' }, { de: 'Serverweites Limit: je ≥50.000 gebundenes Kinah, dazu Steine, Odyle, Schlüssel.', en: 'Server-wide limit: ≥50,000 bound Kinah each, plus stones, Odyle, keys.' }, 'Kinah · iLv'],
-            ['3', { de: '**Jeden Wochenzähler vor Mittwoch leeren**', en: '**Clear every weekly counter before Wednesday**' }, { de: 'Ungenutzte Versuche, Eintritte und Tickets verfallen beim Reset.', en: 'Unused tries, entries and tickets are lost at the reset.' }, 'Kinah · iLv · AP'],
+            ['1', { de: '**Odyle-Energie nie voll laufen lassen**', en: '**Never let Odyle Energy cap**' }, { de: 'Deine größte Kina-Quelle – sie speichert gratis nur 4 Tage 16 Std. (Membership 7 Tage).', en: 'Your biggest Kina source – free it only banks 4 days 16 h (Membership 7 days).' }, 'Kina'],
+            ['2', { de: '**5 Duty Missions täglich auf dem Main**', en: '**5 Duty Missions every day on your main**' }, { de: 'Serverweites Limit: je ≥50.000 gebundenes Kina, dazu Steine, Odyle, Schlüssel.', en: 'Server-wide limit: ≥50,000 bound Kina each, plus stones, Odyle, keys.' }, 'Kina · iLv'],
+            ['3', { de: '**Jeden Wochenzähler vor Mittwoch leeren**', en: '**Clear every weekly counter before Wednesday**' }, { de: 'Ungenutzte Versuche, Eintritte und Tickets verfallen beim Reset.', en: 'Unused tries, entries and tickets are lost at the reset.' }, 'Kina · iLv · AP'],
             ['4', { de: '**Erst alles Epic/Unique sicher auf +10**', en: '**Safe +10 on all Epic/Unique gear first**' }, { de: 'Bis +10 gelingt es immer – Stärke ohne Risiko.', en: 'Always succeeds up to +10 – risk-free power.' }, 'iLv · CP'],
             ['5', { de: '**Den schwächsten Platz verbessern, nicht den besten**', en: '**Upgrade your weakest slot, not your best**' }, { de: 'Die Gegenstandsstufe treibt die Kampfkraft (bis etwa Stufe 2.000 ≈45 CP pro Punkt, an der Spitze ≈69).', en: 'Item level drives Combat Power (≈45 CP per point up to about item level 2,000, ≈69 at the top).' }, 'iLv · CP'],
             ['6', { de: '**Zuerst AP ohne Obergrenze farmen**', en: '**Farm uncapped AP first**' }, { de: 'Quest-AP und Supply Requests zählen nicht in die Wochengrenze.', en: 'Quest AP and Supply Requests don’t count towards the weekly cap.' }, 'AP'],
-            ['7', { de: '**Twinks: gleicher Server + gleiche Fraktion**', en: '**Alts: same server + faction**' }, { de: 'Nur dort teilen sie das Server Storage. Gratis lohnen 4 Charaktere, mit Membership bis 8.', en: 'Only there they share Server Storage. Free, 4 characters pay; with Membership up to 8.' }, 'Kinah'],
+            ['7', { de: '**Twinks: gleicher Server + gleiche Fraktion**', en: '**Alts: same server + faction**' }, { de: 'Nur dort teilen sie das Server Storage. Gratis lohnen 4 Charaktere, mit Membership bis 8.', en: 'Only there they share Server Storage. Free, 4 characters pay; with Membership up to 8.' }, 'Kina'],
           ],
         },
         { type: 'heading', text: { de: 'Deine Wochenziele', en: 'Your weekly targets' } },
@@ -111,7 +111,7 @@ export const farmingPower: Guide = {
           type: 'stats',
           items: [
             { value: '21', label: { de: 'Würfel-Abholungen pro Charakter', en: 'cube claims per character' }, note: { de: '840 Odyle pro Woche ÷ 40 pro Abholung', en: '840 Odyle a week ÷ 40 per claim' }, tone: 'gold' },
-            { value: num('1,400'), label: { de: 'Gegenstandsstufe für Conquest 2★', en: 'item level for Conquest 2★' }, note: { de: '+50 % Kinah pro Würfel', en: '+50% Kinah per cube' }, tone: 'blue' },
+            { value: num('1,400'), label: { de: 'Gegenstandsstufe für Conquest 2★', en: 'item level for Conquest 2★' }, note: { de: '+50 % Kina pro Würfel', en: '+50% Kina per cube' }, tone: 'blue' },
             { value: '100K', label: { de: 'Kampfkraft als erstes großes Ziel', en: 'Combat Power as the first big goal' }, note: { de: 'Median bei iLv 2.000+', en: 'median at iLv 2,000+' }, tone: 'teal' },
             { value: '200K+', label: { de: 'Abyss-Punkte pro Charakter', en: 'Abyss Points per character' }, note: { de: 'Schätzung, ohne PvP', en: 'estimate, without PvP' }, tone: 'violet' },
           ],
@@ -139,21 +139,21 @@ export const farmingPower: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Der ganze Fortschritt in AION 2 läuft auf vier Zahlen hinaus, und sie treiben sich gegenseitig an: Kinah kauft Gegenstandsstufe, Gegenstandsstufe öffnet bessere Dungeons, bessere Dungeons zahlen mehr Kinah. Jede Aufgabe in diesem Guide trägt die Säule, auf die sie einzahlt: **Kinah**, **iLv**, **CP** oder **AP**.',
-            en: 'Everything in AION 2 progression comes down to four numbers, and they push each other: Kinah buys item level, item level opens better dungeons, better dungeons pay more Kinah. Every task in this guide is tagged with the pillar it feeds: **Kinah**, **iLv**, **CP** or **AP**.',
+            de: 'Der ganze Fortschritt in AION 2 läuft auf vier Zahlen hinaus, und sie treiben sich gegenseitig an: Kina kauft Gegenstandsstufe, Gegenstandsstufe öffnet bessere Dungeons, bessere Dungeons zahlen mehr Kina. Jede Aufgabe in diesem Guide trägt die Säule, auf die sie einzahlt: **Kina**, **iLv**, **CP** oder **AP**.',
+            en: 'Everything in AION 2 progression comes down to four numbers, and they push each other: Kina buys item level, item level opens better dungeons, better dungeons pay more Kina. Every task in this guide is tagged with the pillar it feeds: **Kina**, **iLv**, **CP** or **AP**.',
           },
         },
         {
           type: 'flow',
           title: { de: 'Der Fortschritts-Kreislauf', en: 'The progress loop' },
           caption: {
-            de: 'So hängen die Säulen zusammen. Schritt 3 schließt den Kreis: Jeder Meilenstein der Gegenstandsstufe erhöht das Kinah pro Würfel (700 → 1.400 → 2.100, Transcendence ab 1.600).',
-            en: 'How the pillars connect. Step 3 closes the loop: every item level milestone raises the Kinah per cube (700 → 1,400 → 2,100, Transcendence from 1,600).',
+            de: 'So hängen die Säulen zusammen. Schritt 3 schließt den Kreis: Jeder Meilenstein der Gegenstandsstufe erhöht das Kina pro Würfel (700 → 1.400 → 2.100, Transcendence ab 1.600).',
+            en: 'How the pillars connect. Step 3 closes the loop: every item level milestone raises the Kina per cube (700 → 1,400 → 2,100, Transcendence from 1,600).',
           },
           items: [
-            { title: { de: 'Odyle-Würfel + Duties', en: 'Odyle cubes + Duties' }, text: { de: 'Conquest, Transcendence, 5 Duties am Tag', en: 'Conquest, Transcendence, 5 Duties a day' }, tag: 'Kinah', tone: 'gold' },
-            { title: { de: 'Kinah ausgeben', en: 'Spend Kinah' }, text: { de: 'schwächster Platz → sicheres +10 → Arcana', en: 'weakest slot → safe +10 → Arcana' }, tag: 'iLv', tone: 'blue' },
-            { title: { de: 'Nächster Meilenstein', en: 'Next milestone' }, text: { de: 'höheres Dungeon-Tier = mehr Kinah pro Würfel', en: 'higher dungeon tier = more Kinah per cube' }, tag: 'iLv → Kinah', tone: 'gold' },
+            { title: { de: 'Odyle-Würfel + Duties', en: 'Odyle cubes + Duties' }, text: { de: 'Conquest, Transcendence, 5 Duties am Tag', en: 'Conquest, Transcendence, 5 Duties a day' }, tag: 'Kina', tone: 'gold' },
+            { title: { de: 'Kina ausgeben', en: 'Spend Kina' }, text: { de: 'schwächster Platz → sicheres +10 → Arcana', en: 'weakest slot → safe +10 → Arcana' }, tag: 'iLv', tone: 'blue' },
+            { title: { de: 'Nächster Meilenstein', en: 'Next milestone' }, text: { de: 'höheres Dungeon-Tier = mehr Kina pro Würfel', en: 'higher dungeon tier = more Kina per cube' }, tag: 'iLv → Kina', tone: 'gold' },
             { title: { de: 'Abyss, Quests, Lieferungen', en: 'Abyss, quests, deliveries' }, text: { de: 'AP → Stigma Shards, Daevanion', en: 'AP → Stigma Shards, Daevanion' }, tag: 'AP', tone: 'violet' },
             { title: { de: 'Kampfkraft', en: 'Combat Power' }, text: { de: 'Gegenstandsstufe + Stigmen + Daevanion + Titel', en: 'item level + stigmas + Daevanion + titles' }, tag: 'CP', tone: 'teal' },
           ],
@@ -162,7 +162,7 @@ export const farmingPower: Guide = {
           type: 'table',
           head: [{ de: 'Säule', en: 'Pillar' }, { de: 'Was es ist', en: 'What it is' }, { de: 'Hauptquellen', en: 'Main sources' }, { de: 'Ziel mit diesem Guide', en: 'Goal with this guide' }],
           rows: [
-            ['**Kinah**', { de: 'Währung – kauft Ausrüstung, Verbesserungen und (mit Membership) Market-Waren', en: 'Currency – buys gear, upgrades and (with Membership) Market items' }, { de: 'Odyle-Würfel, Duties, Market', en: 'Odyle cubes, Duties, Market' }, { de: '≈6,3 Mio./Woche solo · ≈25–50 Mio. mit Twinks', en: '≈6.3M/week solo · ≈25–50M with alts' }],
+            ['**Kina**', { de: 'Währung – kauft Ausrüstung, Verbesserungen und (mit Membership) Market-Waren', en: 'Currency – buys gear, upgrades and (with Membership) Market items' }, { de: 'Odyle-Würfel, Duties, Market', en: 'Odyle cubes, Duties, Market' }, { de: '≈6,3 Mio./Woche solo · ≈25–50 Mio. mit Twinks', en: '≈6.3M/week solo · ≈25–50M with alts' }],
             ['**iLv**', { de: 'Summe des Charakters aus Ausrüstung, Verzauberung und Arcana', en: 'Character total of gear, enhancement and Arcana' }, { de: 'Ausrüstungswechsel, sicheres +10, Arcana', en: 'Gear swaps, safe +10, Arcana' }, num('700 → 1,400 → 2,100 → 2,500')],
             ['**CP**', { de: 'Der Stärkewert des Spiels – bis etwa Gegenstandsstufe 2.000 ≈45 pro Punkt, an der Spitze ≈69', en: "The game's strength score – ≈45 per item level point up to about 2,000, ≈69 at the top" }, { de: 'Gegenstandsstufe, Stigmen, Daevanion, Titel, Flügel', en: 'Item level, stigmas, Daevanion, titles, wings' }, '≈50K → ≈100K+'],
             ['**AP**', { de: 'Abyss-Währung – Stigma Shards, Daevanion Crystals, Potential Stones', en: 'Abyss currency – Stigma Shards, Daevanion Crystals, Potential Stones' }, { de: 'Supply Requests, Quests, Corridor, Abyss-Monster', en: 'Supply Requests, quests, Corridor, Abyss mobs' }, { de: '≈110–380K pro Woche und Charakter (Schätzung)', en: '≈110–380K per week per character (estimate)' }],
@@ -183,7 +183,7 @@ export const farmingPower: Guide = {
         {
           type: 'stats',
           items: [
-            { value: num('≈67M'), label: { de: 'Kinah pro Woche aus Würfeln', en: 'Kinah per week from cubes' }, note: { de: '8 Charaktere, Membership, Conquest 3★ – mit Transcendence 4 noch mehr', en: '8 characters, Membership, Conquest 3★ – more with Transcendence 4' }, tone: 'gold' },
+            { value: num('≈67M'), label: { de: 'Kina pro Woche aus Würfeln', en: 'Kina per week from cubes' }, note: { de: '8 Charaktere, Membership, Conquest 3★ – mit Transcendence 4 noch mehr', en: '8 characters, Membership, Conquest 3★ – more with Transcendence 4' }, tone: 'gold' },
             { value: num('3,471'), label: { de: 'höchste Gegenstandsstufe der Top 50', en: 'highest item level of the top 50' }, note: { de: 'AION2 Index, 19.10.', en: 'AION2 Index, 19 Oct' }, tone: 'blue' },
             { value: '265K', label: { de: 'höchste Kampfkraft', en: 'highest Combat Power' }, note: { de: 'Platz 10.000: 143K', en: 'rank 10,000: 143K' }, tone: 'teal' },
             { value: '?', label: { de: 'AP-Wochengrenze auf Global', en: 'weekly AP cap on Global' }, note: { de: 'nicht veröffentlicht – Korea: 400K für Monster + PvP zusammen', en: 'not published – Korea: 400K for mobs + PvP together' }, tone: 'violet' },
@@ -193,7 +193,7 @@ export const farmingPower: Guide = {
           type: 'table',
           head: [{ de: 'Säule', en: 'Pillar' }, { de: 'Mit dem Guide', en: 'Guide level' }, { de: 'Obergrenze', en: 'Ceiling' }, { de: 'Was es braucht', en: 'What it takes' }],
           rows: [
-            ['**Kinah**', { de: '≈25,2 Mio. (4 Charaktere, Conquest 2★)', en: '≈25.2M (4 chars, Conquest 2★)' }, { de: '≈67 Mio. (8 Charaktere, Conquest 3★)', en: '≈67M (8 chars, Conquest 3★)' }, { de: 'Membership · Plätze 5–8 · jeder Charakter auf 2.100', en: 'Membership · slots 5–8 · every character at 2,100' }],
+            ['**Kina**', { de: '≈25,2 Mio. (4 Charaktere, Conquest 2★)', en: '≈25.2M (4 chars, Conquest 2★)' }, { de: '≈67 Mio. (8 Charaktere, Conquest 3★)', en: '≈67M (8 chars, Conquest 3★)' }, { de: 'Membership · Plätze 5–8 · jeder Charakter auf 2.100', en: 'Membership · slots 5–8 · every character at 2,100' }],
             ['**AP**', { de: '≈110–380K pro Charakter (Schätzung)', en: '≈110–380K per char (estimate)' }, { de: 'Wochengrenze für Monster + PvP, dazu alle AP ohne Grenze', en: 'weekly cap for mobs + PvP, plus all uncapped AP' }, { de: 'Beide gedeckelten Quellen voll + Quest-AP und Supply Requests', en: 'Both capped sources full + quest AP and Supply Requests' }],
             ['**iLv**', num('1,400 → 2,100'), { de: '≈3.470 (die Besten, 19.10.)', en: '≈3,470 (the best, 19 Oct)' }, { de: 'Splendent Wise/Ebony 102 auf +15 mit Amplified +5, fünf Unique-Arcana', en: 'Splendent Wise/Ebony 102 at +15 with Amplified +5, five Unique Arcana' }],
             ['**CP**', '≈66K → ≈100K', '≈265K', { de: 'Dazu Stigmen auf 20, ≈290 von 532 Daevanion-Knoten, viele Titel', en: 'Plus stigmas at 20, ≈290 of 532 Daevanion nodes, many titles' }],
@@ -210,7 +210,7 @@ export const farmingPower: Guide = {
             { title: { de: 'Zuerst AP ohne Obergrenze', en: 'Uncapped AP first' }, text: { de: 'Quests, Supply Requests.', en: 'Quests, Supply Requests.' } },
             { title: { de: 'Die gedeckelten AP-Quellen', en: 'Cap the capped' }, text: { de: 'jede Woche voll machen.', en: 'AP sources every week.' } },
             { title: { de: 'Überschuss verwerten', en: 'Use the surplus' }, text: { de: 'Mit Membership am Market verkaufen, gratis per Morph in Odyle-Energie.', en: 'With Membership sell it on the Market, free morph it into Odyle Energy.' } },
-            { title: { de: 'Kinah → Gegenstandsstufe', en: 'Kinah → item level' }, text: { de: 'schwächster Platz → +10 → Arcana.', en: 'weakest slot → +10 → Arcana.' } },
+            { title: { de: 'Kina → Gegenstandsstufe', en: 'Kina → item level' }, text: { de: 'schwächster Platz → +10 → Arcana.', en: 'weakest slot → +10 → Arcana.' } },
             { title: { de: 'AP → Kampfkraft', en: 'AP → Combat Power' }, text: { de: 'Stigma Shards, Daevanion.', en: 'Stigma Shards, Daevanion.' } },
             { title: { de: 'In Blöcken spielen', en: 'Batch sessions' }, text: { de: '2 Odyle-Tage, 3 Abyss-Blöcke.', en: '2 Odyle days, 3 Abyss blocks.' } },
           ],
@@ -218,10 +218,10 @@ export const farmingPower: Guide = {
         { type: 'heading', text: { de: 'Was dir dieser Guide bringt', en: 'What this guide earns you' } },
         {
           type: 'bars',
-          title: { de: 'Kinah pro Woche aus Odyle-Würfeln', en: 'Kinah per week from Odyle cubes' },
+          title: { de: 'Kina pro Woche aus Odyle-Würfeln', en: 'Kina per week from Odyle cubes' },
           caption: {
-            de: 'Nur Würfel, 21 Abholungen pro Charakter und Woche: Conquest 2★ zahlt 300.000, Conquest 3★ 400.000 Kinah pro Abholung (Raid Relay, 16.10.2026). Gratis zahlt jeder Lauf über 84 auf dem Server weniger (siehe Säule I). „Normal“ ist eine Annahme zum Vergleich: Tier 1, die Hälfte der Odyle verschwendet.',
-            en: 'Cubes only, 21 claims per character and week: Conquest 2★ pays 300,000, Conquest 3★ 400,000 Kinah per claim (Raid Relay, 16 Oct 2026). Free, every run past 84 on the server pays less (see Pillar I). “Casual” is an assumption for comparison: Tier 1, half the Odyle wasted.',
+            de: 'Nur Würfel, 21 Abholungen pro Charakter und Woche: Conquest 2★ zahlt 300.000, Conquest 3★ 400.000 Kina pro Abholung (Raid Relay, 16.10.2026). Gratis zahlt jeder Lauf über 84 auf dem Server weniger (siehe Säule I). „Normal“ ist eine Annahme zum Vergleich: Tier 1, die Hälfte der Odyle verschwendet.',
+            en: 'Cubes only, 21 claims per character and week: Conquest 2★ pays 300,000, Conquest 3★ 400,000 Kina per claim (Raid Relay, 16 Oct 2026). Free, every run past 84 on the server pays less (see Pillar I). “Casual” is an assumption for comparison: Tier 1, half the Odyle wasted.',
           },
           items: [
             { label: { de: 'Normal: 1 Charakter', en: 'Casual: 1 character' }, note: { de: 'Tier 1, halbe Odyle verschwendet', en: 'Tier 1, half the Odyle wasted' }, value: 2.0, display: num('≈2.0M'), tone: 'slate' },
@@ -236,8 +236,8 @@ export const farmingPower: Guide = {
           type: 'table',
           head: [{ de: 'Säule', en: 'Pillar' }, { de: 'Normale Woche', en: 'Casual week' }, { de: 'Mit diesem Guide', en: 'Following this guide' }, { de: 'Warum', en: 'Why' }],
           rows: [
-            ['**Kinah**', { de: '≈2,0 Mio. (Tier 1, halbe Odyle verschwendet)', en: '≈2.0M (Tier 1, half the Odyle wasted)' }, { de: '≈6,3 Mio. solo (×3) · ≈25 Mio. mit 3 Twinks (×12) · ≈50 Mio. mit 7 (Membership)', en: '≈6.3M solo (×3) · ≈25M with 3 alts (×12) · ≈50M with 7 (Member)' }, { de: 'Keine verschwendete Energie, Conquest 2★, Twinks auf demselben Server', en: 'No wasted energy, Conquest 2★, alts on the same server' }],
-            ['**iLv**', { de: 'langsame, zufällige Verbesserungen', en: 'slow, random upgrades' }, { de: 'Meilensteine 1.000 → 1.400 → 2.100', en: 'milestones 1,000 → 1,400 → 2,100' }, { de: 'Kinah in der richtigen Reihenfolge ausgegeben', en: 'Kinah spent in the right order' }],
+            ['**Kina**', { de: '≈2,0 Mio. (Tier 1, halbe Odyle verschwendet)', en: '≈2.0M (Tier 1, half the Odyle wasted)' }, { de: '≈6,3 Mio. solo (×3) · ≈25 Mio. mit 3 Twinks (×12) · ≈50 Mio. mit 7 (Membership)', en: '≈6.3M solo (×3) · ≈25M with 3 alts (×12) · ≈50M with 7 (Member)' }, { de: 'Keine verschwendete Energie, Conquest 2★, Twinks auf demselben Server', en: 'No wasted energy, Conquest 2★, alts on the same server' }],
+            ['**iLv**', { de: 'langsame, zufällige Verbesserungen', en: 'slow, random upgrades' }, { de: 'Meilensteine 1.000 → 1.400 → 2.100', en: 'milestones 1,000 → 1,400 → 2,100' }, { de: 'Kina in der richtigen Reihenfolge ausgegeben', en: 'Kina spent in the right order' }],
             ['**CP**', { de: '≈50K bei iLv 1.000', en: '≈50K at iLv 1,000' }, { de: '≈66K bei 1.400 · ≈100K bei 2.000+ (+50K)', en: '≈66K at 1,400 · ≈100K at 2,000+ (+50K)' }, { de: 'Gegenstandsstufe, Stigmen und Daevanion zusammen', en: 'Item level, stigmas and Daevanion together' }],
             ['**AP**', '≈30–60K', { de: '≈110–380K ohne PvP (×3–6, Schätzung)', en: '≈110–380K without PvP (×3–6, estimate)' }, { de: 'Quellen ohne Obergrenze zuerst, Corridor-Schübe', en: 'Uncapped sources first, Corridor bursts' }],
           ],
@@ -266,24 +266,24 @@ export const farmingPower: Guide = {
           items: [
             {
               title: { de: 'Gratis', en: 'Free' },
-              tag: { de: '≈1,7 Mio. Kinah/Std.', en: '≈1.7M Kinah/h' },
+              tag: { de: '≈1,7 Mio. Kina/Std.', en: '≈1.7M Kina/h' },
               tone: 'slate',
               points: [
                 { kind: 'con', text: { de: 'Odyle-Grenze 560 – spätestens alle 4 Tage einloggen', en: 'Odyle cap 560 – log in at least every 4 days' } },
-                { kind: 'con', text: { de: 'Eine Abholung pro Lauf: doppelt so viele Läufe für dasselbe Kinah', en: 'One claim per run: twice the runs for the same Kinah' } },
-                { kind: 'con', text: { de: 'Kein Market, kein Kinah-↔-Quna-Tausch, keine Odyle beim Wind Breeze Merchant', en: 'No Market, no Kinah ↔ Quna exchange, no Odyle from the Wind Breeze Merchant' } },
+                { kind: 'con', text: { de: 'Eine Abholung pro Lauf: doppelt so viele Läufe für dasselbe Kina', en: 'One claim per run: twice the runs for the same Kina' } },
+                { kind: 'con', text: { de: 'Kein Market, kein Kina-↔-Quna-Tausch, keine Odyle beim Wind Breeze Merchant', en: 'No Market, no Kina ↔ Quna exchange, no Odyle from the Wind Breeze Merchant' } },
                 { kind: 'pro', text: { de: 'Substance Morph: 4 × 40 Odyle pro Charakter und Woche', en: 'Substance Morph: 4 × 40 Odyle per character a week' } },
               ],
               verdict: { de: 'Main + bis zu 3 Twinks – danach zahlt jeder Lauf weniger.', en: 'Main + up to 3 alts – past that every run pays less.' },
             },
             {
               title: both('Membership'),
-              tag: { de: '≈3 Mio. Kinah/Std.', en: '≈3M Kinah/h' },
+              tag: { de: '≈3 Mio. Kina/Std.', en: '≈3M Kina/h' },
               tone: 'gold',
               points: [
                 { kind: 'pro', text: { de: 'Odyle-Grenze 840 – voll erst nach 7 Tagen', en: 'Odyle cap 840 – full only after 7 days' } },
-                { kind: 'pro', text: { de: 'Zwei Abholungen pro Lauf: dasselbe Kinah in der halben Zeit, der Server zählt halb so viele Läufe', en: 'Two claims per run: the same Kinah in half the time, the server counts half the runs' } },
-                { kind: 'pro', text: { de: 'Market und Kinah-↔-Quna-Tausch; Odyle beim Wind Breeze Merchant (100.000 Kinah pro 40, 4 pro Charakter, 16 pro Server)', en: 'Market and Kinah ↔ Quna exchange; Odyle from the Wind Breeze Merchant (100,000 Kinah per 40, 4 per character, 16 per server)' } },
+                { kind: 'pro', text: { de: 'Zwei Abholungen pro Lauf: dasselbe Kina in der halben Zeit, der Server zählt halb so viele Läufe', en: 'Two claims per run: the same Kina in half the time, the server counts half the runs' } },
+                { kind: 'pro', text: { de: 'Market und Kina-↔-Quna-Tausch; Odyle beim Wind Breeze Merchant (100.000 Kina pro 40, 4 pro Charakter, 16 pro Server)', en: 'Market and Kina ↔ Quna exchange; Odyle from the Wind Breeze Merchant (100,000 Kina per 40, 4 per character, 16 per server)' } },
                 { kind: 'pro', text: { de: '14 statt 7 Std. in Lower und Middle Reshanta, 21 statt 12 Shugo-Schlüssel', en: '14 instead of 7 h in Lower and Middle Reshanta, 21 instead of 12 Shugo keys' } },
                 { kind: 'con', text: { de: 'Kostet echtes Geld', en: 'Costs real money' } },
               ],
@@ -293,10 +293,10 @@ export const farmingPower: Guide = {
         },
         {
           type: 'line',
-          title: { de: 'Stunden pro Woche für die volle Kinah-Routine', en: 'Hours per week for the full Kinah routine' },
+          title: { de: 'Stunden pro Woche für die volle Kina-Routine', en: 'Hours per week for the full Kina routine' },
           caption: {
-            de: 'Von Raid Relay gemessen und hochgerechnet (globaler Client, 16.10.2026): alle Kinah-Quellen eines Accounts, Dungeon-Zeit und Wege. Kinah pro Woche gratis 11,3 / 18,6 / 25,5 / 30,6 Mio., mit Membership 10,3 / 17,4 / 24,5 / 31,6 Mio. – fast gleich viel Kinah in halb so viel Zeit.',
-            en: 'Measured and extrapolated by Raid Relay (global client, 16 Oct 2026): all Kinah sources of an account, dungeon time and travel. Kinah per week free 11.3 / 18.6 / 25.5 / 30.6M, with Membership 10.3 / 17.4 / 24.5 / 31.6M – almost the same Kinah in half the time.',
+            de: 'Von Raid Relay gemessen und hochgerechnet (globaler Client, 16.10.2026): alle Kina-Quellen eines Accounts, Dungeon-Zeit und Wege. Kina pro Woche gratis 11,3 / 18,6 / 25,5 / 30,6 Mio., mit Membership 10,3 / 17,4 / 24,5 / 31,6 Mio. – fast gleich viel Kina in halb so viel Zeit.',
+            en: 'Measured and extrapolated by Raid Relay (global client, 16 Oct 2026): all Kina sources of an account, dungeon time and travel. Kina per week free 11.3 / 18.6 / 25.5 / 30.6M, with Membership 10.3 / 17.4 / 24.5 / 31.6M – almost the same Kina in half the time.',
           },
           x: { label: { de: 'Aufbau', en: 'Setup' }, ticks: ['Main', 'Main + 1', 'Main + 2', 'Main + 3'] },
           y: { label: { de: 'Stunden pro Woche', en: 'hours per week' }, unit: 'h', min: 0 },
@@ -308,7 +308,7 @@ export const farmingPower: Guide = {
         { type: 'heading', text: { de: 'Wähle deinen Aufbau nach deiner Zeit', en: 'Pick your setup by available time' } },
         {
           type: 'table',
-          head: [{ de: 'Zeit pro Woche', en: 'Time per week' }, { de: 'Aufbau', en: 'Setup' }, { de: 'Kinah/Woche', en: 'Kinah/week' }, { de: 'Kinah/Std.', en: 'Kinah/hour' }, { de: 'Hinweis', en: 'Note' }],
+          head: [{ de: 'Zeit pro Woche', en: 'Time per week' }, { de: 'Aufbau', en: 'Setup' }, { de: 'Kina/Woche', en: 'Kina/week' }, { de: 'Kina/Std.', en: 'Kina/hour' }, { de: 'Hinweis', en: 'Note' }],
           rows: [
             [num('≈3.5 h'), { de: 'Nur Main + Membership', en: 'Main only + Membership' }, num('≈10.3M'), num('≈2.9M'), { de: 'Höchster Wert pro Stunde', en: 'Highest value per hour' }],
             [num('≈7 h'), { de: 'Nur Main, gratis', en: 'Main only, free' }, num('≈11.3M'), num('≈1.7M'), { de: 'Solide ohne Kosten', en: 'Solid at no cost' }],
@@ -321,8 +321,8 @@ export const farmingPower: Guide = {
           type: 'callout',
           tone: 'info',
           text: {
-            de: 'Raid Relays eigene Zahlen gehen nicht ganz auf (z. B. 6,3 Mio. aus 21 Abholungen in 3,5 Std. gegenüber 10,3 Mio. in der Tabelle) – lies sie als Größenordnung. Belastbar ist das Verhältnis: Membership halbiert die Zeit fast, Twinks erhöhen das Kinah, nicht das Tempo.',
-            en: 'Raid Relay’s own figures don’t quite add up (e.g. 6.3M from 21 claims in 3.5 h against 10.3M in the table) – read them as an order of magnitude. The ratio is solid: Membership almost halves the time, alts raise the Kinah, not the speed.',
+            de: 'Raid Relays eigene Zahlen gehen nicht ganz auf (z. B. 6,3 Mio. aus 21 Abholungen in 3,5 Std. gegenüber 10,3 Mio. in der Tabelle) – lies sie als Größenordnung. Belastbar ist das Verhältnis: Membership halbiert die Zeit fast, Twinks erhöhen das Kina, nicht das Tempo.',
+            en: 'Raid Relay’s own figures don’t quite add up (e.g. 6.3M from 21 claims in 3.5 h against 10.3M in the table) – read them as an order of magnitude. The ratio is solid: Membership almost halves the time, alts raise the Kina, not the speed.',
           },
         },
       ],
@@ -342,7 +342,7 @@ export const farmingPower: Guide = {
           type: 'steps',
           items: [
             { title: { de: 'Attendance + Shugo-Schlüssel · 2 Min.', en: 'Attendance + Shugo keys · 2 min' }, text: { de: 'Zuerst abholen – sie laufen voll.', en: 'Claim first – they cap.' } },
-            { title: { de: 'Duty Missions ×5 · 15 Min.', en: 'Duty Missions ×5 · 15 min' }, text: { de: 'Schwache Belohnungen neu würfeln – aber sparsam: Das 6. Würfeln kostet schon 85.000 Kinah, mehr als die 50.000 einer Duty.', en: 'Reroll weak rewards – but sparingly: the 6th reroll already costs 85,000 Kinah, more than the 50,000 a Duty pays.' } },
+            { title: { de: 'Duty Missions ×5 · 15 Min.', en: 'Duty Missions ×5 · 15 min' }, text: { de: 'Schwache Belohnungen neu würfeln – aber sparsam: Das 6. Würfeln kostet schon 85.000 Kina, mehr als die 50.000 einer Duty.', en: 'Reroll weak rewards – but sparingly: the 6th reroll already costs 85,000 Kina, more than the 50,000 a Duty pays.' } },
             { title: { de: 'Dimensional Invasion · 5 Min.', en: 'Dimensional Invasion · 5 min' }, text: { de: '1 Belohnungs-Schlüssel pro Tag, bis 7 ansparbar (pro Server).', en: '1 reward key per day, banks up to 7 (per server).' } },
             { title: { de: 'Daily Dungeon ×2 · 10 Min.', en: 'Daily Dungeon ×2 · 10 min' }, text: { de: 'Enhance Stones.', en: 'Enhance Stones.' } },
             { title: { de: 'Nightmare ×2 · 10 Min.', en: 'Nightmare ×2 · 10 min' }, text: { de: 'Oder bis zu 14 ansparen.', en: 'Or bank up to 14.' } },
@@ -413,8 +413,8 @@ export const farmingPower: Guide = {
           items: [
             { title: { de: 'Main: Odyle-Würfel · ≈1–2 Std.', en: 'Main: Odyle cubes · ≈1–2 h' }, text: { de: 'Höchstes Tier · ≈480 Odyle = 12 Abholungen (Membership ≈1 Std.).', en: 'Highest tier · ≈480 Odyle = 12 claims (Membership ≈1 h).' } },
             { title: { de: 'Twinks 1–3 (oder 1–7) · je ≈1–2 Std.', en: 'Alts 1–3 (or 1–7) · ≈1–2 h each' }, text: { de: 'Einer nach dem anderen · Odyle leeren.', en: 'One by one · empty Odyle.' } },
-            { title: { de: 'Kinah zum Main schicken · 2 Min.', en: 'Send Kinah to main · 2 min' }, text: { de: 'Handelbares Kinah über das Server Storage.', en: 'Tradeable Kinah via Server Storage.' } },
-            { title: { de: 'Kinah ausgeben · 15 Min.', en: 'Spend Kinah · 15 min' }, text: { de: 'Schwächster Platz → +10 → Arcana.', en: 'Weakest slot → +10 → Arcana.' } },
+            { title: { de: 'Kina zum Main schicken · 2 Min.', en: 'Send Kina to main · 2 min' }, text: { de: 'Handelbares Kina über das Server Storage.', en: 'Tradeable Kina via Server Storage.' } },
+            { title: { de: 'Kina ausgeben · 15 Min.', en: 'Spend Kina · 15 min' }, text: { de: 'Schwächster Platz → +10 → Arcana.', en: 'Weakest slot → +10 → Arcana.' } },
             { title: { de: 'Abyss-Block · ≈2 Std.', en: 'Abyss block · ≈2 h' }, text: { de: 'Belagerung um 21:00 Serverzeit, danach Corridor + Monster.', en: 'Siege at 21:00 server time, then Corridor + mobs.' } },
           ],
         },
@@ -423,8 +423,8 @@ export const farmingPower: Guide = {
           items: [
             { de: '**Mittwoch:** Alles mit Wochen-Kauflimit direkt nach dem Reset kaufen – es wird nie übertragen.', en: '**Wednesday:** buy everything with a weekly purchase limit right after reset – it never rolls over.' },
             { de: '**Ascension früh in der Woche** – Eintritte lassen sich nicht ansparen, ein vergessenes Trial ist weg.', en: '**Ascension early in the week** – entries do not bank, and a forgotten Trial is gone.' },
-            { de: '**Samstag:** Odyle auf jedem Charakter bei ≈480 leeren und das Kinah noch am selben Abend in Gegenstandsstufe verwandeln.', en: '**Saturday:** empty Odyle on every character at ≈480, then turn the Kinah into item level the same evening.' },
-            { de: '**Gebundenes Kinah der Twinks nutzen:** Ein Ausrüstungsteil des Mains ins Server Storage legen, auf dem Twink mit dessen gebundenem Kinah und Enhance Stones verzaubern, zurückschicken (Quest-Ausrüstung und die Spiritforged-Waffe gehen nicht ins Storage).', en: '**Use the alts’ bound Kinah:** put a gear piece of the main into Server Storage, enhance it on the alt with the alt’s bound Kinah and Enhance Stones, send it back (quest gear and the Spiritforged weapon can’t go into storage).' },
+            { de: '**Samstag:** Odyle auf jedem Charakter bei ≈480 leeren und das Kina noch am selben Abend in Gegenstandsstufe verwandeln.', en: '**Saturday:** empty Odyle on every character at ≈480, then turn the Kina into item level the same evening.' },
+            { de: '**Gebundenes Kina der Twinks nutzen:** Ein Ausrüstungsteil des Mains ins Server Storage legen, auf dem Twink mit dessen gebundenem Kina und Enhance Stones verzaubern, zurückschicken (Quest-Ausrüstung und die Spiritforged-Waffe gehen nicht ins Storage).', en: '**Use the alts’ bound Kina:** put a gear piece of the main into Server Storage, enhance it on the alt with the alt’s bound Kina and Enhance Stones, send it back (quest gear and the Spiritforged weapon can’t go into storage).' },
             { de: '**Ausgeben, solange du stark bist:** erst verbessern, dann mit der neuen Ausrüstung in den Abyss-Block.', en: '**Spend while you are strong:** upgrade first, then go into the Abyss block with the new gear.' },
           ],
         },
@@ -531,14 +531,14 @@ export const farmingPower: Guide = {
         {
           type: 'checklist',
           items: [
-            { de: '**Odyle-Energie in Würfel stecken** (alle · Pflicht · Kinah) – +15 alle 3 Std. = 120 pro Tag, Grenze 560 (Membership 840). 40 pro Abholung (Membership: 80 = 2 Abholungen aus einem Würfel). Gratis spätestens alle 4 Tage ausgeben.', en: '**Spend Odyle Energy on cubes** (all · must · Kinah) – +15 every 3 h = 120/day, cap 560 (Membership 840). 40 per claim (Membership: 80 = 2 claims from one cube). Free, spend every ≤4 days.' },
-            { de: '**Duty Missions ×5** (Main · Pflicht · Kinah, iLv) – pro Server geteilt, auf Twinks verschwendet. Je ≥50.000 gebundenes Kinah und 1.000 AP.', en: '**Duty Missions ×5** (main · must · Kinah, iLv) – shared per server, wasted on alts. ≥50,000 bound Kinah and 1,000 AP each.' },
+            { de: '**Odyle-Energie in Würfel stecken** (alle · Pflicht · Kina) – +15 alle 3 Std. = 120 pro Tag, Grenze 560 (Membership 840). 40 pro Abholung (Membership: 80 = 2 Abholungen aus einem Würfel). Gratis spätestens alle 4 Tage ausgeben.', en: '**Spend Odyle Energy on cubes** (all · must · Kina) – +15 every 3 h = 120/day, cap 560 (Membership 840). 40 per claim (Membership: 80 = 2 claims from one cube). Free, spend every ≤4 days.' },
+            { de: '**Duty Missions ×5** (Main · Pflicht · Kina, iLv) – pro Server geteilt, auf Twinks verschwendet. Je ≥50.000 gebundenes Kina und 1.000 AP.', en: '**Duty Missions ×5** (main · must · Kina, iLv) – shared per server, wasted on alts. ≥50,000 bound Kina and 1,000 AP each.' },
             { de: '**Daily Dungeon ×2** (Main · Pflicht · iLv) – Wochentopf von 14 pro Server. Hauptbelohnung: Enhance Stones.', en: '**Daily Dungeon ×2** (main · must · iLv) – weekly pool of 14 per server. Main reward: Enhance Stones.' },
             { de: '**Nightmare ×2** (alle ab 45 · Pflicht · iLv, CP) – Phantasmal Fragments für den Shop (35 Stigma Shards zu je 1.500). Lässt sich bis 14 ansparen.', en: '**Nightmare ×2** (all 45+ · must · iLv, CP) – Phantasmal Fragments for the shop (35 Stigma Shards at 1,500 each). Banks up to 14.' },
             { de: '**Supply Requests** (alle · hoch · AP, iLv) – AP ohne Obergrenze + Enhance Stones (z. B. 5 Silentium → 980 AP + 250 Steine).', en: '**Supply Requests** (all · high · AP, iLv) – uncapped AP + Enhance Stones (e.g. 5 Silentium → 980 AP + 250 stones).' },
-            { de: '**Shugo-Festival-Schlüssel** (Server · hoch · Kinah) – +3 pro Tag, Grenze 12 (21 mit Membership).', en: '**Shugo Festival keys** (server · high · Kinah) – +3/day, cap 12 (21 with Membership).' },
-            { de: '**Dimensional Invasion** (Main · hoch · Kinah, iLv) – 1 Belohnungs-Schlüssel pro Tag, bis 7 ansparbar.', en: '**Dimensional Invasion** (main · high · Kinah, iLv) – 1 reward key per day, banks up to 7.' },
-            { de: '**Attendance-Belohnungen** (Account · schnell · Kinah) – einloggen und abholen.', en: '**Attendance rewards** (account · quick · Kinah) – log in and claim.' },
+            { de: '**Shugo-Festival-Schlüssel** (Server · hoch · Kina) – +3 pro Tag, Grenze 12 (21 mit Membership).', en: '**Shugo Festival keys** (server · high · Kina) – +3/day, cap 12 (21 with Membership).' },
+            { de: '**Dimensional Invasion** (Main · hoch · Kina, iLv) – 1 Belohnungs-Schlüssel pro Tag, bis 7 ansparbar.', en: '**Dimensional Invasion** (main · high · Kina, iLv) – 1 reward key per day, banks up to 7.' },
+            { de: '**Attendance-Belohnungen** (Account · schnell · Kina) – einloggen und abholen.', en: '**Attendance rewards** (account · quick · Kina) – log in and claim.' },
             { de: '**Spacetime Rifts** (beliebig · optional · AP) – Portale alle 3 Std., AP auch nach deiner Wochengrenze.', en: '**Spacetime Rifts** (any · optional · AP) – portals every 3 h, AP even after your weekly cap.' },
           ],
         },
@@ -568,16 +568,16 @@ export const farmingPower: Guide = {
           items: [
             { de: '**Ascension Trial ×3** (alle ab iLv 1.000 · Pflicht · iLv, CP) – solo, drei Räume + Boss. Schwierigkeit nach Gegenstandsstufe.', en: '**Ascension Trial ×3** (all from iLv 1,000 · must · iLv, CP) – solo, three rooms + boss. Difficulty by item level.' },
             { de: '**Sanctuary-Raid-Versuche** (alle berechtigten · Pflicht · iLv, CP) – 4 pro Raid und Woche; der Ludra-Raid ist auf Global gerade entfernt.', en: '**Sanctuary raid attempts** (all eligible · must · iLv, CP) – 4 per raid and week; the Ludra raid is currently removed on Global.' },
-            { de: '**Substance Morph + Wind-Breeze-Odyle** (alle · Pflicht · Kinah) – je 4 pro Charakter (je 16 pro Server) = bis zu 8 zusätzliche Abholungen. Der Laden braucht Membership.', en: '**Substance Morph + Wind Breeze Odyle** (all · must · Kinah) – 4 each per character (16 each per server) = up to 8 extra claims. The shop needs Membership.' },
-            { de: '**Season Missions** (alle · hoch · Kinah) – je 40 Odyle bei 4.500, 6.000 und 8.000 Punkten: drei Abholungen extra.', en: '**Season Missions** (all · high · Kinah) – 40 Odyle each at 4,500, 6,000 and 8,000 points: three extra claims.' },
+            { de: '**Substance Morph + Wind-Breeze-Odyle** (alle · Pflicht · Kina) – je 4 pro Charakter (je 16 pro Server) = bis zu 8 zusätzliche Abholungen. Der Laden braucht Membership.', en: '**Substance Morph + Wind Breeze Odyle** (all · must · Kina) – 4 each per character (16 each per server) = up to 8 extra claims. The shop needs Membership.' },
+            { de: '**Season Missions** (alle · hoch · Kina) – je 40 Odyle bei 4.500, 6.000 und 8.000 Punkten: drei Abholungen extra.', en: '**Season Missions** (all · high · Kina) – 40 Odyle each at 4,500, 6,000 and 8,000 points: three extra claims.' },
             { de: '**Abyss-Zeit + Corridor** (Main, Twinks ab 1.000 · Pflicht · AP) – 7 Std. pro Ebene (Membership 14 in Lower und Middle). Corridor: 10–30K AP in 5 Min.', en: '**Abyss time + Corridor** (main, alts 1,000+ · must · AP) – 7 h per layer (Membership 14 in Lower and Middle). Corridor: 10–30K AP in 5 min.' },
             { de: '**Command Scrolls (Hauptstadt + Abyss)** (Main · hoch · AP, iLv) – 12 aus der Hauptstadt pro Woche: Quest-AP und Materialien.', en: '**Command Scrolls (capital + Abyss)** (main · high · AP, iLv) – 12 capital per week: quest AP and materials.' },
             { de: '**Battlefield ×3 Siege** (alle · hoch · AP) – zählt pro Charakter.', en: '**Battlefield ×3 wins** (all · high · AP) – counted per character.' },
             { de: '**Subjugation-Tickets ×3** (alle ab 45 · hoch · iLv) – pro Charakter, verfallen beim Reset.', en: '**Subjugation tickets ×3** (all 45+ · high · iLv) – per character, expire at reset.' },
             { de: '**Abyss Corridors · Exploration** (alle · hoch · AP, iLv) – Gratis-Belohnungen, abholen. Exploration: 7 pro Dungeon.', en: '**Abyss Corridors · Exploration** (all · high · AP, iLv) – free rewards, claim them. Exploration: 7 per dungeon.' },
-            { de: '**Daeva Pass** (Main · mittel · Kinah, AP) – wöchentliche EXP-Grenze (50.000 im Season-1-Pass); der Abyss-Reiter gibt AP.', en: '**Daeva Pass** (main · medium · Kinah, AP) – weekly EXP cap (50,000 on the Season 1 pass); the Abyss tab gives AP.' },
+            { de: '**Daeva Pass** (Main · mittel · Kina, AP) – wöchentliche EXP-Grenze (50.000 im Season-1-Pass); der Abyss-Reiter gibt AP.', en: '**Daeva Pass** (main · medium · Kina, AP) – weekly EXP cap (50,000 on the Season 1 pass); the Abyss tab gives AP.' },
             { de: '**Wöchentliche Supply Requests** (alle · niedrig · AP) – z. B. bis zu 50 Silentium → 9.980 AP + 2.560 Enhance Stones.', en: '**Weekly Supply Requests** (all · low · AP) – e.g. up to 50 Silentium → 9,980 AP + 2,560 Enhance Stones.' },
-            { de: '**Arena-Belohnungen · Wind Breeze Merchant** (Main · niedrig · AP, Kinah) – wenn Zeit ist.', en: '**Arena rewards · Wind Breeze Merchant** (main · low · AP, Kinah) – when there is time.' },
+            { de: '**Arena-Belohnungen · Wind Breeze Merchant** (Main · niedrig · AP, Kina) – wenn Zeit ist.', en: '**Arena rewards · Wind Breeze Merchant** (main · low · AP, Kina) – when there is time.' },
             { de: '**PvE-/PvP-Wochenquests kaufen** (Main · niedrig · AP, iLv) – lassen sich für später aufheben.', en: '**Buy PvE / PvP weekly quests** (main · low · AP, iLv) – can be stored for later.' },
           ],
         },
@@ -593,21 +593,21 @@ export const farmingPower: Guide = {
       ],
     },
     {
-      title: { de: 'Säule I: Kinah', en: 'Pillar I: Kinah' },
+      title: { de: 'Säule I: Kina', en: 'Pillar I: Kina' },
       blocks: [
         {
           type: 'text',
           text: {
-            de: 'Der Motor – jede andere Säule wird damit gekauft. Das meiste Kinah kommt aus **Odyle-Energie-Würfeln** in Conquest und Transcendence: Nach einem Lauf steckst du 40 Odyle in den Würfel am Ende und holst die Belohnung ab. Jeder Charakter regeneriert 840 Odyle pro Woche = **21 Abholungen**. Conquest und Transcendence zahlen **handelbares** Kinah; Duties und Verkäufe an NPCs zahlen gebundenes (bleibt auf dem Charakter). Töte alle drei Bosse – jeder erhöht den Würfel.',
-            en: 'The engine – every other pillar is bought with it. Most Kinah comes from **Odyle Energy cubes** in Conquest and Transcendence: after a run you put 40 Odyle into the cube at the end and claim the reward. Every character regenerates 840 Odyle per week = **21 claims**. Conquest and Transcendence pay **tradeable** Kinah; Duties and NPC sales pay bound Kinah (it stays on the character). Kill all three bosses – each one raises the cube.',
+            de: 'Der Motor – jede andere Säule wird damit gekauft. Das meiste Kina kommt aus **Odyle-Energie-Würfeln** in Conquest und Transcendence: Nach einem Lauf steckst du 40 Odyle in den Würfel am Ende und holst die Belohnung ab. Jeder Charakter regeneriert 840 Odyle pro Woche = **21 Abholungen**. Conquest und Transcendence zahlen **handelbares** Kina; Duties und Verkäufe an NPCs zahlen gebundenes (bleibt auf dem Charakter). Töte alle drei Bosse – jeder erhöht den Würfel.',
+            en: 'The engine – every other pillar is bought with it. Most Kina comes from **Odyle Energy cubes** in Conquest and Transcendence: after a run you put 40 Odyle into the cube at the end and claim the reward. Every character regenerates 840 Odyle per week = **21 claims**. Conquest and Transcendence pay **tradeable** Kina; Duties and NPC sales pay bound Kina (it stays on the character). Kill all three bosses – each one raises the cube.',
           },
         },
         {
           type: 'bars',
-          title: { de: 'Kinah pro Abholung (40 Odyle)', en: 'Kinah per claim (40 Odyle)' },
+          title: { de: 'Kina pro Abholung (40 Odyle)', en: 'Kina per claim (40 Odyle)' },
           caption: {
-            de: 'Raid Relay, globaler Client, 16.10.2026; Laufzeit nur im Dungeon, vom Autor gestoppt oder geschätzt (≈). Mal 21 ergibt das Kinah pro Woche und Charakter: 4,2 Mio. (1★) bis ≈10 Mio. (Transcendence 4). Blau: Conquest, violett: Transcendence.',
-            en: 'Raid Relay, global client, 16 Oct 2026; run time inside the dungeon only, timed by the author or estimated (≈). Times 21 gives the Kinah per week and character: 4.2M (1★) to ≈10M (Transcendence 4). Blue: Conquest, violet: Transcendence.',
+            de: 'Raid Relay, globaler Client, 16.10.2026; Laufzeit nur im Dungeon, vom Autor gestoppt oder geschätzt (≈). Mal 21 ergibt das Kina pro Woche und Charakter: 4,2 Mio. (1★) bis ≈10 Mio. (Transcendence 4). Blau: Conquest, violett: Transcendence.',
+            en: 'Raid Relay, global client, 16 Oct 2026; run time inside the dungeon only, timed by the author or estimated (≈). Times 21 gives the Kina per week and character: 4.2M (1★) to ≈10M (Transcendence 4). Blue: Conquest, violet: Transcendence.',
           },
           items: CLAIMS.map((c) => ({
             label: c.label,
@@ -620,14 +620,14 @@ export const farmingPower: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Der Server zählt die Läufe **aller deiner Charaktere zusammen** (Mittwoch 16:00 bis Mittwoch). Bis zu einer Grenze gibt es volles Kinah, danach weniger – Conquest und Transcendence haben getrennte Zähler:',
-            en: 'The server counts the runs of **all your characters together** (Wednesday 16:00 to Wednesday). Up to a limit you get full Kinah, after that less – Conquest and Transcendence have separate counters:',
+            de: 'Der Server zählt die Läufe **aller deiner Charaktere zusammen** (Mittwoch 16:00 bis Mittwoch). Bis zu einer Grenze gibt es volles Kina, danach weniger – Conquest und Transcendence haben getrennte Zähler:',
+            en: 'The server counts the runs of **all your characters together** (Wednesday 16:00 to Wednesday). Up to a limit you get full Kina, after that less – Conquest and Transcendence have separate counters:',
           },
         },
         {
           type: 'table',
           caption: { de: 'Läufe pro Woche und Server (alle Charaktere)', en: 'Runs per week per server (all characters)' },
-          head: [{ de: 'Kinah', en: 'Kinah paid' }, 'Conquest', 'Transcendence'],
+          head: [{ de: 'Kina', en: 'Kina paid' }, 'Conquest', 'Transcendence'],
           rows: [
             [{ de: '100 %', en: '100%' }, { de: 'Lauf 1–84', en: 'runs 1–84' }, { de: 'Lauf 1–56', en: 'runs 1–56' }],
             [{ de: '80 %', en: '80%' }, '85–105', '57–70'],
@@ -642,8 +642,8 @@ export const farmingPower: Guide = {
           tone: 'tip',
           title: { de: 'Der Membership-Trick', en: 'Membership trick' },
           text: {
-            de: 'Mitglieder geben 80 Odyle für einen Würfel aus und holen ihn zweimal ab. Gleiches Kinah pro Odyle – aber halb so viele Läufe, halb so viel Zeit, und der Server zählt Läufe, nicht Abholungen. Darum passen mit Membership 8 Charaktere in die 84 vollen Conquest-Läufe, gratis nur 4.',
-            en: 'Members spend 80 Odyle on one cube and claim it twice. Same Kinah per Odyle – but half the runs, half the time, and the server counts runs, not claims. That is why 8 characters fit into the 84 full Conquest runs with Membership, only 4 free.',
+            de: 'Mitglieder geben 80 Odyle für einen Würfel aus und holen ihn zweimal ab. Gleiches Kina pro Odyle – aber halb so viele Läufe, halb so viel Zeit, und der Server zählt Läufe, nicht Abholungen. Darum passen mit Membership 8 Charaktere in die 84 vollen Conquest-Läufe, gratis nur 4.',
+            en: 'Members spend 80 Odyle on one cube and claim it twice. Same Kina per Odyle – but half the runs, half the time, and the server counts runs, not claims. That is why 8 characters fit into the 84 full Conquest runs with Membership, only 4 free.',
           },
         },
         {
@@ -651,15 +651,15 @@ export const farmingPower: Guide = {
           items: [
             { de: '**Offene Würfel abholen:** Wer einen geschafften Dungeon verlässt, ohne abzuholen, verbraucht einen der **10 offenen Würfel pro Server und Woche**. Sind sie weg, kommt bis zum Reset niemand vom Server mehr in Conquest oder Transcendence.', en: '**Claim every cube:** leaving a cleared dungeon without claiming uses one of the **10 unclaimed cubes per server and week**. Once they are gone nobody on the server enters Conquest or Transcendence until the reset.' },
             { de: '**Pro Charakter füllt sich Conquest alle 8 Std. um eine Belohnung auf (bis 21), Transcendence alle 12 Std. (bis 14).** Ein Charakter ab 2.500 holt also höchstens 14-mal Transcendence 4 und den Rest in Conquest.', en: '**Per character, Conquest refills one reward every 8 h (up to 21), Transcendence every 12 h (up to 14).** So a character at 2,500+ claims Transcendence 4 at most 14 times and the rest in Conquest.' },
-            { de: '**Läufe über der Grenze nach Transcendence schicken** – der Zähler ist getrennt. Odyle kaufen lohnt nur, solange eine Abholung mehr zahlt als der Kauf (100.000 Kinah pro 40 Odyle).', en: '**Send runs past the limit to Transcendence** – the counter is separate. Buying Odyle only pays while a claim pays more than the purchase (100,000 Kinah per 40 Odyle).' },
+            { de: '**Läufe über der Grenze nach Transcendence schicken** – der Zähler ist getrennt. Odyle kaufen lohnt nur, solange eine Abholung mehr zahlt als der Kauf (100.000 Kina pro 40 Odyle).', en: '**Send runs past the limit to Transcendence** – the counter is separate. Buying Odyle only pays while a claim pays more than the purchase (100,000 Kina per 40 Odyle).' },
           ],
         },
         { type: 'heading', text: { de: 'Wann du Odyle ausgibst', en: 'When to spend Odyle' } },
         {
           type: 'text',
           text: {
-            de: '**Ansparen ja, voll laufen lassen nie.** Kinah pro Würfel ist heute dasselbe wie in drei Tagen. Verloren geht nur Energie über der Grenze: **5 Odyle pro Stunde = eine Abholung alle 8 Stunden.**',
-            en: '**Bank it, but never let it cap.** Kinah per cube is the same today or in three days. Only energy above the cap is lost: **5 Odyle per hour = one claim every 8 hours.**',
+            de: '**Ansparen ja, voll laufen lassen nie.** Kina pro Würfel ist heute dasselbe wie in drei Tagen. Verloren geht nur Energie über der Grenze: **5 Odyle pro Stunde = eine Abholung alle 8 Stunden.**',
+            en: '**Bank it, but never let it cap.** Kina per cube is the same today or in three days. Only energy above the cap is lost: **5 Odyle per hour = one claim every 8 hours.**',
           },
         },
         {
@@ -684,18 +684,18 @@ export const farmingPower: Guide = {
           type: 'table',
           head: ['', { de: 'Solo (1 Charakter)', en: 'Solo (1 character)' }, { de: 'Mit Twinks (gleicher Server + Fraktion)', en: 'With alts (same server + faction)' }],
           rows: [
-            [{ de: 'Kinah pro Woche', en: 'Kinah / week' }, { de: '≈6,3 Mio. aus Würfeln (Conquest 2★); ≈10–11 Mio. mit allen Quellen', en: '≈6.3M from cubes (Conquest 2★); ≈10–11M with all sources' }, { de: '+4,2 Mio. (1★) bis +8,4 Mio. (3★) pro Twink', en: '+4.2M (1★) to +8.4M (3★) per alt' }],
+            [{ de: 'Kina pro Woche', en: 'Kina / week' }, { de: '≈6,3 Mio. aus Würfeln (Conquest 2★); ≈10–11 Mio. mit allen Quellen', en: '≈6.3M from cubes (Conquest 2★); ≈10–11M with all sources' }, { de: '+4,2 Mio. (1★) bis +8,4 Mio. (3★) pro Twink', en: '+4.2M (1★) to +8.4M (3★) per alt' }],
             [{ de: 'Wichtigster Schritt', en: 'Key move' }, { de: 'Gegenstandsstufe 1.400 erreichen – Conquest 2★ zahlt 1,5× so viel wie 1★', en: 'Reach item level 1,400 – Conquest 2★ pays 1.5× as much as 1★' }, { de: 'Einen Twink nach dem anderen auf 700, dann 1.400 bringen', en: 'Push one alt at a time to 700, then 1,400' }],
             [{ de: 'Odyle-Extras', en: 'Odyle extras' }, { de: '4 Morphs + 4 Wind-Breeze-Käufe (Membership) + 3 Season-Belohnungen', en: '4 Morphs + 4 Wind Breeze buys (Membership) + 3 Season rewards' }, { de: 'Je Charakter dasselbe, Morph und Laden höchstens 16 pro Server', en: 'The same per character, Morph and shop at most 16 per server' }],
-            [{ de: 'Kinah-Fluss', en: 'Kinah flow' }, { de: 'Gratis: gesammeltes Odyle morphen. Membership: Odyle und Materialien am Market verkaufen (2 % Gebühr + 10 % Steuer)', en: 'Free: morph gathered Odyle. Membership: sell Odyle and materials on the Market (2% fee + 10% tax)' }, { de: 'Handelbares Kinah über das Server Storage zum Main; gebundenes über Ausrüstung, die der Twink verzaubert', en: 'Tradeable Kinah to the main via Server Storage; bound Kinah via gear the alt enhances' }],
+            [{ de: 'Kina-Fluss', en: 'Kina flow' }, { de: 'Gratis: gesammeltes Odyle morphen. Membership: Odyle und Materialien am Market verkaufen (2 % Gebühr + 10 % Steuer)', en: 'Free: morph gathered Odyle. Membership: sell Odyle and materials on the Market (2% fee + 10% tax)' }, { de: 'Handelbares Kina über das Server Storage zum Main; gebundenes über Ausrüstung, die der Twink verzaubert', en: 'Tradeable Kina to the main via Server Storage; bound Kina via gear the alt enhances' }],
             ['Membership', { de: 'Market + Exchange, 2 Abholungen pro Würfel, Odyle-Grenze 840', en: 'Market + Exchange, 2 claims per cube, Odyle cap 840' }, { de: 'Gilt für jeden Charakter des Accounts', en: 'Covers every character of the account' }],
           ],
         },
         {
           type: 'text',
           text: {
-            de: '**Wie viele Twinks farmen mit vollem Kinah?** Gratis macht jeder Charakter 21 Conquest-Läufe – nach 4 Charakteren sind die 84 vollen Läufe erreicht. Mit Membership sind es ≈11 Läufe (80 Odyle = 2 Abholungen), so passen alle 8 hinein.',
-            en: '**How many alts can farm at full Kinah?** Free, every character runs Conquest 21 times – the 84 full runs are reached after 4 characters. With Membership it is ≈11 runs (80 Odyle = 2 claims), so all 8 fit.',
+            de: '**Wie viele Twinks farmen mit vollem Kina?** Gratis macht jeder Charakter 21 Conquest-Läufe – nach 4 Charakteren sind die 84 vollen Läufe erreicht. Mit Membership sind es ≈11 Läufe (80 Odyle = 2 Abholungen), so passen alle 8 hinein.',
+            en: '**How many alts can farm at full Kina?** Free, every character runs Conquest 21 times – the 84 full runs are reached after 4 characters. With Membership it is ≈11 runs (80 Odyle = 2 claims), so all 8 fit.',
           },
         },
         {
@@ -713,19 +713,19 @@ export const farmingPower: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Jeder Server hat 4 Charakter-Plätze, erweiterbar auf 8. Die Plätze 5–8 kosten Quna (ein Guide zum Server-Wechsel nennt 1.000 Quna pro Platz) – Membership gibt sie nicht. So wächst das Kinah mit jedem Charakter:',
-            en: 'Each server has 4 character slots, expandable to 8. Slots 5–8 cost Quna (a server-transfer guide names 1,000 Quna per slot) – Membership does not give them. This is how Kinah grows with every character:',
+            de: 'Jeder Server hat 4 Charakter-Plätze, erweiterbar auf 8. Die Plätze 5–8 kosten Quna (ein Guide zum Server-Wechsel nennt 1.000 Quna pro Platz) – Membership gibt sie nicht. So wächst das Kina mit jedem Charakter:',
+            en: 'Each server has 4 character slots, expandable to 8. Slots 5–8 cost Quna (a server-transfer guide names 1,000 Quna per slot) – Membership does not give them. This is how Kina grows with every character:',
           },
         },
         {
           type: 'line',
-          title: { de: 'Kinah pro Woche nach Zahl der Charaktere', en: 'Kinah per week by number of characters' },
+          title: { de: 'Kina pro Woche nach Zahl der Charaktere', en: 'Kina per week by number of characters' },
           caption: {
-            de: 'Modell: nur Conquest 2★ (300.000 Kinah pro Abholung, Raid Relay), 21 Abholungen pro Charakter und Woche, gratis eine Abholung pro Lauf und ab Lauf 85 auf dem Server 80 → 60 → 40 → 20 %, mit Membership zwei pro Lauf. Wer Läufe über der Grenze nach Transcendence schickt (ab 1.600), verliert gratis weniger.',
-            en: 'Model: Conquest 2★ only (300,000 Kinah per claim, Raid Relay), 21 claims per character and week, free one claim per run and from the server’s 85th run 80 → 60 → 40 → 20%, with Membership two per run. Sending runs past the limit to Transcendence (from 1,600) loses less when free.',
+            de: 'Modell: nur Conquest 2★ (300.000 Kina pro Abholung, Raid Relay), 21 Abholungen pro Charakter und Woche, gratis eine Abholung pro Lauf und ab Lauf 85 auf dem Server 80 → 60 → 40 → 20 %, mit Membership zwei pro Lauf. Wer Läufe über der Grenze nach Transcendence schickt (ab 1.600), verliert gratis weniger.',
+            en: 'Model: Conquest 2★ only (300,000 Kina per claim, Raid Relay), 21 claims per character and week, free one claim per run and from the server’s 85th run 80 → 60 → 40 → 20%, with Membership two per run. Sending runs past the limit to Transcendence (from 1,600) loses less when free.',
           },
           x: { label: { de: 'Charaktere auf dem Server', en: 'characters on the server' }, ticks: CHARS.map(String) },
-          y: { label: { de: 'Kinah pro Woche', en: 'Kinah per week' }, unit: 'M', min: 0 },
+          y: { label: { de: 'Kina pro Woche', en: 'Kina per week' }, unit: 'M', min: 0 },
           series: [
             { label: both('Membership'), values: CHARS.map((c) => Math.round(c * 6.3 * 10) / 10), tone: 'gold' },
             { label: { de: 'Gratis', en: 'Free' }, values: CHARS.map(freeKina), tone: 'slate' },
@@ -756,28 +756,28 @@ export const farmingPower: Guide = {
           type: 'flow',
           title: { de: 'Was du in welcher Reihenfolge brauchst', en: 'What you need, in order' },
           caption: {
-            de: 'Freischaltungen aus der Dungeon-Liste von metabot.gg (Client-Daten, 15.10.2026), Kinah pro Abholung von Raid Relay (16.10.2026). Gold: die Schritte, die das Kinah am stärksten erhöhen.',
-            en: 'Unlocks from metabot.gg’s dungeon list (client data, 15 Oct 2026), Kinah per claim from Raid Relay (16 Oct 2026). Gold: the steps that raise Kinah the most.',
+            de: 'Freischaltungen aus der Dungeon-Liste von metabot.gg (Client-Daten, 15.10.2026), Kina pro Abholung von Raid Relay (16.10.2026). Gold: die Schritte, die das Kina am stärksten erhöhen.',
+            en: 'Unlocks from metabot.gg’s dungeon list (client data, 15 Oct 2026), Kina per claim from Raid Relay (16 Oct 2026). Gold: the steps that raise Kina the most.',
           },
           items: [
-            { title: { de: 'iLv 700', en: 'iLv 700' }, text: { de: 'Conquest 1★ (Krao Cave, Draupnir): 200.000 Kinah pro Abholung, Ausrüstung der Stufe 54.', en: 'Conquest 1★ (Krao Cave, Draupnir): 200,000 Kinah per claim, level-54 gear.' }, tag: 'Kinah', tone: 'blue' },
+            { title: { de: 'iLv 700', en: 'iLv 700' }, text: { de: 'Conquest 1★ (Krao Cave, Draupnir): 200.000 Kina pro Abholung, Ausrüstung der Stufe 54.', en: 'Conquest 1★ (Krao Cave, Draupnir): 200,000 Kina per claim, level-54 gear.' }, tag: 'Kina', tone: 'blue' },
             { title: num('iLv 1,000'), text: { de: 'Abyss-Basen in Lower Reshanta (AP) und das Ascension Trial.', en: 'Abyss bases in Lower Reshanta (AP) and the Ascension Trial.' }, tag: 'AP · iLv', tone: 'teal' },
-            { title: num('iLv 1,400'), text: { de: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300.000 pro Abholung, +50 %.', en: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300,000 per claim, +50%.' }, tag: 'Kinah', tone: 'gold' },
-            { title: num('iLv 1,600'), text: { de: 'Transcendence: Arcana, 300.000 pro Abholung und ein eigener Lauf-Zähler.', en: 'Transcendence: Arcana, 300,000 per claim and a run counter of its own.' }, tag: 'iLv · Kinah', tone: 'violet' },
-            { title: num('iLv 2,100'), text: { de: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400.000 pro Abholung, Ausrüstung der Stufe 86.', en: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400,000 per claim, level-86 gear.' }, tag: 'Kinah · iLv', tone: 'blue' },
-            { title: num('iLv 2,500'), text: { de: 'Transcendence Stufe 4: 480.000 pro Abholung – die beste Auszahlung im Spiel.', en: 'Transcendence stage 4: 480,000 per claim – the best payout in the game.' }, tag: 'Kinah', tone: 'gold' },
+            { title: num('iLv 1,400'), text: { de: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300.000 pro Abholung, +50 %.', en: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300,000 per claim, +50%.' }, tag: 'Kina', tone: 'gold' },
+            { title: num('iLv 1,600'), text: { de: 'Transcendence: Arcana, 300.000 pro Abholung und ein eigener Lauf-Zähler.', en: 'Transcendence: Arcana, 300,000 per claim and a run counter of its own.' }, tag: 'iLv · Kina', tone: 'violet' },
+            { title: num('iLv 2,100'), text: { de: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400.000 pro Abholung, Ausrüstung der Stufe 86.', en: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400,000 per claim, level-86 gear.' }, tag: 'Kina · iLv', tone: 'blue' },
+            { title: num('iLv 2,500'), text: { de: 'Transcendence Stufe 4: 480.000 pro Abholung – die beste Auszahlung im Spiel.', en: 'Transcendence stage 4: 480,000 per claim – the best payout in the game.' }, tag: 'Kina', tone: 'gold' },
             { title: num('iLv 2,800'), text: { de: 'Sanctuary-Raid Ludra – auf Global entfernt, bis er überarbeitet zurückkommt.', en: 'Sanctuary raid Ludra – removed on Global until it returns reworked.' }, tag: 'Raid', tone: 'slate' },
           ],
         },
-        { type: 'heading', text: { de: 'Kinah für Gegenstandsstufe ausgeben – in dieser Reihenfolge', en: 'How to spend Kinah for item level – in this order' } },
+        { type: 'heading', text: { de: 'Kina für Gegenstandsstufe ausgeben – in dieser Reihenfolge', en: 'How to spend Kina for item level – in this order' } },
         {
           type: 'table',
           head: [{ de: 'Schritt', en: 'Step' }, { de: 'Verbesserung', en: 'Upgrade' }, { de: 'Warum', en: 'Why' }, { de: 'Bringt', en: 'Feeds' }],
           rows: [
             ['1', { de: 'Den Platz mit der niedrigsten Gegenstandsstufe ersetzen', en: 'Replace your lowest item level slot' }, { de: 'Ein großer Sprung am schwächsten Platz schlägt das Polieren des besten.', en: 'A big jump on the weakest slot beats polishing the best one.' }, 'iLv · CP'],
-            ['2', { de: 'Epic-/Unique-Ausrüstung auf +10 verzaubern', en: 'Enhance Epic/Unique gear to +10' }, { de: 'Bis +10 gelingt es immer – kostet nur Kinah und Enhance Stones (Stufe 102: ≈0,92 Mio. pro Teil).', en: 'Always succeeds up to +10 – only Kinah and Enhance Stones (level 102: ≈0.92M per piece).' }, 'iLv · CP'],
+            ['2', { de: 'Epic-/Unique-Ausrüstung auf +10 verzaubern', en: 'Enhance Epic/Unique gear to +10' }, { de: 'Bis +10 gelingt es immer – kostet nur Kina und Enhance Stones (Stufe 102: ≈0,92 Mio. pro Teil).', en: 'Always succeeds up to +10 – only Kina and Enhance Stones (level 102: ≈0.92M per piece).' }, 'iLv · CP'],
             ['3', { de: 'Jeden Arcana-Platz füllen', en: 'Fill every Arcana slot' }, { de: 'Arcana zählen zur Gegenstandsstufe (Unique: 80 pro Karte).', en: 'Arcana count toward item level (Unique: 80 per card).' }, 'iLv · CP'],
-            ['4', { de: 'Zum nächsten Meilenstein', en: 'Push to the next milestone' }, { de: '1.000 öffnet den Abyss, 1.400, 1.600, 2.100 und 2.500 erhöhen das Kinah pro Abholung.', en: '1,000 opens the Abyss, 1,400, 1,600, 2,100 and 2,500 raise the Kinah per claim.' }, 'iLv · CP · Kinah · AP'],
+            ['4', { de: 'Zum nächsten Meilenstein', en: 'Push to the next milestone' }, { de: '1.000 öffnet den Abyss, 1.400, 1.600, 2.100 und 2.500 erhöhen das Kina pro Abholung.', en: '1,000 opens the Abyss, 1,400, 1,600, 2,100 and 2,500 raise the Kina per claim.' }, 'iLv · CP · Kina · AP'],
           ],
         },
         {
@@ -793,7 +793,7 @@ export const farmingPower: Guide = {
         {
           type: 'checklist',
           items: [
-            { de: 'Schwächsten Platz gefunden – Verbesserung mit dem Kinah dieser Woche gekauft oder geplant', en: "Weakest slot identified – upgrade bought or planned with this week's Kinah" },
+            { de: 'Schwächsten Platz gefunden – Verbesserung mit dem Kina dieser Woche gekauft oder geplant', en: "Weakest slot identified – upgrade bought or planned with this week's Kina" },
             { de: 'Jedes Epic-/Unique-Teil auf dem sicheren +10', en: 'Every Epic/Unique piece at the safe +10' },
             { de: 'Alle Arcana-Plätze gefüllt', en: 'All Arcana slots filled' },
             { de: 'Odyle angespart, wenn der nächste Meilenstein (1.000 / 1.400 / 1.600 / 2.100) nah ist', en: 'Odyle banked if the next milestone (1,000 / 1,400 / 1,600 / 2,100) is close' },
@@ -839,7 +839,7 @@ export const farmingPower: Guide = {
             ['4', { de: 'Stigmen Richtung Stufe 20', en: 'Stigmas towards level 20' }, { de: '≈100 CP pro Stigma Shard; alle Stigmen sind ≈ein Fünftel eines entwickelten Charakters.', en: '≈100 CP per Stigma Shard; all stigmas are ≈a fifth of a developed character.' }],
             ['5', { de: 'Daevanion-Knoten öffnen', en: 'Open Daevanion nodes' }, { de: 'Das obere Fünftel hat ≈2,6× so viele Knoten wie das untere. Den Weg vorher planen.', en: 'The top fifth has ≈2.6× the nodes of the bottom fifth. Plan the path first.' }],
             ['6', { de: 'Titel und Flügel sammeln', en: 'Collect titles and wings' }, { de: 'Der Sammel-Bonus gilt dauerhaft – auch nicht ausgerüstet.', en: 'The collection bonus is permanent – even unequipped.' }],
-            ['7', { de: 'Amplified Enhancement (über +15)', en: 'Amplified Enhancement (past +15)' }, { de: 'Zuletzt: ≈26 Mio. Kinah pro Teil. Unter ≈90K CP macht es niemand.', en: 'Last: ≈26M Kinah per piece. Nobody below ≈90K CP does it.' }],
+            ['7', { de: 'Amplified Enhancement (über +15)', en: 'Amplified Enhancement (past +15)' }, { de: 'Zuletzt: ≈26 Mio. Kina pro Teil. Unter ≈90K CP macht es niemand.', en: 'Last: ≈26M Kina per piece. Nobody below ≈90K CP does it.' }],
           ],
         },
         {
@@ -872,8 +872,8 @@ export const farmingPower: Guide = {
           tone: 'tip',
           title: { de: 'Der schnellste Weg zu mehr Stärke', en: 'Fastest path to power' },
           text: {
-            de: 'Kinah mit Würfeln farmen → Verbesserung für den schwächsten Platz kaufen → sicheres +10 → Arcana → AP für Stigma Shards und Daevanion Crystals ausgeben. Wiederholen. Nie hoch verzaubern, bevor deine Ausrüstung komplett ist.',
-            en: 'Farm Kinah with cubes → buy the weakest slot upgrade → safe +10 → Arcana → spend AP on Stigma Shards and Daevanion Crystals. Repeat. Never gamble high enhancement before your gear is complete.',
+            de: 'Kina mit Würfeln farmen → Verbesserung für den schwächsten Platz kaufen → sicheres +10 → Arcana → AP für Stigma Shards und Daevanion Crystals ausgeben. Wiederholen. Nie hoch verzaubern, bevor deine Ausrüstung komplett ist.',
+            en: 'Farm Kina with cubes → buy the weakest slot upgrade → safe +10 → Arcana → spend AP on Stigma Shards and Daevanion Crystals. Repeat. Never gamble high enhancement before your gear is complete.',
           },
         },
         {
@@ -1003,7 +1003,7 @@ export const farmingPower: Guide = {
         {
           type: 'steps',
           items: [
-            { title: { de: 'Jagdgebiete in Altgard', en: 'Altgard hunting grounds' }, text: { de: 'Dichte Monster · Kinah-Tageslimit der Monster.', en: 'Dense mobs · daily monster-Kinah limit.' } },
+            { title: { de: 'Jagdgebiete in Altgard', en: 'Altgard hunting grounds' }, text: { de: 'Dichte Monster · Kina-Tageslimit der Monster.', en: 'Dense mobs · daily monster-Kina limit.' } },
             { title: both('Basfelt Ruins'), text: { de: 'Orichalcum-Runde.', en: 'Orichalcum loop.' } },
             { title: { de: 'Uru → Rift nach Verteron', en: 'Uru → Rift into Verteron' }, text: { de: '7 Quests × 2.000 AP.', en: '7 quests × 2,000 AP.' } },
             { title: both('Latesran Eastern Root'), text: { de: 'Basis in Lower Reshanta.', en: 'Lower Reshanta base.' } },
@@ -1012,7 +1012,7 @@ export const farmingPower: Guide = {
         {
           type: 'list',
           items: [
-            { de: '**Altgard hat die dichtesten Jagdgebiete** – das Tageslimit für Kinah aus Monstern (ein paar hundert pro Monster; Korea: 1 Mio. pro Tag, für Global nicht bestätigt) ist schneller voll.', en: '**Altgard has the densest hunting grounds** – the daily limit for Kinah from monsters (a few hundred per kill; Korea: 1M per day, not confirmed for Global) fills faster.' },
+            { de: '**Altgard hat die dichtesten Jagdgebiete** – das Tageslimit für Kina aus Monstern (ein paar hundert pro Monster; Korea: 1 Mio. pro Tag, für Global nicht bestätigt) ist schneller voll.', en: '**Altgard has the densest hunting grounds** – the daily limit for Kina from monsters (a few hundred per kill; Korea: 1M per day, not confirmed for Global) fills faster.' },
             { de: '**Basfelt Ruins** für Orichalcum, **Purifying Forest** für Reittier-Seelen.', en: '**Basfelt Ruins** for Orichalcum, **Purifying Forest** for mount souls.' },
             { de: 'Weniger versteckte Würfel – nutz die Zeit für Monster und Sammeln.', en: 'Fewer Hidden Cubes – spend that time on mobs and gathering.' },
           ],
@@ -1039,18 +1039,18 @@ export const farmingPower: Guide = {
           type: 'table',
           head: [{ de: 'Fehler', en: 'Mistake' }, { de: 'Stattdessen', en: 'Do this instead' }, { de: 'Kostet dich', en: 'Costs you' }],
           rows: [
-            [{ de: 'Odyle-Energie steht an der Grenze', en: 'Odyle Energy sitting at cap' }, { de: 'Gratis spätestens alle 4 Tage auf jedem Charakter ausgeben', en: 'Free, spend it at least every 4 days on every character' }, 'Kinah'],
-            [{ de: 'Geschafften Dungeon ohne Abholen verlassen', en: 'Leaving a cleared dungeon without claiming' }, { de: 'Immer abholen – der Server hat nur 10 offene Würfel pro Woche', en: 'Always claim – the server only has 10 unclaimed cubes a week' }, { de: 'Kinah · Zugang', en: 'Kinah · access' }],
-            [{ de: 'Duty Missions auf Twinks', en: 'Duty Missions on alts' }, { de: 'Serverweit – nur auf dem Main', en: 'Server-wide – main only' }, 'Kinah · iLv'],
-            [{ de: 'Twinks auf anderem Server oder in anderer Fraktion', en: 'Alts on another server or faction' }, { de: 'Gleicher Server + Fraktion, sonst wird nichts geteilt', en: 'Same server + faction, or nothing is shared' }, 'Kinah'],
-            [{ de: '5+ Farm-Charaktere ohne Membership', en: '5+ farming characters without Membership' }, { de: 'Gratis ab Lauf 85 nur 80 → 20 % – bei 4 aufhören oder Membership', en: 'Free, from run 85 only 80 → 20% – stop at 4 or get Membership' }, 'Kinah'],
-            [{ de: 'Odyle teurer kaufen, als eine Abholung zahlt', en: 'Buying Odyle for more than a claim pays' }, { de: '100.000 Kinah pro 40 Odyle lohnen nur bei vollem Kinah pro Lauf', en: '100,000 Kinah per 40 Odyle only pays at full Kinah per run' }, 'Kinah'],
-            [{ de: 'Daeva Pass für jeden Twink', en: 'Daeva Pass for every alt' }, { de: 'Gilt pro Charakter – nur für den Main kaufen', en: 'Per character – buy it for the main' }, 'Kinah'],
+            [{ de: 'Odyle-Energie steht an der Grenze', en: 'Odyle Energy sitting at cap' }, { de: 'Gratis spätestens alle 4 Tage auf jedem Charakter ausgeben', en: 'Free, spend it at least every 4 days on every character' }, 'Kina'],
+            [{ de: 'Geschafften Dungeon ohne Abholen verlassen', en: 'Leaving a cleared dungeon without claiming' }, { de: 'Immer abholen – der Server hat nur 10 offene Würfel pro Woche', en: 'Always claim – the server only has 10 unclaimed cubes a week' }, { de: 'Kina · Zugang', en: 'Kina · access' }],
+            [{ de: 'Duty Missions auf Twinks', en: 'Duty Missions on alts' }, { de: 'Serverweit – nur auf dem Main', en: 'Server-wide – main only' }, 'Kina · iLv'],
+            [{ de: 'Twinks auf anderem Server oder in anderer Fraktion', en: 'Alts on another server or faction' }, { de: 'Gleicher Server + Fraktion, sonst wird nichts geteilt', en: 'Same server + faction, or nothing is shared' }, 'Kina'],
+            [{ de: '5+ Farm-Charaktere ohne Membership', en: '5+ farming characters without Membership' }, { de: 'Gratis ab Lauf 85 nur 80 → 20 % – bei 4 aufhören oder Membership', en: 'Free, from run 85 only 80 → 20% – stop at 4 or get Membership' }, 'Kina'],
+            [{ de: 'Odyle teurer kaufen, als eine Abholung zahlt', en: 'Buying Odyle for more than a claim pays' }, { de: '100.000 Kina pro 40 Odyle lohnen nur bei vollem Kina pro Lauf', en: '100,000 Kina per 40 Odyle only pays at full Kina per run' }, 'Kina'],
+            [{ de: 'Daeva Pass für jeden Twink', en: 'Daeva Pass for every alt' }, { de: 'Gilt pro Charakter – nur für den Main kaufen', en: 'Per character – buy it for the main' }, 'Kina'],
             [{ de: 'Früh auf +11 und höher zocken', en: 'Gambling +11 and higher early' }, { de: 'Sicheres +10 auf alles, dann Arcana', en: 'Safe +10 on all gear, then Arcana' }, 'iLv · CP'],
             [{ de: 'Den besten Platz polieren', en: 'Polishing your best slot' }, { de: 'Zuerst den schwächsten Platz verbessern', en: 'Upgrade the weakest slot first' }, 'iLv · CP'],
             [{ de: 'Zuerst gedeckelte AP farmen', en: 'Grinding capped AP first' }, { de: 'Quest-AP + Supply Requests vor Abyss-Monstern', en: 'Quest AP + Supply Requests before Abyss mobs' }, 'AP'],
             [{ de: 'Abyss-Zeit verfallen lassen', en: 'Leaving Abyss time unused' }, { de: '7 Std. pro Ebene – plane sie wie Odyle', en: '7 h per layer – plan it like Odyle' }, 'AP'],
-            [{ de: 'Wochenzähler vergessen', en: 'Forgetting weekly counters' }, { de: 'Dienstag-Aufräumen – jede Woche', en: 'Tuesday clean-up – every week' }, 'Kinah · iLv · AP'],
+            [{ de: 'Wochenzähler vergessen', en: 'Forgetting weekly counters' }, { de: 'Dienstag-Aufräumen – jede Woche', en: 'Tuesday clean-up – every week' }, 'Kina · iLv · AP'],
           ],
         },
       ],
@@ -1061,8 +1061,8 @@ export const farmingPower: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Die PDF enthält die Diagramme dieses Guides und einen **Wochen-Tracker** zum Ausdrucken: Tagesaufgaben von Mittwoch bis Dienstag, Wochenaufgaben für Main und drei Twinks und Felder für Kinah, Gegenstandsstufe, Kampfkraft und AP der Woche. Ausdrucken oder auf einem zweiten Bildschirm offen lassen – ein Blatt pro Woche. Die PDF ist der Stand vom 18.10.: Kinah pro Woche, Zeiten, Odyle-Extras und Charakter-Plätze sind auf dieser Seite neuer.',
-            en: 'The PDF has the charts of this guide and a printable **weekly tracker**: daily tasks from Wednesday to Tuesday, weekly tasks for the main and three alts, and fields for the week’s Kinah, item level, Combat Power and AP. Print it or keep it open on a second screen – one sheet per week. The PDF is the version of 18 Oct: Kinah per week, times, Odyle extras and character slots are newer on this page.',
+            de: 'Die PDF enthält die Diagramme dieses Guides und einen **Wochen-Tracker** zum Ausdrucken: Tagesaufgaben von Mittwoch bis Dienstag, Wochenaufgaben für Main und drei Twinks und Felder für Kina, Gegenstandsstufe, Kampfkraft und AP der Woche. Ausdrucken oder auf einem zweiten Bildschirm offen lassen – ein Blatt pro Woche. Die PDF ist der Stand vom 18.10.: Kina pro Woche, Zeiten, Odyle-Extras und Charakter-Plätze sind auf dieser Seite neuer.',
+            en: 'The PDF has the charts of this guide and a printable **weekly tracker**: daily tasks from Wednesday to Tuesday, weekly tasks for the main and three alts, and fields for the week’s Kina, item level, Combat Power and AP. Print it or keep it open on a second screen – one sheet per week. The PDF is the version of 18 Oct: Kina per week, times, Odyle extras and character slots are newer on this page.',
           },
         },
         pdfLink,
@@ -1082,10 +1082,10 @@ export const farmingPower: Guide = {
         {
           type: 'sources',
           items: [
-            { href: 'https://raidrelay.com/aion-2-kina-guide', label: 'Raid Relay – Kinah guide for the global client (Kinah per claim, run limits, hours)' },
+            { href: 'https://raidrelay.com/aion-2-kina-guide', label: 'Raid Relay – Kina guide for the global client (Kina per claim, run limits, hours)' },
             { href: 'https://metabot.gg/en/aion-2/guides/daily-weekly-checklist', label: 'metabot.gg – Daily & weekly checklist (entry caps and refills)' },
             { href: 'https://metabot.gg/en/aion-2/guides/dungeon-guide', label: 'metabot.gg – Dungeon list and item level gates' },
-            { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kinah farming (bound vs unbound, Duty rerolls)' },
+            { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kina farming (bound vs unbound, Duty rerolls)' },
             { href: 'https://metabot.gg/en/aion-2/guides/combat-power-guide', label: 'metabot.gg – Combat Power statistics' },
             { href: 'https://metabot.gg/en/aion-2/guides/abyss-pvp-guide', label: 'metabot.gg – Abyss guide (time, sieges, AP)' },
             { href: 'https://metabot.gg/en/aion-2/guides/stigma-guide', label: 'metabot.gg – Stigmas (shard prices)' },

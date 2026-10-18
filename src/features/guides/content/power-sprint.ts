@@ -11,7 +11,7 @@ import type { Guide, GuideCell, L10n } from '../types';
  *   stigma level (90% interval ≈380–1,340), used only as a labelled estimate.
  * - metabot.gg (client data and statistics of 8 Oct): enhancement chances and costs per try, Arcana grades and
  *   Transcendence gates, weekly limits, stigma shard costs, Daevanion boards, Combat Power per item level band.
- *   Kinah per item level point = expected tries (with the bonus after every failure) × cost per try; the sums match
+ *   Kina per item level point = expected tries (with the bonus after every failure) × cost per try; the sums match
  *   metabot.gg's own averages (+10 → +15 ≈14.1M, Amplified +5 ≈26.2M).
  * - games.gg, MeinMMO, KeenGamer, AllThings.How: content gates, one-time content, belt/amulet, advice.
  * Times per phase are estimates; the real clocks are the 8 Oct statistics and the top 80 (early access 30 Sep).
@@ -34,8 +34,8 @@ export const powerSprint: Guide = {
     en: 'Power sprint: from a fresh 45 to the top',
   },
   summary: {
-    de: 'Die schnellste Reihenfolge von der frischen Stufe 45 bis Gegenstandsstufe 3.400+ und über 225K Kampfkraft – Phase für Phase, mit den Stufen-Toren, den Wochenlimits, Kinah pro Gegenstandsstufe und dem echten Tempo der Top 80.',
-    en: 'The fastest order from a fresh level 45 to item level 3,400+ and over 225K Combat Power – phase by phase, with the item level gates, the weekly limits, Kinah per item level and the real pace of the top 80.',
+    de: 'Die schnellste Reihenfolge von der frischen Stufe 45 bis Gegenstandsstufe 3.400+ und über 225K Kampfkraft – Phase für Phase, mit den Stufen-Toren, den Wochenlimits, Kina pro Gegenstandsstufe und dem echten Tempo der Top 80.',
+    en: 'The fastest order from a fresh level 45 to item level 3,400+ and over 225K Combat Power – phase by phase, with the item level gates, the weekly limits, Kina per item level and the real pace of the top 80.',
   },
   updated: '2026-10-19',
   tags: [
@@ -59,7 +59,7 @@ export const powerSprint: Guide = {
             { value: num('3,352'), label: { de: 'Median der Top 80 (18.10.)', en: 'Median of the top 80 (18 Oct)' }, note: { de: '≈225,5K Kampfkraft', en: '≈225.5K Combat Power' }, tone: 'gold' },
             { value: num('+50.6K'), label: { de: 'Kampfkraft pro Woche an der Spitze', en: 'Combat Power per week at the top' }, note: { de: 'Median – +30 % in einer Woche', en: 'median – +30% in one week' }, tone: 'teal' },
             { value: { de: '18 Tage', en: '18 days' }, label: { de: 'vom Early Access bis an die Spitze', en: 'from early access to the top' }, note: { de: 'die Schnellsten: 30.9. → 18.10.', en: 'the fastest: 30 Sep → 18 Oct' }, tone: 'violet' },
-            { value: num('≈577M'), label: { de: 'Kinah für die Verzauberung eines Top-Sets', en: 'Kinah to enhance a top set' }, note: { de: '14 Teile auf +15 und Amplified +5 (Erwartungswert)', en: '14 pieces at +15 and Amplified +5 (expected)' }, tone: 'rose' },
+            { value: num('≈577M'), label: { de: 'Kina für die Verzauberung eines Top-Sets', en: 'Kina to enhance a top set' }, note: { de: '14 Teile auf +15 und Amplified +5 (Erwartungswert)', en: '14 pieces at +15 and Amplified +5 (expected)' }, tone: 'rose' },
           ],
         },
         {
@@ -67,8 +67,8 @@ export const powerSprint: Guide = {
           tone: 'tip',
           title: { de: 'Die Kurzfassung', en: 'The short version' },
           text: {
-            de: 'Erst die Einmal-Inhalte und jeden Daevanion-Kristall, dann alles, was du trägst, auf das sichere +10. Die Stufen-Tore der Reihe nach nehmen (1.400 → 1.600 → 2.100 → 2.200 → 2.500 → 2.800), **keinen Wochenzähler voll stehen lassen** und die hergestellte Dragon-Lord-Linie Platz für Platz auf 102 bringen. Das große Kinah (+11 bis +15, Amplified) nur in Teile stecken, die bleiben.',
-            en: 'First the one-time content and every Daevanion Crystal, then everything you wear to the safe +10. Take the item level gates in order (1,400 → 1,600 → 2,100 → 2,200 → 2,500 → 2,800), **never let a weekly counter sit full** and build the crafted Dragon Lord line slot by slot to 102. Put the big Kinah (+11 to +15, Amplified) only into pieces that stay.',
+            de: 'Erst die Einmal-Inhalte und jeden Daevanion-Kristall, dann alles, was du trägst, auf das sichere +10. Die Stufen-Tore der Reihe nach nehmen (1.400 → 1.600 → 2.100 → 2.200 → 2.500 → 2.800), **keinen Wochenzähler voll stehen lassen** und die hergestellte Dragon-Lord-Linie Platz für Platz auf 102 bringen. Das große Kina (+11 bis +15, Amplified) nur in Teile stecken, die bleiben.',
+            en: 'First the one-time content and every Daevanion Crystal, then everything you wear to the safe +10. Take the item level gates in order (1,400 → 1,600 → 2,100 → 2,200 → 2,500 → 2,800), **never let a weekly counter sit full** and build the crafted Dragon Lord line slot by slot to 102. Put the big Kina (+11 to +15, Amplified) only into pieces that stay.',
           },
         },
         {
@@ -76,8 +76,8 @@ export const powerSprint: Guide = {
           tone: 'info',
           title: { de: 'Wie dieser Guide zu den anderen passt', en: 'How this guide fits the others' },
           text: {
-            de: '**Höchste Kampfkraft** erklärt, was die Kampfkraft treibt und was jeder Schritt kostet. **Farming & Power** zeigt, wie du Kinah, Odyle und Abyss-Punkte verdienst – mit Tagesrouten. **Handwerk: Waffen & Rüstung** erklärt die Dragon-Lord-Kette. Dieser Guide ist die **Reihenfolge und das Timing** von Stufe 45 bis an die Spitze. Von Stufe 1 bis 45 hilft der Speedrun-Guide.',
-            en: '**Highest Combat Power** explains what drives Combat Power and what each step costs. **Farming & power** shows how to earn Kinah, Odyle and Abyss Points – with daily routes. **Crafting gear** explains the Dragon Lord chain. This guide is the **order and timing** from level 45 to the top. For level 1 to 45 see the speedrun guide.',
+            de: '**Höchste Kampfkraft** erklärt, was die Kampfkraft treibt und was jeder Schritt kostet. **Farming & Power** zeigt, wie du Kina, Odyle und Abyss-Punkte verdienst – mit Tagesrouten. **Handwerk: Waffen & Rüstung** erklärt die Dragon-Lord-Kette. Dieser Guide ist die **Reihenfolge und das Timing** von Stufe 45 bis an die Spitze. Von Stufe 1 bis 45 hilft der Speedrun-Guide.',
+            en: '**Highest Combat Power** explains what drives Combat Power and what each step costs. **Farming & power** shows how to earn Kina, Odyle and Abyss Points – with daily routes. **Crafting gear** explains the Dragon Lord chain. This guide is the **order and timing** from level 45 to the top. For level 1 to 45 see the speedrun guide.',
           },
         },
         {
@@ -106,8 +106,8 @@ export const powerSprint: Guide = {
           type: 'flow',
           title: { de: 'Fünf Phasen von 45 bis an die Spitze', en: 'Five phases from 45 to the top' },
           caption: {
-            de: 'Ziele: Gegenstandsstufe → Kampfkraft. Kampfkraft aus metabot.gg (13.076 Charaktere, 8.10.) und den Top 80 (AION2 Index, 18.10.). Die Zeiten sind Schätzungen für jemanden, der jeden Tag spielt; Phase 4 und 5 hängen vor allem am Kinah.',
-            en: 'Targets: item level → Combat Power. Combat Power from metabot.gg (13,076 characters, 8 Oct) and the top 80 (AION2 Index, 18 Oct). The times are estimates for someone who plays every day; phases 4 and 5 depend mostly on Kinah.',
+            de: 'Ziele: Gegenstandsstufe → Kampfkraft. Kampfkraft aus metabot.gg (13.076 Charaktere, 8.10.) und den Top 80 (AION2 Index, 18.10.). Die Zeiten sind Schätzungen für jemanden, der jeden Tag spielt; Phase 4 und 5 hängen vor allem am Kina.',
+            en: 'Targets: item level → Combat Power. Combat Power from metabot.gg (13,076 characters, 8 Oct) and the top 80 (AION2 Index, 18 Oct). The times are estimates for someone who plays every day; phases 4 and 5 depend mostly on Kina.',
           },
           items: [
             {
@@ -165,8 +165,8 @@ export const powerSprint: Guide = {
           tone: 'info',
           title: { de: 'Woher die Zeiten kommen', en: 'Where the times come from' },
           text: {
-            de: 'Gemessene Zeiten pro Phase gibt es für den globalen Server nicht – die Spalte ist eine Schätzung. Zwei echte Uhren: Am 8.10., acht Tage nach dem Early Access, hatten **9 % von 13.076** gelisteten Charakteren schon Gegenstandsstufe 2.000+ (metabot.gg). Am 18.10., nach 18 Tagen, standen die Top 80 bei 2.950–3.479. Phase 4 und 5 sind aus dem Kinah gerechnet: +15 auf 14 Teilen kostet ≈197 Mio., Amplified +5 ≈367 Mio. – bei ≈15 Mio. pro Woche solo oder ≈45–60 Mio. mit 8 Charakteren (Einkommen aus Farming & Power).',
-            en: 'There are no measured times per phase for the global server – the column is an estimate. Two real clocks: on 8 Oct, eight days after early access, **9% of 13,076** ranked characters already had item level 2,000+ (metabot.gg). On 18 Oct, after 18 days, the top 80 were at 2,950–3,479. Phases 4 and 5 are worked out from Kinah: +15 on 14 pieces costs ≈197M, Amplified +5 ≈367M – at ≈15M a week solo or ≈45–60M with 8 characters (income from Farming & power).',
+            de: 'Gemessene Zeiten pro Phase gibt es für den globalen Server nicht – die Spalte ist eine Schätzung. Zwei echte Uhren: Am 8.10., acht Tage nach dem Early Access, hatten **9 % von 13.076** gelisteten Charakteren schon Gegenstandsstufe 2.000+ (metabot.gg). Am 18.10., nach 18 Tagen, standen die Top 80 bei 2.950–3.479. Phase 4 und 5 sind aus dem Kina gerechnet: +15 auf 14 Teilen kostet ≈197 Mio., Amplified +5 ≈367 Mio. – bei ≈15 Mio. pro Woche solo oder ≈45–60 Mio. mit 8 Charakteren (Einkommen aus Farming & Power).',
+            en: 'There are no measured times per phase for the global server – the column is an estimate. Two real clocks: on 8 Oct, eight days after early access, **9% of 13,076** ranked characters already had item level 2,000+ (metabot.gg). On 18 Oct, after 18 days, the top 80 were at 2,950–3,479. Phases 4 and 5 are worked out from Kina: +15 on 14 pieces costs ≈197M, Amplified +5 ≈367M – at ≈15M a week solo or ≈45–60M with 8 characters (income from Farming & power).',
           },
         },
       ],
@@ -208,12 +208,12 @@ export const powerSprint: Guide = {
               en: '**Even at the top it keeps moving fast:** the median rose from ≈175K to ≈225.5K in one week (+30%). So always compare yourself with values from the same day.',
             },
             {
-              de: '**Zwei der 80 legten ≈200K in sieben Tagen zu** – eine Woche vorher hatten sie 10K und 24K. Die schnellsten Aufsteiger auf der Startseite von AION2 Index zeigen +160K bis +203K pro Woche (19.10.). Ob das neue Charaktere mit großem Kinah-Budget sind oder Lücken im Verlauf der Quelle, verraten die Daten nicht.',
-              en: '**Two of the 80 gained ≈200K in seven days** – a week earlier they had 10K and 24K. The fastest climbers on the AION2 Index home page show +160K to +203K a week (19 Oct). Whether these are new characters with a big Kinah budget or gaps in the source’s history, the data does not say.',
+              de: '**Zwei der 80 legten ≈200K in sieben Tagen zu** – eine Woche vorher hatten sie 10K und 24K. Die schnellsten Aufsteiger auf der Startseite von AION2 Index zeigen +160K bis +203K pro Woche (19.10.). Ob das neue Charaktere mit großem Kina-Budget sind oder Lücken im Verlauf der Quelle, verraten die Daten nicht.',
+              en: '**Two of the 80 gained ≈200K in seven days** – a week earlier they had 10K and 24K. The fastest climbers on the AION2 Index home page show +160K to +203K a week (19 Oct). Whether these are new characters with a big Kina budget or gaps in the source’s history, the data does not say.',
             },
             {
-              de: '**Am Ende bestimmt das Kinah das Tempo:** Die Verzauberung eines Top-Sets kostet im Schnitt ≈577 Mio. Kinah (Abschnitt „Am meisten Gegenstandsstufe pro Kinah“). Das ist mehr, als jede Farm-Route in drei Wochen einbringt – rechne in Phase 4 und 5 also mit mehr Zeit als die Spitze.',
-              en: '**In the end Kinah sets the pace:** enhancing a top set costs ≈577M Kinah on average (section “Most item level per Kinah”). That is more than any farming route earns in three weeks – so expect phases 4 and 5 to take you longer than the top.',
+              de: '**Am Ende bestimmt das Kina das Tempo:** Die Verzauberung eines Top-Sets kostet im Schnitt ≈577 Mio. Kina (Abschnitt „Am meisten Gegenstandsstufe pro Kina“). Das ist mehr, als jede Farm-Route in drei Wochen einbringt – rechne in Phase 4 und 5 also mit mehr Zeit als die Spitze.',
+              en: '**In the end Kina sets the pace:** enhancing a top set costs ≈577M Kina on average (section “Most item level per Kina”). That is more than any farming route earns in three weeks – so expect phases 4 and 5 to take you longer than the top.',
             },
           ],
         },
@@ -352,21 +352,21 @@ export const powerSprint: Guide = {
       ],
     },
     {
-      title: { de: 'Am meisten Gegenstandsstufe pro Kinah', en: 'Most item level per Kinah' },
+      title: { de: 'Am meisten Gegenstandsstufe pro Kina', en: 'Most item level per Kina' },
       blocks: [
         {
           type: 'text',
           text: {
-            de: 'Jeder Schritt kostet Kinah und Steine. So viel kostet **ein Punkt Gegenstandsstufe** an einem Teil der Stufe 102 im Schnitt – gerechnet aus den Chancen (mit dem Bonus nach jedem Fehlschlag) und den Kosten pro Versuch aus den Client-Daten. Die Summen treffen die Durchschnitte von metabot.gg (+10 → +15 ≈14,1 Mio., Amplified +5 ≈26,2 Mio.).',
-            en: 'Every step costs Kinah and stones. This is what **one item level point** costs on average on an item level 102 piece – worked out from the chances (with the bonus after every failure) and the costs per try in the client data. The sums match metabot.gg’s averages (+10 → +15 ≈14.1M, Amplified +5 ≈26.2M).',
+            de: 'Jeder Schritt kostet Kina und Steine. So viel kostet **ein Punkt Gegenstandsstufe** an einem Teil der Stufe 102 im Schnitt – gerechnet aus den Chancen (mit dem Bonus nach jedem Fehlschlag) und den Kosten pro Versuch aus den Client-Daten. Die Summen treffen die Durchschnitte von metabot.gg (+10 → +15 ≈14,1 Mio., Amplified +5 ≈26,2 Mio.).',
+            en: 'Every step costs Kina and stones. This is what **one item level point** costs on average on an item level 102 piece – worked out from the chances (with the bonus after every failure) and the costs per try in the client data. The sums match metabot.gg’s averages (+10 → +15 ≈14.1M, Amplified +5 ≈26.2M).',
           },
         },
         {
           type: 'bars',
-          title: { de: 'Kinah pro Punkt Gegenstandsstufe (Teil der Stufe 102)', en: 'Kinah per item level point (item level 102 piece)' },
+          title: { de: 'Kina pro Punkt Gegenstandsstufe (Teil der Stufe 102)', en: 'Kina per item level point (item level 102 piece)' },
           caption: {
-            de: 'Erwartungswert in Kinah, ohne Enhance Stones und Amplify Stones. Amplified zählt mit 5 Stufen pro Stufe. Gold = immer lohnend, blau/violett = gutes Verhältnis, rot = teuer. Chancen und Kosten pro Versuch: Client-Daten (metabot.gg); Rechnung: Daevaforge.',
-            en: 'Expected Kinah, not counting Enhance Stones and Amplify Stones. Amplified counts 5 item levels per level. Gold = always worth it, blue/violet = good value, red = expensive. Chances and costs per try: client data (metabot.gg); calculation: Daevaforge.',
+            de: 'Erwartungswert in Kina, ohne Enhance Stones und Amplify Stones. Amplified zählt mit 5 Stufen pro Stufe. Gold = immer lohnend, blau/violett = gutes Verhältnis, rot = teuer. Chancen und Kosten pro Versuch: Client-Daten (metabot.gg); Rechnung: Daevaforge.',
+            en: 'Expected Kina, not counting Enhance Stones and Amplify Stones. Amplified counts 5 item levels per level. Gold = always worth it, blue/violet = good value, red = expensive. Chances and costs per try: client data (metabot.gg); calculation: Daevaforge.',
           },
           items: [
             { label: { de: '+1 bis +10 (sicher)', en: '+1 to +10 (safe)' }, value: 0.092, display: '92K', note: { de: 'gelingt immer', en: 'always succeeds' }, tone: 'gold' },
@@ -385,9 +385,9 @@ export const powerSprint: Guide = {
         {
           type: 'facts',
           items: [
-            { label: { de: 'Sicheres +10 auf 14 Teilen (102)', en: 'Safe +10 on 14 pieces (102)' }, value: { de: '≈12,9 Mio. Kinah + ≈514.000 Enhance Stones', en: '≈12.9M Kinah + ≈514,000 Enhance Stones' } },
-            { label: { de: '+10 → +15 auf 14 Teilen', en: '+10 → +15 on 14 pieces' }, value: { de: '≈197 Mio. Kinah im Schnitt', en: '≈197M Kinah on average' } },
-            { label: { de: 'Amplified +5 auf 14 Teilen', en: 'Amplified +5 on 14 pieces' }, value: { de: '≈367 Mio. Kinah + ≈2.700 Amplify Stones im Schnitt', en: '≈367M Kinah + ≈2,700 Amplify Stones on average' } },
+            { label: { de: 'Sicheres +10 auf 14 Teilen (102)', en: 'Safe +10 on 14 pieces (102)' }, value: { de: '≈12,9 Mio. Kina + ≈514.000 Enhance Stones', en: '≈12.9M Kina + ≈514,000 Enhance Stones' } },
+            { label: { de: '+10 → +15 auf 14 Teilen', en: '+10 → +15 on 14 pieces' }, value: { de: '≈197 Mio. Kina im Schnitt', en: '≈197M Kina on average' } },
+            { label: { de: 'Amplified +5 auf 14 Teilen', en: 'Amplified +5 on 14 pieces' }, value: { de: '≈367 Mio. Kina + ≈2.700 Amplify Stones im Schnitt', en: '≈367M Kina + ≈2,700 Amplify Stones on average' } },
             { label: { de: 'Dein Einkommen (Farming & Power)', en: 'Your income (Farming & power)' }, value: { de: '≈11–15 Mio. pro Woche solo · ≈45–60 Mio. mit 8 Charakteren und Membership', en: '≈11–15M per week solo · ≈45–60M with 8 characters and Membership' } },
           ],
         },
@@ -403,16 +403,16 @@ export const powerSprint: Guide = {
         {
           type: 'callout',
           tone: 'warn',
-          title: { de: 'Das echte Tor ist Kinah', en: 'The real gate is Kinah' },
+          title: { de: 'Das echte Tor ist Kina', en: 'The real gate is Kina' },
           text: {
-            de: 'Ein Top-Set (14 Teile auf +15 und Amplified +5) kostet im Schnitt **≈577 Mio. Kinah**. Bei ≈15 Mio. pro Woche sind das solo ≈38 Wochen, mit 8 Charakteren (≈45–60 Mio.) immer noch ≈10–13 Wochen. Bis ≈2.800 bestimmt deine Spielzeit das Tempo, danach dein Kinah. Scheitern kostet übrigens nur Material: Bei Waffe, Rüstung und Schmuck geht keine Stufe verloren.',
-            en: 'A top set (14 pieces at +15 and Amplified +5) costs **≈577M Kinah** on average. At ≈15M a week that is ≈38 weeks solo, and with 8 characters (≈45–60M) still ≈10–13 weeks. Up to ≈2,800 your play time sets the pace, after that your Kinah. Failing only costs materials, by the way: weapons, armour and jewellery never lose a level.',
+            de: 'Ein Top-Set (14 Teile auf +15 und Amplified +5) kostet im Schnitt **≈577 Mio. Kina**. Bei ≈15 Mio. pro Woche sind das solo ≈38 Wochen, mit 8 Charakteren (≈45–60 Mio.) immer noch ≈10–13 Wochen. Bis ≈2.800 bestimmt deine Spielzeit das Tempo, danach dein Kina. Scheitern kostet übrigens nur Material: Bei Waffe, Rüstung und Schmuck geht keine Stufe verloren.',
+            en: 'A top set (14 pieces at +15 and Amplified +5) costs **≈577M Kina** on average. At ≈15M a week that is ≈38 weeks solo, and with 8 characters (≈45–60M) still ≈10–13 weeks. Up to ≈2,800 your play time sets the pace, after that your Kina. Failing only costs materials, by the way: weapons, armour and jewellery never lose a level.',
           },
         },
         {
           type: 'links',
           items: [
-            { href: '#/guides/farming-power', label: { de: 'Mehr Kinah: Farming & Power', en: 'More Kinah: Farming & power' } },
+            { href: '#/guides/farming-power', label: { de: 'Mehr Kina: Farming & Power', en: 'More Kina: Farming & power' } },
             { href: '#/guides/combat-power', label: { de: 'Chancen und Kosten im Detail', en: 'Chances and costs in detail' } },
           ],
         },
@@ -424,8 +424,8 @@ export const powerSprint: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Ziel: **1.400** – Conquest Stufe 2 (Urugugu Canyon, Vakron Sky Island) mit ≈1,5× Kinah pro Würfel. Fast alles hier ist einmalig oder billig. Mach es, bevor du irgendetwas Großes ausgibst.',
-            en: 'Goal: **1,400** – Conquest tier 2 (Urugugu Canyon, Vakron Sky Island) with ≈1.5× the Kinah per cube. Nearly everything here is one-time or cheap. Do it before you spend anything big.',
+            de: 'Ziel: **1.400** – Conquest Stufe 2 (Urugugu Canyon, Vakron Sky Island) mit ≈1,5× Kina pro Würfel. Fast alles hier ist einmalig oder billig. Mach es, bevor du irgendetwas Großes ausgibst.',
+            en: 'Goal: **1,400** – Conquest tier 2 (Urugugu Canyon, Vakron Sky Island) with ≈1.5× the Kina per cube. Nearly everything here is one-time or cheap. Do it before you spend anything big.',
           },
         },
         {
@@ -462,8 +462,8 @@ export const powerSprint: Guide = {
             {
               title: { de: 'Sicheres +10 auf alles Epic und Unique', en: 'Safe +10 on everything Epic and Unique' },
               text: {
-                de: 'Gelingt immer und kostet unter 0,1 Mio. Kinah pro Punkt Gegenstandsstufe. Jeden Manastein-Sockel füllen.',
-                en: 'Always succeeds and costs under 0.1M Kinah per item level point. Fill every manastone socket.',
+                de: 'Gelingt immer und kostet unter 0,1 Mio. Kina pro Punkt Gegenstandsstufe. Jeden Manastein-Sockel füllen.',
+                en: 'Always succeeds and costs under 0.1M Kina per item level point. Fill every manastone socket.',
               },
             },
             {
@@ -516,8 +516,8 @@ export const powerSprint: Guide = {
             {
               title: { de: 'Urugugu Canyon und Vakron Sky Island (70)', en: 'Urugugu Canyon and Vakron Sky Island (70)' },
               text: {
-                de: 'Conquest-Ausrüstung 70 für jeden Platz darunter. Vakron Exploration dreimal abholen: Mit zwei Gear Change Vouchers und Kinah wird daraus ein sicherer Vakron Guard (70).',
-                en: 'Conquest gear 70 for every slot below it. Claim Vakron Exploration three times: with two Gear Change Vouchers and Kinah that becomes a guaranteed Vakron Guard (70).',
+                de: 'Conquest-Ausrüstung 70 für jeden Platz darunter. Vakron Exploration dreimal abholen: Mit zwei Gear Change Vouchers und Kina wird daraus ein sicherer Vakron Guard (70).',
+                en: 'Conquest gear 70 for every slot below it. Claim Vakron Exploration three times: with two Gear Change Vouchers and Kina that becomes a guaranteed Vakron Guard (70).',
               },
             },
             {
@@ -612,8 +612,8 @@ export const powerSprint: Guide = {
             {
               title: { de: '+11 und +12 auf Teilen, die bleiben', en: '+11 and +12 on pieces that stay' },
               text: {
-                de: 'Bis ≈1 Mio. Kinah pro Punkt. Nuakum ist bei vielen Top-Spielern Endausrüstung (23 % ihrer Rüstungsplätze, meist +15) – über +10 aber nur, wenn du diesen Platz nicht bald auf 102 herstellst.',
-                en: 'Up to ≈1M Kinah per point. Nuakum is end gear for many top players (23% of their armour slots, mostly +15) – but only go past +10 if you won’t craft that slot to 102 soon.',
+                de: 'Bis ≈1 Mio. Kina pro Punkt. Nuakum ist bei vielen Top-Spielern Endausrüstung (23 % ihrer Rüstungsplätze, meist +15) – über +10 aber nur, wenn du diesen Platz nicht bald auf 102 herstellst.',
+                en: 'Up to ≈1M Kina per point. Nuakum is end gear for many top players (23% of their armour slots, mostly +15) – but only go past +10 if you won’t craft that slot to 102 soon.',
               },
             },
             {
@@ -642,8 +642,8 @@ export const powerSprint: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Ziel: **≈3.050** – jeder Hauptplatz auf 102, +15 auf Teilen, die bleiben. Ab hier bestimmen der eine Ludra-Kill pro Woche, die Handwerkszutaten und das Kinah das Tempo.',
-            en: 'Goal: **≈3,050** – every main slot at 102, +15 on pieces that stay. From here the one Ludra kill a week, the crafting materials and Kinah set the pace.',
+            de: 'Ziel: **≈3.050** – jeder Hauptplatz auf 102, +15 auf Teilen, die bleiben. Ab hier bestimmen der eine Ludra-Kill pro Woche, die Handwerkszutaten und das Kina das Tempo.',
+            en: 'Goal: **≈3,050** – every main slot at 102, +15 on pieces that stay. From here the one Ludra kill a week, the crafting materials and Kina set the pace.',
           },
         },
         {
@@ -652,8 +652,8 @@ export const powerSprint: Guide = {
             {
               title: { de: 'Ludra jede Woche', en: 'Ludra every week' },
               text: {
-                de: 'Ein Endboss-Kill pro Woche (4 Raid-Versuche). Ludra gibt Waffen und Guard der Stufe 102, Will und Ego und Ludra Gear Vouchers: Eine Ludra-Waffe + 2 Vouchers + 10 Mio. Kinah werden zur Waffenkiste mit freier Wahl, 3 Vouchers + 5 Mio. zum Abyssal Bracelet. Hinweis: Die Top 80 tragen keine Ludra-Waffe, sondern hergestellte – Ludra lohnt sich vor allem für Zutaten und Vouchers.',
-                en: 'One final-boss kill a week (4 raid attempts). Ludra drops weapons and the guard at 102, Will and Ego and Ludra Gear Vouchers: a Ludra weapon + 2 vouchers + 10M Kinah become a weapon chest of your choice, 3 vouchers + 5M the Abyssal Bracelet. Note: the top 80 wear no Ludra weapon but crafted ones – Ludra pays mostly for materials and vouchers.',
+                de: 'Ein Endboss-Kill pro Woche (4 Raid-Versuche). Ludra gibt Waffen und Guard der Stufe 102, Will und Ego und Ludra Gear Vouchers: Eine Ludra-Waffe + 2 Vouchers + 10 Mio. Kina werden zur Waffenkiste mit freier Wahl, 3 Vouchers + 5 Mio. zum Abyssal Bracelet. Hinweis: Die Top 80 tragen keine Ludra-Waffe, sondern hergestellte – Ludra lohnt sich vor allem für Zutaten und Vouchers.',
+                en: 'One final-boss kill a week (4 raid attempts). Ludra drops weapons and the guard at 102, Will and Ego and Ludra Gear Vouchers: a Ludra weapon + 2 vouchers + 10M Kina become a weapon chest of your choice, 3 vouchers + 5M the Abyssal Bracelet. Note: the top 80 wear no Ludra weapon but crafted ones – Ludra pays mostly for materials and vouchers.',
               },
             },
             {
@@ -673,8 +673,8 @@ export const powerSprint: Guide = {
             {
               title: { de: '+15 auf jedes 102er-Teil', en: '+15 on every 102 piece' },
               text: {
-                de: 'Im Schnitt ≈14,1 Mio. Kinah pro Teil ab +10. Danach gleich Amplified +1 und +2 (Abschnitt „Am meisten Gegenstandsstufe pro Kinah“).',
-                en: 'About 14.1M Kinah per piece from +10 on average. Then straight on to Amplified +1 and +2 (section “Most item level per Kinah”).',
+                de: 'Im Schnitt ≈14,1 Mio. Kina pro Teil ab +10. Danach gleich Amplified +1 und +2 (Abschnitt „Am meisten Gegenstandsstufe pro Kina“).',
+                en: 'About 14.1M Kina per piece from +10 on average. Then straight on to Amplified +1 and +2 (section “Most item level per Kina”).',
               },
             },
             {
@@ -725,8 +725,8 @@ export const powerSprint: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Ziel: **3.400+** und 225–265K Kampfkraft – da stehen die Top 80. Das sind noch ≈350 Gegenstandsstufe, fast alles aus Amplified Enhancement, und es kostet von allem am meisten Kinah. So sieht das Ziel aus:',
-            en: 'Goal: **3,400+** and 225–265K Combat Power – where the top 80 are. That is ≈350 more item level, nearly all from Amplified Enhancement, and it costs the most Kinah of all. This is what the goal looks like:',
+            de: 'Ziel: **3.400+** und 225–265K Kampfkraft – da stehen die Top 80. Das sind noch ≈350 Gegenstandsstufe, fast alles aus Amplified Enhancement, und es kostet von allem am meisten Kina. So sieht das Ziel aus:',
+            en: 'Goal: **3,400+** and 225–265K Combat Power – where the top 80 are. That is ≈350 more item level, nearly all from Amplified Enhancement, and it costs the most Kina of all. This is what the goal looks like:',
           },
         },
         {
@@ -744,15 +744,15 @@ export const powerSprint: Guide = {
             {
               title: { de: 'Amplified +1 und +2 auf jedem 102er-Teil', en: 'Amplified +1 and +2 on every 102 piece' },
               text: {
-                de: 'Die billigste Gegenstandsstufe, die noch übrig ist (≈0,2–0,3 Mio. Kinah pro Punkt), jede Stufe ≈+5. Nur Unique auf +15; bei Stufe 86 ist bei +5 Schluss, bei Splendent-86-Handwerk bei +3. Jeder Amplify Stone braucht 4 Fragmente + 2.500 Enhance Stones.',
-                en: 'The cheapest item level left (≈0.2–0.3M Kinah per point), each level ≈+5. Unique at +15 only; level 86 stops at +5, Splendent 86 crafts at +3. Every Amplify Stone needs 4 fragments + 2,500 Enhance Stones.',
+                de: 'Die billigste Gegenstandsstufe, die noch übrig ist (≈0,2–0,3 Mio. Kina pro Punkt), jede Stufe ≈+5. Nur Unique auf +15; bei Stufe 86 ist bei +5 Schluss, bei Splendent-86-Handwerk bei +3. Jeder Amplify Stone braucht 4 Fragmente + 2.500 Enhance Stones.',
+                en: 'The cheapest item level left (≈0.2–0.3M Kina per point), each level ≈+5. Unique at +15 only; level 86 stops at +5, Splendent 86 crafts at +3. Every Amplify Stone needs 4 fragments + 2,500 Enhance Stones.',
               },
             },
             {
               title: { de: 'Dann +3, +4, +5 – die Waffe zuerst', en: 'Then +3, +4, +5 – the weapon first' },
               text: {
-                de: '+5 allein kostet im Schnitt ≈13 Mio. Kinah. 79 der Top 80 haben ihre Waffe auf +15 mit Amplified +5.',
-                en: '+5 alone averages ≈13M Kinah. 79 of the top 80 have their weapon at +15 with Amplified +5.',
+                de: '+5 allein kostet im Schnitt ≈13 Mio. Kina. 79 der Top 80 haben ihre Waffe auf +15 mit Amplified +5.',
+                en: '+5 alone averages ≈13M Kina. 79 of the top 80 have their weapon at +15 with Amplified +5.',
               },
             },
             {
@@ -803,8 +803,8 @@ export const powerSprint: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Der größte Teil der Stärke nach Stufe 45 steckt hinter **Wochenzählern**. Ein voller Zähler wächst nicht weiter – das ist verlorener Fortschritt, den kein Kinah zurückholt. Die Woche startet am Mittwoch neu (metabot.gg: 16:00 Uhr Serverzeit; prüf es im Spiel).',
-            en: 'Most of the power after level 45 sits behind **weekly counters**. A full counter stops growing – that is lost progress no Kinah can buy back. The week resets on Wednesday (metabot.gg: 16:00 server time; check it in game).',
+            de: 'Der größte Teil der Stärke nach Stufe 45 steckt hinter **Wochenzählern**. Ein voller Zähler wächst nicht weiter – das ist verlorener Fortschritt, den kein Kina zurückholt. Die Woche startet am Mittwoch neu (metabot.gg: 16:00 Uhr Serverzeit; prüf es im Spiel).',
+            en: 'Most of the power after level 45 sits behind **weekly counters**. A full counter stops growing – that is lost progress no Kina can buy back. The week resets on Wednesday (metabot.gg: 16:00 server time; check it in game).',
           },
         },
         {
@@ -844,8 +844,8 @@ export const powerSprint: Guide = {
           tone: 'tip',
           title: { de: 'Jeden Tag', en: 'Every day' },
           text: {
-            de: 'Conquest- und Transcendence-Zähler ausgeben, Nightmare ×2, Odyle vor der Grenze in Würfel stecken, Duty Missions auf dem Main. Die genauen Tages- und Wochenrouten für Kinah, Odyle und Abyss-Punkte – mit Zeiten – stehen in **Farming & Power**; diese Liste hält nur die Stärke-Seite fest.',
-            en: 'Spend the Conquest and Transcendence counters, Nightmare ×2, turn Odyle into cubes before it caps, Duty Missions on the main. The exact daily and weekly routes for Kinah, Odyle and Abyss Points – with times – are in **Farming & power**; this list only keeps the power side.',
+            de: 'Conquest- und Transcendence-Zähler ausgeben, Nightmare ×2, Odyle vor der Grenze in Würfel stecken, Duty Missions auf dem Main. Die genauen Tages- und Wochenrouten für Kina, Odyle und Abyss-Punkte – mit Zeiten – stehen in **Farming & Power**; diese Liste hält nur die Stärke-Seite fest.',
+            en: 'Spend the Conquest and Transcendence counters, Nightmare ×2, turn Odyle into cubes before it caps, Duty Missions on the main. The exact daily and weekly routes for Kina, Odyle and Abyss Points – with times – are in **Farming & power**; this list only keeps the power side.',
           },
         },
         { type: 'links', items: [{ href: '#/guides/farming-power', label: { de: 'Tages- und Wochenrouten', en: 'Daily and weekly routes' } }] },
@@ -867,7 +867,7 @@ export const powerSprint: Guide = {
               tag: { de: 'kostenlos', en: 'free' },
               tone: 'blue',
               points: [
-                { kind: 'pro', text: { de: 'Kein Kinah – Drops und Gear Change Vouchers wählen den Platz', en: 'No Kinah – drops and Gear Change Vouchers pick the slot' } },
+                { kind: 'pro', text: { de: 'Kein Kina – Drops und Gear Change Vouchers wählen den Platz', en: 'No Kina – drops and Gear Change Vouchers pick the slot' } },
                 { kind: 'pro', text: { de: 'Der schnellste Weg auf 54, 70 und 86', en: 'The fastest way to 54, 70 and 86' } },
                 { kind: 'con', text: { de: 'Wochenzähler (21 Conquest, 1 Ludra-Kill) bremsen das Tempo', en: 'Weekly counters (21 Conquest, 1 Ludra kill) cap the pace' } },
                 { kind: 'con', text: { de: 'Rüstung und Schmuck enden bei 86', en: 'Armour and jewellery stop at 86' } },
@@ -889,13 +889,13 @@ export const powerSprint: Guide = {
             },
             {
               title: { de: 'Kaufen', en: 'Buy' },
-              tag: 'Kinah',
+              tag: 'Kina',
               tone: 'slate',
               points: [
                 { kind: 'pro', text: { de: 'Spart Zeit: Splendent-Zwischenstufen waren gekauft billiger als hergestellt (≈100.000 statt ≈223.000)', en: 'Saves time: Splendent intermediates were cheaper bought than crafted (≈100,000 vs ≈223,000)' } },
                 { kind: 'pro', text: { de: 'Zutaten wie Wrathful Mind gibt es am Markt (≈350.000 pro Stück)', en: 'Materials like Wrathful Mind are on the market (≈350,000 each)' } },
                 { kind: 'con', text: { de: 'Transfer-Ergebnisse sind seelengebunden – ein fertiges White/Dark- oder Wise/Ebony-Teil kannst du nicht kaufen', en: 'Transfer results are soul bound – a finished White/Dark or Wise/Ebony piece can’t be bought' } },
-                { kind: 'con', text: { de: 'Jedes Kinah hier fehlt bei +10 → +15 und Amplified', en: 'Every Kinah here is missing for +10 → +15 and Amplified' } },
+                { kind: 'con', text: { de: 'Jedes Kina hier fehlt bei +10 → +15 und Amplified', en: 'Every Kina here is missing for +10 → +15 and Amplified' } },
               ],
               verdict: { de: 'Zwischenstufen und fehlende Zutaten kaufen, keine fertige Ausrüstung.', en: 'Buy intermediates and missing materials, not finished gear.' },
             },
@@ -905,8 +905,8 @@ export const powerSprint: Guide = {
           type: 'compare',
           title: { de: 'Jetzt verzaubern oder später?', en: 'Enhance now or later?' },
           caption: {
-            de: 'Kinah pro Punkt an einem Teil der Stufe 102 (Abschnitt „Am meisten Gegenstandsstufe pro Kinah“).',
-            en: 'Kinah per point on an item level 102 piece (section “Most item level per Kinah”).',
+            de: 'Kina pro Punkt an einem Teil der Stufe 102 (Abschnitt „Am meisten Gegenstandsstufe pro Kina“).',
+            en: 'Kina per point on an item level 102 piece (section “Most item level per Kina”).',
           },
           items: [
             {
@@ -914,7 +914,7 @@ export const powerSprint: Guide = {
               tone: 'gold',
               points: [
                 { kind: 'pro', text: { de: 'Gelingt immer, unter 0,1 Mio. pro Punkt', en: 'Always succeeds, under 0.1M per point' } },
-                { kind: 'pro', text: { de: 'Laut einem Guide gibt Zerlegen die Enhance Stones zurück (das Kinah nicht)', en: 'According to one guide, dismantling returns the Enhance Stones (not the Kinah)' } },
+                { kind: 'pro', text: { de: 'Laut einem Guide gibt Zerlegen die Enhance Stones zurück (das Kina nicht)', en: 'According to one guide, dismantling returns the Enhance Stones (not the Kina)' } },
               ],
               verdict: { de: 'Immer, auf jedem Teil, das du trägst.', en: 'Always, on every piece you wear.' },
             },
@@ -933,7 +933,7 @@ export const powerSprint: Guide = {
               tone: 'rose',
               points: [
                 { kind: 'pro', text: { de: '≈5 Gegenstandsstufe pro Stufe; +1 und +2 billig pro Punkt', en: '≈5 item level per level; +1 and +2 cheap per point' } },
-                { kind: 'con', text: { de: 'Braucht +15; im Schnitt ≈26 Mio. Kinah + ≈196 Amplify Stones pro Teil', en: 'Needs +15; on average ≈26M Kinah + ≈196 Amplify Stones per piece' } },
+                { kind: 'con', text: { de: 'Braucht +15; im Schnitt ≈26 Mio. Kina + ≈196 Amplify Stones pro Teil', en: 'Needs +15; on average ≈26M Kina + ≈196 Amplify Stones per piece' } },
               ],
               verdict: { de: 'Zuletzt – auf 102ern oder Nuakum, das bleibt.', en: 'Last – on 102s or Nuakum that stays.' },
             },
@@ -959,8 +959,8 @@ export const powerSprint: Guide = {
               en: '**Goal 1,400, then 2,100:** Conquest cubes of tier 2 and 3 (Farming & power). 1,000 opens the Abyss, 1,600 Transcendence for its own Arcana.',
             },
             {
-              de: '**Gleiche Reihenfolge, kleineres Budget:** Einmal-Inhalte, Gürtel und Amulett, sicheres +10, Arcana. Kein +11 und kein Amplified auf Twinks – das Kinah geht an den Main.',
-              en: '**Same order, smaller budget:** one-time content, belt and amulet, safe +10, Arcana. No +11 and no Amplified on alts – that Kinah goes to the main.',
+              de: '**Gleiche Reihenfolge, kleineres Budget:** Einmal-Inhalte, Gürtel und Amulett, sicheres +10, Arcana. Kein +11 und kein Amplified auf Twinks – das Kina geht an den Main.',
+              en: '**Same order, smaller budget:** one-time content, belt and amulet, safe +10, Arcana. No +11 and no Amplified on alts – that Kina goes to the main.',
             },
             {
               de: '**Nur Inhalte pro Charakter:** Odyle-Würfel, Nightmare, Ascension, Transcendence, Abyss-Zeit und Supply Requests. Duty Missions, Daily Dungeon und Shugo-Schlüssel sind pro Server geteilt – die bleiben beim Main.',
@@ -971,8 +971,8 @@ export const powerSprint: Guide = {
               en: '**One crafter is enough:** level one profession on one character. Whether its Dragon Lord pieces can go to another character is not confirmed – transfer results are soul bound.',
             },
             {
-              de: '**Kinah fließt zum Main** über das Server Storage – nur auf demselben Server und in derselben Fraktion.',
-              en: '**Kinah flows to the main** through Server Storage – only on the same server and faction.',
+              de: '**Kina fließt zum Main** über das Server Storage – nur auf demselben Server und in derselben Fraktion.',
+              en: '**Kina flows to the main** through Server Storage – only on the same server and faction.',
             },
           ],
         },
@@ -994,12 +994,12 @@ export const powerSprint: Guide = {
             { de: '**Einen Belohnungszähler voll stehen lassen** – Conquest füllt alle 8 Std. auf (Grenze 21), Transcendence alle 12 Std. (Grenze 14). Ein voller Zähler ist verlorene Zeit.', en: '**Letting a reward counter sit full** – Conquest refills every 8 h (cap 21), Transcendence every 12 h (cap 14). A full counter is lost time.' },
             { de: '**Die falsche Transcendence-Stufe farmen** – Unique-Karten erst ab Stufe 3 (2.200), die Unique Chalice erst ab Stufe 4 (2.500). Lieber die Gegenstandsstufe ans Tor bringen.', en: '**Farming the wrong Transcendence stage** – Unique cards only from stage 3 (2,200), the Unique Chalice only from stage 4 (2,500). Push your item level to the gate instead.' },
             { de: '**Die Einmal-Inhalte überspringen** – ≈180 Daevanion-Kristalle aus Regional Quests und Sealed Dungeons sind geschenkte Gegenstandsstufe.', en: '**Skipping the one-time content** – ≈180 Daevanion Crystals from Regional Quests and Sealed Dungeons are free item level.' },
-            { de: '**+13 bis +15, bevor alles auf +12 ist** – 2–6 Mio. Kinah pro Punkt statt unter 1 Mio.', en: '**+13 to +15 before everything is at +12** – 2–6M Kinah per point instead of under 1M.' },
+            { de: '**+13 bis +15, bevor alles auf +12 ist** – 2–6 Mio. Kina pro Punkt statt unter 1 Mio.', en: '**+13 to +15 before everything is at +12** – 2–6M Kina per point instead of under 1M.' },
             { de: '**Bei +15 aufhören, obwohl das Teil bleibt** – Amplified +1 und +2 sind die billigsten Punkte, die noch übrig sind (≈0,2–0,3 Mio.).', en: '**Stopping at +15 on a piece that stays** – Amplified +1 and +2 are the cheapest points left (≈0.2–0.3M).' },
             { de: '**Spät mit dem Handwerk anfangen** – die 102er-Phase wartet auf Meisterschaft 55/60 und drei Artisan’s-Splendent-Teile pro Platz.', en: '**Starting crafting late** – the 102 phase waits for mastery 55/60 and three Artisan’s Splendent pieces per slot.' },
             { de: '**Ein Stigma auf 20, bevor alle vier auf 15 sind** – Stufe 16–20 kostet 8 Shards pro Stufe.', en: '**One stigma to 20 before all four are at 15** – level 16–20 costs 8 shards per level.' },
             { de: '**Gürtel und Amulett vergessen** – einmal pro Charakter; alle Top 80 tragen den Noble Belt, 74 das Revelation Amulet.', en: '**Forgetting belt and amulet** – once per character; all of the top 80 wear the Noble Belt, 74 the Revelation Amulet.' },
-            { de: '**Sich am Kinah der Spitze messen** – ihre Verzauberung kostet ≈577 Mio. Vergleiche lieber die Gegenstandsstufe mit deiner Klasse am selben Tag.', en: '**Measuring yourself against the top’s Kinah** – their enhancement costs ≈577M. Compare item level with your class on the same day instead.' },
+            { de: '**Sich am Kina der Spitze messen** – ihre Verzauberung kostet ≈577 Mio. Vergleiche lieber die Gegenstandsstufe mit deiner Klasse am selben Tag.', en: '**Measuring yourself against the top’s Kina** – their enhancement costs ≈577M. Compare item level with your class on the same day instead.' },
           ],
         },
         { type: 'links', items: [{ href: '#/guides/combat-power', label: { de: 'Weitere Fehler im Kampfkraft-Guide', en: 'More mistakes in the Combat Power guide' } }] },

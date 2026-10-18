@@ -253,8 +253,8 @@ export const craftingGear: Guide = {
             {
               label: { de: 'Material für ein Artisan’s-Splendent-Langschwert', en: 'Material for one Artisan’s Splendent longsword' },
               value: {
-                de: 'An der Rezeptstufe gerechnet: ≈ 940 Ingots (1.880 Erz + 940 Lösungsmittel ≈ 375.000 Kinah) + 1.560 Refining Stones + 625 Odyle, dazu ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle und ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
-                en: 'Worked out at recipe level: ≈ 940 ingots (1,880 ore + 940 solvent ≈ 375,000 Kinah) + 1,560 Refining Stones + 625 Odyle, plus ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle and ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
+                de: 'An der Rezeptstufe gerechnet: ≈ 940 Ingots (1.880 Erz + 940 Lösungsmittel ≈ 375.000 Kina) + 1.560 Refining Stones + 625 Odyle, dazu ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle und ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
+                en: 'Worked out at recipe level: ≈ 940 ingots (1,880 ore + 940 solvent ≈ 375,000 Kina) + 1,560 Refining Stones + 625 Odyle, plus ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle and ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
               },
             },
             {
@@ -272,8 +272,8 @@ export const craftingGear: Guide = {
           tone: 'tip',
           title: { de: 'Was daraus folgt', en: 'What follows from it' },
           text: {
-            de: '**1.** Splendent-Zwischenstufen kaufen, wenn sie billiger sind: Am 5.10. kostete ein Splendent Orichalcum Longsword selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kinah. **2.** Das zweite und dritte Artisan’s-Splendent-Teil erst mit hoher Meisterschaft herstellen – die niedrigen Rezepte sind dann nahe an ihrer Obergrenze, und die Kette kostet bis zu 3,5-mal weniger Versuche. **3.** Normale Ergebnisse sind kein Abfall: Sie gehen in die Supply Requests oder auf den Markt.',
-            en: '**1.** Buy Splendent intermediates when they are cheaper: on 5 Oct a Splendent Orichalcum Longsword cost about 223,000 Kinah to craft and about 100,000 to buy. **2.** Craft the second and third Artisan’s Splendent piece only at high mastery – the low recipes are near their cap by then, and the chain takes up to 3.5 times fewer attempts. **3.** Normal results are not waste: they go into Supply Requests or onto the market.',
+            de: '**1.** Splendent-Zwischenstufen kaufen, wenn sie billiger sind: Am 5.10. kostete ein Splendent Orichalcum Longsword selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kina. **2.** Das zweite und dritte Artisan’s-Splendent-Teil erst mit hoher Meisterschaft herstellen – die niedrigen Rezepte sind dann nahe an ihrer Obergrenze, und die Kette kostet bis zu 3,5-mal weniger Versuche. **3.** Normale Ergebnisse sind kein Abfall: Sie gehen in die Supply Requests oder auf den Markt.',
+            en: '**1.** Buy Splendent intermediates when they are cheaper: on 5 Oct a Splendent Orichalcum Longsword cost about 223,000 Kina to craft and about 100,000 to buy. **2.** Craft the second and third Artisan’s Splendent piece only at high mastery – the low recipes are near their cap by then, and the chain takes up to 3.5 times fewer attempts. **3.** Normal results are not waste: they go into Supply Requests or onto the market.',
           },
         },
       ],
@@ -294,8 +294,8 @@ export const craftingGear: Guide = {
             {
               title: { de: 'Novice 1–50 mit billigen Einzelherstellungen', en: 'Novice 1–50 with cheap single crafts' },
               text: {
-                de: 'Schmieden und Rüstungsschmieden: **Orichalcum Ingot** (2 Erz + Lösungsmittel für 400 Kinah, 20 Erfahrung) – 10 Ingots brachten einen Tester von Meisterschaft 1 auf 6. Handwerk: Sapphire Decoration und Yggdrasil Wood. Alchemie: ab 5 **Spiritstone Powder** (24 Erfahrung pro Herstellung, ≈ 363 Herstellungen von 5 auf 50) – Alchemie gilt als der leichteste Beruf zum Leveln.',
-                en: 'Blacksmithing and armorsmithing: **Orichalcum Ingot** (2 ore + solvent for 400 Kinah, 20 experience) – 10 ingots took a tester from mastery 1 to 6. Handicrafting: Sapphire Decoration and Yggdrasil Wood. Alchemy: from 5 **Spiritstone Powder** (24 experience per craft, about 363 crafts from 5 to 50) – alchemy is said to be the easiest profession to level.',
+                de: 'Schmieden und Rüstungsschmieden: **Orichalcum Ingot** (2 Erz + Lösungsmittel für 400 Kina, 20 Erfahrung) – 10 Ingots brachten einen Tester von Meisterschaft 1 auf 6. Handwerk: Sapphire Decoration und Yggdrasil Wood. Alchemie: ab 5 **Spiritstone Powder** (24 Erfahrung pro Herstellung, ≈ 363 Herstellungen von 5 auf 50) – Alchemie gilt als der leichteste Beruf zum Leveln.',
+                en: 'Blacksmithing and armorsmithing: **Orichalcum Ingot** (2 ore + solvent for 400 Kina, 20 experience) – 10 ingots took a tester from mastery 1 to 6. Handicrafting: Sapphire Decoration and Yggdrasil Wood. Alchemy: from 5 **Spiritstone Powder** (24 experience per craft, about 363 crafts from 5 to 50) – alchemy is said to be the easiest profession to level.',
               },
             },
             {
@@ -393,7 +393,7 @@ export const craftingGear: Guide = {
           items: [
             {
               title: { de: 'Orichalcum Ingot (Meisterschaft 1)', en: 'Orichalcum Ingot (mastery 1)' },
-              text: { de: '2 Orichalcum-Erz + Lösungsmittel (400 Kinah)', en: '2 Orichalcum ore + solvent (400 Kinah)' },
+              text: { de: '2 Orichalcum-Erz + Lösungsmittel (400 Kina)', en: '2 Orichalcum ore + solvent (400 Kina)' },
             },
             {
               title: { de: 'Orichalcum Longsword (3)', en: 'Orichalcum Longsword (3)' },
@@ -509,11 +509,11 @@ export const craftingGear: Guide = {
           type: 'facts',
           items: [
             { label: { de: 'Artisan’s Ultimate Refining Stone', en: 'Artisan’s Ultimate Refining Stone' }, value: { de: 'Expeditionen, Shugo Festa, Bosse in Draupnir (≈ 9–10 %), Season Shop', en: 'Expeditions, Shugo Festa, Draupnir bosses (about 9–10%), Season Shop' } },
-            { label: { de: 'Wrathful Mind', en: 'Wrathful Mind' }, value: { de: 'Eroberungs-Dungeons (Krao Cave, Draupnir, Urugugu, Vakron, Fire Temple, Ferocious Horn Den), Ludra (zurzeit offline), Season Shop · Markt am 5.10. ≈ 350.000 Kinah pro Stück', en: 'Conquest dungeons (Krao Cave, Draupnir, Urugugu, Vakron, Fire Temple, Ferocious Horn Den), Ludra (offline for now), Season Shop · market on 5 Oct about 350,000 Kinah each' } },
+            { label: { de: 'Wrathful Mind', en: 'Wrathful Mind' }, value: { de: 'Eroberungs-Dungeons (Krao Cave, Draupnir, Urugugu, Vakron, Fire Temple, Ferocious Horn Den), Ludra (zurzeit offline), Season Shop · Markt am 5.10. ≈ 350.000 Kina pro Stück', en: 'Conquest dungeons (Krao Cave, Draupnir, Urugugu, Vakron, Fire Temple, Ferocious Horn Den), Ludra (offline for now), Season Shop · market on 5 Oct about 350,000 Kina each' } },
             { label: { de: 'Will / Ego', en: 'Will / Ego' }, value: { de: 'Will: Urugugu, Vakron, Fire Temple, Ferocious Horn Den, Ludra (zurzeit offline) · Ego: Fire Temple, Ferocious Horn Den, Ludra (zurzeit offline)', en: 'Will: Urugugu, Vakron, Fire Temple, Ferocious Horn Den, Ludra (offline for now) · Ego: Fire Temple, Ferocious Horn Den, Ludra (offline for now)' } },
             { label: { de: 'Balaur’s Essence', en: 'Balaur’s Essence' }, value: { de: 'Benannte Elite-Monster in Verteron und Altgard, Kaira-Bosse in Lower Reshanta, Eroberungs-Dungeons, Ludra (zurzeit offline) – nicht verkaufbar', en: 'Named elites in Verteron and Altgard, Kaira bosses in Lower Reshanta, Conquest dungeons, Ludra (offline for now) – not sellable' } },
             { label: { de: 'Erz, Holz, Odyle', en: 'Ore, wood, Odyle' }, value: { de: 'Sammeln – die Radiant-Qualität für Dragon Lord. Radiant Odyle ist die meistgenutzte Sammelzutat (190 Rezepte).', en: 'Gathering – the Radiant quality for Dragon Lord. Radiant Odyle is the most used gathered ingredient (190 recipes).' } },
-            { label: { de: 'Händler-Reagenzien', en: 'Vendor reagents' }, value: { de: 'Lösungsmittel 400 Kinah, Hämmer 4.650–6.550 Kinah – immer gebunden. Mit Special-Quai-Abo auch im Wind-Breeze-Shop.', en: 'Solvent 400 Kinah, hammers 4,650–6,550 Kinah – always bound. With the Special Quai membership also in the Wind Breeze shop.' } },
+            { label: { de: 'Händler-Reagenzien', en: 'Vendor reagents' }, value: { de: 'Lösungsmittel 400 Kina, Hämmer 4.650–6.550 Kina – immer gebunden. Mit Special-Quai-Abo auch im Wind-Breeze-Shop.', en: 'Solvent 400 Kina, hammers 4,650–6,550 Kina – always bound. With the Special Quai membership also in the Wind Breeze shop.' } },
           ],
         },
       ],
@@ -557,8 +557,8 @@ export const craftingGear: Guide = {
           type: 'list',
           items: [
             {
-              de: '**Strong Leather** = 2 Raw Leather (von Tieren in Verteron, Altgard und Chaotic Lower Reshanta). **Tanned Thick Balaur Leather** = 2 Balaur’s Essence + 1 Lesser Dragon Leather Softener (4.650 Kinah), ab Meisterschaft 51.',
-              en: '**Strong Leather** = 2 Raw Leather (from animals in Verteron, Altgard and Chaotic Lower Reshanta). **Tanned Thick Balaur Leather** = 2 Balaur’s Essence + 1 Lesser Dragon Leather Softener (4,650 Kinah), from mastery 51.',
+              de: '**Strong Leather** = 2 Raw Leather (von Tieren in Verteron, Altgard und Chaotic Lower Reshanta). **Tanned Thick Balaur Leather** = 2 Balaur’s Essence + 1 Lesser Dragon Leather Softener (4.650 Kina), ab Meisterschaft 51.',
+              en: '**Strong Leather** = 2 Raw Leather (from animals in Verteron, Altgard and Chaotic Lower Reshanta). **Tanned Thick Balaur Leather** = 2 Balaur’s Essence + 1 Lesser Dragon Leather Softener (4,650 Kina), from mastery 51.',
             },
             {
               de: '**Schmuck** macht der Handwerker: Orichalcum-Ringe ab 3, Ohrringe ab 5, Halsketten ab 10. Der Dragon-Lord-Ring kommt ab 55, Halskette und Ohrringe ab 60. Ringe und Ohrringe brauchst du **doppelt** – also auch die Kette zweimal.',
@@ -607,10 +607,10 @@ export const craftingGear: Guide = {
             },
             {
               title: { de: 'Zwischenstufen kaufen, oben selbst herstellen', en: 'Buy intermediates, craft the top' },
-              tag: { de: 'Kinah statt Zeit', en: 'Kinah instead of time' },
+              tag: { de: 'Kina statt Zeit', en: 'Kina instead of time' },
               tone: 'blue',
               points: [
-                { kind: 'pro', text: { de: 'Splendent Orichalcum Longsword: gekauft ≈ 100.000, selbst gemacht ≈ 223.000 Kinah', en: 'Splendent Orichalcum Longsword: bought ≈ 100,000, crafted ≈ 223,000 Kinah' } },
+                { kind: 'pro', text: { de: 'Splendent Orichalcum Longsword: gekauft ≈ 100.000, selbst gemacht ≈ 223.000 Kina', en: 'Splendent Orichalcum Longsword: bought ≈ 100,000, crafted ≈ 223,000 Kina' } },
                 { kind: 'pro', text: { de: 'Hörner lassen sich kaufen, Transfers brauchen keine Meisterschaft', en: 'Horns can be bought, transfers need no mastery' } },
                 { kind: 'con', text: { de: 'Nur mit Abo, Preise schwanken, Wrathful Mind ≈ 350.000 pro Stück', en: 'Membership only, prices move, Wrathful Mind ≈ 350,000 each' } },
                 { kind: 'con', text: { de: 'Transfer-Ergebnisse sind seelengebunden – kauf vor dem Transfer', en: 'Transfer results are soul bound – buy before the transfer' } },
@@ -663,8 +663,8 @@ export const craftingGear: Guide = {
           tone: 'warn',
           title: { de: 'Erst rechnen', en: 'Calculate first' },
           text: {
-            de: 'Allein die 10 Wrathful Mind für ein True-Dragon-Lord-Langschwert kosteten am 5.10. rund 3,5 Mio. Kinah. An der Rezeptstufe scheitert jeder dritte Versuch – im Schnitt verlierst du so ≈ 1,1 Mio. Kinah pro Versuch, bei Meisterschaft 62 ≈ 0,8 Mio. Vergleiche vorher: Was kostet das fertige Teil, was kosten die Zutaten, wie hoch ist deine Chance?',
-            en: 'The 10 Wrathful Mind for one True Dragon Lord longsword alone cost about 3.5 million Kinah on 5 Oct. At recipe level one attempt in three fails – on average that is ≈ 1.1 million Kinah lost per attempt, at mastery 62 ≈ 0.8 million. Compare first: what does the finished piece cost, what do the ingredients cost, how high is your chance?',
+            de: 'Allein die 10 Wrathful Mind für ein True-Dragon-Lord-Langschwert kosteten am 5.10. rund 3,5 Mio. Kina. An der Rezeptstufe scheitert jeder dritte Versuch – im Schnitt verlierst du so ≈ 1,1 Mio. Kina pro Versuch, bei Meisterschaft 62 ≈ 0,8 Mio. Vergleiche vorher: Was kostet das fertige Teil, was kosten die Zutaten, wie hoch ist deine Chance?',
+            en: 'The 10 Wrathful Mind for one True Dragon Lord longsword alone cost about 3.5 million Kina on 5 Oct. At recipe level one attempt in three fails – on average that is ≈ 1.1 million Kina lost per attempt, at mastery 62 ≈ 0.8 million. Compare first: what does the finished piece cost, what do the ingredients cost, how high is your chance?',
           },
         },
         {
@@ -717,7 +717,7 @@ export const craftingGear: Guide = {
             { label: { de: 'Meisterschaft', en: 'Mastery' }, value: { de: 'Global endet bei 100 (Professional 50). Korea hat am 8.4.2026 bis Professional 70 angehoben. Bis 100 ist die Erfahrungskurve gleich.', en: 'Global ends at 100 (Professional 50). Korea raised it to Professional 70 on 8 Apr 2026. Up to 100 the experience curve is the same.' } },
             { label: { de: 'Stufen', en: 'Tiers' }, value: { de: 'Korea hat zusätzliche Heroic-Stufen ab 108 – Global endet bei Wise/Ebony 102', en: 'Korea has extra Heroic tiers from 108 – Global ends at Wise/Ebony 102' } },
             { label: { de: 'Wise/Ebony', en: 'Wise/Ebony' }, value: { de: 'Korea: direkt herstellbar ab Meisterschaft 85/90 · Global: nur per Transfer', en: 'Korea: craftable directly from mastery 85/90 · Global: only by transfer' } },
-            { label: { de: 'Normal → Splendent', en: 'Normal → Splendent' }, value: { de: 'Korea: nur Kinah · Global: Zutaten (z. B. 11 Hörner + 4 Wrathful Mind)', en: 'Korea: Kinah only · Global: ingredients (e.g. 11 horns + 4 Wrathful Mind)' } },
+            { label: { de: 'Normal → Splendent', en: 'Normal → Splendent' }, value: { de: 'Korea: nur Kina · Global: Zutaten (z. B. 11 Hörner + 4 Wrathful Mind)', en: 'Korea: Kina only · Global: ingredients (e.g. 11 horns + 4 Wrathful Mind)' } },
             { label: { de: 'Dragon Lord Core', en: 'Dragon Lord Core' }, value: { de: 'Koreanische und taiwanische Rezepte nehmen einen „Dragon Lord Core“ statt des Artisan’s-Splendent-Teils – siehst du ihn in einem Video, gilt es nicht für Global', en: 'Korean and Taiwanese recipes take a "Dragon Lord Core" instead of the Artisan’s Splendent piece – if you see it in a video, it does not apply to Global' } },
           ],
         },

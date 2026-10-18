@@ -19,8 +19,11 @@ export function fold(s: string): { text: string; map: number[] } {
 
 export const norm = (s: string) => fold(s).text;
 
+/** words players type that the site spells as the global client does ("Kinah" of AION 1 and the Korean client → "Kina") */
+const ALIAS: Record<string, string> = { kinah: 'kina' };
+
 /** The words of a query (spaces and punctuation separate them). */
-export const queryTokens = (q: string): string[] => norm(q).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+export const queryTokens = (q: string): string[] => norm(q).split(/[^\p{L}\p{N}]+/u).filter(Boolean).map((t) => ALIAS[t] ?? t);
 
 const isWordChar = (c: string | undefined) => !!c && /[\p{L}\p{N}]/u.test(c);
 

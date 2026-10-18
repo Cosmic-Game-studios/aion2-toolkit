@@ -384,7 +384,7 @@ export const pets: Guide = {
         {
           type: 'facts',
           items: [
-            { label: { de: 'Ein Wurf kostet', en: 'One roll costs' }, value: { de: '4 Soul Crystals der Gattung (oder Regenbogen-Kristalle) + 1.000 Kinah – und würfelt alle offenen Zeilen neu', en: '4 Soul Crystals of the genus (or rainbow crystals) + 1,000 Kinah – and rerolls all open lines' } },
+            { label: { de: 'Ein Wurf kostet', en: 'One roll costs' }, value: { de: '4 Soul Crystals der Gattung (oder Regenbogen-Kristalle) + 1.000 Kina – und würfelt alle offenen Zeilen neu', en: '4 Soul Crystals of the genus (or rainbow crystals) + 1,000 Kina – and rerolls all open lines' } },
             { label: { de: 'Ein Wurf bringt', en: 'One roll gives' }, value: { de: '100 Gattungs-Erfahrung pro offener Zeile – Würfeln levelt die Gattung also mit', en: '100 genus experience per open line – so rolling levels the genus too' } },
             { label: { de: 'Sperren', en: 'Locking' }, value: { de: 'Gute Zeilen kannst du sperren – jede gesperrte Zeile macht den nächsten Wurf deutlich teurer', en: 'You can lock good lines – every locked line makes the next roll a lot more expensive' } },
             { label: { de: 'Presets', en: 'Presets' }, value: { de: 'Bis zu 3', en: 'Up to 3' } },

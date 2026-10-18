@@ -20,14 +20,14 @@ export const gatheringCrafting: Guide = {
     en: 'Gathering & crafting: level fast, gather well',
   },
   summary: {
-    de: 'Wie Sammeln und die fünf Handwerksberufe zusammenhängen, wie du beide am schnellsten levelst, wohin deine Sammelpunkte gehören, wo die Rubine für den Aufstieg liegen und welche Fehler dich Zeit und Kinah kosten.',
-    en: 'How gathering and the five crafting professions fit together, how to level both fastest, where your gathering points belong, where the rubies for the advancement are and which mistakes cost you time and Kinah.',
+    de: 'Wie Sammeln und die fünf Handwerksberufe zusammenhängen, wie du beide am schnellsten levelst, wohin deine Sammelpunkte gehören, wo die Rubine für den Aufstieg liegen und welche Fehler dich Zeit und Kina kosten.',
+    en: 'How gathering and the five crafting professions fit together, how to level both fastest, where your gathering points belong, where the rubies for the advancement are and which mistakes cost you time and Kina.',
   },
   updated: '2026-10-19',
   tags: [
     { de: 'Sammeln', en: 'Gathering' },
     { de: 'Handwerk', en: 'Crafting' },
-    { de: 'Kinah', en: 'Kinah' },
+    { de: 'Kina', en: 'Kina' },
   ],
   basis: {
     de: 'Client-Daten-Seiten und Community-Guides zum globalen Server (Oktober 2026), Erfahrungstabellen aus Korea (Inven) und die Sammelpunkte der Karten-Daten (Map Overlay, 12.10.2026)',
@@ -43,7 +43,7 @@ export const gatheringCrafting: Guide = {
             { value: '5', label: { de: 'Handwerksberufe', en: 'crafting professions' }, note: { de: 'ein Charakter kann alle lernen', en: 'one character can learn them all' }, tone: 'green' },
             { value: '27', label: { de: 'Arten von Vorkommen', en: 'kinds of gathering nodes' }, note: { de: 'eine einzige Fertigkeit für alle', en: 'one single skill for all of them' }, tone: 'teal' },
             { value: '100', label: { de: 'Höchste Meisterschaft (Global)', en: 'highest mastery (Global)' }, note: { de: 'Novice 1–50, Professional 51–100', en: 'Novice 1–50, Professional 51–100' }, tone: 'gold' },
-            { value: { de: '0 Kinah', en: '0 Kinah' }, label: { de: 'Herstellungsgebühr', en: 'crafting fee' }, note: { de: 'du zahlst nur die Reagenzien beim Händler', en: 'you only pay for vendor reagents' }, tone: 'blue' },
+            { value: { de: '0 Kina', en: '0 Kina' }, label: { de: 'Herstellungsgebühr', en: 'crafting fee' }, note: { de: 'du zahlst nur die Reagenzien beim Händler', en: 'you only pay for vendor reagents' }, tone: 'blue' },
           ],
         },
         {
@@ -112,7 +112,7 @@ export const gatheringCrafting: Guide = {
             [
               { de: '**Schmieden**', en: '**Blacksmithing**' },
               { de: 'Großschwert, Langschwert, Dolch, Streitkolben, Guard, Ingots, Balaur-Hörner', en: 'Greatsword, longsword, dagger, mace, guard, ingots, Balaur horns' },
-              { de: 'Orichalcum Ingot (2 Erz + Lösungsmittel für 400 Kinah)', en: 'Orichalcum Ingot (2 ore + solvent for 400 Kinah)' },
+              { de: 'Orichalcum Ingot (2 Erz + Lösungsmittel für 400 Kina)', en: 'Orichalcum Ingot (2 ore + solvent for 400 Kina)' },
               { de: 'Hammer: 6 Ingots + 3 Odyle', en: 'Hammer: 6 ingots + 3 Odyle' },
             ],
             [
@@ -124,7 +124,7 @@ export const gatheringCrafting: Guide = {
             [
               { de: '**Handwerk**', en: '**Handicrafting**' },
               { de: 'Bogen, Stab, Ringe, Ohrringe, Halsketten, Armbänder', en: 'Bow, staff, rings, earrings, necklaces, bracelets' },
-              { de: 'Sapphire Decoration und Yggdrasil Wood (je 400 Kinah Reagenz)', en: 'Sapphire Decoration and Yggdrasil Wood (400 Kinah reagent each)' },
+              { de: 'Sapphire Decoration und Yggdrasil Wood (je 400 Kina Reagenz)', en: 'Sapphire Decoration and Yggdrasil Wood (400 Kina reagent each)' },
               { de: 'Lupe: 4 Yggdrasil Wood + 2 Sapphire Decoration + 3 Odyle', en: 'Magnifying glass: 4 Yggdrasil Wood + 2 Sapphire Decoration + 3 Odyle' },
             ],
             [
@@ -136,7 +136,7 @@ export const gatheringCrafting: Guide = {
             [
               { de: '**Kochen**', en: '**Cooking**' },
               { de: 'Essen mit Werten für ein paar Minuten, White-Dragon-Gerichte ab 60, 75 und 90', en: 'Food with stats for a few minutes, White Dragon dishes from 60, 75 and 90' },
-              { de: 'Teurer: ≈ 880–1.320 Kinah Reagenzien pro Herstellung', en: 'More expensive: ≈ 880–1,320 Kinah in reagents per craft' },
+              { de: 'Teurer: ≈ 880–1.320 Kina Reagenzien pro Herstellung', en: 'More expensive: ≈ 880–1,320 Kina in reagents per craft' },
               '–',
             ],
             [
@@ -213,7 +213,7 @@ export const gatheringCrafting: Guide = {
             },
             {
               title: { de: 'Spezialpunkte: Seeker zuerst, dann höchstens zwei Familien', en: 'Special points: Seeker first, then two families at most' },
-              text: { de: '**Seeker** (1 Punkt) zeigt die Vorkommen einer Familie auf der Minikarte – nimm ihn früh für dein Hauptmaterial und für Edelsteine (Rubin-Aufstieg). **Plentiful Harvest** (10/20/30 % doppelte Ausbeute) und **Appraiser** (10/20/30 % Chance, die Qualität neu zu würfeln) kosten je 3. Mit 14 Punkten reicht es für zwei volle Familien – nicht verteilen. Zurücksetzen kostet 50.000 Kinah.', en: '**Seeker** (1 point) shows a family’s nodes on the minimap – take it early for your main material and for gems (ruby advancement). **Plentiful Harvest** (10/20/30% double yield) and **Appraiser** (10/20/30% chance to reroll the grade) cost 3 each. 14 points are enough for two full families – don’t spread them. A reset costs 50,000 Kinah.' },
+              text: { de: '**Seeker** (1 Punkt) zeigt die Vorkommen einer Familie auf der Minikarte – nimm ihn früh für dein Hauptmaterial und für Edelsteine (Rubin-Aufstieg). **Plentiful Harvest** (10/20/30 % doppelte Ausbeute) und **Appraiser** (10/20/30 % Chance, die Qualität neu zu würfeln) kosten je 3. Mit 14 Punkten reicht es für zwei volle Familien – nicht verteilen. Zurücksetzen kostet 50.000 Kina.', en: '**Seeker** (1 point) shows a family’s nodes on the minimap – take it early for your main material and for gems (ruby advancement). **Plentiful Harvest** (10/20/30% double yield) and **Appraiser** (10/20/30% chance to reroll the grade) cost 3 each. 14 points are enough for two full families – don’t spread them. A reset costs 50,000 Kina.' },
             },
             {
               title: { de: 'Feste Runden laufen', en: 'Run fixed loops' },
@@ -407,14 +407,14 @@ export const gatheringCrafting: Guide = {
       ],
     },
     {
-      title: { de: 'Kinah & Markt', en: 'Kinah & market' },
+      title: { de: 'Kina & Markt', en: 'Kina & market' },
       blocks: [
         {
           type: 'list',
           items: [
             { de: 'Den **Markt** gibt es ab Charakterstufe 45 und laut NC nur mit **Special-Quai-Abo** (14,99 $ für 30 Tage). Kaufen geht sicher nur mit Abo; ob du ohne Abo einstellen kannst, sagen die Guides unterschiedlich. Die Gebühr nennen Guides mit ≈ 10 %.', en: 'The **market** opens at character level 45 and according to NC only with the **Special Quai membership** ($14.99 for 30 days). Buying definitely needs it; guides disagree on whether you can list without it. Guides name a fee of about 10%.' },
-            { de: 'Direkter Handel zwischen Spielern ist auf Global abgeschaltet – der Markt ist der einzige Weg zu handelbaren Kinah aus Materialien.', en: 'Direct trading between players is switched off on Global – the market is the only way to turn materials into tradeable Kinah.' },
-            { de: 'Verkäufe an Händler bringen nur **gebundene** Kinah.', en: 'Selling to vendors only gives **bound** Kinah.' },
+            { de: 'Direkter Handel zwischen Spielern ist auf Global abgeschaltet – der Markt ist der einzige Weg zu handelbaren Kina aus Materialien.', en: 'Direct trading between players is switched off on Global – the market is the only way to turn materials into tradeable Kina.' },
+            { de: 'Verkäufe an Händler bringen nur **gebundene** Kina.', en: 'Selling to vendors only gives **bound** Kina.' },
             { de: 'Odyle ist beim Händler etwa viermal so viel wert wie andere Materialien und lässt sich 1:1 in gebundenes Erz, Edelsteine oder Holz gleicher Qualität umwandeln.', en: 'Odyle sells for about four times as much as other materials at vendors and converts 1:1 into bound ore, gems or wood of the same quality.' },
             { de: 'Alchemie-Verarbeitung (Pulver, Papier) verdreifacht etwa den Händlerpreis der Rohstoffe.', en: 'Alchemy processing (powder, paper) roughly triples the vendor price of the raw materials.' },
             { de: '**Seit dem Patch vom 14.10.:** Das Einstellen von Sammelmaterialien auf dem Markt wird abhängig von deiner Spielhistorie eingeschränkt (gegen Bots). Genaue Regeln nennt der Patch nicht.', en: '**Since the 14 Oct patch:** listing gathered materials on the market is restricted based on your play history (against bots). The patch does not give exact rules.' },
@@ -435,16 +435,16 @@ export const gatheringCrafting: Guide = {
               points: [
                 { kind: 'pro', text: { de: 'Ohne Abo, ohne Gebühr, ohne Wartezeit', en: 'No membership, no fee, no waiting' } },
                 { kind: 'pro', text: { de: 'Odyle ×4 wert, Alchemie-Verarbeitung ×3', en: 'Odyle worth ×4, alchemy processing ×3' } },
-                { kind: 'con', text: { de: 'Nur gebundene Kinah', en: 'Bound Kinah only' } },
+                { kind: 'con', text: { de: 'Nur gebundene Kina', en: 'Bound Kina only' } },
               ],
-              verdict: { de: 'Für Reste und alles, was gebundene Kinah bezahlen können.', en: 'For leftovers and anything bound Kinah can pay for.' },
+              verdict: { de: 'Für Reste und alles, was gebundene Kina bezahlen können.', en: 'For leftovers and anything bound Kina can pay for.' },
             },
             {
               title: { de: 'Auf den Markt', en: 'On the market' },
-              tag: { de: 'handelbare Kinah', en: 'tradeable Kinah' },
+              tag: { de: 'handelbare Kina', en: 'tradeable Kina' },
               tone: 'gold',
               points: [
-                { kind: 'pro', text: { de: 'Handelbare Kinah – damit kaufst du Ausrüstung und Zwischenstufen', en: 'Tradeable Kinah – that buys gear and intermediates' } },
+                { kind: 'pro', text: { de: 'Handelbare Kina – damit kaufst du Ausrüstung und Zwischenstufen', en: 'Tradeable Kina – that buys gear and intermediates' } },
                 { kind: 'pro', text: { de: 'Radiant-Material ist gefragt: Radiant Odyle steckt in 190 Rezepten', en: 'Radiant material is in demand: Radiant Odyle is in 190 recipes' } },
                 { kind: 'con', text: { de: 'Ab Stufe 45, Abo nötig, Gebühr, Sammelmaterial seit 14.10. eingeschränkt', en: 'Level 45+, membership, fee, gathered materials restricted since 14 Oct' } },
               ],
@@ -457,7 +457,7 @@ export const gatheringCrafting: Guide = {
               points: [
                 { kind: 'pro', text: { de: 'Meisterschaft und deine eigene Splendent-Kette', en: 'Mastery and your own Splendent chain' } },
                 { kind: 'pro', text: { de: 'Normale Ergebnisse gehen in die Supply Requests', en: 'Normal results go into Supply Requests' } },
-                { kind: 'con', text: { de: 'Nicht gratis: Ein Splendent Orichalcum Longsword kostete selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kinah', en: 'Not free: a Splendent Orichalcum Longsword cost ≈ 223,000 Kinah to craft, ≈ 100,000 to buy' } },
+                { kind: 'con', text: { de: 'Nicht gratis: Ein Splendent Orichalcum Longsword kostete selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kina', en: 'Not free: a Splendent Orichalcum Longsword cost ≈ 223,000 Kina to craft, ≈ 100,000 to buy' } },
               ],
               verdict: { de: 'Für deine eigene Kette – aber vorher die Marktpreise prüfen.', en: 'For your own chain – but check market prices first.' },
             },
@@ -514,7 +514,7 @@ export const gatheringCrafting: Guide = {
           items: [
             { href: 'https://metabot.gg/en/aion-2/guides/crafting-guide', label: 'metabot.gg – Crafting guide (global client data)' },
             { href: 'https://metabot.gg/en/aion-2/gathering', label: 'metabot.gg – Gathering (skills, experience, points)' },
-            { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kinah farming' },
+            { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kina farming' },
             { href: 'https://aion2.gaming.tools/guides/crafting', label: 'aion2.gaming.tools – Crafting (global)' },
             { href: 'https://aion2.wiki.fextralife.com/Gathering', label: 'Fextralife wiki – Gathering' },
             { href: 'https://aion2.wiki.fextralife.com/Crafting', label: 'Fextralife wiki – Crafting' },

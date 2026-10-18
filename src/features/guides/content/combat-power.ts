@@ -132,7 +132,7 @@ export const combatPower: Guide = {
             },
             {
               value: num('≈41M'),
-              label: { de: 'Kinah für ein Teil von +0 bis Amplified +5', en: 'Kinah for one piece from +0 to Amplified +5' },
+              label: { de: 'Kina für ein Teil von +0 bis Amplified +5', en: 'Kina for one piece from +0 to Amplified +5' },
               note: { de: 'Gegenstandsstufe 102, im Schnitt – nur 2 % davon bis +10', en: 'item level 102, on average – only 2% of it up to +10' },
               tone: 'rose',
             },
@@ -152,8 +152,8 @@ export const combatPower: Guide = {
           tone: 'info',
           title: { de: 'Wo dieser Guide anfängt', en: 'Where this guide starts' },
           text: {
-            de: 'Der Weg bis ≈100K Kampfkraft – Kinah, Routen, Wochenplan – steht im Guide **Farming & Power**, der schnellste Weg Woche für Woche im **Power-Sprint**. Dieser Guide erklärt, was jeder Schritt wert ist und kostet, bis an die Spitze. Was deine Klasse anders macht, steht im Abschnitt „Höchste Kampfkraft“ ihres Klassen-Guides.',
-            en: 'The way to ≈100K Combat Power – Kinah, routes, a week plan – is in the **Farming & power** guide, the fastest path week by week in the **Power sprint**. This guide explains what each step is worth and costs, all the way to the top. What your class does differently is in the “Highest Combat Power” section of its class guide.',
+            de: 'Der Weg bis ≈100K Kampfkraft – Kina, Routen, Wochenplan – steht im Guide **Farming & Power**, der schnellste Weg Woche für Woche im **Power-Sprint**. Dieser Guide erklärt, was jeder Schritt wert ist und kostet, bis an die Spitze. Was deine Klasse anders macht, steht im Abschnitt „Höchste Kampfkraft“ ihres Klassen-Guides.',
+            en: 'The way to ≈100K Combat Power – Kina, routes, a week plan – is in the **Farming & power** guide, the fastest path week by week in the **Power sprint**. This guide explains what each step is worth and costs, all the way to the top. What your class does differently is in the “Highest Combat Power” section of its class guide.',
           },
         },
         {
@@ -276,8 +276,8 @@ export const combatPower: Guide = {
           items: [
             {
               title: { de: 'Jeden Platz füllen, alles auf +10', en: 'Fill every slot, everything to +10' },
-              text: { de: 'Bis +10 gelingt jede Stufe: ≈0,92 Mio. Kinah und 36.680 Enhance Stones für ein Teil auf Stufe 102. Gleichmäßig schlägt einen einzelnen Platz auf +15.', en: 'Every step up to +10 succeeds: ≈0.92M Kinah and 36,680 Enhance Stones for a level-102 piece. Even beats one slot at +15.' },
-              tag: 'Kinah',
+              text: { de: 'Bis +10 gelingt jede Stufe: ≈0,92 Mio. Kina und 36.680 Enhance Stones für ein Teil auf Stufe 102. Gleichmäßig schlägt einen einzelnen Platz auf +15.', en: 'Every step up to +10 succeeds: ≈0.92M Kina and 36,680 Enhance Stones for a level-102 piece. Even beats one slot at +15.' },
+              tag: 'Kina',
               tone: 'gold',
             },
             {
@@ -300,13 +300,13 @@ export const combatPower: Guide = {
             },
             {
               title: { de: 'Endgame-Set aus dem Handwerk auf +15', en: 'Crafted endgame set to +15' },
-              text: { de: 'Splendent Wise / Ebony Dragon Lord (102). +10 → +15 kostet im Schnitt ≈14 Mio. Kinah pro Teil – nur auf Teilen, die du behältst.', en: 'Splendent Wise / Ebony Dragon Lord (102). +10 → +15 costs ≈14M Kinah per piece on average – only on pieces you keep.' },
-              tag: { de: 'Kinah · Enhance Stones', en: 'Kinah · Enhance Stones' },
+              text: { de: 'Splendent Wise / Ebony Dragon Lord (102). +10 → +15 kostet im Schnitt ≈14 Mio. Kina pro Teil – nur auf Teilen, die du behältst.', en: 'Splendent Wise / Ebony Dragon Lord (102). +10 → +15 costs ≈14M Kina per piece on average – only on pieces you keep.' },
+              tag: { de: 'Kina · Enhance Stones', en: 'Kina · Enhance Stones' },
               tone: 'blue',
             },
             {
               title: { de: 'Zuletzt: Amplified bis +5', en: 'Last: Amplified up to +5' },
-              text: { de: 'Nur Unique auf +15. ≈26 Mio. Kinah und ≈196 Amplify Stones pro Teil. Erst ab ≈90K Kampfkraft fängt überhaupt jemand damit an.', en: 'Unique at +15 only. ≈26M Kinah and ≈196 Amplify Stones per piece. Only above ≈90K Combat Power does anyone start it at all.' },
+              text: { de: 'Nur Unique auf +15. ≈26 Mio. Kina und ≈196 Amplify Stones pro Teil. Erst ab ≈90K Kampfkraft fängt überhaupt jemand damit an.', en: 'Unique at +15 only. ≈26M Kina and ≈196 Amplify Stones per piece. Only above ≈90K Combat Power does anyone start it at all.' },
               tag: { de: '≈26 Mio. pro Teil', en: '≈26M per piece' },
               tone: 'rose',
             },
@@ -415,14 +415,14 @@ export const combatPower: Guide = {
         {
           type: 'text',
           text: {
-            de: '**Verzaubern** (enhancement) hebt ein Teil mit Kinah und Enhance Stones von +0 bis +15 (Unique; Epic, Amulett und Gürtel bis +10). **Amplified Enhancement** (auch „exceed“) geht bei Unique auf +15 noch fünf Stufen weiter und braucht Amplify Stones. Bis +10 gelingt alles. Danach hat jede Stufe eine Grundchance, und jeder Fehlschlag erhöht die Chance des nächsten Versuchs (der Bonus gilt nur für diese Stufe – nach einem Erfolg beginnt die nächste wieder bei ihrer Grundchance).',
-            en: '**Enhancement** raises a piece with Kinah and Enhance Stones from +0 to +15 (Unique; Epic, amulet and belt to +10). **Amplified Enhancement** (also “exceed”) takes Unique at +15 five steps further and needs Amplify Stones. Everything up to +10 succeeds. After that each step has a base chance, and every failure raises the chance of the next try (the bonus only counts for that step – after a success the next one starts at its base chance again).',
+            de: '**Verzaubern** (enhancement) hebt ein Teil mit Kina und Enhance Stones von +0 bis +15 (Unique; Epic, Amulett und Gürtel bis +10). **Amplified Enhancement** (auch „exceed“) geht bei Unique auf +15 noch fünf Stufen weiter und braucht Amplify Stones. Bis +10 gelingt alles. Danach hat jede Stufe eine Grundchance, und jeder Fehlschlag erhöht die Chance des nächsten Versuchs (der Bonus gilt nur für diese Stufe – nach einem Erfolg beginnt die nächste wieder bei ihrer Grundchance).',
+            en: '**Enhancement** raises a piece with Kina and Enhance Stones from +0 to +15 (Unique; Epic, amulet and belt to +10). **Amplified Enhancement** (also “exceed”) takes Unique at +15 five steps further and needs Amplify Stones. Everything up to +10 succeeds. After that each step has a base chance, and every failure raises the chance of the next try (the bonus only counts for that step – after a success the next one starts at its base chance again).',
           },
         },
         {
           type: 'table',
           caption: { de: 'Unique-Ausrüstung, Gegenstandsstufe 102', en: 'Unique gear, item level 102' },
-          head: [{ de: 'Stufe', en: 'Step' }, { de: 'Chance', en: 'Chance' }, { de: 'Plus pro Fehlschlag', en: 'Bonus per failure' }, { de: 'Ø Versuche', en: 'Avg. tries' }, { de: 'Pro Versuch (Kinah + Steine)', en: 'Per try (Kinah + stones)' }],
+          head: [{ de: 'Stufe', en: 'Step' }, { de: 'Chance', en: 'Chance' }, { de: 'Plus pro Fehlschlag', en: 'Bonus per failure' }, { de: 'Ø Versuche', en: 'Avg. tries' }, { de: 'Pro Versuch (Kina + Steine)', en: 'Per try (Kina + stones)' }],
           rows: STEPS.map((s) => [s.step, pct(s.chance), `+${s.bonus}`, num(s.tries.toFixed(2)), s.cost]),
           grid: true,
         },
@@ -430,8 +430,8 @@ export const combatPower: Guide = {
           type: 'bars',
           title: { de: 'Was jede Stufe im Schnitt kostet', en: 'What each step costs on average' },
           caption: {
-            de: 'Kinah pro Stufe auf Gegenstandsstufe 102 = durchschnittliche Versuche (mit dem Plus pro Fehlschlag) × Kosten pro Versuch, nach dem Verzauberungs-Guide von metabot.gg (Client-Daten, 15.10.2026). Blau: normale Verzauberung, rot: Amplified. Die letzte Amplified-Stufe allein kostet fast so viel wie +10 → +15 zusammen.',
-            en: 'Kinah per step at item level 102 = average tries (with the bonus per failure) × cost per try, from the enhancement guide of metabot.gg (client data, 15 Oct 2026). Blue: normal enhancement, rose: Amplified. The last Amplified step alone costs almost as much as +10 → +15 together.',
+            de: 'Kina pro Stufe auf Gegenstandsstufe 102 = durchschnittliche Versuche (mit dem Plus pro Fehlschlag) × Kosten pro Versuch, nach dem Verzauberungs-Guide von metabot.gg (Client-Daten, 15.10.2026). Blau: normale Verzauberung, rot: Amplified. Die letzte Amplified-Stufe allein kostet fast so viel wie +10 → +15 zusammen.',
+            en: 'Kina per step at item level 102 = average tries (with the bonus per failure) × cost per try, from the enhancement guide of metabot.gg (client data, 15 Oct 2026). Blue: normal enhancement, rose: Amplified. The last Amplified step alone costs almost as much as +10 → +15 together.',
           },
           items: STEPS.map((s) => ({
             label: s.step,
@@ -442,12 +442,12 @@ export const combatPower: Guide = {
         },
         {
           type: 'shares',
-          title: { de: 'Wohin das Kinah eines voll verbesserten Teils geht', en: 'Where the Kinah of one fully upgraded piece goes' },
+          title: { de: 'Wohin das Kina eines voll verbesserten Teils geht', en: 'Where the Kina of one fully upgraded piece goes' },
           caption: {
-            de: 'Ein Unique-Teil der Stufe 102 von +0 bis Amplified +5, im Schnitt ≈41 Mio. Kinah (metabot.gg, berechnet). Im schlechtesten Fall kostet allein +10 → +15 ≈74 Mio.',
-            en: 'One Unique piece of level 102 from +0 to Amplified +5, ≈41M Kinah on average (metabot.gg, calculated). In the worst case +10 → +15 alone costs ≈74M.',
+            de: 'Ein Unique-Teil der Stufe 102 von +0 bis Amplified +5, im Schnitt ≈41 Mio. Kina (metabot.gg, berechnet). Im schlechtesten Fall kostet allein +10 → +15 ≈74 Mio.',
+            en: 'One Unique piece of level 102 from +0 to Amplified +5, ≈41M Kina on average (metabot.gg, calculated). In the worst case +10 → +15 alone costs ≈74M.',
           },
-          unit: { de: 'Mio. Kinah', en: 'M Kinah' },
+          unit: { de: 'Mio. Kina', en: 'M Kina' },
           items: [
             { label: '+0 → +10', note: { de: 'gelingt immer · dazu 36.680 Enhance Stones', en: 'always succeeds · plus 36,680 Enhance Stones' }, value: 0.92, tone: 'gold' },
             { label: '+10 → +15', note: { de: '≈12 Versuche · dazu ≈154.000 Enhance Stones', en: '≈12 tries · plus ≈154,000 Enhance Stones' }, value: 14.07, tone: 'blue' },
@@ -467,7 +467,7 @@ export const combatPower: Guide = {
             },
             {
               label: { de: 'Günstigere Stufen', en: 'Lower item levels' },
-              value: { de: '+0 → +15 im Schnitt: Stufe 70 ≈10,3 Mio., Stufe 86 ≈12,6 Mio., Stufe 102 ≈15 Mio. Kinah', en: '+0 → +15 on average: level 70 ≈10.3M, level 86 ≈12.6M, level 102 ≈15M Kinah' },
+              value: { de: '+0 → +15 im Schnitt: Stufe 70 ≈10,3 Mio., Stufe 86 ≈12,6 Mio., Stufe 102 ≈15 Mio. Kina', en: '+0 → +15 on average: level 70 ≈10.3M, level 86 ≈12.6M, level 102 ≈15M Kina' },
             },
           ],
         },
@@ -663,7 +663,7 @@ export const combatPower: Guide = {
             { de: '**Einen Platz auf +15 treiben, während andere unter +10 sind** – bis +10 ist jede Stufe sicher und kostet 2 % dessen, was ein voll verbessertes Teil kostet.', en: '**Pushing one slot to +15 while others are below +10** – up to +10 every step is safe and costs 2% of what a fully upgraded piece costs.' },
             { de: '**Über +10 auf Teilen, die du bald ersetzt** – nur Handwerks-Upgrades nehmen Verzauberung und Amplified mit, Drops aus Dungeons nicht.', en: '**Going past +10 on pieces you’ll soon replace** – only crafting upgrades carry enhancement and Amplified over, dungeon drops don’t.' },
             { de: '**Ein Splendent-Teil der Stufe 86 für Amplified +5 einplanen** – es endet bei +3 (Splendent 70 bei +1). Für +5 brauchst du Stufe 94/102 oder den Drop der Stufe 86.', en: '**Planning Amplified +5 on a level-86 Splendent piece** – it stops at +3 (Splendent 70 at +1). For +5 you need level 94/102 or the level-86 drop.' },
-            { de: '**Amplified vor den Arcana** – fünf Karten kosten keinen Fehlschlag, Amplified +5 im Schnitt ≈26 Mio. Kinah pro Teil.', en: '**Amplified before Arcana** – five cards can’t fail, Amplified +5 costs ≈26M Kinah per piece on average.' },
+            { de: '**Amplified vor den Arcana** – fünf Karten kosten keinen Fehlschlag, Amplified +5 im Schnitt ≈26 Mio. Kina pro Teil.', en: '**Amplified before Arcana** – five cards can’t fail, Amplified +5 costs ≈26M Kina per piece on average.' },
             { de: '**Stigmen liegen lassen** – und die günstigen Shard-Quellen vergessen: je 35 aus dem Nightmare- und dem Shugo-Shop kosten keine AP.', en: '**Leaving stigmas low** – and forgetting the cheap shard sources: 35 each from the Nightmare and Shugo shops cost no AP.' },
             { de: '**Die Clash Rune hoch zocken** – ab +5 gelingt höchstens jeder vierte Versuch, und ein Fehlschlag kostet eine Stufe.', en: '**Gambling the Clash Rune high** – from +5 at most one try in four succeeds, and a failure costs a level.' },
             { de: '**Conquest oder Transcendence verlassen, ohne den Würfel abzuholen** – der Server hat nur 10 offene Würfel pro Woche; sind sie weg, kommt bis zum Reset niemand mehr hinein.', en: '**Leaving Conquest or Transcendence without claiming the cube** – the server only has 10 unclaimed cubes per week; once they are gone nobody gets in until the reset.' },
