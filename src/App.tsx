@@ -23,6 +23,7 @@ import { StigmaCalculator } from './features/stigma/StigmaCalculator';
 import { DaevanionCalculator } from './features/daevanion/DaevanionCalculator';
 import { CommunityPage } from './features/community/CommunityPage';
 import { CombosPage } from './features/combos/CombosPage';
+import { QuickSearch, SearchButton, useQuickSearch, type SearchPage } from './features/search/QuickSearch';
 
 // the biggest page loads on demand: all guide texts
 const GuidesPage = lazy(() => import('./features/guides/GuidesPage').then((m) => ({ default: m.GuidesPage })));
@@ -68,6 +69,8 @@ const GROUP_LABEL: Record<Group, StringKey | null> = {
 
 const TABS = ROUTES.filter((r) => r.tab);
 const visible = (r: RouteDef) => COMMUNITY_ENABLED || r.path !== '/community';
+// the pages the quick search offers (Ctrl+K), in the order of the sidebar
+const SEARCH_PAGES: SearchPage[] = ROUTES.filter(visible).map(({ path, key, Icon, group }) => ({ path, key, Icon, group: GROUP_LABEL[group] }));
 const RAIL = '(min-width: 1200px) and (max-width: 1439px)';
 
 // named by its label: the text is hidden in the icon rail, on laptops with the link row and on small phones
@@ -156,6 +159,7 @@ export default function App() {
   const rail = useMediaQuery(RAIL);
   // the ad column only exists where it is shown (an ad in a hidden column would still load)
   const adColumn = useMediaQuery('(min-width: 1880px)');
+  const search = useQuickSearch();
 
   // counts every visit of an address, also a click on a link to the address already shown (no hashchange there),
   // so a page can select its deep-link target again after the player picked something else
@@ -220,6 +224,7 @@ export default function App() {
       {/* desktop: all pages in one sidebar (an icon rail up to 1439 px), the build bar stays on top of the content */}
       <aside className="sidebar">
         <Brand />
+        <SearchButton look="field" rail={rail} onOpen={search.show} />
         <nav className="sb-nav" aria-label={t('mainNav')}>
           {groups.map(({ g, routes }) => (
             <div key={g} className="sb-group">
@@ -254,6 +259,7 @@ export default function App() {
             ))}
           </nav>
           {data && current.planner && <BudgetPill page={current.path} />}
+          <SearchButton look="icon" onOpen={search.show} />
           <LangSwitch />
         </header>
 
@@ -318,6 +324,8 @@ export default function App() {
           </a>
         ))}
       </nav>
+
+      <QuickSearch open={search.open} onClose={search.hide} pages={SEARCH_PAGES} />
     </div>
   );
 }

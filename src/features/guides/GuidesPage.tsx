@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import {
-  ArrowLeft, ArrowRight, ArrowUp, BookOpen, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Gauge, Hammer, Info, Keyboard,
-  LayoutGrid, Leaf, Lightbulb, PawPrint, RotateCcw, ScrollText, Timer, TrendingUp, TriangleAlert,
+  ArrowLeft, ArrowRight, ArrowUp, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Info,
+  LayoutGrid, Lightbulb, RotateCcw, ScrollText, TriangleAlert,
 } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { Lang, Skill } from '../../data/types';
@@ -18,11 +18,10 @@ import { MQ, matches, useDocumentTitle } from '../../components/hooks';
 import { richText, fmtDate } from '../../lib/format';
 import { readHash } from '../../lib/shareLink';
 import { storage } from '../../lib/storage';
-import type { Guide, GuideBlock, GuideCategory, GuideCell, GuideIcon, L10n } from './types';
+import type { Guide, GuideBlock, GuideCategory, GuideCell, L10n } from './types';
 import { GUIDES } from './content';
 import { guideHref } from './guideLinks';
-
-const ICONS: Record<GuideIcon, typeof Timer> = { speed: Timer, craft: Hammer, gather: Leaf, book: BookOpen, macro: Keyboard, power: TrendingUp, pet: PawPrint, score: Gauge };
+import { GUIDE_ICONS } from './guideIcons';
 
 const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'basics', key: 'guideCatBasics' },
@@ -333,7 +332,7 @@ function Checklist({ items, storageKey }: { items: string[]; storageKey: string 
 }
 
 function GuideMark({ g, size }: { g: Guide; size: number }) {
-  const Icon = ICONS[g.icon];
+  const Icon = GUIDE_ICONS[g.icon];
   return g.cls
     ? <span className="g-mark is-emblem" aria-hidden><ClassEmblem cls={g.cls} size={size + 14} /></span>
     : <span className="g-mark" aria-hidden><Icon size={size} /></span>;
@@ -429,7 +428,7 @@ function related(g: Guide, mine: Guide | undefined): Guide[] {
   return out.slice(0, 3);
 }
 
-function GuideView({ g }: { g: Guide }) {
+function GuideView({ g, visit }: { g: Guide; visit: number }) {
   const { t, lang } = useLoadedGame();
   const { build, picked, setClass } = useBuild();
   const className = useClassName();
@@ -441,16 +440,21 @@ function GuideView({ g }: { g: Guide }) {
   const cat = CATEGORIES.find((c) => c.id === g.category);
   useDocumentTitle(tx(g.title));
 
-  // start at the top, or at the section of a deep link (#/guides/<id>?s=3); after the app's own scroll on page change
+  // start at the top, or at the section of a deep link (#/guides/<id>?s=3); after the app's own scroll on page change.
+  // A link to the guide that is already open (quick search, Back) goes there again. After a link inside the app the
+  // focus follows to the section (or the title), so keyboard and screen reader users continue reading there.
+  const firstVisit = useRef(visit);
   useEffect(() => {
+    const again = visit !== firstVisit.current;
     const raf = requestAnimationFrame(() => {
       const s = Number(readHash().params.get('s'));
       const el = s > 0 ? document.getElementById(`g-${s}`) : null;
       if (el) el.scrollIntoView({ block: 'start' });
       else window.scrollTo({ top: 0 });
+      if (again || (el && visit > 0)) (el ?? titleRef.current)?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(raf);
-  }, [g.id]);
+  }, [g.id, visit]);
 
   const toTop = () => {
     window.scrollTo({ top: 0, behavior: smooth() });
@@ -606,8 +610,8 @@ function GuideList({ notFound }: { notFound: boolean }) {
   );
 }
 
-export function GuidesPage({ param }: { param: string | null }) {
+export function GuidesPage({ param, visit }: { param: string | null; visit: number }) {
   const open = param ? GUIDES.find((g) => g.id === param) : null;
-  if (open) return <div className="page"><GuideView key={open.id} g={open} /></div>;
+  if (open) return <div className="page"><GuideView key={open.id} g={open} visit={visit} /></div>;
   return <GuideList notFound={!!param} />;
 }

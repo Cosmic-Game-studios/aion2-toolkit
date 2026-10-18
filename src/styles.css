@@ -3471,6 +3471,115 @@ button.bp-row:active { background: var(--surface-2); }
 }
 
 /* ==========================================================================
+   Quick search (features/search/QuickSearch.tsx): Ctrl+K / Cmd+K and "/" from every page
+   ========================================================================== */
+/* Openers: a search field under the brand in the sidebar (an icon in the rail), a square button in the top bar. */
+.qs-open-field {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: var(--tap-sm); padding: 0 6px 0 12px; flex: none;
+  border-radius: var(--r-md); border: 1px solid var(--control-border); background: var(--input); color: var(--muted);
+  font-size: var(--fs-sm); text-align: left; cursor: pointer; transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+.qs-open-field > svg { flex: none; color: var(--gold); }
+.qs-open-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qs-open-kbd { flex: none; }
+.qs-open-field:active { background: var(--surface-2); }
+.topbar .qs-open-icon { border-color: var(--line-strong); border-radius: var(--r-md); }
+@media (max-width: 900px) { .topbar .qs-open-icon { width: var(--tap); height: var(--tap); } }
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .qs-open-field { align-self: center; justify-content: center; width: 44px; min-height: 44px; padding: 0; }
+  .qs-open-label, .qs-open-kbd { display: none; }
+}
+@media (hover: hover) {
+  .qs-open-field:hover { border-color: var(--control-border-hover); color: var(--text-2); }
+}
+/* no keyboard to press it on */
+@media (hover: none) { .qs-open-kbd { display: none; } }
+
+/* The dialog sits near the top, so the field stays put while the results below it grow and shrink.
+   Phones: a tall bottom sheet like every dialog there. */
+@media (min-width: 641px) {
+  .modal-backdrop:has(> .qs-modal) { place-items: start center; padding-top: max(var(--sp-4), 10vh); }
+  .modal.qs-modal { width: min(640px, 100%); max-height: min(620px, calc(100dvh - max(var(--sp-4), 10vh) - var(--sp-4))); }
+}
+/* min-width: long names must not widen the dialog (it is a grid item of the backdrop) */
+.modal.qs-modal { min-width: 0; }
+.qs-modal .modal-head { align-items: center; padding: var(--sp-3) var(--sp-3) var(--sp-2) var(--sp-5); border-bottom: 0; }
+.qs-modal .modal-titles { padding-top: 0; }
+.qs-modal .modal-head h2 { font-family: var(--font-display); font-size: var(--fs-sm); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.modal-body.qs-body { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.qs-field {
+  display: flex; align-items: center; gap: var(--sp-3); flex: none; min-height: 52px; margin: 0 var(--sp-4) var(--sp-3); padding: 0 6px 0 var(--sp-4);
+  border-radius: var(--r-md); border: 1px solid var(--control-border); background: var(--input); color: var(--gold);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.qs-field:focus-within { border-color: var(--accent); box-shadow: var(--ring); }
+.qs-field > svg { flex: none; }
+.qs-field input { flex: 1; min-width: 0; min-height: 50px; padding: 0; border: 0; background: transparent; font-size: var(--fs-md); color: var(--text-strong); }
+.qs-field input:focus { box-shadow: none; }
+.qs-clear { border-color: transparent; color: var(--muted); }
+.qs-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--sp-3) var(--sp-3); border-top: 1px solid var(--line-soft); scrollbar-width: thin; }
+.qs-group-head {
+  display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-2) 6px;
+  font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+}
+.qs-group-head .count { margin-left: 0; }
+.qs-group-head::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(227, 184, 102, .22), transparent); }
+/* one result; .on = the chosen one (arrow keys, mouse): the gold of every selected state */
+.qs-row {
+  position: relative; display: flex; align-items: center; gap: var(--sp-3); min-height: 52px; padding: 6px 10px;
+  border-radius: var(--r-md); color: var(--text); cursor: pointer;
+}
+.qs-row + .qs-row { margin-top: 2px; }
+.qs-row.on { background: var(--sel-row); box-shadow: inset 0 0 0 1px var(--sel-line), var(--sel-glow); }
+.qs-row.on::before {
+  content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, var(--gold-light), var(--gold-deep)); box-shadow: 0 0 10px rgba(227, 184, 102, .6);
+}
+.qs-lead { flex: none; display: grid; place-items: center; width: 36px; height: 36px; }
+.qs-ico {
+  display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: var(--r-sm);
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--text-2);
+}
+.qs-ico[class*='tone-'] { color: var(--tone); background: color-mix(in srgb, var(--tone) 12%, var(--surface-2)); border-color: color-mix(in srgb, var(--tone) 32%, transparent); }
+.qs-ico.emblem-ico { border: 0; background: none; }
+.qs-row.on .qs-ico:not([class*='tone-'], .emblem-ico) { color: var(--gold); border-color: var(--gold-line); }
+.qs-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+/* long guide titles take a second line instead of losing their end */
+.qs-label {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+  font-weight: 600; line-height: var(--lh-tight); color: var(--text-strong); overflow-wrap: anywhere;
+}
+.qs-label mark { background: none; color: var(--gold-light); text-decoration: underline 1px var(--gold-line); text-underline-offset: 3px; }
+.qs-sub { display: flex; align-items: center; gap: 6px; min-width: 0; font-size: var(--fs-xs); line-height: 1.3; color: var(--muted); }
+.qs-sub > .emblem, .qs-sub > .type-tag { flex: none; }
+.qs-sub-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qs-lv { flex: none; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.qs-more .qs-label { color: var(--accent); }
+/* Enter opens the chosen row (keyboards only) */
+.qs-enter {
+  display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: var(--r-sm);
+  border: 1px solid var(--gold-line); background: var(--gold-soft); color: var(--gold-light);
+}
+.qs-empty { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); padding: var(--sp-8) var(--sp-4); text-align: center; color: var(--text-2); font-size: var(--fs-sm); }
+.qs-empty > svg { color: var(--faint); }
+.qs-empty strong { font-size: var(--fs-base); }
+.qs-empty p { max-width: 44ch; }
+.qs-note { padding: var(--sp-2); font-size: var(--fs-xs); color: var(--muted); }
+.qs-modal .modal-foot { justify-content: flex-start; padding: var(--sp-2) var(--sp-5); }
+.qs-keys { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-5); font-size: var(--fs-xs); color: var(--muted); }
+.qs-keys > span { display: inline-flex; align-items: center; gap: 4px; }
+.qs-keys kbd { min-width: 22px; text-align: center; }
+@media (hover: none) {
+  .qs-enter, .qs-modal .modal-foot { display: none; }
+}
+@media (max-width: 640px) {
+  .modal.qs-modal { height: 92vh; height: 92dvh; }
+  .qs-modal .modal-head { padding-top: 18px; }
+  .qs-field { margin: 0 var(--sp-3) var(--sp-2); }
+  .qs-list { padding: 0 var(--sp-2) calc(var(--sp-3) + env(safe-area-inset-bottom)); }
+}
+
+/* ==========================================================================
    Landing page
    ========================================================================== */
 /* Order: hero (class pick → two paths → data line | live build preview) · steps · my builds · more tools · FAQ.

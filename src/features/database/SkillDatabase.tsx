@@ -70,7 +70,7 @@ const setUrl = (id: number | null, push: boolean) => {
   else history.replaceState(history.state, '', hash);
 };
 
-export function SkillDatabase({ param }: { param?: string | null }) {
+export function SkillDatabase({ param, visit = 0 }: { param?: string | null; visit?: number }) {
   const { data, t } = useLoadedGame();
   const { build, picked } = useBuild();
   const en = useEnglishData();
@@ -98,6 +98,8 @@ export function SkillDatabase({ param }: { param?: string | null }) {
   const [selected, setSelected] = useState<number | null>(linked?.id ?? null);
   const [tab, setTab] = useState<Tab>('overview');
   const [reveal, setReveal] = useState<number | null>(linked?.id ?? null);
+  // the revealed card also takes the focus when a link inside the app opened it (quick search, Back), not on a fresh load
+  const revealFocus = useRef(!!linked && visit > 0);
   // a history entry was added for the open sheet (phones): Back closes it, and so does the close button
   const pushed = useRef(false);
 
@@ -166,20 +168,26 @@ export function SkillDatabase({ param }: { param?: string | null }) {
       const s = skillFromParam(data, h.param);
       pushed.current = false;
       setSelected(s?.id ?? null);
-      if (s) { showInListRef.current(s); setReveal(s.id); }
+      if (s) { showInListRef.current(s); setReveal(s.id); revealFocus.current = true; }
     };
     window.addEventListener('popstate', sync);
     window.addEventListener('hashchange', sync);
     return () => { window.removeEventListener('popstate', sync); window.removeEventListener('hashchange', sync); };
   }, [data]);
 
-  // scroll a linked skill's card into view once the list shows it
+  // scroll a linked skill's card into view once the list shows it (the sheet on phones takes the focus by itself)
   useEffect(() => {
     if (reveal == null) return;
     const el = document.getElementById(`db-card-${reveal}`);
     if (!el) return;
     setReveal(null);
-    requestAnimationFrame(() => el.scrollIntoView({ block: 'center', behavior: 'auto' }));
+    const focus = revealFocus.current && !narrow;
+    revealFocus.current = false;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ block: 'center', behavior: 'auto' });
+      if (focus) el.focus({ preventScroll: true });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reveal, list]);
 
   // "/" jumps to the search field (keyboard users)
