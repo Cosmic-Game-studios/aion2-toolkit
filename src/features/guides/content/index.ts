@@ -2,6 +2,7 @@ import type { Guide } from '../types';
 import { speedrun45 } from './speedrun45';
 import { gatheringCrafting } from './gathering-crafting';
 import { craftingGear } from './crafting-gear';
+import { farmingPower } from './farming-power';
 import { macros } from './macros';
 import { gladiatorGuide } from './class-gladiator';
 import { templarGuide } from './class-templar';
@@ -28,5 +29,6 @@ export const GUIDES: Guide[] = [
   chanterGuide,
   gatheringCrafting,
   craftingGear,
+  farmingPower,
   speedrun45,
 ];

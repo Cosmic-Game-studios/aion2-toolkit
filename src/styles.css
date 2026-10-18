@@ -2826,6 +2826,17 @@ button.bp-row:active { background: var(--surface-2); }
 .g-facts dt { font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .g-facts dd { margin: var(--sp-1) 0 0; font-size: var(--fs-base); line-height: var(--lh-snug); color: var(--text); overflow-wrap: anywhere; }
 
+/* tables in guides: the shared .table look at full height; wide ones scroll sideways on phones */
+.g-table { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; margin: 0; }
+.g-table figcaption { font-size: var(--fs-sm); font-weight: 600; color: var(--text-2); }
+.g-table .table { font-size: var(--fs-base); }
+.g-table .table th { position: static; text-transform: none; letter-spacing: .02em; }
+.g-table .table td { line-height: 1.5; }
+.g-table .table td:first-child { color: var(--text); }
+.g-table .table b { color: var(--text-strong); font-weight: 650; }
+.g-table.is-grid :is(th, td):not(:first-child) { text-align: center; color: var(--gold); }
+.g-table.is-grid td:first-child { white-space: nowrap; }
+
 /* checklist: real checkboxes, progress, clear with Undo */
 .g-check { display: flex; flex-direction: column; gap: var(--sp-2); }
 .g-check-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); }

@@ -3,6 +3,9 @@ import type { ClassType, Lang } from '../../data/types';
 /** A text in both app languages. */
 export type L10n = Record<Lang, string>;
 
+/** A table cell: a text in both languages, or one string for both (numbers, names, tags). */
+export type GuideCell = L10n | string;
+
 /**
  * Building blocks of a guide section. Texts may use **bold** like the skill texts and
  * [[skill id|English name]] for a skill: it shows with icon, tooltip and its name in the page language.
@@ -15,8 +18,15 @@ export type GuideBlock =
   | { type: 'checklist'; items: L10n[] }
   | { type: 'callout'; tone: 'tip' | 'warn' | 'info'; title?: L10n; text: L10n }
   | { type: 'facts'; items: { label: L10n; value: L10n }[] }
-  /** `cls`: the link switches the planner to this class first (planner links in a class guide) */
-  | { type: 'links'; items: { href: string; label: L10n; primary?: boolean; cls?: ClassType }[] }
+  /**
+   * a table that scrolls sideways on narrow screens; `grid`: a plan of marks, every column after the first is centred
+   */
+  | { type: 'table'; caption?: L10n; head: GuideCell[]; rows: GuideCell[][]; grid?: boolean }
+  /**
+   * `cls`: the link switches the planner to this class first (planner links in a class guide);
+   * `download`: a file of the site (e.g. a PDF) that the browser saves instead of opening
+   */
+  | { type: 'links'; items: { href: string; label: L10n; primary?: boolean; cls?: ClassType; download?: boolean }[] }
   | { type: 'sources'; items: { href: string; label: string }[] }
   /** skills with icon, name and a short note */
   | { type: 'skills'; items: { id: number; note: L10n }[] }
@@ -35,7 +45,7 @@ export interface GuideSection {
   blocks: GuideBlock[];
 }
 
-export type GuideIcon = 'speed' | 'craft' | 'gather' | 'book' | 'macro';
+export type GuideIcon = 'speed' | 'craft' | 'gather' | 'book' | 'macro' | 'power';
 
 /** where a guide is listed on the overview */
 export type GuideCategory = 'basics' | 'class' | 'world';

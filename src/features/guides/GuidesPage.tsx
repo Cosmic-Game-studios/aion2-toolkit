@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import {
-  ArrowLeft, ArrowRight, ArrowUp, BookOpen, CalendarDays, CheckCircle2, Clock, ExternalLink, Hammer, Info, Keyboard,
-  LayoutGrid, Leaf, Lightbulb, RotateCcw, ScrollText, Timer, TriangleAlert,
+  ArrowLeft, ArrowRight, ArrowUp, BookOpen, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Hammer, Info, Keyboard,
+  LayoutGrid, Leaf, Lightbulb, RotateCcw, ScrollText, Timer, TrendingUp, TriangleAlert,
 } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { Lang, Skill } from '../../data/types';
@@ -17,11 +17,11 @@ import { MQ, matches, useDocumentTitle } from '../../components/hooks';
 import { richText, fmtDate } from '../../lib/format';
 import { readHash } from '../../lib/shareLink';
 import { storage } from '../../lib/storage';
-import type { Guide, GuideBlock, GuideCategory, GuideIcon, L10n } from './types';
+import type { Guide, GuideBlock, GuideCategory, GuideCell, GuideIcon, L10n } from './types';
 import { GUIDES } from './content';
 import { guideHref } from './guideLinks';
 
-const ICONS: Record<GuideIcon, typeof Timer> = { speed: Timer, craft: Hammer, gather: Leaf, book: BookOpen, macro: Keyboard };
+const ICONS: Record<GuideIcon, typeof Timer> = { speed: Timer, craft: Hammer, gather: Leaf, book: BookOpen, macro: Keyboard, power: TrendingUp };
 
 const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'basics', key: 'guideCatBasics' },
@@ -30,6 +30,7 @@ const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
 ];
 
 const pick = (x: L10n, lang: Lang) => x[lang] ?? x.en;
+const cell = (x: GuideCell, lang: Lang) => (typeof x === 'string' ? x : pick(x, lang));
 const smooth = (): ScrollBehavior => (matches(MQ.reducedMotion) ? 'auto' : 'smooth');
 
 /* ---------------------------------------------------------------- reading time and position */
@@ -43,6 +44,7 @@ function blockWords(b: GuideBlock, lang: Lang): { texts: string[]; tiles: number
     case 'list': case 'checklist': return { texts: b.items.map((x) => tx(x)), tiles: 0 };
     case 'callout': return { texts: [tx(b.title), tx(b.text)], tiles: 0 };
     case 'facts': return { texts: b.items.flatMap((f) => [tx(f.label), tx(f.value)]), tiles: 0 };
+    case 'table': return { texts: [tx(b.caption), ...b.head.map((c) => cell(c, lang)), ...b.rows.flat().map((c) => cell(c, lang))], tiles: 0 };
     case 'links': return { texts: b.items.map((l) => tx(l.label)), tiles: 0 };
     case 'sources': return { texts: b.items.map((s) => s.label), tiles: 0 };
     case 'skills': return { texts: b.items.map((i) => tx(i.note)), tiles: b.items.length };
@@ -148,12 +150,37 @@ function Block({ b, guideId, index }: { b: GuideBlock; guideId: string; index: s
           ))}
         </dl>
       );
+    case 'table':
+      return (
+        <figure className={`g-table ${b.grid ? 'is-grid' : ''}`}>
+          {b.caption && <figcaption>{tx(b.caption)}</figcaption>}
+          {/* scrolls sideways on phones: focusable so the keyboard can scroll it too */}
+          <div className="table-wrap flat" tabIndex={0} role="region" aria-label={b.caption ? tx(b.caption) : cell(b.head[0] ?? '', lang)}>
+            <table className="table">
+              <thead><tr>{b.head.map((h, i) => <th key={i} scope="col">{cell(h, lang)}</th>)}</tr></thead>
+              <tbody>
+                {b.rows.map((r, i) => (
+                  <tr key={i}>{r.map((c, j) => <td key={j}><GText text={cell(c, lang)} /></td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </figure>
+      );
     case 'links':
       return (
         <div className="g-links">
           {b.items.map((l) => (
-            <a key={l.href} className={`btn ${l.primary ? 'primary' : 'ghost'}`} href={l.href} onClick={l.cls ? () => setClass(l.cls!) : undefined}>
-              {tx(l.label)} <ArrowRight size={15} aria-hidden />
+            <a
+              key={l.href}
+              className={`btn ${l.primary ? 'primary' : 'ghost'}`}
+              href={l.href}
+              download={l.download || undefined}
+              onClick={l.cls ? () => setClass(l.cls!) : undefined}
+            >
+              {l.download && <Download size={15} aria-hidden />}
+              {tx(l.label)}
+              {!l.download && <ArrowRight size={15} aria-hidden />}
             </a>
           ))}
         </div>
