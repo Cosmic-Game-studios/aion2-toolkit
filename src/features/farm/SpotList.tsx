@@ -5,6 +5,7 @@ import { EmptyState } from '../../components/ui';
 import { CATEGORIES, CATEGORY_GROUPS, GROUP_NAMES, categoryById, type CategoryGroup, type FarmSpot, type Lang, type Region } from './farmRules';
 import { categoryIcon, GROUP_COLOR } from './farmIcons';
 import type { Draft } from './farmDrafts';
+import { canFind } from './farmFound';
 import { reportUrl } from './farmSubmit';
 
 /*
@@ -13,6 +14,7 @@ import { reportUrl } from './farmSubmit';
  * A long group shows GROUP_CAP cards and a button for the rest (a region can have hundreds of spots). The selected
  * card and the preview have the "Found" switch and "Copy link"; the other cards only say that a spot was found (a
  * switch on each of hundreds of cards would be hundreds more tab stops), unless they cannot be selected (no position).
+ * The Map Overlay's gathering points respawn and have no switch at all.
  */
 
 const GROUP_CAP = 60;
@@ -77,7 +79,7 @@ interface CardProps {
   onEdit: (d: Draft) => void;
   /** the copy under the map: no element id (the list card keeps it) and no "Show on map" */
   preview?: boolean;
-  /** the player marked the spot found (drafts never are) */
+  /** the player marked the spot found (drafts and gathering points that respawn never are) */
   found?: boolean;
   onFound?: (id: string) => void;
   /** copies a link to the spot (spots with a marker only) */
@@ -95,14 +97,18 @@ export const SpotCard = memo(function SpotCard({ spot, id, selected, hasImage, p
   const nameSr = <span className="sr-only">: {spot.name}</span>;
   // the switch where the player is looking at the spot, and on cards that cannot be selected (else they had none)
   const current = !!preview || (selected && onMap);
-  const findable = !draft && !!onFound;
+  const findable = !draft && !!onFound && canFind(spot as FarmSpot);
+  const mat = draft ? undefined : (spot as FarmSpot).mat;
   const showSwitch = findable && (current || !onMap);
 
   const date = draft ? fmtDay(draft.savedAt, lang, false) : fmtDay((spot as FarmSpot).added, lang, true);
+  const src = draft ? undefined : (spot as FarmSpot).src;
   const byLine = draft
     ? (spot.by ? t('farmListSavedBy', { name: spot.by, date }) : t('farmListSaved', { date }))
+    // the Map Overlay's gathering points: its credit, the day they were taken and the client they come from
+    : src === 'overlay' ? t('farmListFromOverlay', { date })
     // the cubes of that data are placed as in the KR/TW client; Global's cubes follow another model, so say so
-    : (spot as FarmSpot).src ? t(spot.cat === 'cube' ? 'farmListFromSourceKrTw' : 'farmListFromSource')
+    : src ? t(spot.cat === 'cube' ? 'farmListFromSourceKrTw' : 'farmListFromSource')
     : (spot.by ? t('farmListAddedBy', { name: spot.by, date }) : t('farmListAdded', { date }));
 
   // a click anywhere on the card selects its marker; its buttons and links keep their own action
@@ -126,6 +132,7 @@ export const SpotCard = memo(function SpotCard({ spot, id, selected, hasImage, p
         </h4>
         <p className="farm-card-meta">
           <span>{cat?.name[lang] ?? spot.cat}</span>
+          {mat && <span><span className="sr-only">{t('farmListMat')}: </span>{mat}</span>}
           {lv && <span className="farm-lv">{t('lv')} {lv[0] === lv[1] ? lv[0] : `${lv[0]}–${lv[1]}`}</span>}
         </p>
         {draft && (

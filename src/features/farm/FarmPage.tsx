@@ -10,20 +10,22 @@ import { storage } from '../../lib/storage';
 import { CATEGORIES, FACTIONS, FACTION_NAMES, REGIONS, categoryById, regionById, type FactionId, type FarmSpot, type Region, type SpotInput } from './farmRules';
 import { useFarmSpots, useSourceData } from './farmData';
 import { draftDone, useFarmDrafts, type Draft } from './farmDrafts';
-import { foundIn, isSpotId, toggleFound, useFound } from './farmFound';
+import { canFind, foundIn, isSpotId, toggleFound, useFound } from './farmFound';
 import { FarmMap, MAX_ZOOM, type MapMarker, type MapReveal, type MapView } from './FarmMap';
 import { benchCount } from './farmBench';
 import { SpotForm } from './SpotForm';
 import { DraftsPanel } from './DraftsPanel';
 import {
-  FARM_MOBILE, FarmFilters, NO_FILTERS, parseCats, sameCats, searchText, spotCount, spotFilter, useFarmFilters, type FarmFilterState,
+  FARM_MOBILE, FarmFilters, NO_FILTERS, matKey, parseCats, sameCats, searchText, spotCount, spotFilter, useFarmFilters, type FarmFilterState,
+  type MatCount,
 } from './FarmFilters';
 import { FarmProgress } from './FarmProgress';
 import { buildJumpIndex, type JumpEntry, type JumpSpot } from './farmJump';
 import { SpotCard, SpotList, cardDomId, draftKey, fmtDay } from './SpotList';
 
 /*
- * The farm map: spots players saw in the game and the AION2 Interactive Map's spots (farmData), per region. A faction switch and the region chips pick the region
+ * The farm map: spots players saw in the game, the AION2 Interactive Map's spots and the Map Overlay's gathering points
+ * (farmData), per region. A faction switch and the region chips pick the region
  * (#/farm/<region>), the filters sit in a sticky left column, the map (once the region has a picture) and the spot
  * list on the right. Players note new spots as drafts in their browser and send them as a GitHub issue; the page also
  * runs the "set the position on the map" step of the form. Players mark spots found (farmFound); the address names
@@ -299,11 +301,16 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
 
   const regionSpots = useMemo(() => allSpots.filter((s) => s.region === region.id), [allSpots, region.id]);
   const regionAreas = sourceData?.areas[region.id];
-  const hasSource = !!sourceData && regionSpots.some((s) => s.src);
+  // each source's credit shows where its spots do
+  const tcSource = regionSpots.some((s) => s.src === 'tcimba') ? sourceData?.source ?? null : null;
+  const gatherSource = regionSpots.some((s) => s.src === 'overlay') ? sourceData?.gather ?? null : null;
   // the day the marker data last changed, for the credit line (not the newest upstream commit, which can be months
   // younger and would make the positions look fresher than they are); a file without a plain data date leaves it out
-  const dataDate = sourceData?.source.dataDate;
-  const sourceDay = dataDate && /^\d{4}-\d{2}-\d{2}$/.test(dataDate) ? fmtDay(dataDate, lang, true) : null;
+  const dataDate = tcSource?.dataDate;
+  const isDay = (d: string | undefined): d is string => !!d && /^\d{4}-\d{2}-\d{2}$/.test(d);
+  const sourceDay = isDay(dataDate) ? fmtDay(dataDate, lang, true) : null;
+  // the gathering points are as old as the day the overlay took them from their source
+  const gatherDay = isDay(gatherSource?.retrieved) ? fmtDay(gatherSource.retrieved, lang, true) : null;
   const regionDrafts = useMemo(() => newDrafts.filter((d) => d.region === region.id), [newDrafts, region.id]);
   const catCounts = useMemo(() => {
     const m = new Map<string, number>();
@@ -311,21 +318,37 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
     for (const d of regionDrafts) m.set(d.cat, (m.get(d.cat) ?? 0) + 1);
     return m;
   }, [regionSpots, regionDrafts]);
+  // the materials of each gathering category in the region, in the data's order: the filters list them where there is
+  // a choice (more than one)
+  const matCounts = useMemo(() => {
+    const byCat = new Map<string, Map<string, number>>();
+    for (const s of regionSpots) {
+      if (!s.mat) continue;
+      let m = byCat.get(s.cat);
+      if (!m) byCat.set(s.cat, (m = new Map()));
+      m.set(s.mat, (m.get(s.mat) ?? 0) + 1);
+    }
+    const out = new Map<string, MatCount[]>();
+    for (const [cat, m] of byCat) if (m.size > 1) out.set(cat, [...m].map(([name, n]) => ({ name, key: matKey(cat, name), n })));
+    return out;
+  }, [regionSpots]);
 
   /* ---------- found spots ---------- */
   const found = foundIn(useFound(), region.id);
-  // found per category, of the spots the region has now: drafts cannot be found, so they are not part of the "of"
-  // (and an id of a spot the data dropped is kept, but not counted)
+  // found per category, of the spots the region has now: drafts and the Map Overlay's gathering points (they respawn)
+  // cannot be found, so they are not part of the "of" (and an id of a spot the data dropped is kept, but not counted)
   const foundCounts = useMemo(() => {
     const n = new Map<string, number>();
     const of = new Map<string, number>();
     for (const s of regionSpots) {
+      if (!canFind(s)) continue;
       of.set(s.cat, (of.get(s.cat) ?? 0) + 1);
       if (found.has(s.id)) n.set(s.cat, (n.get(s.cat) ?? 0) + 1);
     }
     return { n, of };
   }, [regionSpots, found]);
   const foundTotal = useMemo(() => [...foundCounts.n.values()].reduce((a, b) => a + b, 0), [foundCounts]);
+  const findable = useMemo(() => [...foundCounts.of.values()].reduce((a, b) => a + b, 0), [foundCounts]);
 
   // the filters in force: a link's categories for this visit, else the saved ones
   const applied = useMemo<FarmFilterState>(() => (linkOff ? { ...filters, off: linkOff } : filters), [filters, linkOff]);
@@ -354,7 +377,7 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
     const list: MapMarker[] = [];
     for (const s of shown) {
       if (!s.pos) continue;
-      const done = found.has(s.id);
+      const done = canFind(s) && found.has(s.id);
       list.push({ id: s.id, pos: s.pos, cat: s.cat, label: done ? `${label(s)} (${t('farmFoundMarker')})` : label(s), source: !!s.src, found: done });
     }
     for (const d of regionDrafts) {
@@ -404,10 +427,10 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
   /* ---------- found and links (stable callbacks for the memoised cards) ---------- */
   const spotsRef = useRef(regionSpots);
   spotsRef.current = regionSpots;
-  /** a spot found or not found; drafts are the player's own and never count as found */
+  /** a spot found or not found; drafts are the player's own and never count as found, gathering points respawn */
   const flip = (id: string) => {
     const spot = spotsRef.current.find((s) => s.id === id);
-    return spot ? { on: toggleFound(spot.region, id), name: spot.name } : null;
+    return spot && canFind(spot) ? { on: toggleFound(spot.region, id), name: spot.name } : null;
   };
   const onFound = useCallback((id: string) => {
     if (flip(id)) setJustFound(id);
@@ -419,6 +442,12 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
   const say = useCallback((text: string) => setSaid((s) => ({ text, n: s.n + 1 })), []);
   // the F key on the map: the focus stays on the map, so the change is said out loud
   const onKeyFound = useCallback((id: string) => {
+    // a gathering point that respawns: F says why nothing happens
+    const spot = spotsRef.current.find((s) => s.id === id);
+    if (spot && !canFind(spot)) {
+      say(tRef.current('farmFoundNever'));
+      return;
+    }
     const r = flip(id);
     if (r) say(tRef.current(r.on ? 'farmFoundSaid' : 'farmFoundUnsaid', { name: r.name }));
   }, [say]);
@@ -713,7 +742,12 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
     </button>
   );
 
-  const how = <p className="farm-how"><Info size={15} aria-hidden /> <span>{t(sourceData ? 'farmPageHowSource' : 'farmPageHow')}</span></p>;
+  const how = (
+    <p className="farm-how">
+      <Info size={15} aria-hidden />{' '}
+      <span>{t(sourceData ? 'farmPageHowSource' : 'farmPageHow')}{sourceData?.gather && <> {t('farmPageHowGather')}</>}</span>
+    </p>
+  );
   const draftsPanel = liveDrafts.length > 0 && (
     <div className="farm-drafts" ref={draftsRef} tabIndex={-1}>
       <DraftsPanel
@@ -770,6 +804,7 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
             onChange={changeFilters}
             onReset={resetFilters}
             counts={ready ? catCounts : null}
+            mats={ready ? matCounts : null}
             found={ready ? foundCounts : null}
             hasImage={hasImage}
             shown={ready ? shown.length + regionDrafts.length : null}
@@ -780,7 +815,7 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
               <FarmProgress
                 region={region}
                 found={ready ? foundTotal : null}
-                total={regionSpots.length}
+                total={findable}
                 hideFound={filters.hideFound}
                 onHideFound={(on) => setFilters({ ...filters, hideFound: on })}
               />
@@ -878,18 +913,40 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
 
           {/* CC BY-NC 4.0: name the source, its licence and what was changed wherever its data shows; also how old the
               data is and that it comes from another client, so nobody takes it for official Global data */}
-          {hasSource && sourceData && (
-            <p className="farm-credit">
-              <Info size={14} aria-hidden />
-              <span>
-                {t('farmSourceCredit')}{' '}
-                <a href={sourceData.source.url} target="_blank" rel="noopener">{sourceData.source.name}<span className="sr-only"> ({t('gdNewTab')})</span></a>{' '}
-                {t('farmSourceBy')}{' '}
-                <a href={sourceData.source.licenseUrl} target="_blank" rel="noopener license">{sourceData.source.license}<span className="sr-only"> ({t('gdNewTab')})</span></a>.{' '}
-                {sourceDay && <>{t('farmSourceDate', { date: sourceDay })}{' '}</>}
-                {t('farmSourceKrTw')} {t('farmUnofficial')}
-              </span>
-            </p>
+          {(tcSource || gatherSource) && (
+            <div className="farm-credits">
+              {tcSource && (
+                <p className="farm-credit">
+                  <Info size={14} aria-hidden />
+                  <span>
+                    {t('farmSourceCredit')}{' '}
+                    <a href={tcSource.url} target="_blank" rel="noopener">{tcSource.name}<span className="sr-only"> ({t('gdNewTab')})</span></a>{' '}
+                    {t('farmSourceBy')}{' '}
+                    <a href={tcSource.licenseUrl} target="_blank" rel="noopener license">{tcSource.license}<span className="sr-only"> ({t('gdNewTab')})</span></a>.{' '}
+                    {sourceDay && <>{t('farmSourceDate', { date: sourceDay })}{' '}</>}
+                    {t('farmSourceKrTw')}{!gatherSource && <> {t('farmUnofficial')}</>}
+                  </span>
+                </p>
+              )}
+              {/* the overlay adapted its points from the AION2 Interactive Map: both are named, and what was changed here */}
+              {gatherSource && (
+                <p className="farm-credit">
+                  <Info size={14} aria-hidden />
+                  <span>
+                    {t('farmGatherCredit')}{' '}
+                    <a href={gatherSource.url} target="_blank" rel="noopener">{gatherSource.name}<span className="sr-only"> ({t('gdNewTab')})</span></a>{' '}
+                    {t('farmGatherBy', { by: gatherSource.by })}{' '}
+                    <a href={gatherSource.licenseUrl} target="_blank" rel="noopener license">{gatherSource.license}<span className="sr-only"> ({t('gdNewTab')})</span></a>,{' '}
+                    {t('farmGatherFrom')}{' '}
+                    <a href={gatherSource.upstream.url} target="_blank" rel="noopener">{gatherSource.upstream.name}<span className="sr-only"> ({t('gdNewTab')})</span></a>{' '}
+                    {t('farmGatherFromBy')}{' '}
+                    {t('farmGatherChanges')}{' '}
+                    {gatherDay && <>{t('farmGatherDate', { date: gatherDay })}{' '}</>}
+                    {t('farmSourceKrTw')} {t('farmUnofficial')}
+                  </span>
+                </p>
+              )}
+            </div>
           )}
         </div>
       </div>

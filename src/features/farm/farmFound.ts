@@ -20,7 +20,8 @@ export type Found = ReadonlyMap<string, ReadonlySet<string>>;
 /** the stored and exported form */
 export type FoundData = Record<string, string[]>;
 
-/** spot ids: "tc-1a2b3c4d" (up to "tc-" and a whole uuid) and "<issue>-<n>"; nothing the data makes is longer */
+/** spot ids: "tc-1a2b3c4d" (up to "tc-" and a whole uuid), "px-1a2b3c4d" (up to "px-" and 40 hex digits) and
+ *  "<issue>-<n>"; nothing the data makes is longer */
 const ID = /^[A-Za-z0-9_-]{1,64}$/;
 /** per region: far more than any region has spots (Verteron would have about 3,500 with gathering nodes) */
 const MAX_PER_REGION = 20_000;
@@ -28,6 +29,12 @@ const EMPTY: ReadonlySet<string> = new Set();
 
 /** Whether a string looks like a spot id (a link's spot, a found list's entries); a draft's key ("draft:…") does not. */
 export const isSpotId = (id: string) => ID.test(id);
+
+/**
+ * Whether a spot can be marked found and counts toward the progress. The Map Overlay's gathering points respawn, so
+ * there is nothing to collect once; the players' own gathering spots still count, as every other spot does.
+ */
+export const canFind = (s: { src?: string }) => s.src !== 'overlay';
 
 /**
  * A found list from storage, a code or a file. strict (code, file): null when anything is off, so a damaged or foreign

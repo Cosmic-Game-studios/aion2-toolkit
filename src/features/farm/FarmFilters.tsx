@@ -12,10 +12,11 @@ import { FarmSearch } from './FarmSearch';
 
 /*
  * The farm map's filters: layer presets, categories per group (with their counts in the region, and how many of them
- * the player has found), a text search that also offers places to jump to (FarmSearch), a level range for monsters and
- * "only spots with a position"; the page adds its progress block (found spots, "hide found") at the end. The state
- * lives in storage under one key, so the page opens with the filters the player left. Below FARM_MOBILE everything but
- * the search moves into a bottom sheet ("Layers & filters").
+ * the player has found; a gathering category with several materials in the region lists them as well), a text search
+ * that also offers places to jump to (FarmSearch), a level range for monsters and "only spots with a position"; the
+ * page adds its progress block (found spots, "hide found") at the end. The state lives in storage under one key, so the
+ * page opens with the filters the player left. Below FARM_MOBILE everything but the search moves into a bottom sheet
+ * ("Layers & filters").
  */
 
 /** The farm map's phone layout (styles.css, farm map sections): the map takes the width, the filters and the selected
@@ -36,7 +37,10 @@ const PRESET_LABEL = {
 } as const;
 
 export interface FarmFilterState {
-  /** categories the player switched off (so a category added later shows by default) */
+  /**
+   * categories the player switched off (so a category added later shows by default), and materials of categories that
+   * are on ("gem:ruby", matKey)
+   */
   off: string[];
   q: string;
   /** level range for monsters, either order; the full range means no limit */
@@ -53,12 +57,36 @@ const FILTER_KEY = 'farm:filters';
 
 const isLevel = (n: unknown): n is number => typeof n === 'number' && Number.isInteger(n) && n >= LV_MIN && n <= LV_MAX;
 
+/**
+ * A material switched off, as `off` and the address keep it: "<category>:<material>" ("gem:ruby"), the material folded
+ * to letters, digits and dashes, so it fits the address as it is. A page from before materials drops these entries
+ * (they are no category), and old values hold none: both keep working.
+ */
+const MAT_KEY = /^([a-z]+):([a-z0-9]+(?:-[a-z0-9]+)*)$/;
+const matKeys = new Map<string, string>();
+export function matKey(cat: string, mat: string): string {
+  const id = `${cat}|${mat}`;
+  let k = matKeys.get(id);
+  if (k === undefined) {
+    k = `${cat}:${fold(mat).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+    matKeys.set(id, k);
+  }
+  return k;
+}
+/** a material entry of a gathering category (the only ones with materials) */
+const isMatKey = (k: string) => {
+  const m = MAT_KEY.exec(k);
+  return !!m && categoryById(m[1])?.group === 'gather';
+};
+const catOfKey = (k: string) => (k.includes(':') ? k.slice(0, k.indexOf(':')) : null);
+const isOffEntry = (c: unknown): c is string => typeof c === 'string' && (!!categoryById(c) || isMatKey(c));
+
 function readFilters(): FarmFilterState {
   const raw = storage.get<Partial<Record<keyof FarmFilterState, unknown>> | null>(FILTER_KEY, null);
   if (!raw || typeof raw !== 'object') return NO_FILTERS;
   const lv = Array.isArray(raw.lv) && raw.lv.length === 2 && raw.lv.every(isLevel) ? [raw.lv[0], raw.lv[1]] as [number, number] : NO_FILTERS.lv;
   return {
-    off: Array.isArray(raw.off) ? raw.off.filter((c): c is string => typeof c === 'string' && !!categoryById(c)) : [],
+    off: Array.isArray(raw.off) ? raw.off.filter(isOffEntry) : [],
     q: typeof raw.q === 'string' ? raw.q.slice(0, 100) : '',
     lv,
     onlyPos: raw.onlyPos === true,
@@ -66,11 +94,14 @@ function readFilters(): FarmFilterState {
   };
 }
 
-/** The categories a link names ("cube,trace"): known ids only, in the rules' order; null without the parameter. */
+/**
+ * The categories a link names ("cube,trace"): known ids only, in the rules' order, then its materials ("gem:ruby") in
+ * a fixed order; null without the parameter.
+ */
 export function parseCats(param: string | null): string[] | null {
   if (param == null) return null;
   const ids = new Set(param.split(',').map((s) => s.trim()));
-  return CATEGORIES.filter((c) => ids.has(c.id)).map((c) => c.id);
+  return [...CATEGORIES.filter((c) => ids.has(c.id)).map((c) => c.id), ...[...ids].filter(isMatKey).sort()];
 }
 
 /** Whether two category lists hold the same ids. */
@@ -86,8 +117,11 @@ export function useFarmFilters(): [FarmFilterState, (f: FarmFilterState) => void
   return [f, setF];
 }
 
-/** The text the list search looks at: name, area, drops and note (folded like the jump search, farmJump). */
-export const searchText = (s: SpotInput) => fold([s.name, s.area, ...(s.drops ?? []), s.note].filter(Boolean).join(' '));
+/** A spot as the filters take it: a gathering point of the Map Overlay also has its material. */
+type FilterSpot = SpotInput & { mat?: string };
+
+/** The text the list search looks at: name, material, area, drops and note (folded like the jump search, farmJump). */
+export const searchText = (s: FilterSpot) => fold([s.name, s.mat, s.area, ...(s.drops ?? []), s.note].filter(Boolean).join(' '));
 
 const levelRange = (f: FarmFilterState): [number, number] => (f.lv[0] <= f.lv[1] ? f.lv : [f.lv[1], f.lv[0]]);
 const levelOn = (f: FarmFilterState) => { const [lo, hi] = levelRange(f); return lo > LV_MIN || hi < LV_MAX; };
@@ -98,14 +132,16 @@ export function activeFilters(f: FarmFilterState, hasImage: boolean) {
 }
 
 /** A test for one spot; `hay` is the spot's searchText (computed once per spot by the caller). */
-export function spotFilter(f: FarmFilterState, hasImage: boolean): (s: SpotInput, hay: string) => boolean {
+export function spotFilter(f: FarmFilterState, hasImage: boolean): (s: FilterSpot, hay: string) => boolean {
   const off = new Set(f.off);
+  const anyMat = f.off.some((k) => k.includes(':'));
   const terms = fold(f.q).split(/\s+/).filter(Boolean);
   const [lo, hi] = levelRange(f);
   const lvOn = levelOn(f);
   const posOn = hasImage && f.onlyPos;
   return (s, hay) => {
     if (off.has(s.cat)) return false;
+    if (anyMat && s.mat && off.has(matKey(s.cat, s.mat))) return false;
     if (posOn && !s.pos) return false;
     // the range only applies to monsters; a monster without a level passes
     if (lvOn && s.level && isMobCategory(s.cat) && (s.level[0] > hi || s.level[1] < lo)) return false;
@@ -118,13 +154,18 @@ type T = ReturnType<typeof useGame>['t'];
 /** "1 spot" / "12 spots" */
 export const spotCount = (t: T, n: number) => (n === 1 ? t('farmFilterCountOne') : t('farmFilterCount', { n }));
 
-export function FarmFilters({ value, onChange, onReset, counts, found, hasImage, shown, total, linkCats, progress, jump }: {
+/** A material of a category in the region: its name (the game's, the same in every language), entry and count. */
+export interface MatCount { name: string; key: string; n: number }
+
+export function FarmFilters({ value, onChange, onReset, counts, mats, found, hasImage, shown, total, linkCats, progress, jump }: {
   value: FarmFilterState;
   onChange: (f: FarmFilterState) => void;
   /** "Reset filters": every filter back to its default */
   onReset: () => void;
   /** spots per category in the region (approved and the player's drafts); null while the spots load */
   counts: Map<string, number> | null;
+  /** per gathering category with more than one material in the region: its materials (null while the spots load) */
+  mats: ReadonlyMap<string, MatCount[]> | null;
   /** per category: the spots found (the x of "x/y") and the spots that can be found, drafts not among them (the y);
    *  null while the spots load */
   found: { n: Map<string, number>; of: Map<string, number> } | null;
@@ -164,9 +205,31 @@ export function FarmFilters({ value, onChange, onReset, counts, found, hasImage,
   };
 
   const set = (patch: Partial<FarmFilterState>) => onChange({ ...value, ...patch });
+  // a category switched on or off shows or hides all of its materials: their own entries go
   const setCats = (cats: string[], on: boolean) => {
-    const next = new Set(value.off);
+    const drop = new Set(cats);
+    const next = new Set(value.off.filter((k) => !drop.has(catOfKey(k) ?? '')));
     for (const c of cats) { if (on) next.delete(c); else next.add(c); }
+    set({ off: [...next] });
+  };
+  // one material on or off (`keys`: every material of the category in the region). The category goes off with its
+  // last material, so "nothing of it" is always the category's own switch; a material switched on while its category
+  // is off shows that material alone.
+  const setMat = (cat: string, keys: string[], key: string, on: boolean) => {
+    const next = new Set(value.off);
+    if (next.has(cat)) {
+      if (!on) return;
+      next.delete(cat);
+      for (const k of keys) if (k !== key) next.add(k);
+      next.delete(key);
+    } else if (on) next.delete(key);
+    else {
+      next.add(key);
+      if (keys.every((k) => next.has(k))) {
+        next.add(cat);
+        for (const k of keys) next.delete(k);
+      }
+    }
     set({ off: [...next] });
   };
 
@@ -233,10 +296,17 @@ export function FarmFilters({ value, onChange, onReset, counts, found, hasImage,
             const f = found?.n.get(c.id) ?? 0;
             const of = found?.of.get(c.id) ?? 0;
             const showFound = of > 0;
+            const list = mats?.get(c.id);
+            const catOn = !off.has(c.id);
+            // some of its materials off: the category's box is half ticked, and a click on it shows every material
+            const partial = catOn && !!list?.some((m) => off.has(m.key));
             return (
               <li key={c.id}>
                 <label className={`farm-cat ${counts && !n ? 'zero' : ''} ${showFound && f >= of ? 'done' : ''}`}>
-                  <input type="checkbox" checked={!off.has(c.id)} onChange={(e) => setCats([c.id], e.target.checked)} />
+                  <input
+                    type="checkbox" checked={catOn} ref={(el) => { if (el) el.indeterminate = partial; }}
+                    onChange={(e) => setCats([c.id], partial || e.target.checked)}
+                  />
                   <Icon size={15} aria-hidden className="farm-cat-ico" />
                   <span className="farm-cat-name">{c.name[lang]}</span>
                   {counts && (
@@ -247,6 +317,23 @@ export function FarmFilters({ value, onChange, onReset, counts, found, hasImage,
                     </>
                   )}
                 </label>
+                {list && (
+                  <ul className="farm-mats" aria-label={t('farmFilterMats', { cat: c.name[lang] })}>
+                    {list.map((m) => (
+                      <li key={m.key}>
+                        <label className="farm-mat">
+                          <input
+                            type="checkbox" checked={catOn && !off.has(m.key)}
+                            onChange={(e) => setMat(c.id, list.map((x) => x.key), m.key, e.target.checked)}
+                          />
+                          <span>{m.name}</span>
+                          <span className="farm-cat-n" aria-hidden>{m.n}</span>
+                          <span className="sr-only">, {spotCount(t, m.n)}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             );
           })}

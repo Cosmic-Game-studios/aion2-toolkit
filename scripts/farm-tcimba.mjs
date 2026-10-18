@@ -14,6 +14,9 @@
 // what they are in the game is not clear yet.
 // Positions are fractions of the region's box (Region.world.box in src/features/farm/farmRules.ts), the part of the
 // map's pixel grid the region picture shows. The boxes are fixed: player spots are fractions of the same picture.
+// The data counts y up from the bottom of the map (its x runs left to right, as usual), while the picture has north
+// at the top: a marker at data y lies (y1 - y) / (y1 - y0) of the way down the picture, and the outlines are drawn
+// mirrored the same way.
 //
 // Spot ids are "tc-" and the start of the upstream id. Players' found progress and links name spots by id, so an id
 // must outlive an upstream rename: the script reads the tcimba.json it wrote last, and when an upstream id vanished
@@ -29,6 +32,9 @@
 //   With --commit, --data-date gives that date; without it tcimba.json has none and the page leaves it out.
 //   --check writes nothing: it exits with 2 when tcimba.json or a region picture would change (for CI), 0 when both
 //   are up to date; 1 is an error, as always.
+//
+// scripts/farm-gathering.mjs imports the YAML reader, the area assignment, the id carry-over and the output step from
+// here, so both sources place, name and keep their spots the same way.
 import { execFileSync } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, relative } from 'node:path';
@@ -39,7 +45,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const OUT_JSON = join(ROOT, 'public', 'data', 'farm', 'tcimba.json');
 const USAGE = 'usage: node scripts/farm-tcimba.mjs <checkout> [--commit <sha> --date <YYYY-MM-DD> [--data-date <YYYY-MM-DD>]] [--check]';
 /** --check: the output would change */
-const EXIT_CHANGED = 2;
+export const EXIT_CHANGED = 2;
 
 export const SOURCE = {
   name: 'AION2 Interactive Map',
@@ -72,10 +78,10 @@ const NAME_FIX = new Map([
 const EXCLUDE = new Set([]);
 
 /** a marker outside every area but this close to one (map pixels) still gets that area's name */
-const AREA_NEAR = 160;
+export const AREA_NEAR = 160;
 
 /** an upstream id that vanished passes to a new spot of the same category at most this far away (map pixels) */
-const CARRY_PX = 8;
+export const CARRY_PX = 8;
 
 // ------------------------------------------------------------------------------------------------ YAML
 
@@ -168,7 +174,7 @@ export function parseYaml(text, file = 'yaml') {
 // ------------------------------------------------------------------------------------------------ geometry
 
 /** even-odd test over all rings of an area (separate parts and holes alike) */
-function inside(rings, x, y) {
+export function inside(rings, x, y) {
   let hit = false;
   for (const ring of rings) {
     for (let a = 0, b = ring.length - 1; a < ring.length; b = a++) {
@@ -188,10 +194,40 @@ function segDist(x, y, [xa, ya], [xb, yb]) {
   return Math.hypot(x - (xa + t * dx), y - (ya + t * dy));
 }
 
-function edgeDist(rings, x, y) {
+export function edgeDist(rings, x, y) {
   let d = Infinity;
   for (const ring of rings) for (let a = 0, b = ring.length - 1; a < ring.length; b = a++) d = Math.min(d, segDist(x, y, ring[a], ring[b]));
   return d;
+}
+
+/**
+ * The areas of a regions/<map>.yaml document: their key, their name on the page and their rings (borders with fewer
+ * than three points draw nothing and are dropped, as are areas left without a ring).
+ */
+export function readAreas(doc) {
+  return (doc?.regions ?? [])
+    .map((r) => ({ key: r.name, name: spacedName(r.name), rings: (r.borders ?? []).filter((ring) => ring.length >= 3) }))
+    .filter((a) => a.rings.length);
+}
+
+/**
+ * The area of a position (data pixels, y up from the bottom) as an index into `areas`, or -1: the area the data names
+ * (`key`, a marker's own region), else the first area the position lies in, else the nearest one within AREA_NEAR.
+ */
+export function areaFinder(areas) {
+  const index = new Map(areas.map((a, i) => [a.key, i]));
+  return (x, y, key) => {
+    if (key && index.has(key)) return index.get(key);
+    const i = areas.findIndex((a) => inside(a.rings, x, y));
+    if (i >= 0) return i;
+    let best = -1;
+    let bestD = AREA_NEAR;
+    areas.forEach((a, k) => {
+      const d = edgeDist(a.rings, x, y);
+      if (d < bestD) { bestD = d; best = k; }
+    });
+    return best;
+  };
 }
 
 /** the point inside the area farthest from its border (where its name fits best), by two rounds of grid sampling */
@@ -255,7 +291,8 @@ function svgOf(region, box, areas, meta) {
   const h = y1 - y0;
   const fills = colours(areas);
   const paths = areas.map((a, i) => {
-    const d = a.rings.map((r) => `M${r.map(([x, y]) => `${Math.round(x)} ${Math.round(y)}`).join('L')}Z`).join('');
+    // the data's y counts up from the bottom, the picture's down from the top (the viewBox is the box itself)
+    const d = a.rings.map((r) => `M${r.map(([x, y]) => `${Math.round(x)} ${Math.round(y0 + y1 - y)}`).join('L')}Z`).join('');
     return `<path d="${d}" fill="${fills[i]}"/>`;
   });
   // no outlines (Reshanta): a faint grid, so the map still shows distance and direction
@@ -263,7 +300,7 @@ function svgOf(region, box, areas, meta) {
   if (!areas.length) {
     const step = 128;
     for (let x = Math.ceil(x0 / step) * step; x <= x1; x += step) grid.push(`M${x} ${y0}V${y1}`);
-    for (let y = Math.ceil(y0 / step) * step; y <= y1; y += step) grid.push(`M${x0} ${y}H${x1}`);
+    for (let y = Math.ceil(y0 / step) * step; y <= y1; y += step) grid.push(`M${x0} ${y0 + y1 - y}H${x1}`);
   }
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${x0} ${y0} ${w} ${h}" width="${region.image.w}" height="${region.image.h}">`,
@@ -307,7 +344,7 @@ async function previousSpots() {
 
 /**
  * The ids of the last run for the spots of this one. `spots` come with the id their upstream id gives ("tc-" and its
- * start), `full` gives a spot's whole upstream id. A spot is matched by that id first (by its "u" if an earlier run
+ * start), `full` gives the id a spot's whole upstream id gives ("tc-" and all of it). A spot is matched by that id first (by its "u" if an earlier run
  * carried it over, else by its own id), wherever upstream has moved it since. A spot upstream gave a new id gets the
  * id of a spot that vanished from the same category at most CARRY_PX map pixels away (positions are fractions of the
  * box, which is in the map's pixel grid), and its own id as "u". The nearest pairs go first and every id passes on
@@ -353,8 +390,8 @@ export function carryOver(before, spots, box, full = new Map()) {
   const taken = new Set(spots.filter((s) => matched.has(s)).map((s) => s.id));
   for (const s of spots) {
     if (matched.has(s) || !taken.has(s.id)) continue;
-    const id = `tc-${full.get(s)}`;
-    if (!full.has(s) || taken.has(id)) throw new Error(`${s.id}: a carried spot holds this id, and there is no other id to give`);
+    const id = full.get(s);
+    if (!id || taken.has(id)) throw new Error(`${s.id}: a carried spot holds this id, and there is no other id to give`);
     s.u = s.id;
     s.id = id;
     taken.add(id);
@@ -364,9 +401,12 @@ export function carryOver(before, spots, box, full = new Map()) {
 
 // ------------------------------------------------------------------------------------------------ main
 
-const round4 = (n) => Math.round(n * 10000) / 10000;
+export const round4 = (n) => Math.round(n * 10000) / 10000;
 
-function gitInfo(dir) {
+/** A data position as fractions of the picture of `box` (north up: the data's y counts from the bottom). */
+export const fractionOf = ([x0, y0, x1, y1]) => (x, y) => [round4((x - x0) / (x1 - x0)), round4((y1 - y) / (y1 - y0))];
+
+export function gitInfo(dir) {
   const out = execFileSync('git', ['-C', dir, 'log', '-1', '--format=%H %cs'], { encoding: 'utf8' }).trim();
   const [commit, date] = out.split(' ');
   return { commit, date };
@@ -376,10 +416,43 @@ function gitInfo(dir) {
  * The day the given data files last changed at that commit. Only trees are compared (no rename detection, no lazy
  * fetch), so a partial clone without blobs never downloads anything for it.
  */
-function gitDataDate(dir, commit, files) {
+export function gitDataDate(dir, commit, files) {
   return execFileSync('git', ['-C', dir, 'log', '-1', '--no-renames', '--format=%cs', commit, '--', ...files], {
     encoding: 'utf8', env: { ...process.env, GIT_NO_LAZY_FETCH: '1' },
   }).trim();
+}
+
+/** Refuses a checkout whose /public/data is no longer under the licence this script was written for. */
+export async function checkLicence(dir) {
+  const licence = await readFile(join(dir, 'LICENSE'), 'utf8');
+  if (!/\/public\/data[\s\S]{0,200}CC BY-NC 4\.0/.test(licence)) throw new Error('LICENSE no longer puts /public/data under CC BY-NC 4.0: check the new terms before using the data');
+}
+
+/**
+ * Writes the files ({ file, text }), or with `check` only compares them with what is there: 0 when nothing would
+ * change, EXIT_CHANGED when something would. `what` says which data it is (commit and dates) in the last line.
+ */
+export async function emit(files, check, what) {
+  if (check) {
+    const changed = [];
+    for (const { file, text } of files) {
+      const now = await readFile(file, 'utf8').catch(() => null);
+      // a Windows checkout (core.autocrlf) has CRLF line ends: the same data, not a change
+      if (now?.replace(/\r\n/g, '\n') !== text) changed.push(relative(ROOT, file));
+    }
+    if (!changed.length) {
+      console.log(`up to date (${what})`);
+      return 0;
+    }
+    console.log(`would change: ${changed.join(', ')}`);
+    return EXIT_CHANGED;
+  }
+  for (const { file, text } of files) {
+    await mkdir(dirname(file), { recursive: true });
+    await writeFile(file, text);
+  }
+  console.log(`wrote ${files.map((f) => relative(ROOT, f.file)).join(', ')} (${what})`);
+  return 0;
 }
 
 async function main(argv) {
@@ -399,9 +472,7 @@ async function main(argv) {
   if (!/^[0-9a-f]{7,40}$/.test(meta.commit) || !/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) throw new Error(`bad commit or date: ${meta.commit} ${meta.date}`);
   if (opt['data-date'] != null && !/^\d{4}-\d{2}-\d{2}$/.test(opt['data-date'])) throw new Error(`bad data date: ${opt['data-date']}`);
 
-  // the data must still be under the licence this script was written for
-  const licence = await readFile(join(dir, 'LICENSE'), 'utf8');
-  if (!/\/public\/data[\s\S]{0,200}CC BY-NC 4\.0/.test(licence)) throw new Error('LICENSE no longer puts /public/data under CC BY-NC 4.0: check the new terms before using the data');
+  await checkLicence(dir);
 
   const data = join(dir, 'public', 'data');
   const read = async (p) => parseYaml(await readFile(join(data, p), 'utf8'), p);
@@ -421,6 +492,7 @@ async function main(argv) {
     if (!m) throw new Error(`${region.id}: map ${world.map} is not in maps.yaml`);
     const box = world.box;
     const [x0, y0, x1, y1] = box;
+    const frac = fractionOf(box);
     const size = [m.tileWidth * m.tilesCountX, m.tileHeight * m.tilesCountY];
     if (!(x0 >= 0 && y0 >= 0 && x1 <= size[0] && y1 <= size[1] && x1 > x0 && y1 > y0)) throw new Error(`${region.id}: box ${box} is outside the ${size.join('x')} map`);
     if (!region.image || region.image.w !== (x1 - x0) / 2 || region.image.h !== (y1 - y0) / 2) {
@@ -430,23 +502,9 @@ async function main(argv) {
 
     dataFiles.push(`public/data/markers/${world.map}.yaml`, `public/data/regions/${world.map}.yaml`);
     const markers = (await read(`markers/${world.map}.yaml`))?.markers ?? [];
-    const areaList = ((await read(`regions/${world.map}.yaml`))?.regions ?? [])
-      .map((r) => ({ key: r.name, name: spacedName(r.name), rings: (r.borders ?? []).filter((ring) => ring.length >= 3) }))
-      .filter((a) => a.rings.length);
-    const areaIndex = new Map(areaList.map((a, i) => [a.key, i]));
-
-    const areaOf = (mk) => {
-      if (mk.region && areaIndex.has(mk.region)) return areaIndex.get(mk.region);
-      const i = areaList.findIndex((a) => inside(a.rings, mk.x, mk.y));
-      if (i >= 0) return i;
-      let best = -1;
-      let bestD = AREA_NEAR;
-      areaList.forEach((a, k) => {
-        const d = edgeDist(a.rings, mk.x, mk.y);
-        if (d < bestD) { bestD = d; best = k; }
-      });
-      return best;
-    };
+    const areaList = readAreas(await read(`regions/${world.map}.yaml`));
+    const findArea = areaFinder(areaList);
+    const areaOf = (mk) => findArea(mk.x, mk.y, mk.region);
 
     let spots = [];
     /** spot → its whole upstream id (for a clash with a carried id) */
@@ -471,9 +529,9 @@ async function main(argv) {
       const n = String(mk.name ?? '').trim();
       if (c === 'trace' && /^\d{1,4}$/.test(n)) spot.n = n;
       else if (NAMED.has(c) && /^[A-Za-z][A-Za-z0-9]{1,47}$/.test(n)) spot.n = NAME_FIX.get(n) ?? spacedName(n);
-      spot.p = [round4((mk.x - x0) / (x1 - x0)), round4((mk.y - y0) / (y1 - y0))];
+      spot.p = frac(mk.x, mk.y);
       spots.push(spot);
-      full.set(spot, mk.id);
+      full.set(spot, `tc-${mk.id}`);
     }
     // ids first, EXCLUDE after: an excluded id the page shows may be one carried over to a new upstream id. The
     // excluded spots stay in the file (the page does not read them), so a later rename upstream still carries their
@@ -490,7 +548,7 @@ async function main(argv) {
       map: world.map,
       areas: areaList.map((a) => {
         const [x, y] = labelPoint(a.rings);
-        return { name: a.name, pos: [round4((x - x0) / (x1 - x0)), round4((y - y0) / (y1 - y0))] };
+        return { name: a.name, pos: frac(x, y) };
       }),
       spots,
       ...(excluded.length ? { excluded } : {}),
@@ -512,27 +570,7 @@ async function main(argv) {
   const body = Object.entries(out.regions).map(([id, r]) => `    ${JSON.stringify(id)}: ${JSON.stringify(r)}`).join(',\n');
   files.push({ file: OUT_JSON, text: `{\n  "v": 1,\n  "source": ${JSON.stringify(out.source)},\n  "regions": {\n${body}\n  }\n}\n` });
   console.log(report.join('\n'));
-
-  if (check) {
-    const changed = [];
-    for (const { file, text } of files) {
-      const now = await readFile(file, 'utf8').catch(() => null);
-      // a Windows checkout (core.autocrlf) has CRLF line ends: the same data, not a change
-      if (now?.replace(/\r\n/g, '\n') !== text) changed.push(relative(ROOT, file));
-    }
-    if (!changed.length) {
-      console.log(`up to date (commit ${meta.commit.slice(0, 12)}, ${meta.date}; data ${dataDate ?? 'date unknown'})`);
-      return 0;
-    }
-    console.log(`would change: ${changed.join(', ')}`);
-    return EXIT_CHANGED;
-  }
-  for (const { file, text } of files) {
-    await mkdir(dirname(file), { recursive: true });
-    await writeFile(file, text);
-  }
-  console.log(`wrote ${OUT_JSON} (commit ${meta.commit.slice(0, 12)}, ${meta.date}; data ${dataDate ?? 'date unknown'})`);
-  return 0;
+  return emit(files, check, `commit ${meta.commit.slice(0, 12)}, ${meta.date}; data ${dataDate ?? 'date unknown'}`);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

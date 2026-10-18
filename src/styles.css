@@ -4074,6 +4074,9 @@ button.bp-row:active { background: var(--surface-2); }
 /* the other source's credit (CC BY-NC 4.0 asks for the name, the licence and the changes) */
 .farm-credit { display: flex; align-items: flex-start; gap: var(--sp-2); margin: var(--sp-4) 0 0; font-size: var(--fs-xs); line-height: var(--lh-snug); color: var(--text-2); }
 .farm-credit > svg { flex: none; margin-top: 1px; color: var(--muted); }
+/* both sources' credits as one block: the second right under the first */
+.farm-credits { display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; }
+.farm-credits > .farm-credit + .farm-credit { margin-top: 0; }
 .farm-more { margin-top: var(--sp-3); }
 /* the map with the selected spot's card right under it */
 .farm-mapwrap { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
@@ -4142,6 +4145,16 @@ button.bp-row:active { background: var(--surface-2); }
 /* every spot of the category found ("118/118" says it in numbers too) */
 .farm-cat.done .farm-cat-n { color: var(--ok); }
 .farm-cat:has(input:focus-visible) { background: var(--surface-2); }
+/* the materials of a gathering category, under its name: small chips, each with its own box */
+.farm-mats { display: flex; flex-wrap: wrap; gap: 4px; margin: 2px 0 var(--sp-1) calc(13px + var(--sp-2)); }
+.farm-mat {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 var(--sp-2);
+  border: 1px solid var(--line); border-radius: var(--r-sm); color: var(--text-2); font-size: var(--fs-xs); line-height: var(--lh-snug); cursor: pointer;
+}
+.farm-mat input { flex: none; margin: 0; }
+.farm-mat .farm-cat-n { min-width: 0; }
+.farm-mat:has(input:not(:checked)) { color: var(--muted); }
+.farm-mat:has(input:focus-visible) { background: var(--surface-2); }
 .farm-level { display: flex; flex-direction: column; gap: var(--sp-2); }
 .farm-level-row { display: flex; align-items: center; gap: var(--sp-2); color: var(--muted); }
 .farm-level-row input { width: 72px; text-align: center; font-variant-numeric: tabular-nums; }
@@ -4229,13 +4242,13 @@ button.bp-row:active { background: var(--surface-2); }
 
 @media (hover: hover) {
   .farm-region:hover:not(.on) { border-color: var(--control-border-hover); color: var(--text-strong); }
-  .farm-cat:hover { background: var(--surface-2); color: var(--text-strong); }
+  .farm-cat:hover, .farm-mat:hover { background: var(--surface-2); color: var(--text-strong); }
   .farm-fgroup-all:hover { background: var(--surface-2); color: var(--accent-hover); }
   .farm-jump-opt:hover:not([aria-selected='true']) { background: var(--surface-2); }
   .farm-card.has-map:hover:not(.on) { border-color: var(--line-strong); }
 }
 @media (pointer: coarse) {
-  .farm-cat, .farm-fgroup-all { min-height: var(--tap-sm); }
+  .farm-cat, .farm-fgroup-all, .farm-mat { min-height: var(--tap-sm); }
   .farm-jump-opt { min-height: var(--tap); }
 }
 /* touch screens have no "/" key to show */

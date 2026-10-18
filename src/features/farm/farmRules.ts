@@ -2,13 +2,15 @@
  * The farm map's rules, shared by the page and by scripts/farm-import.mjs (Node runs this file with type stripping,
  * so it uses plain, erasable TypeScript only and imports nothing).
  *
- * Two sources:
+ * Three sources:
  * - spots players saw in the game: the page lets players note spots and send them as a GitHub issue; once the
  *   maintainer adds the label `farm-approved`, the import action checks them with `checkSpot` and adds them to
  *   public/data/farm/spots.json,
  * - hidden cubes, Empyrean traces, Kibelisks, villages, dungeon entrances and strongholds from the AION2 Interactive
  *   Map data (CC BY-NC 4.0), converted by scripts/farm-tcimba.mjs into public/data/farm/tcimba.json, with the area
- *   outlines as the region pictures.
+ *   outlines as the region pictures,
+ * - the gathering points of the Aion 2 - Map Overlay (CC BY-NC 4.0, adapted from the AION2 Interactive Map's data),
+ *   converted by scripts/farm-gathering.mjs into public/data/farm/gathering.json.
  */
 
 export type Lang = 'en' | 'de';
@@ -34,8 +36,9 @@ export interface Region {
   image?: { src: string; w: number; h: number };
   /**
    * Where the region lies on the AION2 Interactive Map: its map and the part of that map's pixel grid the picture shows
-   * ([left, top, right, bottom]). The picture is half the box in size. Never change a box once spots are placed: every
-   * position is a fraction of it.
+   * ([x0, y0, x1, y1] in that data's pixels, whose y counts up from the bottom: the picture's top edge is y1, its
+   * bottom edge y0). The picture is half the box in size. Never change a box once spots are placed: every position is
+   * a fraction of it.
    */
   world?: { map: string; box: [number, number, number, number] };
 }
@@ -80,6 +83,7 @@ export const CATEGORIES: Category[] = [
   { id: 'ore', group: 'gather', name: { en: 'Ore', de: 'Erz' } },
   { id: 'gem', group: 'gather', name: { en: 'Gems', de: 'Edelsteine' } },
   { id: 'plant', group: 'gather', name: { en: 'Plants', de: 'Pflanzen' } },
+  { id: 'food', group: 'gather', name: { en: 'Cooking ingredients', de: 'Kochzutaten' } },
   { id: 'wood', group: 'gather', name: { en: 'Wood', de: 'Holz' } },
   { id: 'odyle', group: 'gather', name: { en: 'Odyle', de: 'Odyle' } },
   { id: 'mob', group: 'mob', name: { en: 'Monsters', de: 'Monster' } },
@@ -141,8 +145,13 @@ export interface FarmSpot extends SpotInput {
   added: string;
   /** the GitHub issue it came in with (0 for a spot from another source) */
   issue: number;
-  /** a spot from the AION2 Interactive Map data (public/data/farm/tcimba.json) instead of a player */
-  src?: 'tcimba';
+  /**
+   * a spot from another source instead of a player: the AION2 Interactive Map data (public/data/farm/tcimba.json) or
+   * the Map Overlay's gathering points (public/data/farm/gathering.json)
+   */
+  src?: 'tcimba' | 'overlay';
+  /** the material of a gathering point of the Map Overlay ("Orichalcum"): a game name, the same in every language */
+  mat?: string;
 }
 
 export interface SpotsFile { v: 1; spots: FarmSpot[] }

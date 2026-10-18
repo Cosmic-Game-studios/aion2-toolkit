@@ -1,4 +1,4 @@
-import { Archive, Box, Castle, Crown, DoorOpen, Droplets, Feather, Flame, Gem, House, Leaf, MapPin, Pickaxe, Skull, Trees, Waypoints, type LucideIcon } from 'lucide-react';
+import { Archive, Box, Castle, CookingPot, Crown, DoorOpen, Droplets, Feather, Flame, Gem, House, Leaf, MapPin, Pickaxe, Skull, Trees, Waypoints, type LucideIcon } from 'lucide-react';
 import type { CategoryGroup } from './farmRules';
 
 /** The icon of each spot category (farmRules CATEGORIES). */
@@ -6,6 +6,7 @@ export const CATEGORY_ICON: Record<string, LucideIcon> = {
   ore: Pickaxe,
   gem: Gem,
   plant: Leaf,
+  food: CookingPot,
   wood: Trees,
   odyle: Droplets,
   mob: Skull,

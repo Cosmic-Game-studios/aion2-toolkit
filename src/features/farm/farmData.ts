@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { checkSpot, regionById, type FarmSpot, type L10n, type Lang, type SpotsFile } from './farmRules';
+import { categoryById, checkSpot, regionById, type FarmSpot, type L10n, type Lang, type SpotsFile } from './farmRules';
 
 /** public/data/farm/spots.json: still loading, there, or failed (try again). A missing file counts as no spots. */
 export type SpotsState =
@@ -86,11 +86,34 @@ interface TcSource {
 interface TcSpot { id: string; c: string; a?: number; n?: string; p: [number, number] }
 interface TcFile { v: 1; source: TcSource; regions: Record<string, { map: string; areas: MapArea[]; spots: TcSpot[] }> }
 
+/* ---------- the Map Overlay's gathering points (public/data/farm/gathering.json, made by scripts/farm-gathering.mjs) ---------- */
+
+export interface GatherSource {
+  name: string; by: string; url: string; license: string; licenseUrl: string; commit: string;
+  /** day of the overlay's commit the file was made from */
+  date: string;
+  /** day the overlay took the gathering points from the AION2 Interactive Map's site: how old the positions are */
+  retrieved: string;
+  /** the project the overlay adapted them from */
+  upstream: { name: string; by: string; url: string };
+}
+/** a material ("Orichalcum") and our category of it ("ore") */
+interface GatherMaterial { id: string; name: string; c: string }
+/** `m` and `a` index the region's materials and area names */
+interface GatherSpot { id: string; m: number; a?: number; p: [number, number] }
+interface GatherFile {
+  v: 1; source: GatherSource;
+  regions: Record<string, { map: string; materials: GatherMaterial[]; areas: string[]; spots: GatherSpot[] }>;
+}
+
 export interface SourceData {
-  source: TcSource;
-  /** area labels per region */
+  /** the AION2 Interactive Map data's source; null when tcimba.json did not load */
+  source: TcSource | null;
+  /** the Map Overlay's; null when gathering.json did not load */
+  gather: GatherSource | null;
+  /** area labels per region (the AION2 Interactive Map's) */
   areas: Record<string, MapArea[]>;
-  /** the spots as map spots, named in the page language */
+  /** the spots of both as map spots, named in the page language */
   spots: FarmSpot[];
 }
 
@@ -107,8 +130,8 @@ const ONE: Record<string, L10n> = {
 };
 
 /**
- * The data is CC BY-NC 4.0 (non-commercial): a build with ads (VITE_ADSENSE_CLIENT) must not show it. Remove this
- * source before turning ads on.
+ * Both files are CC BY-NC 4.0 (non-commercial): a build with ads (VITE_ADSENSE_CLIENT) must not show them. Remove
+ * these sources before turning ads on.
  */
 const ADS = !!(import.meta.env.VITE_ADSENSE_CLIENT as string | undefined)?.trim();
 
@@ -122,34 +145,56 @@ const isTcSpot = (s: unknown): s is TcSpot => {
   return !!x && isStr(x.id) && x.id !== '' && isStr(x.c) && pair(x.p, Number.isFinite)
     && (x.a === undefined || Number.isInteger(x.a)) && optStr(x.n);
 };
+const isGatherFile = (x: unknown): x is GatherFile => {
+  const f = x as GatherFile;
+  return !!f && typeof f === 'object' && f.v === 1 && !!f.source && isStr(f.source.name) && isStr(f.source.retrieved)
+    && !!f.source.upstream && isStr(f.source.upstream.name) && isStr(f.source.upstream.url) && !!f.regions && typeof f.regions === 'object';
+};
+const isMaterial = (m: unknown): m is GatherMaterial => !!m && isStr((m as GatherMaterial).name) && isStr((m as GatherMaterial).c);
+const isGatherSpot = (s: unknown): s is GatherSpot => {
+  const x = s as GatherSpot;
+  return !!x && isStr(x.id) && x.id !== '' && Number.isInteger(x.m) && pair(x.p, Number.isFinite) && (x.a === undefined || Number.isInteger(x.a));
+};
 
-let tcPending: Promise<TcFile | null> | null = null;
-let tcDone: TcFile | null | undefined;
-
-function loadTc(): Promise<TcFile | null> {
-  if (!tcPending) {
-    tcPending = (async () => {
-      if (ADS) return null;
-      try {
-        const res = await fetch(`${base()}data/farm/tcimba.json`, { cache: 'no-cache' });
-        if (!res.ok || !(res.headers.get('content-type') ?? '').includes('json')) return null;
-        const json: unknown = await res.json();
-        if (!isTcFile(json)) throw new Error('unexpected format');
-        return json;
-      } catch (e) {
-        // the player spots work without it: the page just has fewer spots
-        console.warn('tcimba.json not loaded', e);
-        return null;
-      }
-    })();
-    tcPending.then((f) => { tcDone = f; });
+/** One of the other sources' files, or null: not there, broken, or a build with ads. Never throws. */
+async function loadOptional<F>(file: string, ok: (x: unknown) => x is F): Promise<F | null> {
+  if (ADS) return null;
+  try {
+    const res = await fetch(`${base()}data/farm/${file}`, { cache: 'no-cache' });
+    if (!res.ok || !(res.headers.get('content-type') ?? '').includes('json')) return null;
+    const json: unknown = await res.json();
+    if (!ok(json)) throw new Error('unexpected format');
+    return json;
+  } catch (e) {
+    // the player spots work without it: the page just has fewer spots
+    console.warn(`${file} not loaded`, e);
+    return null;
   }
-  return tcPending;
 }
 
-function buildSource(file: TcFile, lang: Lang): SourceData {
+interface SourceFiles { tc: TcFile | null; gather: GatherFile | null }
+let srcPending: Promise<SourceFiles> | null = null;
+let srcDone: SourceFiles | undefined;
+
+function loadSources(): Promise<SourceFiles> {
+  if (!srcPending) {
+    // both at once; either one works without the other
+    srcPending = Promise.all([loadOptional('tcimba.json', isTcFile), loadOptional('gathering.json', isGatherFile)])
+      .then(([tc, gather]) => ({ tc, gather }));
+    srcPending.then((f) => { srcDone = f; });
+  }
+  return srcPending;
+}
+
+function buildSource({ tc, gather }: SourceFiles, lang: Lang): SourceData {
   const areas: Record<string, MapArea[]> = {};
   const spots: FarmSpot[] = [];
+  if (tc) addTcSpots(tc, lang, areas, spots);
+  if (gather) addGatherSpots(gather, spots);
+  return { source: tc?.source ?? null, gather: gather?.source ?? null, areas, spots };
+}
+
+function addTcSpots(file: TcFile, lang: Lang, areas: Record<string, MapArea[]>, spots: FarmSpot[]) {
   for (const [region, r] of Object.entries(file.regions)) {
     if (!regionById(region) || !r || !Array.isArray(r.spots)) continue;
     const list = Array.isArray(r.areas) ? r.areas.filter(isArea) : [];
@@ -179,28 +224,57 @@ function buildSource(file: TcFile, lang: Lang): SourceData {
       spots.push(spot);
     }
   }
-  return { source: file.source, areas, spots };
+}
+
+/**
+ * The gathering points, named after their material and numbered per material and area ("Orichalcum #3"), as the
+ * hidden cubes are; the file lists them north to south within an area. Material names are the game's own and the
+ * same in every language. A material whose category is not a gathering category of the rules is left out.
+ */
+function addGatherSpots(file: GatherFile, spots: FarmSpot[]) {
+  for (const [region, r] of Object.entries(file.regions)) {
+    if (!regionById(region) || !r || !Array.isArray(r.spots) || !Array.isArray(r.materials)) continue;
+    const mats = r.materials.map((m) => (isMaterial(m) && categoryById(m.c)?.group === 'gather' ? m : null));
+    const names = Array.isArray(r.areas) ? r.areas : [];
+    const seen = new Map<string, number>();
+    for (const s of r.spots) {
+      if (!isGatherSpot(s)) continue;
+      const mat = mats[s.m];
+      if (!mat) continue;
+      const area = s.a !== undefined && isStr(names[s.a]) ? names[s.a] : undefined;
+      const key = `${s.m}|${s.a ?? ''}`;
+      const k = (seen.get(key) ?? 0) + 1;
+      seen.set(key, k);
+      // the card's date says how old the position is: the day the overlay took the points from their source
+      const spot: FarmSpot = {
+        id: s.id, cid: s.id, region, cat: mat.c, name: `${mat.name} #${k}`, pos: s.p, added: file.source.retrieved, issue: 0,
+        src: 'overlay', mat: mat.name,
+      };
+      if (area) spot.area = area;
+      spots.push(spot);
+    }
+  }
 }
 
 const built = new Map<Lang, SourceData>();
 
 /**
- * The AION2 Interactive Map spots and area names: 'loading', the data, or null (no file, a broken file, or a build
- * with ads).
+ * The spots and area names of the AION2 Interactive Map and the Map Overlay's gathering points: 'loading', the data
+ * of whichever loaded, or null (neither: no files, broken files, or a build with ads).
  */
 export function useSourceData(lang: Lang): SourceData | null | 'loading' {
   const [, setTick] = useState(0);
   useEffect(() => {
-    if (tcDone !== undefined) return;
+    if (srcDone !== undefined) return;
     let alive = true;
-    loadTc().then(() => { if (alive) setTick((n) => n + 1); });
+    loadSources().then(() => { if (alive) setTick((n) => n + 1); });
     return () => { alive = false; };
   }, []);
-  if (tcDone === undefined) return 'loading';
-  if (!tcDone) return null;
+  if (srcDone === undefined) return 'loading';
+  if (!srcDone.tc && !srcDone.gather) return null;
   let data = built.get(lang);
   if (!data) {
-    data = buildSource(tcDone, lang);
+    data = buildSource(srcDone, lang);
     built.set(lang, data);
   }
   return data;

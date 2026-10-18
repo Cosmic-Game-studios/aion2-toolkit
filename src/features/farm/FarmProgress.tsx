@@ -196,7 +196,8 @@ function ProgressDialog({ onClose }: { onClose: () => void }) {
 
 export function FarmProgress({ region, found, total, hideFound, onHideFound }: {
   region: Region;
-  /** found spots of the region and all its spots; null while the spots load */
+  /** found spots of the region and all its spots that can be found (not the gathering points that respawn); null
+   *  while the spots load */
   found: number | null;
   total: number;
   hideFound: boolean;

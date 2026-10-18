@@ -25,8 +25,8 @@ import { benchCount, benchMarkers, logBench } from './farmBench';
  * a sheet over the map's lower part (cover): the view then keeps the selected marker in the room above it.
  */
 
-/** `source`: a spot of the AION2 Interactive Map data (drawn smaller than the players' spots); `found`: the player
- *  marked it found (drawn dimmed, with a check badge) */
+/** `source`: a spot of the AION2 Interactive Map data or a Map Overlay gathering point (drawn smaller than the players'
+ *  spots); `found`: the player marked it found (drawn dimmed, with a check badge) */
 export interface MapMarker { id: string; pos: [number, number]; cat: string; label: string; pending?: boolean; source?: boolean; found?: boolean }
 
 /** A view as a link names it: the picture point in the middle (fractions) and the zoom relative to the whole picture. */
