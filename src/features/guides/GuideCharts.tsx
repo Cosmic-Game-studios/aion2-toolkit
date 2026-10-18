@@ -1,4 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { Check, Minus, X } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import type { Lang } from '../../data/types';
@@ -129,10 +129,10 @@ export function SharesChart({ b }: { b: Of<'shares'> }) {
 /* ---------------------------------------------------------------- line */
 
 /** width of an element, kept up to date (the SVG draws in real pixels, so its text stays readable on phones) */
-function useWidth(fallback: number) {
-  const ref = useRef<HTMLDivElement>(null);
+function useWidth<T extends HTMLElement = HTMLDivElement>(fallback: number) {
+  const ref = useRef<T>(null);
   const [w, setW] = useState(fallback);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     const ro = new ResizeObserver(([e]) => setW(Math.round(e.contentRect.width)));
@@ -287,11 +287,18 @@ export function LineChart({ b }: { b: Of<'line'> }) {
 
 /* ---------------------------------------------------------------- flow */
 
+/** narrowest box of a flow that runs left to right (px) */
+const FLOW_BOX_MIN = 170;
+
 export function FlowChart({ b }: { b: Of<'flow'> }) {
   const { lang } = useLoadedGame();
+  // side by side only while every box keeps room for its text and skill names, else top to bottom
+  const [ref, w] = useWidth<HTMLOListElement>(0);
+  const n = b.items.length;
+  const row = n <= 5 && w >= n * FLOW_BOX_MIN + (n - 1) * 24;
   return (
     <Frame title={b.title && pick(b.title, lang)} caption={b.caption && pick(b.caption, lang)} className="gc-flow-chart">
-      <ol className={`gc-flow ${b.items.length <= 5 ? 'is-row' : ''}`}>
+      <ol ref={ref} className={`gc-flow ${row ? 'is-row' : ''}`}>
         {b.items.map((it, i) => (
           <li key={i} className={`gc-flow-step tone-${toneOf(it.tone, 0)}`} style={{ '--i': i } as CSSProperties}>
             <span className="gc-flow-no" aria-hidden>{i + 1}</span>

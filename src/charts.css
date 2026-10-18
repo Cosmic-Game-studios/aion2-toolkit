@@ -83,13 +83,12 @@
 .gc-flow-body strong { font-size: var(--fs-md); line-height: var(--lh-snug); color: var(--text-strong); }
 .gc-flow-text { font-size: var(--fs-base); line-height: 1.55; color: var(--text-2); }
 .gc-flow-tag { align-self: flex-start; padding: 1px 8px; border-radius: var(--r-pill); font-size: var(--fs-xs); font-weight: 700; letter-spacing: .03em; color: var(--tone); background: color-mix(in srgb, var(--tone) 12%, transparent); border: 1px solid color-mix(in srgb, var(--tone) 35%, transparent); }
-@media (min-width: 901px) {
-  .gc-flow.is-row { flex-direction: row; gap: var(--sp-6); }
-  .gc-flow.is-row .gc-flow-step { flex: 1 1 0; flex-direction: column; min-width: 0; }
-  /* the arrow to the next box: right in a row */
-  .gc-flow.is-row .gc-flow-step:not(:last-child)::after { left: auto; right: calc(-1 * var(--sp-6) + 5px); top: 50%; bottom: auto; transform: translateY(-50%) rotate(-45deg); }
-  .gc-flow.is-row .gc-flow-step:not(:last-child)::before { left: auto; right: calc(-1 * var(--sp-6) + 6px); top: calc(50% - 1px); bottom: auto; width: calc(var(--sp-6) - 6px); height: 2px; background: linear-gradient(90deg, var(--gold-line), var(--gold)); }
-}
+/* side by side: FlowChart sets .is-row only when the chart is wide enough for every box */
+.gc-flow.is-row { flex-direction: row; gap: var(--sp-6); }
+.gc-flow.is-row .gc-flow-step { flex: 1 1 0; flex-direction: column; min-width: 0; }
+/* the arrow to the next box: right in a row */
+.gc-flow.is-row .gc-flow-step:not(:last-child)::after { left: auto; right: calc(-1 * var(--sp-6) + 5px); top: 50%; bottom: auto; transform: translateY(-50%) rotate(-45deg); }
+.gc-flow.is-row .gc-flow-step:not(:last-child)::before { left: auto; right: calc(-1 * var(--sp-6) + 6px); top: calc(50% - 1px); bottom: auto; width: calc(var(--sp-6) - 6px); height: 2px; background: linear-gradient(90deg, var(--gold-line), var(--gold)); }
 
 /* ---------- compare ---------- */
 .gc-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: var(--sp-3); }
