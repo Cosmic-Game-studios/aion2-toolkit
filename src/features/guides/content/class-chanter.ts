@@ -14,7 +14,7 @@ export const chanterGuide = classGuide({
     { de: 'Nahkampf', en: 'Melee' },
     { de: 'Einsteiger', en: 'Beginner' },
   ],
-  updated: '2026-10-15',
+  updated: '2026-10-19',
   glance: [
     {
       label: { de: 'Rolle', en: 'Role' },
@@ -26,7 +26,7 @@ export const chanterGuide = classGuide({
     { label: { de: 'Schwierigkeit', en: 'Difficulty' }, value: { de: 'Mittel', en: 'Medium' } },
     {
       label: { de: 'Reichweite', en: 'Range' },
-      value: { de: "Nahkampf – die meisten Angriffe bis 4 m, einige bis 20 m", en: "Melee – most attacks up to 4 m, some up to 20 m" },
+      value: { de: "Nahkampf – Grundattacke und Füller bis 4 m, deine Hauptschläge bis 20 m", en: "Melee – basic attack and filler up to 4 m, your main hits up to 20 m" },
     },
     {
       label: { de: 'Stärken', en: 'Strengths' },
@@ -71,12 +71,12 @@ export const chanterGuide = classGuide({
       },
     ],
     boss: {
-      de: "Zünde [[18250000|Power of the Storm]], wenn die Gruppe ihren Burst startet – am besten kurz bevor der Boss **taumelt**. Viele Skills füllen seine Taumel-Leiste; ist sie voll, taumelt er kurz. Nur dann geht [[18300000|Gust Rampage]]. Mit der Stufe-12-Option sorgt [[18080000|Wave Blow]] außerdem dafür, dass der Boss 10 Sekunden lang weniger Schaden macht.",
-      en: "Fire [[18250000|Power of the Storm]] when the group starts its burst – ideally just before the boss **staggers**. Many skills fill its stagger bar; when it is full, the boss staggers for a moment. Only then does [[18300000|Gust Rampage]] work. With its level 12 option, [[18080000|Wave Blow]] also makes the boss deal less damage for 10 seconds.",
+      de: "Zünde [[18250000|Power of the Storm]], wenn die Gruppe ihren Burst startet – am besten kurz bevor der Boss **taumelt**. Viele Skills füllen seine Taumel-Leiste; ist sie voll, taumelt er kurz. Nur dann geht [[18300000|Gust Rampage]]. Mit der Stufe-12-Option sorgt [[18080000|Wave Blow]] außerdem dafür, dass der Boss 10 Sekunden lang weniger Schaden macht. Gegen Bosse, die sich nicht betäuben lassen, kommt er aber nur ab und zu: Dort wird [[18080000|Wave Blow]] nur mit 7 % Chance bei deinen Treffern frei.",
+      en: "Fire [[18250000|Power of the Storm]] when the group starts its burst – ideally just before the boss **staggers**. Many skills fill its stagger bar; when it is full, the boss staggers for a moment. Only then does [[18300000|Gust Rampage]] work. With its level 12 option, [[18080000|Wave Blow]] also makes the boss deal less damage for 10 seconds. Against bosses that cannot be stunned, though, it only comes up now and then: there [[18080000|Wave Blow]] unlocks with a 7% chance on your hits.",
     },
     pvp: {
-      de: "Zum PvP gibt es noch wenig Erfahrung. Gern genommen werden [[18330000|Marchutan's Wrath]], [[18130000|Fracturing Blow]], [[18420000|Guardian Blessing]] und [[18190000|Undefeated Mantra]]. [[18200000|Defiance]] auf der Leertaste befreit dich aus Betäubungen. Für PvP gibt es die Tafel Azphel, die du mit Kampfkristallen bezahlst.",
-      en: "There is little PvP experience so far. Popular picks are [[18330000|Marchutan's Wrath]], [[18130000|Fracturing Blow]], [[18420000|Guardian Blessing]] and [[18190000|Undefeated Mantra]]. [[18200000|Defiance]] on Space frees you from stuns. For PvP there is the Azphel board, which you pay with Battle Crystals.",
+      de: "Zum PvP gibt es noch wenig Erfahrung. Gern genommen werden [[18330000|Marchutan's Wrath]], [[18130000|Fracturing Blow]], [[18420000|Guardian Blessing]] und [[18190000|Undefeated Mantra]]. [[18200000|Defiance]] auf der Leertaste befreit dich aus Betäubungen. Nach einem Ausweichen bringt dich [[18210000|Tremor Crush]] zurück zum Gegner und kann ihn betäuben (50 % Chance) – dann wirft ihn [[18080000|Wave Blow]] zu Boden. Für PvP gibt es die Tafel Azphel, die du mit Kampfkristallen bezahlst.",
+      en: "There is little PvP experience so far. Popular picks are [[18330000|Marchutan's Wrath]], [[18130000|Fracturing Blow]], [[18420000|Guardian Blessing]] and [[18190000|Undefeated Mantra]]. [[18200000|Defiance]] on Space frees you from stuns. After a dodge, [[18210000|Tremor Crush]] takes you back to the enemy and can stun it (50% chance) – then [[18080000|Wave Blow]] knocks it down. For PvP there is the Azphel board, which you pay with Battle Crystals.",
     },
     solo: {
       de: "Allein bist du stark. Mit der Stufe-12-Option setzt [[18090000|Rushing Smash]] seine Abklingzeit zurück, wenn ein Gegner stirbt – so stürmst du von Gegner zu Gegner. [[18010000|Onslaught]] gibt dir MP zurück, [[18120000|Recuperation]] heilt auch dich.",
@@ -151,10 +151,11 @@ export const chanterGuide = classGuide({
         title: { de: 'Eröffnung (von Hand)', en: 'Opener (by hand)' },
         steps: [
           { id: 18190000 /* Undefeated Mantra */, note: { de: 'Vor dem Kampf anschalten', en: 'Switch it on before the pull' } },
+          { id: 18090000 /* Rushing Smash */, note: { de: 'Hinstürmen – gibt 100 MP', en: 'Rush in – gives 100 MP' } },
           { id: 18250000 /* Power of the Storm */, note: { de: 'Wenn die Gruppe loslegt', en: 'When the group starts its burst' } },
           { id: 18290000 /* Spinning Strike */, note: { de: 'Großer Treffer – öffnet das Fenster', en: 'Big hit – opens the window' } },
           { id: 18100000 /* Dark Crush */, note: { de: 'Sofort hinterher', en: 'Right after' } },
-          { id: 18060000 /* Impactful Crush */, note: { de: 'Betäubt und öffnet das Fenster wieder', en: 'Stuns and opens the window again' } },
+          { id: 18060000 /* Impactful Crush */, note: { de: 'Betäubt und öffnet das Fenster wieder – sobald Dark Crush wieder bereit ist', en: 'Stuns and opens the window again – once Dark Crush is ready again' } },
           { id: 18100000 /* Dark Crush */, note: { de: 'Sofort hinterher', en: 'Right after' } },
           { id: 18330000 /* Marchutan's Wrath */, note: { de: 'Stigma – öffnet das Fenster für 3 Sekunden', en: 'Stigma – opens the window for 3 seconds' } },
           { id: 18100000 /* Dark Crush */, note: { de: 'Sofort hinterher', en: 'Right after' } },
@@ -167,7 +168,7 @@ export const chanterGuide = classGuide({
           { id: 18060000 /* Impactful Crush */, note: { de: 'Öffnet deinen Hauptschlag', en: 'Opens your main hit' } },
           { id: 18290000 /* Spinning Strike */, note: { de: 'Öffnet deinen Hauptschlag', en: 'Opens your main hit' } },
           { id: 18330000 /* Marchutan's Wrath */, note: { de: 'Öffnet deinen Hauptschlag', en: 'Opens your main hit' } },
-          { id: 18150000 /* Heat Wave Blow */, note: { de: 'Wenn bereit', en: 'When ready' } },
+          { id: 18150000 /* Heat Wave Blow */, note: { de: 'Nur nach einem Block – dann nimmt ihn das Makro', en: 'Only after you block – then the macro uses it' } },
           { id: 18010000 /* Onslaught */, note: { de: 'Grundattacke – die ganze Zeit halten', en: 'Basic attack – hold it all the time' } },
           { id: 18040000 /* Incandescent Blow */, note: { de: 'Füller auf Taste T', en: 'Filler on key T' } },
           { id: 18300000 /* Gust Rampage */, note: { de: 'Nur, wenn der Boss taumelt', en: 'Only while the boss staggers' } },
@@ -181,12 +182,16 @@ export const chanterGuide = classGuide({
         en: "**Mantras are switches:** a second press turns them off again. Switch them on once – and never put them in the macro.",
       },
       {
-        de: "**Nicht doppelt buffen:** Mantras von zwei Kantoren wirken nicht zusammen, und [[18190000|Undefeated Mantra]] wirkt nicht zusammen mit [[17410000|Light of Protection]] vom Kleriker.",
-        en: "**Do not double up:** mantras from two Chanters do not stack, and [[18190000|Undefeated Mantra]] does not stack with the Cleric's [[17410000|Light of Protection]].",
+        de: "**Nicht doppelt buffen:** Mantras von zwei Kantoren wirken nicht zusammen. [[18190000|Undefeated Mantra]] wirkt auch nicht zusammen mit „Licht des Schutzes“, dem Gruppen-Buff des Klerikers: Es zählt der Skill mit der höheren Stufe, bei gleicher Stufe deiner. Und dein Passiv [[18780000|Earth's Promise]] wirkt nicht zusammen mit der „Kette des Schmerzes“ des Klerikers.",
+        en: "**Do not double up:** mantras from two Chanters do not stack. [[18190000|Undefeated Mantra]] also does not stack with Light of Protection, the Cleric's group buff: the skill with the higher level counts, at the same level yours. And your passive [[18780000|Earth's Promise]] does not work together with the Cleric's Chain of Torment.",
       },
       {
-        de: "**[[18250000|Power of the Storm]] absprechen:** Laut Skilltext verträgt sich dieser Buff nicht mit dem Gruppen-Buff „Segen der Erde“, den der Kleriker über [[17400000|Earth Punishment]] verteilt. Sprich dich mit deinem Kleriker ab.",
-        en: "**Coordinate [[18250000|Power of the Storm]]:** according to the skill text it does not work together with Earth's Blessing, the group buff the Cleric gives through [[17400000|Earth Punishment]]. Talk to your Cleric.",
+        de: "**[[18250000|Power of the Storm]] absprechen:** Laut Skilltext verträgt sich dieser Buff nicht mit „Segen der Erde“, dem Gruppen-Buff, den der Kleriker über sein Stigma „Strafe der Erde“ verteilt. Sprich dich mit deinem Kleriker ab.",
+        en: "**Coordinate [[18250000|Power of the Storm]]:** according to the skill text it does not work together with Earth's Blessing, the group buff the Cleric gives through the stigma Earth Punishment. Talk to your Cleric.",
+      },
+      {
+        de: "**Vor der Stufe-16-Option von [[18100000|Dark Crush]]:** Er wartet nach jedem Einsatz 5 s. Ein Fenster, das in dieser Zeit aufgeht, ist verloren – lass also etwa 5 s zwischen zwei Skills, die ihn öffnen.",
+        en: "**Before the level 16 option of [[18100000|Dark Crush]]:** it waits 5 s after every use. A window that opens during that time is lost – so leave about 5 s between two skills that open it.",
       },
       {
         de: "**Bleib nah dran:** Mantras erreichen nur Mitspieler in der Nähe. Wer weit weg kämpft, verliert den Buff.",
@@ -204,10 +209,25 @@ export const chanterGuide = classGuide({
       { de: "Dann [[18290000|Spinning Strike]], sobald du ihn mit Stufe 14 lernst", en: "Then [[18290000|Spinning Strike]] as soon as you learn it at level 14" },
       { de: "Dann [[18040000|Incandescent Blow]] – dein Füller", en: "Then [[18040000|Incandescent Blow]] – your filler" },
       { de: "Dann [[18120000|Recuperation]] (ab Stufe 8) – deine Gruppenheilung", en: "Then [[18120000|Recuperation]] (level 8) – your group heal" },
-      { de: "Dann [[18060000|Impactful Crush]], [[18080000|Wave Blow]] und [[18090000|Rushing Smash]]", en: "Then [[18060000|Impactful Crush]], [[18080000|Wave Blow]] and [[18090000|Rushing Smash]]" },
       {
-        de: "Später mit Tafeln und Ausrüstung: [[18100000|Dark Crush]], [[18010000|Onslaught]] und [[18290000|Spinning Strike]] auf 16, dann 20 – [[18040000|Incandescent Blow]] auf 16, [[18120000|Recuperation]] auf 12–16, den Rest auf 12",
-        en: "Later with boards and gear: [[18100000|Dark Crush]], [[18010000|Onslaught]] and [[18290000|Spinning Strike]] to 16, then 20 – [[18040000|Incandescent Blow]] to 16, [[18120000|Recuperation]] to 12–16, the rest to 12",
+        de: "**Passive Skills** (sie wirken immer, ganz von selbst) auf 10, sobald du sie lernst – die Top 10 haben sie (fast) alle dort: [[18750000|Attack Preparation]] (ab Stufe 13; auf Skillstufe 10 +10 % PvE-Schadensverstärkung, +20 % Verteidigung und +100 Präzision), [[18740000|Inspiring Spell]] (ab 11; mehr Krit.-Treffer), [[18760000|Impact Hit]] (ab 15; deine Betäubungen gehen öfter durch, dazu mehr Wucht – die Chance auf einen doppelt starken Treffer) und [[18800000|Wind's Promise]] (ab 25; +12 % Krit.-Schadensverstärkung und Zusatzschaden bei kritischen Treffern)",
+        en: "**Passives** (they are always on, all by themselves) to 10 as soon as you learn them – (almost) all of the top 10 have them there: [[18750000|Attack Preparation]] (from level 13; at skill level 10 +10% PvE Damage Boost, +20% Defense and +100 Accuracy), [[18740000|Inspiring Spell]] (from 11; more Critical Hit), [[18760000|Impact Hit]] (from 15; your stuns land more often, plus more Double Chance – the chance for a hit with double damage) and [[18800000|Wind's Promise]] (from 25; +12% Critical Damage Boost and extra damage on critical hits)",
+      },
+      {
+        de: "Dann [[18060000|Impactful Crush]], [[18090000|Rushing Smash]], [[18210000|Tremor Crush]] (ab Stufe 10) und [[18080000|Wave Blow]] (ab Stufe 12) – die ersten drei haben die Top 10 im Median auf 10, [[18080000|Wave Blow]] nehmen 7 von 10 hoch",
+        en: "Then [[18060000|Impactful Crush]], [[18090000|Rushing Smash]], [[18210000|Tremor Crush]] (level 10) and [[18080000|Wave Blow]] (level 12) – the top 10 have the first three at 10 (median), 7 of 10 also take [[18080000|Wave Blow]] high",
+      },
+      {
+        de: "Dann die passiven Skills [[18780000|Earth's Promise]] (ab Stufe 21: Auf Skillstufe 10 senkt ein Treffer die Schadensresistenz des Ziels 5 s lang um 9 %, höchstens alle 10 s – davon hat die ganze Gruppe etwas), [[18710000|Blessing of Life]] (mehr LP, stärkere Heilung), [[18790000|Survival Willpower]] (ab 23; mehr Widerstand gegen Statuseffekte) und [[18730000|Protection Circle]] (ab 9; Schild für die Gruppe) – dazu [[18200000|Defiance]] (ab 16): Jede Stufe senkt seine Abklingzeit um 1 s (60 s auf Stufe 1, 51 s auf Stufe 10)",
+        en: "Then the passives [[18780000|Earth's Promise]] (from level 21: at skill level 10 a hit lowers the target's Damage Tolerance by 9% for 5 s, at most every 10 s – the whole group profits), [[18710000|Blessing of Life]] (more HP, stronger heals), [[18790000|Survival Willpower]] (from 23; more Status Effect Resist) and [[18730000|Protection Circle]] (from 9; a shield for the group) – plus [[18200000|Defiance]] (from 16): every level takes 1 s off its cooldown (60 s at level 1, 51 s at level 10)",
+      },
+      {
+        de: "Niedrig lassen: [[18300000|Gust Rampage]] geht nur gegen taumelnde Gegner – 7 der Top 10 lassen es auf Stufe 1. [[18770000|Raging Spell]] und [[18720000|Crossguard]] kommen zuletzt. [[18150000|Heat Wave Blow]] geht nur nach einem Block – 6 der Top 10 nehmen ihn trotzdem auf 8–10, 4 lassen ihn auf 1",
+        en: "Keep low: [[18300000|Gust Rampage]] only works on staggered enemies – 7 of the top 10 leave it at level 1. [[18770000|Raging Spell]] and [[18720000|Crossguard]] come last. [[18150000|Heat Wave Blow]] only works after a block – 6 of the top 10 still take it to 8–10, 4 leave it at 1",
+      },
+      {
+        de: "Später mit Tafeln und Ausrüstung: [[18100000|Dark Crush]] zuerst auf 16 (dann fällt seine Abklingzeit weg), dann 20 – und [[18750000|Attack Preparation]] und [[18760000|Impact Hit]] genauso hoch (bei den Top 10 um 22), [[18800000|Wind's Promise]] um 18. [[18010000|Onslaught]], [[18290000|Spinning Strike]] und [[18040000|Incandescent Blow]] auf 16–17, [[18120000|Recuperation]] auf 12–16, den Rest auf 12",
+        en: "Later with boards and gear: [[18100000|Dark Crush]] to 16 first (that removes its cooldown), then 20 – and [[18750000|Attack Preparation]] and [[18760000|Impact Hit]] just as high (about 22 in the top 10), [[18800000|Wind's Promise]] to about 18. [[18010000|Onslaught]], [[18290000|Spinning Strike]] and [[18040000|Incandescent Blow]] to 16–17, [[18120000|Recuperation]] to 12–16, the rest to 12",
       },
     ],
     specs: [
@@ -244,6 +264,14 @@ export const chanterGuide = classGuide({
         },
       },
       {
+        id: 18060000 /* Impactful Crush */,
+        parts: [18060030 /* Impactful Crush: Changes to mobile skill */, 18060040 /* Impactful Crush: +30% Skill Speed */],
+        note: {
+          de: "Geht auch im Laufen, und ab Stufe 12 kommt er 30 % schneller raus (Skill-Tempo). Die Stufe-16-Option mit mehr Betäubungschance ist fürs PvP.",
+          en: "Works while moving, and from level 12 it comes out 30% faster (Skill Speed). The level 16 option with more stun chance is for PvP.",
+        },
+      },
+      {
         id: 18120000 /* Recuperation */,
         parts: [18120040 /* Recuperation: +5% HP restored */, 18120050 /* Recuperation: -3s cooldown */],
         note: {
@@ -259,6 +287,14 @@ export const chanterGuide = classGuide({
           en: "Resets the cooldown when an enemy dies – great against packs of monsters: that way you rush from enemy to enemy. Take it instead of the charge option.",
         },
       },
+      {
+        id: 18080000 /* Wave Blow */,
+        parts: [18080010 /* Wave Blow: Multi-Hit on hit */, 18080040 /* Wave Blow: -15% target's PvE Damage Boost for 10s */],
+        note: {
+          de: "Garantierter Mehrfachtreffer; ab Stufe 12 sinkt die PvE-Schadensverstärkung des Ziels 10 s lang um 15 % – der Boss macht weniger Schaden.",
+          en: "A guaranteed Multi-Hit; from level 12 the target's PvE Damage Boost drops by 15% for 10 s – the boss deals less damage.",
+        },
+      },
     ],
     stigmas: [
       {
@@ -267,36 +303,43 @@ export const chanterGuide = classGuide({
           {
             id: 18190000 /* Undefeated Mantra */,
             note: {
-              de: "Dein wichtigstes Stigma – als Erstes hochleveln. Mehr Schaden und weniger erlittener Schaden für alle in der Nähe.",
-              en: "Your most important stigma – level it first. More damage and less damage taken for everyone nearby.",
+              de: "Dein wichtigstes Stigma – als Erstes hochleveln. Mehr Schaden und weniger erlittener Schaden für alle in der Nähe: je 15 % auf Stigma-Stufe 10, 20 % auf 20. Alle Top 10 haben es auf 20.",
+              en: "Your most important stigma – level it first. More damage and less damage taken for everyone nearby: 15% each at stigma level 10, 20% at 20. All of the top 10 have it at 20.",
             },
           },
           {
             id: 18250000 /* Power of the Storm */,
             note: {
-              de: "Burst für die Gruppe: mehr Kampftempo, kürzere Abklingzeiten. Ab Stigma-Stufe 5 ist dieses Stigma 30 s früher wieder da.",
-              en: "Burst for the group: more Combat Speed, shorter cooldowns. From stigma level 5 it comes back 30 s sooner.",
+              de: "Burst für die Gruppe: 20 % mehr Kampftempo und kürzere Abklingzeiten (−20 % für dich, −10 % für die Gruppe) – 10 s lang auf Stigma-Stufe 1, 20 s auf 20. Ab Stufe 5 ist es 30 s früher wieder da (90 statt 120 s), auf Stufe 20 gibt es zusätzlich Angriffskraft (+20 % für dich, +10 % für die Gruppe). 8 der Top 10 haben es auf 20.",
+              en: "Burst for the group: 20% more Combat Speed and shorter cooldowns (−20% for you, −10% for the group) – for 10 s at stigma level 1, 20 s at 20. From level 5 it comes back 30 s sooner (90 instead of 120 s), at level 20 it adds Attack (+20% for you, +10% for the group). 8 of the top 10 have it at 20.",
             },
           },
           {
             id: 18330000 /* Marchutan's Wrath */,
             note: {
-              de: "Schaden, und danach geht [[18100000|Dark Crush]] 3 Sekunden lang. Stigma-Stufe 1 reicht.",
-              en: "Damage, and afterwards [[18100000|Dark Crush]] works for 3 seconds. Stigma level 1 is enough.",
+              de: "Schaden, und danach geht [[18100000|Dark Crush]] 3 Sekunden lang. Manche Guides lassen es auf Stigma-Stufe 1, die Top 10 haben es auf 10–20. Im PvE bringen die Stufen vor allem mehr Schaden – also nach den beiden Buffs hochleveln.",
+              en: "Damage, and afterwards [[18100000|Dark Crush]] works for 3 seconds. Some guides leave it at stigma level 1, the top 10 have it at 10–20. In PvE its levels mostly add damage – so level it after the two buffs.",
+            },
+          },
+          {
+            id: 18420000 /* Guardian Blessing */,
+            note: {
+              de: "Das häufigste 4. Stigma der Top 10 (6 von 10, meist Stufe 20): 9 % mehr max. LP auf Stigma-Stufe 10, 13 % auf 20, 5 Minuten lang – so lang wie seine Abklingzeit. Ab Stufe 15 macht es dein Passiv [[18800000|Wind's Promise]] 1,5-mal so stark (mehr kritischer Schaden); erst ab da lohnt es sich richtig. Vor dem Kampf von Hand zünden.",
+              en: "The most common 4th stigma of the top 10 (6 of 10, mostly level 20): 9% more max HP at stigma level 10, 13% at 20, for 5 minutes – as long as its cooldown. From level 15 it makes your passive [[18800000|Wind's Promise]] 1.5 times as strong (more critical damage); only from then on does it really pay off. Cast it by hand before the pull.",
             },
           },
           {
             id: 18160000 /* Sprint Mantra */,
             note: {
-              de: "Beliebt für den 4. Platz – ein zweites Mantra: Die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig.",
-              en: "Popular for the 4th slot – a second mantra: the group runs faster and heals a little while attacking.",
+              de: "Beliebt für den 4. Platz (5 der Top 10) – ein zweites Mantra: Die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig.",
+              en: "Popular for the 4th slot (5 of the top 10) – a second mantra: the group runs faster and heals a little while attacking.",
             },
           },
           {
             id: 18170000 /* Healing Touch */,
             note: {
-              de: "Für den 4. Platz, wenn kein Kleriker dabei ist: große Gruppenheilung. [[18240000|Impeding Authority]] (Schild für alle) geht auch.",
-              en: "For the 4th slot when there is no Cleric: a big group heal. [[18240000|Impeding Authority]] (a shield for everyone) works too.",
+              de: "Für den 4. Platz, wenn kein Kleriker dabei ist: große Gruppenheilung. [[18240000|Impeding Authority]] (Schild für alle) geht auch. Keiner der Top 10 nutzt es.",
+              en: "For the 4th slot when there is no Cleric: a big group heal. [[18240000|Impeding Authority]] (a shield for everyone) works too. None of the top 10 slots it.",
             },
           },
           {
@@ -320,10 +363,13 @@ export const chanterGuide = classGuide({
     ],
     daevanion: [
       {
-        de: "**Nezekan zuerst** (ab Stufe 12): die Knoten für [[18100000|Dark Crush]], dann [[18010000|Onslaught]], [[18290000|Spinning Strike]] und [[18040000|Incandescent Blow]] – danach Kampftempo und Abklingzeitverringerung.",
-        en: "**Nezekan first** (from level 12): the nodes for [[18100000|Dark Crush]], then [[18010000|Onslaught]], [[18290000|Spinning Strike]] and [[18040000|Incandescent Blow]] – after that Combat Speed and Cooldown Reduction.",
+        de: "**Nezekan zuerst** (ab Stufe 12): die Knoten für [[18100000|Dark Crush]], dann [[18010000|Onslaught]], [[18290000|Spinning Strike]], [[18040000|Incandescent Blow]] und die beiden Knoten für [[18750000|Attack Preparation]] – danach Kampftempo und Abklingzeitverringerung.",
+        en: "**Nezekan first** (from level 12): the nodes for [[18100000|Dark Crush]], then [[18010000|Onslaught]], [[18290000|Spinning Strike]], [[18040000|Incandescent Blow]] and the two nodes for [[18750000|Attack Preparation]] – after that Combat Speed and Cooldown Reduction.",
       },
-      { de: "**Zikel** (ab Stufe 20): Schadensverstärkung.", en: "**Zikel** (from level 20): Damage Boost." },
+      {
+        de: "**Zikel** (ab Stufe 20): Schadensverstärkung – dazu je zwei Knoten für [[18760000|Impact Hit]] und [[18800000|Wind's Promise]].",
+        en: "**Zikel** (from level 20): Damage Boost – plus the two nodes each for [[18760000|Impact Hit]] and [[18800000|Wind's Promise]].",
+      },
       { de: "**Vaizel** (ab Stufe 30): Krit.-Schadensverstärkung.", en: "**Vaizel** (from level 30): Critical Damage Boost." },
       { de: "**Triniel** (ab Stufe 40): Mehrfachtreffer – erst später.", en: "**Triniel** (from level 40): Multi-Hit Chance – later." },
       {
@@ -347,15 +393,18 @@ export const chanterGuide = classGuide({
         ids: [18100000 /* Dark Crush */, 18080000 /* Wave Blow */, 18060000 /* Impactful Crush */, 18290000 /* Spinning Strike */],
         macro: true,
         note: {
-          de: "Kombo: [[18100000|Dark Crush]] liegt unten – er geht nur kurz nach [[18060000|Impactful Crush]] oder [[18290000|Spinning Strike]] und kommt dann immer zuerst. [[18080000|Wave Blow]] braucht einen betäubten Gegner, den [[18060000|Impactful Crush]] liefert. Die oberen Skills öffnen also alles darunter.",
-          en: "Combo: [[18100000|Dark Crush]] sits at the bottom – it only works shortly after [[18060000|Impactful Crush]] or [[18290000|Spinning Strike]] and then always comes first. [[18080000|Wave Blow]] needs a stunned enemy, which [[18060000|Impactful Crush]] provides. So the skills on top open everything below them.",
+          de: "Kombo: [[18100000|Dark Crush]] liegt unten – er geht nur kurz nach [[18060000|Impactful Crush]] oder [[18290000|Spinning Strike]] und kommt dann immer zuerst. [[18080000|Wave Blow]] braucht einen betäubten Gegner, den [[18060000|Impactful Crush]] liefert (bei Bossen nur ab und zu). Die oberen Skills öffnen also alles darunter. Bis [[18100000|Dark Crush]] die Stufe-16-Option hat, wartet er nach jedem Einsatz 5 s – ein Fenster in dieser Zeit geht verloren. Nimm [[18060000|Impactful Crush]] bis dahin aus der Kette und drück ihn von Hand, sobald [[18100000|Dark Crush]] wieder bereit ist.",
+          en: "Combo: [[18100000|Dark Crush]] sits at the bottom – it only works shortly after [[18060000|Impactful Crush]] or [[18290000|Spinning Strike]] and then always comes first. [[18080000|Wave Blow]] needs a stunned enemy, which [[18060000|Impactful Crush]] provides (on bosses only now and then). So the skills on top open everything below them. Until [[18100000|Dark Crush]] has its level 16 option it waits 5 s after every use – a window during that time is lost. Until then take [[18060000|Impactful Crush]] out of the chain and press it by hand once [[18100000|Dark Crush]] is ready again.",
         },
       },
       {
         key: '2',
         ids: [18150000 /* Heat Wave Blow */],
         macro: true,
-        note: { de: "Schaden an bis zu 4 Gegnern direkt um dich.", en: "Damage to up to 4 enemies right around you." },
+        note: {
+          de: "Geht nur direkt nachdem du einen Angriff geblockt hast (mit der Stufe-8-Option von [[18090000|Rushing Smash]] auch mit 50 % Chance nach dessen Treffer). Dann trifft er bis zu 4 Gegner um dich – im Makro kommt er von selbst.",
+          en: "Only works right after you block an attack (with the level 8 option of [[18090000|Rushing Smash]] also with a 50% chance after its hit). Then it hits up to 4 enemies around you – in the macro it comes by itself.",
+        },
       },
       {
         key: '7',
@@ -387,16 +436,16 @@ export const chanterGuide = classGuide({
         key: '3',
         ids: [18210000 /* Tremor Crush */],
         note: {
-          de: "Von Hand, nicht im Makro: [[18210000|Tremor Crush]] bringt dich zum Ziel (bis 10 m). Drück die Taste, wenn du an einen Gegner heran willst – nicht, wenn du dich dabei von der Gruppe entfernen würdest.",
-          en: "By hand, not in the macro: [[18210000|Tremor Crush]] moves you to the target (up to 10 m). Press the key when you want to reach an enemy – not when it would carry you away from the group.",
+          de: "Von Hand, nicht im Makro: [[18210000|Tremor Crush]] geht nur direkt nach einem Ausweichen oder im Flug. Dann bringt er dich zum Ziel (bis 10 m) und betäubt Monster. Drück die Taste nach dem Ausweichen, um gleich wieder am Gegner zu sein – nicht, wenn du dich dabei von der Gruppe entfernen würdest.",
+          en: "By hand, not in the macro: [[18210000|Tremor Crush]] only works right after a dodge or while flying. Then it moves you to the target (up to 10 m) and stuns monsters. Press the key after a dodge to be back at the enemy right away – not when it would carry you away from the group.",
         },
       },
       {
         key: '4',
         ids: [18090000 /* Rushing Smash */],
         note: {
-          de: "Von Hand, nicht im Makro: [[18090000|Rushing Smash]] stürmt zum Ziel (bis 20 m). Drück die Taste, um an einen Gegner zu kommen. Allein und gegen Gruppen von Monstern setzt die Stufe-12-Option die Abklingzeit zurück, wenn ein Gegner stirbt – so stürmst du gleich zum nächsten.",
-          en: "By hand, not in the macro: [[18090000|Rushing Smash]] rushes to the target (up to 20 m). Press the key to reach an enemy. Solo and against packs of monsters its level 12 option resets the cooldown when an enemy dies – so you rush straight on to the next one.",
+          de: "Von Hand, nicht im Makro: [[18090000|Rushing Smash]] stürmt zum Ziel (bis 20 m). Drück die Taste, um an einen Gegner zu kommen. Allein und gegen Gruppen von Monstern setzt die Stufe-12-Option die Abklingzeit zurück, wenn ein Gegner stirbt – so stürmst du gleich zum nächsten. Am Boss, neben dem du ohnehin stehst, drück ihn, sobald er bereit ist: Schaden und 100 MP.",
+          en: "By hand, not in the macro: [[18090000|Rushing Smash]] rushes to the target (up to 20 m). Press the key to reach an enemy. Solo and against packs of monsters its level 12 option resets the cooldown when an enemy dies – so you rush straight on to the next one. At a boss you stand next to anyway, press it whenever it is ready: damage and 100 MP.",
         },
       },
       {
@@ -408,8 +457,8 @@ export const chanterGuide = classGuide({
         key: '5',
         ids: [18160000 /* Sprint Mantra */],
         note: {
-          de: "Beliebtes Stigma für den 4. Platz: ein zweites Mantra – die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig. Wie jedes Mantra ein Schalter: einmal vor dem Kampf anschalten, nie ins Makro. Ist kein Kleriker dabei, kannst du hier [[18170000|Healing Touch]] hinlegen (große Gruppenheilung – von Hand, wenn es eng wird), mit Kleriker [[18140000|Focused Defense]].",
-          en: "A popular stigma for the 4th slot: a second mantra – the group runs faster and heals a little while attacking. Like every mantra it is a switch: turn it on once before the pull, never in the macro. Without a Cleric in the group you can put [[18170000|Healing Touch]] here (a big group heal – by hand when things get tight), with a Cleric [[18140000|Focused Defense]].",
+          de: "Beliebtes Stigma für den 4. Platz: ein zweites Mantra – die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig. Wie jedes Mantra ein Schalter: einmal vor dem Kampf anschalten, nie ins Makro. Die Top 10 legen hier etwas öfter [[18420000|Guardian Blessing]] hin (lohnt sich ab Stigma-Stufe 15; von Hand vor dem Kampf, alle 5 Minuten). Ist kein Kleriker dabei, kannst du hier [[18170000|Healing Touch]] hinlegen (große Gruppenheilung – von Hand, wenn es eng wird), mit Kleriker [[18140000|Focused Defense]].",
+          en: "A popular stigma for the 4th slot: a second mantra – the group runs faster and heals a little while attacking. Like every mantra it is a switch: turn it on once before the pull, never in the macro. The top 10 put [[18420000|Guardian Blessing]] here a little more often (worth it from stigma level 15; by hand before the pull, every 5 minutes). Without a Cleric in the group you can put [[18170000|Healing Touch]] here (a big group heal – by hand when things get tight), with a Cleric [[18140000|Focused Defense]].",
         },
       },
       {
@@ -449,8 +498,8 @@ export const chanterGuide = classGuide({
       en: "**Too far from the group.** Then your mantras reach nobody.",
     },
     {
-      de: "**Doppelte Buffs:** zwei Kantoren mit denselben Mantras, oder [[18190000|Undefeated Mantra]] neben [[17410000|Light of Protection]] – es wirkt jeweils nur eins.",
-      en: "**Double buffs:** two Chanters with the same mantras, or [[18190000|Undefeated Mantra]] next to [[17410000|Light of Protection]] – only one of each works.",
+      de: "**Doppelte Buffs:** zwei Kantoren mit denselben Mantras, oder [[18190000|Undefeated Mantra]] neben „Licht des Schutzes“ vom Kleriker – es wirkt jeweils nur eins.",
+      en: "**Double buffs:** two Chanters with the same mantras, or [[18190000|Undefeated Mantra]] next to the Cleric's Light of Protection – only one of each works.",
     },
   ],
   power: {
@@ -506,12 +555,13 @@ export const chanterGuide = classGuide({
     { href: 'https://metabot.gg/en/aion-2/classes/chanter/build', label: 'Metabot – Chanter build' },
     { href: 'https://daevaguides.com/en/chanter/', label: 'Daeva Guides – Chanter guide' },
     { href: 'https://couga54.github.io/aion2-guides/en/chanter/', label: 'AION 2 Guides – Chanter' },
+    { href: 'https://aion2-guides.info/en/chanter/', label: 'AION 2 Guides – Chanter (aion2-guides.info, 2026-10-17)' },
     { href: 'https://www.inven.co.kr/board/aion2/6451/116', label: 'Inven (KR) – Chanter guide' },
     { href: 'https://www.inven.co.kr/board/aion2/6451/3127', label: 'Inven (KR) – Chanter build tips' },
     { href: 'https://aion2hub.com/updates/aion-2-update-2026-08-26', label: 'AION2Hub – Update 2026-08-26' },
   ],
   caveat: {
-    de: "Builds ändern sich mit Patches. Die Skilldaten hier entsprechen dem koreanischen Stand bis Anfang September 2026 – spätere Änderungen können fehlen. Koreanische Guides planen mit 5 Stigma-Plätzen, der globale Client hat 4: Wähl also 4 aus der Liste. Wie viel Schaden ein Kantor im Vergleich zum Kleriker macht, ist umstritten. Dass sich [[18250000|Power of the Storm]] und der „Segen der Erde“ des Klerikers nicht vertragen, steht nur im Skilltext.",
-    en: "Builds change with patches. The skill data here matches the Korean version up to early September 2026 – later changes may be missing. Korean guides plan with 5 stigma slots, the global client has 4: so pick 4 from the list. How much damage a Chanter deals compared to a Cleric is disputed. That [[18250000|Power of the Storm]] and the Cleric's Earth's Blessing do not work together comes only from the skill text.",
+    de: "Builds ändern sich mit Patches. Die Skilldaten hier entsprechen dem koreanischen Stand bis Anfang September 2026 – spätere Änderungen können fehlen. Koreanische Guides planen mit 5 Stigma-Plätzen, der globale Client hat 4: Wähl also 4 aus der Liste. Ältere Guides sehen für [[18420000|Guardian Blessing]] keinen Platz unter den 4 Stigmen – 6 der Top 10 nutzen es inzwischen. Wie viel Schaden ein Kantor im Vergleich zum Kleriker macht, ist umstritten. Dass sich [[18250000|Power of the Storm]] und der „Segen der Erde“ des Klerikers nicht vertragen, steht nur im Skilltext.",
+    en: "Builds change with patches. The skill data here matches the Korean version up to early September 2026 – later changes may be missing. Korean guides plan with 5 stigma slots, the global client has 4: so pick 4 from the list. Older guides see no room for [[18420000|Guardian Blessing]] among the 4 stigmas – 6 of the top 10 now use it. How much damage a Chanter deals compared to a Cleric is disputed. That [[18250000|Power of the Storm]] and the Cleric's Earth's Blessing do not work together comes only from the skill text.",
   },
 });

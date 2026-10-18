@@ -15,7 +15,7 @@ export const assassinGuide = classGuide({
     { de: 'Burst', en: 'Burst' },
     { de: 'Einsteiger', en: 'Beginner' },
   ],
-  updated: '2026-10-15',
+  updated: '2026-10-19',
   glance: [
     { label: { de: 'Rolle', en: 'Role' }, value: { de: '**Nahkampf-Schaden** auf ein Ziel – viel Schaden in kurzer Zeit (Burst)', en: '**Melee damage** on one target – lots of damage in a short time (burst)' } },
     { label: { de: 'Schwierigkeit', en: 'Difficulty' }, value: { de: '**Schwer** – du musst hinter dem Gegner stehen und gut auf dich aufpassen', en: '**Hard** – you have to stand behind the enemy and look after yourself' } },
@@ -47,12 +47,12 @@ export const assassinGuide = classGuide({
       },
     ],
     boss: {
-      de: 'Stell dich **hinter** den Boss und hebe [[13390000|Swift Contract]] und [[13310000|Illusive Clone]] für ihn auf. Jeder Treffer füllt die Benommen-Leiste des Bosses. Ist sie voll, **taumelt** er (Stagger): Dann geht [[13340000|Storm Rampage]], und [[13780000|Defense Break]] senkt seine Verteidigung um 30 %.',
-      en: 'Stand **behind** the boss and save [[13390000|Swift Contract]] and [[13310000|Illusive Clone]] for it. Every hit fills the boss’s Stagger bar. When it is full, the boss **staggers**: now [[13340000|Storm Rampage]] works, and [[13780000|Defense Break]] lowers its Defense by 30%.',
+      de: 'Stell dich **hinter** den Boss und hebe [[13390000|Swift Contract]] und [[13310000|Illusive Clone]] für ihn auf. Jeder Treffer füllt die Benommen-Leiste des Bosses. Ist sie voll, **taumelt** er (Stagger): Dann geht [[13340000|Storm Rampage]] – mit seiner Spezialisierung ab Skillstufe 16 nimmt jeder seiner Treffer 1 s von allen deinen Abklingzeiten.',
+      en: 'Stand **behind** the boss and save [[13390000|Swift Contract]] and [[13310000|Illusive Clone]] for it. Every hit fills the boss’s Stagger bar. When it is full, the boss **staggers**: now [[13340000|Storm Rampage]] works – with its specialisation from skill level 16 every one of its hits takes 1 s off all your cooldowns.',
     },
     pvp: {
-      de: 'Im PvP bist du der Jäger. Mit [[13180000|Shadow Walk]] (Stigma) bist du getarnt, bis der Kampf beginnt. Eröffne mit [[13070000|Shadowstrike]] – er betäubt – und setz dann deine stärksten Skills ein. [[13020000|Throw Shadowblade]] bremst Gegner, die fliehen. Wichtig: [[13260000|Defiance]] löst kein Siegel und keinen Bann.',
-      en: 'In PvP you are the hunter. [[13180000|Shadow Walk]] (stigma) keeps you hidden until the fight starts. Open with [[13070000|Shadowstrike]] – it stuns – and then use your strongest skills. [[13020000|Throw Shadowblade]] slows enemies who run away. Important: [[13260000|Defiance]] does not remove Seal or Root.',
+      de: 'Im PvP bist du der Jäger. Mit [[13180000|Shadow Walk]] (Stigma) bist du getarnt, bis der Kampf beginnt – ab Stigma-Stufe 5 trifft dein erster Angriff aus der Tarnung sicher kritisch. Eröffne mit [[13070000|Shadowstrike]] – er betäubt 3 s –, setz sofort [[13220000|Shadow Fall]] nach (geht nur gegen betäubte Ziele und wirft sie 3 s nieder) und dann deine stärksten Skills. [[13020000|Throw Shadowblade]] bremst Gegner, die fliehen. Wichtig: [[13260000|Defiance]] löst kein Siegel und keinen Bann.',
+      en: 'In PvP you are the hunter. [[13180000|Shadow Walk]] (stigma) keeps you hidden until the fight starts – from stigma level 5 your first attack out of stealth is a sure crit. Open with [[13070000|Shadowstrike]] – it stuns for 3 s –, follow up right away with [[13220000|Shadow Fall]] (only works on stunned targets and knocks them down for 3 s) and then your strongest skills. [[13020000|Throw Shadowblade]] slows enemies who run away. Important: [[13260000|Defiance]] does not remove Seal or Root.',
     },
     solo: {
       de: 'Allein kommst du gut voran, wenn du Gegner einzeln nimmst. Gegen normale Gegner (NPCs) wirken deine Betäubungen besonders zuverlässig, und [[13710000|Heightened Sixth Sense]] heilt dich, wenn du einem Angriff ausweichst.',
@@ -84,15 +84,15 @@ export const assassinGuide = classGuide({
     {
       id: 13100000 /* Savage Roar */,
       note: {
-        de: 'Ein **Füller** – ein Skill ohne Abklingzeit für die Lücken. Setzt bei jedem Treffer 1 Glyphe. Danach erscheint kurz ein zweiter Schlag auf derselben Taste (Kettenskill), der noch eine setzt.',
-        en: 'A **filler** – a skill without a cooldown for the gaps. Puts 1 Insignia on the enemy with every hit. Then a second strike briefly appears on the same key (chain skill) and adds one more.',
+        de: 'Ein **Füller** – ein Skill ohne Abklingzeit für die Lücken. Setzt bei jedem Treffer 1 Glyphe. Danach erscheinen nacheinander zwei weitere Schläge kurz auf derselben Taste (Kettenskills), die je noch eine setzen – 3 Glyphen pro ganzer Kette.',
+        en: 'A **filler** – a skill without a cooldown for the gaps. Puts 1 Insignia on the enemy with every hit. Then two more strikes briefly appear one after the other on the same key (chain skills), each adding one more – 3 Insignias per full chain.',
       },
     },
     {
       id: 13060000 /* Ambush */,
       note: {
-        de: '+30 % Schaden als Rückenangriff, 10 s Abklingzeit. Mit Spezialisierung setzt er von hinten 2 Glyphen und kann [[13210000|Whirlwind Slice]] auslösen.',
-        en: '+30% damage as a back attack, 10 s cooldown. With specialisations it puts 2 Insignias on the enemy from behind and can trigger [[13210000|Whirlwind Slice]].',
+        de: '+30 % Schaden als Rückenangriff, 10 s Abklingzeit. Mit Spezialisierung setzt er von hinten 2 Glyphen und heilt dich ein wenig.',
+        en: '+30% damage as a back attack, 10 s cooldown. With specialisations it puts 2 Insignias on the enemy from behind and heals you a little.',
       },
     },
     {
@@ -129,7 +129,7 @@ export const assassinGuide = classGuide({
           { id: 13390000 /* Swift Contract */, note: { de: '+20 % Kampftempo', en: '+20% Combat Speed' } },
           { id: 13310000 /* Illusive Clone */, note: { de: '+20 % Zusatzschaden', en: '+20% extra damage' } },
           { id: 13070000 /* Shadowstrike */, note: { de: 'Hinter den Boss springen, betäuben', en: 'Jump behind the boss, stun it' } },
-          { id: 13300000 /* Triniel's Dagger */, note: { de: 'Von hinten: +30 % Schaden', en: 'From behind: +30% damage' } },
+          { id: 13300000 /* Triniel's Dagger */, note: { de: 'Von hinten +30 %; ab Stigma-Stufe 10 kürzt er deine Abklingzeiten', en: 'From behind +30%; from stigma level 10 it cuts your cooldowns' } },
           { id: 13270000 /* Savage Fang */, note: { de: '5 Glyphen auf einmal', en: '5 Insignias at once' } },
           { id: 13130000 /* Insignia Explosion */, note: { de: 'Volle Glyphen, voller Schaden', en: 'Full Insignias, full damage' } },
           { id: 13010000 /* Quick Slice */, note: { de: 'Jetzt Makro + linke Maustaste halten', en: 'Now hold macro + left mouse button' } },
@@ -138,8 +138,8 @@ export const assassinGuide = classGuide({
       {
         title: { de: 'Danach: Reihenfolge im Kampf', en: 'Then: priority in the fight' },
         steps: [
-          { id: 13350000 /* Heart Gore */, note: { de: 'Immer, wenn bereit (nach einem Krit)', en: 'Whenever ready (after a crit)' } },
-          { id: 13130000 /* Insignia Explosion */, note: { de: 'Am besten bei 5 Glyphen', en: 'Best at 5 Insignias' } },
+          { id: 13130000 /* Insignia Explosion */, note: { de: 'Sobald bereit – am besten bei 5 Glyphen', en: 'As soon as ready – best at 5 Insignias' } },
+          { id: 13350000 /* Heart Gore */, note: { de: 'Nach jedem Krit', en: 'After every crit' } },
           { id: 13060000 /* Ambush */, note: { de: 'Von hinten', en: 'From behind' } },
           { id: 13300000 /* Triniel's Dagger */, note: { de: 'Wenn bereit, von hinten', en: 'When ready, from behind' } },
           { id: 13340000 /* Storm Rampage */, note: { de: 'Nur wenn der Boss taumelt', en: 'Only while the boss staggers' } },
@@ -150,8 +150,8 @@ export const assassinGuide = classGuide({
     ],
     tips: [
       {
-        de: '**Bleib im Rücken des Gegners.** Dreht er sich zu dir, lauf wieder hinter ihn – [[13070000|Shadowstrike]] bringt dich direkt dorthin.',
-        en: '**Stay behind the enemy.** If it turns to you, move behind it again – [[13070000|Shadowstrike]] takes you straight there.',
+        de: '**Bleib im Rücken des Gegners.** Dreht er sich zu dir, lauf wieder hinter ihn – [[13050000|Flash Slice]] oder [[13070000|Shadowstrike]] bringen dich direkt dorthin. Jeder dieser Sprünge startet auch [[13770000|Ambush Stance]] (10 s lang Chance auf Zusatztreffer).',
+        en: '**Stay behind the enemy.** If it turns to you, move behind it again – [[13050000|Flash Slice]] or [[13070000|Shadowstrike]] take you straight there. Each of these jumps also starts [[13770000|Ambush Stance]] (10 s of chances for extra hits).',
       },
       {
         de: '**Glyphen halten nur 10 s.** Zünde [[13130000|Insignia Explosion]], bevor sie ablaufen – am besten bei 5.',
@@ -175,26 +175,27 @@ export const assassinGuide = classGuide({
     points: [
       { de: '**[[13350000|Heart Gore]]** (ab Stufe 4) und **[[13060000|Ambush]]** (ab Stufe 3) zuerst – deine wichtigsten Treffer.', en: '**[[13350000|Heart Gore]]** (from level 4) and **[[13060000|Ambush]]** (from level 3) first – your key hits.' },
       { de: '**[[13010000|Quick Slice]]** auf Stufe 8 – dann bekommt deine Grundattacke ihre erste Spezialisierung. Daneben Punkte in **[[13100000|Savage Roar]]**, deinen Füller.', en: '**[[13010000|Quick Slice]]** to level 8 – then your basic attack gets its first specialisation. Alongside, put points into **[[13100000|Savage Roar]]**, your filler.' },
-      { de: '**[[13130000|Insignia Explosion]]**, sobald du sie mit Stufe 14 lernst.', en: '**[[13130000|Insignia Explosion]]** as soon as you learn it at level 14.' },
-      { de: 'Dann **[[13210000|Whirlwind Slice]]**, **[[13340000|Storm Rampage]]** und **[[13050000|Flash Slice]]** nach und nach auf Stufe 10.', en: 'Then **[[13210000|Whirlwind Slice]]**, **[[13340000|Storm Rampage]]** and **[[13050000|Flash Slice]]** step by step to level 10.' },
-      { de: '**[[13070000|Shadowstrike]]** auf Stufe 8 – für die Spezialisierung mit mehr Krit-Schaden.', en: '**[[13070000|Shadowstrike]]** to level 8 – for the specialisation with more crit damage.' },
-      { de: 'Passive: **[[13740000|Rear Smite]]** vor **[[13750000|Assault Stance]]** vor **[[13720000|Exploit Weakness]]** vor **[[13760000|Impact Hit]]**.', en: 'Passives: **[[13740000|Rear Smite]]** before **[[13750000|Assault Stance]]** before **[[13720000|Exploit Weakness]]** before **[[13760000|Impact Hit]]**.' },
+      { de: '**[[13130000|Insignia Explosion]]**, sobald du sie mit Stufe 14 lernst. Bring dann **[[13350000|Heart Gore]]**, **[[13130000|Insignia Explosion]]** und **[[13010000|Quick Slice]]** als Erste auf Stufe 10 – sie machen den Großteil deines Schadens.', en: '**[[13130000|Insignia Explosion]]** as soon as you learn it at level 14. Then take **[[13350000|Heart Gore]]**, **[[13130000|Insignia Explosion]]** and **[[13010000|Quick Slice]]** to level 10 first – they deal most of your damage.' },
+      { de: 'Passive für Schaden, sobald du sie lernst, alle auf 10 (so haben es alle Top 10): **[[13740000|Rear Smite]]** (ab Stufe 11; auf Stufe 10 +7,5 % Schaden von hinten und +7,5 % PvE-Schaden) vor **[[13750000|Assault Stance]]** (ab 13; +15 % Krit.-Schaden) vor **[[13720000|Exploit Weakness]]** (ab 6; +190 Krit.-Treffer, also öfter [[13350000|Heart Gore]]) vor **[[13760000|Impact Hit]]** (ab 15) und **[[13800000|Determination]]** (ab 25; Zusatzschaden gegen Gegner mit 39 % LP oder weniger).', en: 'Damage passives as soon as you learn them, all to 10 (all of the top 10 do this): **[[13740000|Rear Smite]]** (from level 11; at level 10 +7.5% damage from behind and +7.5% PvE damage) before **[[13750000|Assault Stance]]** (from 13; +15% crit damage) before **[[13720000|Exploit Weakness]]** (from 6; +190 Critical Hit, so more [[13350000|Heart Gore]]) before **[[13760000|Impact Hit]]** (from 15) and **[[13800000|Determination]]** (from 25; extra damage on enemies at 39% HP or less).' },
+      { de: 'Dann **[[13070000|Shadowstrike]]** (zuerst auf 8, für die Spezialisierung mit mehr Krit-Schaden), **[[13340000|Storm Rampage]]**, **[[13050000|Flash Slice]]** und **[[13360000|Infiltrate]]** nach und nach auf Stufe 10.', en: 'Then **[[13070000|Shadowstrike]]** (to 8 first, for the specialisation with more crit damage), **[[13340000|Storm Rampage]]**, **[[13050000|Flash Slice]]** and **[[13360000|Infiltrate]]** step by step to level 10.' },
+      { de: 'Dann die übrigen Passiven auf 10, wie die meisten der Top 10: **[[13770000|Ambush Stance]]** (ab 17; nach jedem Skill, der dich bewegt, 10 s lang 50 % Chance auf einen Zusatztreffer), **[[13710000|Heightened Sixth Sense]]** (auf Stufe 10 +1.500 LP und +15 % max. LP, heilt dich beim Ausweichen), **[[13780000|Defense Break]]** (ab 21; Treffer auf ein betäubtes oder niedergeworfenes Ziel senken 10 s lang seine Verteidigung um 30 %) und **[[13790000|Revitalization Contract]]** (ab 23; mehr Widerstand gegen Statuseffekte, und fällst du auf 10 % LP, heilt er dich einmal pro Minute um 44 %).', en: 'Then the other passives to 10, like most of the top 10: **[[13770000|Ambush Stance]]** (from 17; after every skill that moves you, 10 s with a 50% chance for an extra hit), **[[13710000|Heightened Sixth Sense]]** (at level 10 +1,500 HP and +15% max HP, heals you when you evade), **[[13780000|Defense Break]]** (from 21; hits on a stunned or knocked-down target lower its Defense by 30% for 10 s) and **[[13790000|Revitalization Contract]]** (from 23; more Status Effect Resist, and if you drop to 10% HP it heals you for 44% once a minute).' },
+      { de: 'Zuletzt – diese lassen die Top 10 niedriger, weil die Punkte nicht für alles auf 10 reichen: **[[13210000|Whirlwind Slice]]** (Median 2,5; geht nur nach dem Ausweichen), **[[13220000|Shadow Fall]]** (5,5; vor allem fürs PvP), **[[13730000|Apply Poison]]** (7) und **[[13260000|Defiance]]** (7,5).', en: 'Last – the top 10 keep these lower because the points do not stretch to everything at 10: **[[13210000|Whirlwind Slice]]** (median 2.5; only works after you evade), **[[13220000|Shadow Fall]]** (5.5; mostly for PvP), **[[13730000|Apply Poison]]** (7) and **[[13260000|Defiance]]** (7.5).' },
     ],
     specs: [
       {
         id: 13010000 /* Quick Slice */,
         parts: [13010030 /* Quick Slice: +50% Multi-Hit on hit */, 13010040 /* Quick Slice: -1s [Insignia Explosion] cooldown on hit */, 13010050 /* Quick Slice: Ignores Block and Evasion and lands as a Critical Hit */],
         note: {
-          de: 'Zuerst mehr Mehrfachtreffer. Ab Stufe 12 macht jeder Treffer [[13130000|Insignia Explosion]] 1 s früher bereit. Mit der Stufe-16-Option trifft die Grundattacke immer kritisch und löst so [[13350000|Heart Gore]] aus – Guides nehmen sie, sobald der dritte Platz frei ist.',
-          en: 'First more Multi-Hit. From level 12 every hit makes [[13130000|Insignia Explosion]] ready 1 s sooner. With the level 16 option the basic attack always lands a crit and so triggers [[13350000|Heart Gore]] – guides take it as soon as the third slot is open.',
+          de: 'Zuerst mehr Mehrfachtreffer. Ab Stufe 12 macht jeder Treffer [[13130000|Insignia Explosion]] 1 s früher bereit. Mit der Stufe-16-Option trifft die Grundattacke immer kritisch und löst so [[13350000|Heart Gore]] aus – Guides nehmen sie, sobald der Skill Stufe 16 hat; bis der dritte Platz mit Stufe 20 frei wird, ersetzt sie die Mehrfachtreffer.',
+          en: 'First more Multi-Hit. From level 12 every hit makes [[13130000|Insignia Explosion]] ready 1 s sooner. With the level 16 option the basic attack always lands a crit and so triggers [[13350000|Heart Gore]] – guides take it as soon as the skill reaches level 16; until the third slot opens at level 20 it replaces the Multi-Hit.',
         },
       },
       {
         id: 13350000 /* Heart Gore */,
-        parts: [13350020 /* Heart Gore: Engraves 1 Insignia for 10s on hit */, 13350040 /* Heart Gore: Multi-Hit on hit */, 13350050 /* Heart Gore: Resets [Heart Gore] cooldown on landing a Critical Hit */],
+        parts: [13350010 /* Heart Gore: Absorbs 0.7% HP */, 13350040 /* Heart Gore: Multi-Hit on hit */, 13350050 /* Heart Gore: Resets [Heart Gore] cooldown on landing a Critical Hit */],
         note: {
-          de: 'Mehr Glyphen für [[13130000|Insignia Explosion]] und sichere Mehrfachtreffer. Die Stufe-16-Option macht den Skill nach jedem Krit sofort wieder bereit – die Guides empfehlen sie.',
-          en: 'More Insignias for [[13130000|Insignia Explosion]] and sure Multi-Hits. The level 16 option makes the skill ready again after every crit – guides recommend it.',
+          de: 'Zuerst „Absorbiert 0,7 % LP“: Heart Gore trifft so oft, dass er dich ständig ein wenig heilt – das nehmen die meisten Guides (wer mehr Glyphen für [[13130000|Insignia Explosion]] will, nimmt stattdessen „1 Glyphe binden“). Ab Stufe 12 sichere Mehrfachtreffer. Die Stufe-16-Option macht den Skill nach jedem Krit sofort wieder bereit – das Ziel des ganzen Builds: Nimm sie, sobald der Skill Stufe 16 hat (bis Stufe 20 anstelle einer der beiden anderen).',
+          en: 'First “Absorbs 0.7% HP”: Heart Gore hits so often that it keeps healing you a little – most guides take it (for more Insignias for [[13130000|Insignia Explosion]] take “Engraves 1 Insignia” instead). From level 12 sure Multi-Hits. The level 16 option makes the skill ready again after every crit – the goal of the whole build: take it as soon as the skill reaches level 16 (until level 20 in place of one of the other two).',
         },
       },
       {
@@ -207,18 +208,42 @@ export const assassinGuide = classGuide({
       },
       {
         id: 13060000 /* Ambush */,
-        parts: [13060010 /* Ambush: Engraves 2 Insignias for 10s on landing as a Back attack */, 13060040 /* Ambush: 50% chance to trigger [Whirlwind Slice] on hit */],
+        parts: [13060010 /* Ambush: Engraves 2 Insignias for 10s on landing as a Back attack */, 13060020 /* Ambush: Absorbs 3% HP */],
         note: {
-          de: 'Von hinten setzt er 2 Glyphen. Die zweite Option löst mit 50 % Chance [[13210000|Whirlwind Slice]] aus – das betäubt normale Gegner und macht [[13220000|Shadow Fall]] möglich.',
-          en: 'From behind it puts 2 Insignias on the enemy. The second option has a 50% chance to trigger [[13210000|Whirlwind Slice]] – it stuns normal enemies and makes [[13220000|Shadow Fall]] possible.',
+          de: 'Von hinten setzt er 2 Glyphen. Der zweite Platz heilt dich bei jedem Treffer („Absorbiert 3 % LP“). Die Stufe-16-Option (+2 Einsätze hintereinander) ist umstritten: Manche Guides nehmen sie, andere sagen, die längere Animation kostet Schaden – teste sie an der Trainingspuppe.',
+          en: 'From behind it puts 2 Insignias on the enemy. The second slot heals you on every hit (“Absorbs 3% HP”). The level 16 option (+2 uses in a row) is disputed: some guides take it, others say the longer animation costs damage – test it on the training dummy.',
         },
       },
       {
         id: 13070000 /* Shadowstrike */,
         parts: [13070020 /* Shadowstrike: +20% caster Critical Damage Boost for 5s on hit */],
         note: {
-          de: 'Guides nehmen +20 % Krit-Schaden für 5 s nach dem Ansprung – genau dann kommt dein Burst. Dafür braucht der Skill Stufe 8.',
-          en: 'Guides take +20% crit damage for 5 s after the jump – exactly when your burst comes. The skill needs level 8 for this.',
+          de: 'Guides nehmen +20 % Krit-Schaden für 5 s nach dem Ansprung – genau dann kommt dein Burst. Dafür braucht der Skill Stufe 8. Fürs PvP kommt in den zweiten Platz oft die 50-%-Chance auf Siegel oder Bann (5 s).',
+          en: 'Guides take +20% crit damage for 5 s after the jump – exactly when your burst comes. The skill needs level 8 for this. For PvP the second slot often takes the 50% chance to Seal or Root (5 s).',
+        },
+      },
+      {
+        id: 13340000 /* Storm Rampage */,
+        parts: [13340050 /* Storm Rampage: -1s all skill cooldowns on hit */, 13340040 /* Storm Rampage: Multi-Hit on hit */, 13340010 /* Storm Rampage: Absorbs 5% HP */],
+        note: {
+          de: 'Der Grund, ihn zu steigern, ist die Stufe-16-Option: Jeder Treffer auf den taumelnden Boss nimmt 1 s von allen deinen Abklingzeiten – deine Buffs kommen früher wieder. Dazu Mehrfachtreffer (ab Stufe 12); der dritte Platz (ab 20) kann 5 % LP absorbieren.',
+          en: 'The reason to level it is the level 16 option: every hit on the staggered boss takes 1 s off all your cooldowns – your buffs come back sooner. Plus Multi-Hit (from level 12); the third slot (from 20) can take the 5% HP absorb.',
+        },
+      },
+      {
+        id: 13050000 /* Flash Slice */,
+        parts: [13050020 /* Flash Slice: +6m Range */, 13050040 /* Flash Slice: +1 consecutive use */],
+        note: {
+          de: '+6 m Reichweite – so kommst du aus 10 m auf die andere Seite des Ziels. Ab Stufe 12 kannst du ihn zweimal hintereinander einsetzen.',
+          en: '+6 m range – so you get to the other side of the target from 10 m. From level 12 you can use it twice in a row.',
+        },
+      },
+      {
+        id: 13360000 /* Infiltrate */,
+        parts: [13360010 /* Infiltrate: Restores 300 Stamina on landing [Infiltrate] */, 13360020 /* Infiltrate: +10m [Infiltrate] range */],
+        note: {
+          de: '300 Ausdauer zurück für das nächste Notausweichen und +10 m Reichweite (dann 20 m). Vom Kettenskill „Finsterschlag“ ab Stufe 12 raten die Guides ab.',
+          en: '300 Stamina back for the next Dodge and +10 m range (20 m then). Guides advise against the Dark Strike chain skill at level 12.',
         },
       },
     ],
@@ -226,9 +251,9 @@ export const assassinGuide = classGuide({
       {
         title: { de: 'Stigmen für PvE', en: 'Stigmas for PvE' },
         items: [
-          { id: 13310000 /* Illusive Clone */, note: { de: 'Dein großer Burst: [[13350000|Heart Gore]] ohne Abklingzeit plus 20 % Zusatzschaden.', en: 'Your big burst: [[13350000|Heart Gore]] without a cooldown plus 20% extra damage.' } },
-          { id: 13390000 /* Swift Contract */, note: { de: '+20 % Kampftempo. Ab Stigma-Stufe 10 wirkt dabei auch [[13740000|Rear Smite]] 1,5-mal so stark.', en: '+20% Combat Speed. From stigma level 10 it also makes [[13740000|Rear Smite]] 1.5 times as strong.' } },
-          { id: 13300000 /* Triniel's Dagger */, note: { de: 'Starker Treffer, von hinten +30 % Schaden.', en: 'Strong hit, +30% damage from behind.' } },
+          { id: 13310000 /* Illusive Clone */, note: { de: 'Dein großer Burst: [[13350000|Heart Gore]] ohne Abklingzeit plus 20 % Zusatzschaden. Ab Stigma-Stufe 10 dazu +20 % Krit.-Schaden.', en: 'Your big burst: [[13350000|Heart Gore]] without a cooldown plus 20% extra damage. From stigma level 10 also +20% crit damage.' } },
+          { id: 13390000 /* Swift Contract */, note: { de: '+20 % Kampftempo. Ab Stigma-Stufe 10 wirkt dabei auch [[13740000|Rear Smite]] 1,5-mal so stark, ab 15 auch [[13750000|Assault Stance]].', en: '+20% Combat Speed. From stigma level 10 it also makes [[13740000|Rear Smite]] 1.5 times as strong, from 15 [[13750000|Assault Stance]] too.' } },
+          { id: 13300000 /* Triniel's Dagger */, note: { de: 'Starker Treffer, von hinten +30 % Schaden. Ab Stigma-Stufe 10 verkürzt jeder Treffer deine Abklingzeiten um 10 % – drück ihn nach den Buffs.', en: 'Strong hit, +30% damage from behind. From stigma level 10 every hit also cuts your cooldowns by 10% – press it after the buffs.' } },
           { id: 13270000 /* Savage Fang */, note: { de: 'Setzt 5 Glyphen auf einmal und füllt die Benommen-Leiste stark – direkt vor [[13130000|Insignia Explosion]].', en: 'Puts 5 Insignias on the enemy at once and fills the Stagger bar a lot – right before [[13130000|Insignia Explosion]].' } },
         ],
       },
@@ -252,8 +277,8 @@ export const assassinGuide = classGuide({
         en: '**Zikel** (level 20): Damage Boost. **Vaizel** (level 30): Critical Damage Boost – very valuable for you. **Triniel** (level 40): Multi-Hit Chance.',
       },
       {
-        de: 'Skillstufen-Knoten geben deinen Skills Extra-Stufen. Jede Stufe zählt auch für die Plätze der Spezialisierungen.',
-        en: 'Skill level nodes give your skills extra levels. Every level also counts for the specialisation slots.',
+        de: 'Skillstufen-Knoten geben deinen Skills Extra-Stufen. Jede Stufe zählt auch für die Plätze der Spezialisierungen. Nimm zuerst die Knoten von [[13350000|Heart Gore]], [[13130000|Insignia Explosion]] und [[13010000|Quick Slice]].',
+        en: 'Skill level nodes give your skills extra levels. Every level also counts for the specialisation slots. Take the nodes of [[13350000|Heart Gore]], [[13130000|Insignia Explosion]] and [[13010000|Quick Slice]] first.',
       },
       {
         de: '**Azphel** (Stufe 45) ist die PvP-Tafel. Du bezahlst sie mit **Kampfkristallen** aus dem PvP, nicht mit Daevanion-Kristallen. Ihre Werte zählen nur gegen Spieler.',
@@ -261,26 +286,26 @@ export const assassinGuide = classGuide({
       },
     ],
     stats: {
-      de: 'Diese Werte zählen für dich, das wichtigste zuerst: **Krit.-Treffer** > **Krit.-Schadensverstärkung** > **Angriffskraft** > **Schadensverstärkung** > **Kampftempo** > **Mehrfachtreffer** > **Abklingzeitverringerung**. Krit steht vorn, weil [[13350000|Heart Gore]] nur nach Krits kommt.',
-      en: 'These stats matter for you, most important first: **Critical Hit** > **Critical Damage Boost** > **Attack** > **Damage Boost** > **Combat Speed** > **Multi-Hit Chance** (Double Chance) > **Cooldown Reduction**. Crit comes first because [[13350000|Heart Gore]] only comes after crits.',
+      de: 'Diese Werte zählen für dich, das wichtigste zuerst: **Krit.-Treffer** > **Krit.-Schadensverstärkung** > **Angriffskraft** > **Schadensverstärkung** > **Kampftempo** > **Mehrfachtreffer** > **Abklingzeitverringerung**. Krit steht vorn, weil [[13350000|Heart Gore]] nur nach Krits kommt. Dazu so viel **Präzision**, dass deine Treffer sitzen – ein verfehlter Schlag ist auch kein Krit.',
+      en: 'These stats matter for you, most important first: **Critical Hit** > **Critical Damage Boost** > **Attack** > **Damage Boost** > **Combat Speed** > **Multi-Hit Chance** (Double Chance) > **Cooldown Reduction**. Crit comes first because [[13350000|Heart Gore]] only comes after crits. Plus enough **Accuracy** that your hits land – a missed hit is no crit either.',
     },
   },
   macro: {
     keys: [
       {
         key: '2',
-        ids: [13350000 /* Heart Gore */, 13130000 /* Insignia Explosion */, 13060000 /* Ambush */],
+        ids: [13130000 /* Insignia Explosion */, 13350000 /* Heart Gore */, 13060000 /* Ambush */],
         macro: true,
         note: {
-          de: '[[13350000|Heart Gore]] geht nur nach einem Krit – deshalb probiert die Taste ihn zuerst. Sonst kommt [[13130000|Insignia Explosion]], dann [[13060000|Ambush]]. Manche Guides legen [[13130000|Insignia Explosion]] ganz nach unten, damit sie nie auf [[13350000|Heart Gore]] wartet.',
-          en: '[[13350000|Heart Gore]] only works after a crit – that is why the key tries it first. Otherwise [[13130000|Insignia Explosion]] comes, then [[13060000|Ambush]]. Some guides put [[13130000|Insignia Explosion]] at the very bottom so it never waits for [[13350000|Heart Gore]].',
+          de: '[[13130000|Insignia Explosion]] liegt unten: Sie kommt, sobald sie bereit ist. Sonst [[13350000|Heart Gore]] nach jedem Krit, dann [[13060000|Ambush]]. So machen es alle Guides und die meisten öffentlichen Makros: Läge [[13350000|Heart Gore]] unten, nähme die Taste während [[13310000|Illusive Clone]] (dann ohne Abklingzeit) fast nur noch ihn und kaum je [[13130000|Insignia Explosion]].',
+          en: '[[13130000|Insignia Explosion]] sits at the bottom: it comes as soon as it is ready. Otherwise [[13350000|Heart Gore]] after every crit, then [[13060000|Ambush]]. All guides and most public macros do it this way: with [[13350000|Heart Gore]] at the bottom, the key would use almost only it during [[13310000|Illusive Clone]] (no cooldown then) and hardly ever [[13130000|Insignia Explosion]].',
         },
       },
       {
         key: '7',
         ids: [13300000 /* Triniel's Dagger */],
         macro: true,
-        note: { de: 'Stigma: starker Treffer, von hinten +30 %.', en: 'Stigma: strong hit, +30% from behind.' },
+        note: { de: 'Stigma: starker Treffer, von hinten +30 %. Ab Stigma-Stufe 10 verkürzt er deine Abklingzeiten um 10 %.', en: 'Stigma: strong hit, +30% from behind. From stigma level 10 it cuts your cooldowns by 10%.' },
       },
       {
         key: 'T',
@@ -300,8 +325,8 @@ export const assassinGuide = classGuide({
         key: '1',
         ids: [13220000 /* Shadow Fall */, 13210000 /* Whirlwind Slice */],
         note: {
-          de: 'Von Hand, nicht im Makro: [[13220000|Shadow Fall]] bringt dich zum Ziel (bis 10 m). Kombo: Er geht nur gegen ein betäubtes Ziel, und [[13210000|Whirlwind Slice]] darüber betäubt normale Gegner sicher. Drück die Taste gegen normale Gegner zweimal: erst kommt [[13210000|Whirlwind Slice]], beim nächsten Druck [[13220000|Shadow Fall]].',
-          en: 'By hand, not in the macro: [[13220000|Shadow Fall]] takes you to the target (up to 10 m). Combo: it only works on a stunned target, and [[13210000|Whirlwind Slice]] above it surely stuns normal enemies. Against normal enemies press the key twice: first [[13210000|Whirlwind Slice]] comes, on the next press [[13220000|Shadow Fall]].',
+          de: 'Von Hand, nicht im Makro – beide gehen nur unter einer Bedingung. [[13220000|Shadow Fall]] bringt dich zu einem **betäubten** Ziel (bis 10 m), z. B. direkt nach den 3 s Betäubung von [[13070000|Shadowstrike]]. Gegen Bosse, die man nicht betäuben kann, leuchtet er manchmal von selbst auf (5 % pro Treffer). [[13210000|Whirlwind Slice]] darüber geht nur direkt, nachdem du einem Angriff ausgewichen bist, und betäubt dann normale Gegner sicher – beim nächsten Druck kommt [[13220000|Shadow Fall]].',
+          en: 'By hand, not in the macro – both only work under a condition. [[13220000|Shadow Fall]] takes you to a **stunned** target (up to 10 m), e.g. right after the 3 s stun of [[13070000|Shadowstrike]]. Against bosses that cannot be stunned it sometimes lights up by itself (5% per hit). [[13210000|Whirlwind Slice]] above it only works right after you evade an attack, and then it surely stuns normal enemies – on the next press [[13220000|Shadow Fall]] comes.',
         },
       },
       {
@@ -311,10 +336,10 @@ export const assassinGuide = classGuide({
       },
       {
         key: '4',
-        ids: [13070000 /* Shadowstrike */, 13050000 /* Flash Slice */, 13360000 /* Infiltrate */],
+        ids: [13360000 /* Infiltrate */, 13070000 /* Shadowstrike */, 13050000 /* Flash Slice */],
         note: {
-          de: 'Ansprünge, von Hand: Zuerst [[13070000|Shadowstrike]] (20 m, landet hinter dem Ziel). Läuft seine Abklingzeit, nimmt die Taste [[13050000|Flash Slice]], dann [[13360000|Infiltrate]] (nur nach Notausweichen oder im Flug).',
-          en: 'Gap closers, by hand: first [[13070000|Shadowstrike]] (20 m, lands behind the target). While it is on cooldown the key uses [[13050000|Flash Slice]], then [[13360000|Infiltrate]] (only after a dodge or while flying).',
+          de: 'Ansprünge, von Hand. Unten [[13360000|Infiltrate]]: Er geht nur direkt nach einem Notausweichen (oder im Flug) und bringt dich hinter das Ziel (10 m) – so bleibt [[13070000|Shadowstrike]] frei. Sonst [[13070000|Shadowstrike]] (20 m, landet hinter dem Ziel und betäubt), und läuft seine Abklingzeit, [[13050000|Flash Slice]] (auf die andere Seite des Ziels). Jeder davon startet auch [[13770000|Ambush Stance]].',
+          en: 'Gap closers, by hand. At the bottom [[13360000|Infiltrate]]: it only works right after a Dodge (or while flying) and takes you behind the target (10 m) – so [[13070000|Shadowstrike]] stays ready. Otherwise [[13070000|Shadowstrike]] (20 m, lands behind the target and stuns), and while it is on cooldown [[13050000|Flash Slice]] (to the other side of the target). Each of them also starts [[13770000|Ambush Stance]].',
         },
       },
       {
@@ -341,8 +366,8 @@ export const assassinGuide = classGuide({
   },
   mistakes: [
     {
-      de: "**Von vorn angreifen.** [[13060000|Ambush]], [[13300000|Triniel's Dagger]] und [[13740000|Rear Smite]] geben dir nur von hinten Extra-Schaden. Lass den Tank den Boss halten und stell dich in seinen Rücken.",
-      en: "**Attacking from the front.** [[13060000|Ambush]], [[13300000|Triniel's Dagger]] and [[13740000|Rear Smite]] only give you extra damage from behind. Let the tank hold the boss and stand at its back.",
+      de: "**Von vorn angreifen.** [[13060000|Ambush]] und [[13300000|Triniel's Dagger]] machen nur von hinten 30 % mehr Schaden, und auch der Rückenangriffs-Bonus von [[13740000|Rear Smite]] zählt nur dort. Lass den Tank den Boss halten und stell dich in seinen Rücken.",
+      en: "**Attacking from the front.** [[13060000|Ambush]] and [[13300000|Triniel's Dagger]] deal their 30% extra only from behind, and the back-attack bonus of [[13740000|Rear Smite]] only counts there too. Let the tank hold the boss and stand at its back.",
     },
     {
       de: '**Buffs an schwachen Gegnern verschwenden.** [[13390000|Swift Contract]] (60 s) und [[13310000|Illusive Clone]] (90 s) brauchen lange, bis sie wieder bereit sind – heb sie für Bosse auf.',
@@ -415,7 +440,13 @@ export const assassinGuide = classGuide({
     { href: 'https://daevaguides.com/en/assassin/', label: 'Daeva Guides – Assassin' },
     { href: 'https://aion2.run/en/classes/assassin', label: 'AION2.run – Assassin class' },
     { href: 'https://couga54.github.io/aion2-guides/en/assassin/', label: 'AION 2 Guides – Assassin' },
+    { href: 'https://aion2-guides.info/en/assassin/', label: 'AION 2 Guides (new address) – Assassin' },
     { href: 'https://metabot.gg/en/aion-2/guides/class-builds-guide', label: 'Metabot – Class builds' },
     { href: 'https://www.inven.co.kr/board/aion2/6449/24247', label: 'Inven – Assassin board (KR)' },
+    { href: 'https://aion2hub.com/updates/aion-2-update-2026-06-17', label: 'AION2Hub – Korean patch notes, 17 June 2026' },
   ],
+  caveat: {
+    de: "Builds ändern sich mit Patches. Dieser Guide folgt den Skilldaten des globalen Clients und dem, was die Top 10 spielen; wo Guides sich widersprechen, steht es dabei. Umstritten sind vor allem die Stufe-16-Option von [[13060000|Ambush]] und ob [[13300000|Triniel's Dagger]] vor oder nach [[13270000|Savage Fang]] kommt. Bei [[13780000|Defense Break]] nennt der englische Skilltext noch das Taumeln als Auslöser, der deutsche Text und der koreanische Patch vom 17. Juni 2026 nicht mehr – schau am taumelnden Boss, ob die Verteidigungssenkung erscheint. Im Zweifel gilt, was im Spiel bei dir funktioniert.",
+    en: "Builds change with patches. This guide follows the skill data of the global client and what the top 10 run; where guides disagree, it says so. Disputed above all: the level 16 option of [[13060000|Ambush]] and whether [[13300000|Triniel's Dagger]] goes before or after [[13270000|Savage Fang]]. For [[13780000|Defense Break]] the English skill text still names Stagger as a trigger, the German text and the Korean patch of 17 June 2026 no longer do – watch on a staggered boss whether the Defense debuff appears. When in doubt, what works for you in game wins.",
+  },
 });

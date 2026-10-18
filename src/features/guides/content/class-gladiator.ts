@@ -15,7 +15,7 @@ export const gladiatorGuide = classGuide({
     { de: 'Off-Tank', en: 'Off-tank' },
     { de: 'Einsteiger', en: 'Beginner' },
   ],
-  updated: '2026-10-15',
+  updated: '2026-10-19',
   glance: [
     { label: { de: 'Rolle', en: 'Role' }, value: { de: '**Nahkampf-Schaden** mit dem Zweihandschwert, dazu Off-Tank (kann zur Not Gegner halten)', en: '**Melee damage** with a greatsword, plus off-tank (can hold enemies when needed)' } },
     { label: { de: 'Schwierigkeit', en: 'Difficulty' }, value: { de: '**Leicht** zu lernen – aber viel Luft nach oben', en: '**Easy** to learn – but lots of room to get better' } },
@@ -30,16 +30,16 @@ export const gladiatorGuide = classGuide({
   party: {
     dungeon: [
       {
-        de: '**Schaden an Gruppen:** Fast alle deine Angriffe treffen bis zu 4 Gegner. Ideal für die normalen Gegner zwischen den Bossen.',
-        en: '**Damage on packs:** almost all your attacks hit up to 4 enemies. Ideal for the normal enemies between the bosses.',
+        de: '**Schaden an Gruppen:** Viele deiner Angriffe treffen bis zu 4 Gegner. Ideal für die normalen Gegner zwischen den Bossen.',
+        en: '**Damage on packs:** many of your attacks hit up to 4 enemies. Ideal for the normal enemies between the bosses.',
       },
       {
         de: "**Taumel-Leiste füllen:** Bosse haben eine Taumel-Leiste. Ist sie voll, **taumeln** sie kurz (im Spiel „benommen“) – dann gehen besondere Skills wie [[11280000|Sword Aura Rampage]]. Mit [[11250000|Zikel's Blessing]] ab Stigma-Stufe 5 füllst du die Leiste 50 % schneller.",
         en: "**Fill the stagger gauge:** bosses have a stagger gauge. When it is full, they **stagger** for a short time – then special skills like [[11280000|Sword Aura Rampage]] work. With [[11250000|Zikel's Blessing]] from stigma level 5 you fill the gauge 50% faster.",
       },
       {
-        de: '**Blocken hilft allen:** Blockst du einen Angriff, macht die ganze Gruppe 20 s lang mehr Schaden ([[11780000|Experienced Counterstrike]]). Das wirkt nicht zusätzlich zu [[12780000|Fury]] vom Templer.',
-        en: '**Blocking helps everyone:** when you block an attack, the whole group deals more damage for 20 s ([[11780000|Experienced Counterstrike]]). It does not stack with the Templar skill [[12780000|Fury]].',
+        de: '**Blocken hilft allen:** Blockst du einen Angriff, macht die ganze Gruppe 20 s lang mehr Schaden ([[11780000|Experienced Counterstrike]], +9 % PvE-Schaden auf Skillstufe 10). Mit dem Stigma [[11110000|Focused Block]] blockst du sicher. Das wirkt nicht zusätzlich zum Templer-Passiv „Kampfrausch“.',
+        en: '**Blocking helps everyone:** when you block an attack, the whole group deals more damage for 20 s ([[11780000|Experienced Counterstrike]], +9% PvE damage at skill level 10). With the stigma [[11110000|Focused Block]] you block for sure. It does not stack with the Templar passive “Fury”.',
       },
       {
         de: '**Aggro:** Du hast keinen Spott-Skill, aber [[11020000|Keen Strike]], [[11010000|Rending Blow]] und [[11170000|Overhead Slam]] erhöhen deine Aggro (also wen der Gegner angreift). Fehlt ein Tank, kannst du so Gegner halten.',
@@ -51,12 +51,12 @@ export const gladiatorGuide = classGuide({
       en: 'Attack the boss **from the front** – your bonuses are made for that. Use [[11100000|Ruinous Blow]] as soon as it is ready: its buff “Prepare for Battle” gives you 20% more damage for 20 s. Bosses cannot be knocked down. There [[11170000|Overhead Slam]] only works for 10 s after [[11390000|Rage Burst]] – or now and then by chance (7%).',
     },
     pvp: {
-      de: 'Du bist ein **Jäger**: Mit [[11190000|Leaping Slam]] (20 m) und [[11360000|Rush Strike]] bist du schnell am Gegner, [[11200000|Ankle Slice]] hält ihn fest. Liegt er am Boden, folgen [[11170000|Overhead Slam]] und [[11300000|Aerial Snare]]. [[11080000|Blade Toss]] halbiert die Heilung des Ziels. Schwer wird es gegen Gegner, die dich auf Abstand halten („Kiten“).',
-      en: 'You are a **hunter**: with [[11190000|Leaping Slam]] (20 m) and [[11360000|Rush Strike]] you reach enemies fast, [[11200000|Ankle Slice]] roots them in place. Once they are on the ground, [[11170000|Overhead Slam]] and [[11300000|Aerial Snare]] follow. [[11080000|Blade Toss]] halves the healing of the target. It gets hard against enemies who keep you at a distance (“kiting”).',
+      de: 'Du bist ein **Jäger**: Mit [[11190000|Leaping Slam]] (20 m) und – direkt nach einem Ausweichen – [[11360000|Rush Strike]] (10 m) bist du schnell am Gegner. [[11290000|Mocking Blade]] wirft ihn nieder, dann folgen [[11170000|Overhead Slam]] und zuletzt [[11300000|Aerial Snare]]. Nach einem Block hält [[11200000|Ankle Slice]] ihn mit 50 % Chance fest. [[11080000|Blade Toss]] (20 m) halbiert die Heilung des Ziels und senkt seine Verteidigung um 30 %. Schwer wird es gegen Gegner, die dich auf Abstand halten („Kiten“).',
+      en: 'You are a **hunter**: with [[11190000|Leaping Slam]] (20 m) and – right after a dodge – [[11360000|Rush Strike]] (10 m) you reach enemies fast. [[11290000|Mocking Blade]] knocks them down, then [[11170000|Overhead Slam]] and finally [[11300000|Aerial Snare]] follow. After a Block, [[11200000|Ankle Slice]] roots them with a 50% chance. [[11080000|Blade Toss]] (20 m) halves the healing of the target and lowers its Defense by 30%. It gets hard against enemies who keep you at a distance (“kiting”).',
     },
     solo: {
-      de: 'Allein ist der Gladiator stark: Du heilst dich beim Zuschlagen, und fällst du unter 50 % Leben, heilt dich [[11730000|Blood Absorption]] sofort um 35 % (einmal pro Minute). Für noch mehr Heilung: das Stigma [[11340000|Lifestealing Blade]] und die Lebensraub-Spezialisierung auf [[11290000|Mocking Blade]].',
-      en: 'Solo the Gladiator is strong: you heal while you hit, and when you drop below 50% health, [[11730000|Blood Absorption]] heals you 35% right away (once a minute). For even more healing: the stigma [[11340000|Lifestealing Blade]] and the lifesteal specialisation on [[11290000|Mocking Blade]].',
+      de: 'Allein ist der Gladiator stark: Du heilst dich beim Zuschlagen, und fällst du unter 50 % Leben, heilt dich [[11730000|Blood Absorption]] sofort um 35 % (Skillstufe 10, einmal pro Minute). Für noch mehr Heilung: das Stigma [[11340000|Lifestealing Blade]] und die Lebensraub-Spezialisierung auf [[11290000|Mocking Blade]].',
+      en: 'Solo the Gladiator is strong: you heal while you hit, and when you drop below 50% health, [[11730000|Blood Absorption]] heals you 35% right away (skill level 10, once a minute). For even more healing: the stigma [[11340000|Lifestealing Blade]] and the lifesteal specialisation on [[11290000|Mocking Blade]].',
     },
   },
   skills: [
@@ -110,10 +110,17 @@ export const gladiatorGuide = classGuide({
       },
     },
     {
+      id: 11360000 /* Rush Strike */,
+      note: {
+        de: 'Geht nur **direkt nach einem Ausweichen** (Notausweichen) oder im Flug: Du stürmst bis 10 m zum Ziel, normale Gegner fallen dabei immer um – danach geht [[11170000|Overhead Slam]]. Fast alle Top 10 bringen ihn auf Stufe 10. Ab Stufe 10.',
+        en: 'Only works **right after a dodge** or while flying: you rush up to 10 m to the target, and normal enemies always fall down – after that [[11170000|Overhead Slam]] works. Almost all of the top 10 take it to level 10. From level 10.',
+      },
+    },
+    {
       id: 11260000 /* Defiance */,
       note: {
-        de: 'Befreit dich aus Betäubung, Niederwerfen und Ähnlichem und macht dich 5 s lang immun dagegen. Abklingzeit 60 s, ab Stufe 16. Liegt auf der Leertaste – immer von Hand, nie im Makro.',
-        en: 'Frees you from Stun, Knockdown and similar effects and makes you immune to them for 5 s. Cooldown 60 s, from level 16. It sits on Space – always by hand, never in the macro.',
+        de: 'Befreit dich aus Betäubung, Niederwerfen und Ähnlichem und macht dich 5 s lang immun dagegen. Abklingzeit 60 s, mit jeder Skillstufe 1 s weniger (51 s auf Stufe 10) – Abklingzeitverringerung wirkt hier nicht. Ab Stufe 16. Liegt auf der Leertaste – immer von Hand, nie im Makro.',
+        en: 'Frees you from Stun, Knockdown and similar effects and makes you immune to them for 5 s. Cooldown 60 s, 1 s less with every skill level (51 s at level 10) – Cooldown Reduction does not work on it. From level 16. It sits on Space – always by hand, never in the macro.',
       },
     },
   ],
@@ -128,9 +135,10 @@ export const gladiatorGuide = classGuide({
         steps: [
           { id: 11250000 /* Zikel's Blessing */, note: { de: 'Taste 5: Angriff +20 %', en: 'Key 5: Attack +20%' } },
           { id: 11400000 /* Lunge Stance */, note: { de: 'Taste 6: Kampftempo +20 %', en: 'Key 6: Combat Speed +20%' } },
-          { id: 11360000 /* Rush Strike */, note: { de: 'Taste Q: hin zum Boss', en: 'Key Q: rush to the boss' } },
-          { id: 11100000 /* Ruinous Blow */, note: { de: 'Taste Q noch einmal: Buff für 20 s', en: 'Key Q again: buff for 20 s' } },
+          { id: 11190000 /* Leaping Slam */, note: { de: 'Taste E: Sprung zum Boss (bis 20 m)', en: 'Key E: leap to the boss (up to 20 m)' } },
+          { id: 11100000 /* Ruinous Blow */, note: { de: 'Taste Q: Buff für 20 s', en: 'Key Q: buff for 20 s' } },
           { id: 11390000 /* Rage Burst */, note: { de: 'Taste 8: 10 s Burst-Fenster', en: 'Key 8: 10 s burst window' } },
+          { id: 11110000 /* Focused Block */, note: { de: 'Taste 4: den ersten Boss-Angriff blocken', en: 'Key 4: block the first boss attack' } },
           { id: 11170000 /* Overhead Slam */, note: { de: 'Taste 1: so oft es geht, dann das Makro', en: 'Key 1: as often as you can, then the macro' } },
         ],
       },
@@ -157,8 +165,8 @@ export const gladiatorGuide = classGuide({
         en: '**Watch your MP:** when it gets low, [[11020000|Keen Strike]] (left mouse button) helps: every hit gives 100 MP. The specialisation “MP on a critical hit” on [[11010000|Rending Blow]] helps as well.',
       },
       {
-        de: '**Gegnergruppen:** Mit [[11190000|Leaping Slam]] hinein, dann [[11050000|Crushing Wave]] – die Folge-Attacke erscheint auf derselben Taste. Danach Gegner niederwerfen ([[11290000|Mocking Blade]], [[11360000|Rush Strike]] oder das Stigma [[11240000|Wrath Wave]]) und mit [[11170000|Overhead Slam]] nachsetzen.',
-        en: '**Packs of enemies:** jump in with [[11190000|Leaping Slam]], then [[11050000|Crushing Wave]] – its follow-up appears on the same key. Then knock enemies down ([[11290000|Mocking Blade]], [[11360000|Rush Strike]] or the stigma [[11240000|Wrath Wave]]) and follow up with [[11170000|Overhead Slam]].',
+        de: '**Gegnergruppen:** Mit [[11190000|Leaping Slam]] hinein, dann [[11050000|Crushing Wave]] – die Folge-Attacke erscheint auf derselben Taste. Danach Gegner niederwerfen ([[11290000|Mocking Blade]], [[11360000|Rush Strike]] direkt nach einem Ausweichen oder das Stigma [[11240000|Wrath Wave]]) und mit [[11170000|Overhead Slam]] nachsetzen.',
+        en: '**Packs of enemies:** jump in with [[11190000|Leaping Slam]], then [[11050000|Crushing Wave]] – its follow-up appears on the same key. Then knock enemies down ([[11290000|Mocking Blade]], [[11360000|Rush Strike]] right after a dodge or the stigma [[11240000|Wrath Wave]]) and follow up with [[11170000|Overhead Slam]].',
       },
       {
         de: '**Verteidigung von Hand:** [[11260000|Defiance]] auf der Leertaste befreit dich aus Betäubung und Niederwerfen. Mit dem Stigma [[11110000|Focused Block]] parierst du sicher, [[11380000|Tenaciousness]] macht dich 3 s lang unverwundbar. Unter 50 % Leben heilt dich [[11730000|Blood Absorption]] von selbst.',
@@ -168,29 +176,33 @@ export const gladiatorGuide = classGuide({
   },
   build: {
     intro: {
-      de: 'Skillpunkte machen deine Skills stärker. Bei Skillstufe 8, 12 und 20 bekommt jeder Skill einen Platz für eine **Spezialisierung** (eine Zusatz-Wirkung, die du selbst auswählst). **Stigmen** sind Extra-Skills für deine 4 Stigma-Plätze – du bekommst sie ab Stufe 22.',
-      en: 'Skill points make your skills stronger. At skill level 8, 12 and 20 every skill gets a slot for a **specialisation** (an extra effect you choose yourself). **Stigmas** are extra skills for your 4 stigma slots – you get them from level 22.',
+      de: 'Skillpunkte machen deine Skills stärker – damit kommst du bis Skillstufe 10, höhere Stufen geben Daevanion-Knoten und Ausrüstung. Bei Skillstufe 8, 12 und 20 bekommt jeder aktive Skill einen Platz für eine **Spezialisierung** (eine Zusatz-Wirkung, die du selbst auswählst). **Stigmen** sind Extra-Skills für deine 4 Stigma-Plätze – die Plätze öffnen sich auf Stufe 22, 27, 32 und 37.',
+      en: 'Skill points make your skills stronger – they take you up to skill level 10, higher levels come from Daevanion nodes and gear. At skill level 8, 12 and 20 every active skill gets a slot for a **specialisation** (an extra effect you choose yourself). **Stigmas** are extra skills for your 4 stigma slots – the slots open at level 22, 27, 32 and 37.',
     },
     points: [
       {
-        de: '[[11170000|Overhead Slam]], [[11010000|Rending Blow]] und [[11100000|Ruinous Blow]] zuerst. Ziel für [[11170000|Overhead Slam]]: Skillstufe 16 – dort gibt es „Abklingzeit entfernt“.',
-        en: '[[11170000|Overhead Slam]], [[11010000|Rending Blow]] and [[11100000|Ruinous Blow]] first. Goal for [[11170000|Overhead Slam]]: skill level 16 – that is where “Remove cooldown” unlocks.',
+        de: '[[11170000|Overhead Slam]], [[11010000|Rending Blow]] und [[11100000|Ruinous Blow]] zuerst auf 10 – das haben alle Top 10. Mehr als Stufe 10 geht mit Skillpunkten nicht, den Rest bringen Daevanion-Knoten und Ausrüstung. So ist das Ziel für [[11170000|Overhead Slam]] Skillstufe 16 – dort gibt es „Abklingzeit entfernt“.',
+        en: '[[11170000|Overhead Slam]], [[11010000|Rending Blow]] and [[11100000|Ruinous Blow]] to 10 first – all of the top 10 have that. Skill points cannot go past level 10, the rest comes from Daevanion nodes and gear. That way the goal for [[11170000|Overhead Slam]] is skill level 16 – that is where “Remove cooldown” unlocks.',
       },
       {
-        de: 'Dann [[11020000|Keen Strike]] – deine Grundattacke, die du die ganze Zeit benutzt.',
-        en: 'Then [[11020000|Keen Strike]] – your basic attack that you use all the time.',
+        de: 'Dann [[11020000|Keen Strike]] (deine Grundattacke) und die passiven Schadens-Skills (passiv = wirken immer, ohne Drücken), sobald du sie lernst: [[11750000|Attack Preparation]] (ab Stufe 13, +10 % PvE-Schaden auf Skillstufe 10), [[11780000|Experienced Counterstrike]] (ab Stufe 21, mehr Schaden von vorne und beim Blocken) und [[11800000|Murderous Burst]] (ab Stufe 25, ein Flächenschlag nach je 5 Treffern). Fast alle Top 10 haben sie auf 10.',
+        en: 'Then [[11020000|Keen Strike]] (your basic attack) and the passive damage skills (passive = always active, no key needed) as soon as you learn them: [[11750000|Attack Preparation]] (from level 13, +10% PvE damage at skill level 10), [[11780000|Experienced Counterstrike]] (from level 21, more damage from the front and on Block) and [[11800000|Murderous Burst]] (from level 25, an area hit after every 5 hits). Almost all of the top 10 have them at 10.',
       },
       {
-        de: '[[11280000|Sword Aura Rampage]] auf Skillstufe 16 – dort gibt es die Spezialisierung „-1 s auf alle Abklingzeiten bei jedem Treffer“.',
-        en: '[[11280000|Sword Aura Rampage]] to skill level 16 – that is where the specialisation “-1 s on all cooldowns with every hit” unlocks.',
+        de: '[[11360000|Rush Strike]] und [[11190000|Leaping Slam]] auf 10 – fast alle Top 10 tun das. Dazu die Passiven [[11760000|Impact Hit]] (mehr „Wucht“: öfter ein Treffer mit stark erhöhtem Schaden) und [[11740000|Identify Weakness]] (mehr Krit.-Treffer).',
+        en: '[[11360000|Rush Strike]] and [[11190000|Leaping Slam]] to 10 – almost all of the top 10 do that. Plus the passives [[11760000|Impact Hit]] (more “Double Chance”: more often a hit with greatly increased damage) and [[11740000|Identify Weakness]] (more Critical Hit).',
       },
       {
-        de: 'Danach [[11050000|Crushing Wave]] und [[11290000|Mocking Blade]].',
-        en: 'After that [[11050000|Crushing Wave]] and [[11290000|Mocking Blade]].',
+        de: 'Danach [[11050000|Crushing Wave]] (für Gruppen) und [[11290000|Mocking Blade]], dann [[11260000|Defiance]] (jede Stufe 1 s weniger Abklingzeit) und [[11200000|Ankle Slice]]. Hier gehen die Top 10 auseinander – einige lassen einzelne dieser Skills auf Stufe 1.',
+        en: 'After that [[11050000|Crushing Wave]] (for packs) and [[11290000|Mocking Blade]], then [[11260000|Defiance]] (1 s less cooldown per level) and [[11200000|Ankle Slice]]. The top 10 differ here – some leave single ones of these skills at level 1.',
       },
       {
-        de: 'Passive Skills (wirken immer, ohne Drücken): [[11780000|Experienced Counterstrike]] und [[11800000|Murderous Burst]] zuerst, dann [[11750000|Attack Preparation]], [[11760000|Impact Hit]] und [[11740000|Identify Weakness]]. Beim Leveln helfen [[11710000|Survival Stance]] und [[11730000|Blood Absorption]].',
-        en: 'Passive skills (always active, no key needed): [[11780000|Experienced Counterstrike]] and [[11800000|Murderous Burst]] first, then [[11750000|Attack Preparation]], [[11760000|Impact Hit]] and [[11740000|Identify Weakness]]. While levelling, [[11710000|Survival Stance]] and [[11730000|Blood Absorption]] help.',
+        de: 'Für mehr Überleben: [[11710000|Survival Stance]] (mehr Lebenspunkte) und [[11730000|Blood Absorption]] (Heilung beim Zuschlagen) helfen schon beim Leveln, [[11790000|Survival Willpower]] (Widerstand gegen Statuseffekte, ab Stufe 23) vor allem im PvP. Die meisten Top 10 haben alle drei auf 10.',
+        en: 'For survival: [[11710000|Survival Stance]] (more HP) and [[11730000|Blood Absorption]] (heals you while you hit) already help while levelling, [[11790000|Survival Willpower]] (Status Effect Resist, from level 23) mostly in PvP. Most of the top 10 have all three at 10.',
+      },
+      {
+        de: 'Zuletzt die Skills, bei denen die Top 10 sparen: [[11300000|Aerial Snare]] (im Median Stufe 7–8), [[11770000|Destructive Impulse]], [[11720000|Protection Armor]] und [[11280000|Sword Aura Rampage]]. Den letzten – er trifft nur taumelnde Ziele – lässt die Hälfte der Top 10 ganz ohne Punkte, die andere Hälfte bringt ihn auf 10. Seine Spezialisierung „-1 s auf alle Abklingzeiten bei jedem Treffer“ gibt es erst auf Skillstufe 16.',
+        en: 'Last, the skills the top 10 save on: [[11300000|Aerial Snare]] (median level 7–8), [[11770000|Destructive Impulse]], [[11720000|Protection Armor]] and [[11280000|Sword Aura Rampage]]. The last one only hits staggered targets – half of the top 10 give it no points at all, the other half take it to 10. Its specialisation “-1 s on all cooldowns with every hit” only unlocks at skill level 16.',
       },
     ],
     specs: [
@@ -204,18 +216,18 @@ export const gladiatorGuide = classGuide({
       },
       {
         id: 11100000 /* Ruinous Blow */,
-        parts: [11100010 /* Ruinous Blow: +20% Skill Speed */, 11100040 /* Ruinous Blow: Extra damage on hit */],
+        parts: [11100040 /* Ruinous Blow: Extra damage on hit */, 11100050 /* Ruinous Blow: Ignores Block and Evasion and lands as Multi-Hit */, 11100010 /* Ruinous Blow: +20% Skill Speed */],
         note: {
-          de: 'Schneller und mehr Schaden. Für den dritten Platz: mehr Reichweite oder „ignoriert Block und Ausweichen“.',
-          en: 'Faster and more damage. For the third slot: more range or “ignores Block and Evasion”.',
+          de: 'Bis Skillstufe 15: Zusatzschaden und +20 % Fähigkeitstempo. Ab 16 tauschst du das Tempo gegen „ignoriert Block und Ausweichen, trifft als Mehrfachtreffer“, ab 20 passen alle drei. Statt des Tempos nehmen einige Guides +30 % Krit.-Chance des Skills.',
+          en: 'Up to skill level 15: extra damage and +20% Skill Speed. From 16 swap the speed for “ignores Block and Evasion, lands as Multi-Hit”, from 20 all three fit. Instead of the speed some guides take +30% skill Critical Hit.',
         },
       },
       {
         id: 11010000 /* Rending Blow */,
-        parts: [11010030 /* Rending Blow: Changes to mobile skill */, 11010050 /* Rending Blow: Restores 50 MP on landing a Critical Hit */],
+        parts: [11010030 /* Rending Blow: Changes to mobile skill */, 11010050 /* Rending Blow: Restores 50 MP on landing a Critical Hit */, 11010040 /* Rending Blow: Deals up to 12% more damage when less targets are hit */],
         note: {
-          de: 'Im Laufen nutzbar und MP bei kritischen Treffern – das hilft gegen MP-Mangel. Dritter Platz: mehr Schaden gegen wenige Ziele oder weniger MP-Kosten.',
-          en: 'Usable while moving and MP on critical hits – this helps against running out of MP. Third slot: more damage against few targets or lower MP cost.',
+          de: 'Im Laufen nutzbar und MP bei kritischen Treffern – das hilft gegen MP-Mangel. Auf Skillstufe 20 dazu bis zu 12 % mehr Schaden, wenn du wenige Ziele triffst (gut am Boss).',
+          en: 'Usable while moving and MP on critical hits – this helps against running out of MP. At skill level 20 add up to 12% more damage when you hit few targets (good on bosses).',
         },
       },
       {
@@ -227,11 +239,19 @@ export const gladiatorGuide = classGuide({
         },
       },
       {
-        id: 11280000 /* Sword Aura Rampage */,
-        parts: [11280040 /* Sword Aura Rampage: Multi-Hit on hit */, 11280050 /* Sword Aura Rampage: -1s all skill cooldowns on hit */],
+        id: 11360000 /* Rush Strike */,
+        parts: [11360010 /* Rush Strike: Restores 300 Stamina on hit */, 11360040 /* Rush Strike: -10s cooldown */],
         note: {
-          de: 'Mehrfachtreffer, und jeder Treffer verkürzt alle Abklingzeiten um 1 s.',
-          en: 'Multi-Hit, and every hit cuts all cooldowns by 1 s.',
+          de: 'Ausdauer zurück für das nächste Ausweichen und 10 s weniger Abklingzeit (10 statt 20 s). Dritter Platz: +10 m Reichweite – im PvP lieber +25 % Chance auf Niederwerfen.',
+          en: 'Stamina back for your next dodge and 10 s less cooldown (10 instead of 20 s). Third slot: +10 m range – in PvP rather +25% Knockdown chance.',
+        },
+      },
+      {
+        id: 11190000 /* Leaping Slam */,
+        parts: [11190030 /* Leaping Slam: Resets cooldown on defeating an enemy */, 11190010 /* Leaping Slam: Prepare for Battle effect on the caster for 3s */],
+        note: {
+          de: 'Abklingzeit zurück, wenn ein Gegner stirbt (stark beim Farmen), und 3 s „Kampfbereitschaft“. Gegen einen einzelnen Boss tauschen manche das Zurücksetzen gegen 50 % Chance, [[11200000|Ankle Slice]] freizuschalten.',
+          en: 'Cooldown reset when an enemy dies (strong for farming) and 3 s of “Prepare for Battle”. Against a single boss some swap the reset for a 50% chance to unlock [[11200000|Ankle Slice]].',
         },
       },
       {
@@ -242,6 +262,14 @@ export const gladiatorGuide = classGuide({
           en: 'Lifesteal as an emergency heal (even 15% on bosses) and two extra strikes.',
         },
       },
+      {
+        id: 11280000 /* Sword Aura Rampage */,
+        parts: [11280040 /* Sword Aura Rampage: Multi-Hit on hit */, 11280050 /* Sword Aura Rampage: -1s all skill cooldowns on hit */],
+        note: {
+          de: 'Nur, wenn du dem Skill Punkte gibst: Mehrfachtreffer, und ab Skillstufe 16 verkürzt jeder Treffer alle Abklingzeiten um 1 s.',
+          en: 'Only if you give this skill points: Multi-Hit, and from skill level 16 every hit cuts all cooldowns by 1 s.',
+        },
+      },
     ],
     stigmas: [
       {
@@ -249,29 +277,45 @@ export const gladiatorGuide = classGuide({
         items: [
           {
             id: 11400000 /* Lunge Stance */,
-            note: { de: 'Kampftempo +20 % für 14,5 s. Dieses Stigma wertest du zuerst auf.', en: 'Combat Speed +20% for 14.5 s. Level this stigma first.' },
+            note: {
+              de: 'Kampftempo +20 % (14,5 s auf Stufe 10, 20 s auf Stufe 20). Dieses Stigma wertest du zuerst auf: Auf Stufe 20 senkt während der Wirkung jeder kritische Treffer mit 50 % Chance alle Abklingzeiten um 1 s. Fast alle Top 10 haben es auf 20.',
+              en: 'Combat Speed +20% (14.5 s at level 10, 20 s at level 20). Level this stigma first: at level 20, every critical hit during the effect has a 50% chance to cut all cooldowns by 1 s. Almost all of the top 10 have it at 20.',
+            },
           },
           {
             id: 11250000 /* Zikel's Blessing */,
             note: {
-              de: 'Angriff +20 % für 14,5 s. Ab Stufe 5 füllst du die Taumel-Leiste 50 % schneller, auf Stufe 15 gibt es +50 % Mehrfachtreffer-Chance.',
-              en: 'Attack +20% for 14.5 s. From level 5 you fill the stagger gauge 50% faster, at level 15 you get +50% Multi-Hit chance.',
+              de: 'Angriff +20 % (14,5 s auf Stufe 10, 20 s auf Stufe 20). Ab Stufe 5 füllst du die Taumel-Leiste 50 % schneller, ab Stufe 10 gibt es +10 % PvE-Schaden, auf Stufe 15 +50 % Mehrfachtreffer-Chance.',
+              en: 'Attack +20% (14.5 s at level 10, 20 s at level 20). From level 5 you fill the stagger gauge 50% faster, from level 10 you get +10% PvE damage, at level 15 +50% Multi-Hit chance.',
             },
           },
           {
             id: 11390000 /* Rage Burst */,
-            note: { de: 'Dein Boss-Burst. Früh auf Stufe 5 bringen: -15 s Abklingzeit.', en: 'Your boss burst. Bring it to level 5 early: -15 s cooldown.' },
+            note: {
+              de: 'Dein Boss-Burst. Früh auf Stufe 5 bringen: -15 s Abklingzeit (30 statt 45 s). Ab Stufe 15 trifft er immer kritisch, auf Stufe 20 gibt er noch mehr PvE-Schaden.',
+              en: 'Your boss burst. Bring it to level 5 early: -15 s cooldown (30 instead of 45 s). From level 15 it always crits, at level 20 it gives even more PvE damage.',
+            },
           },
           {
             id: 11110000 /* Focused Block */,
             note: {
-              de: 'Für den vierten Platz, wenn du Gegner hältst. Laut Skilltext parierst du damit kurz garantiert, und deine Block-Schadensreduktion steigt um 100 %.',
-              en: 'For the fourth slot when you hold enemies. The skill text says it guarantees a parry for a short time and raises your Block Damage Reduction by 100%.',
+              de: 'Der übliche vierte Platz (die meisten Guides, 4 der Top 10). Laut Skilltext parierst du damit kurz garantiert, und deine Block-Schadensreduktion steigt um 100 %. Blocke damit einen Boss-Angriff, am besten gleich den ersten: Der Block löst [[11780000|Experienced Counterstrike]] aus (20 s mehr Schaden für die ganze Gruppe). Ab Stufe 5 zweimal hintereinander nutzbar.',
+              en: 'The usual fourth slot (most guides, 4 of the top 10). The skill text says it guarantees a parry for a short time and raises your Block Damage Reduction by 100%. Block a boss attack with it, ideally the very first one: the Block triggers [[11780000|Experienced Counterstrike]] (20 s more damage for the whole group). From level 5 you can use it twice in a row.',
+            },
+          },
+          {
+            id: 11410000 /* Wave Armor */,
+            note: {
+              de: 'Alternative für den vierten Platz (3 der Top 10), aber nur ohne Templer in der Gruppe: Eine Schadensaura um dich (bis zu 4 Gegner, 3 m). Solange sie läuft, wirkt ab Stufe 10 [[11780000|Experienced Counterstrike]] 1,5-mal so stark, ab Stufe 15 auch [[11800000|Murderous Burst]]. Abklingzeit 60 s.',
+              en: 'Alternative for the fourth slot (3 of the top 10), but only without a Templar in the group: a damage aura around you (up to 4 enemies, 3 m). While it runs, [[11780000|Experienced Counterstrike]] works 1.5 times as strong from level 10, and [[11800000|Murderous Burst]] too from level 15. Cooldown 60 s.',
             },
           },
           {
             id: 11340000 /* Lifestealing Blade */,
-            note: { de: 'Für den vierten Platz, wenn du allein spielst: Flächenschaden, der dich heilt.', en: 'For the fourth slot when you play solo: area damage that heals you.' },
+            note: {
+              de: 'Alternative für den vierten Platz (3 der Top 10), vor allem allein: Flächenschaden, der dich heilt. Ab Stufe 15 nur noch 60 s Abklingzeit statt 90 s.',
+              en: 'Alternative for the fourth slot (3 of the top 10), above all solo: area damage that heals you. From level 15 its cooldown drops from 90 s to 60 s.',
+            },
           },
         ],
       },
@@ -280,13 +324,23 @@ export const gladiatorGuide = classGuide({
         items: [
           {
             id: 11080000 /* Blade Toss */,
-            note: { de: 'Halbiert 10 s lang die Heilung des Ziels – sehr stark gegen Heiler.', en: 'Halves the healing of the target for 10 s – very strong against healers.' },
+            note: {
+              de: 'Halbiert 10 s lang die Heilung des Ziels und senkt seine Verteidigung um 30 % – sehr stark gegen Heiler. Reichweite 20 m, gut zum Eröffnen.',
+              en: 'Halves the healing of the target for 10 s and lowers its Defense by 30% – very strong against healers. Range 20 m, good for opening.',
+            },
           },
           {
             id: 11380000 /* Tenaciousness */,
             note: {
-              de: '3 s unverwundbar und immun gegen Kontrolle – dein Notfall-Knopf. Für die übrigen zwei Plätze nennen die Guides nichts Festes.',
-              en: '3 s invulnerable and immune to control effects – your emergency button. Guides name nothing fixed for the other two slots.',
+              de: '3 s unverwundbar und immun gegen Kontrolle – dein Notfall-Knopf. Dazu bleibt [[11400000|Lunge Stance]] auf Stufe 20 im PvP gesetzt.',
+              en: '3 s invulnerable and immune to control effects – your emergency button. [[11400000|Lunge Stance]] at level 20 stays in your PvP set as well.',
+            },
+          },
+          {
+            id: 11130000 /* Armor of Balance */,
+            note: {
+              de: 'Der vierte PvP-Platz: +50 % Widerstand gegen Schock-Effekte (14,5 s auf Stufe 10, Abklingzeit 90 s), ab Stufe 5 auch +20 % gegen Körper- und Mental-Effekte, ab Stufe 10 heilt [[11730000|Blood Absorption]] dabei 1,5-mal so stark. Wirk es, bevor du in eine Gruppe springst. In der Arena nehmen manche [[11110000|Focused Block]] statt [[11080000|Blade Toss]].',
+              en: 'The fourth PvP slot: +50% Impact-type Resist (14.5 s at level 10, cooldown 90 s), from level 5 also +20% Ailment-type and Mental-type Resist, from level 10 [[11730000|Blood Absorption]] heals 1.5 times as much during it. Cast it before you dive into a group. In the Arena some take [[11110000|Focused Block]] instead of [[11080000|Blade Toss]].',
             },
           },
         ],
@@ -294,8 +348,8 @@ export const gladiatorGuide = classGuide({
     ],
     daevanion: [
       {
-        de: 'Daevanion-Tafeln geben dir Werte und Extra-Skillstufen. Nimm zuerst die Skill-Knoten für [[11170000|Overhead Slam]], [[11100000|Ruinous Blow]] und [[11010000|Rending Blow]].',
-        en: 'Daevanion boards give you stats and extra skill levels. Take the skill nodes for [[11170000|Overhead Slam]], [[11100000|Ruinous Blow]] and [[11010000|Rending Blow]] first.',
+        de: 'Daevanion-Tafeln geben dir Werte und Extra-Skillstufen (jede der vier Tafeln Nezekan bis Triniel +1 für jeden aktiven Skill). Nimm zuerst die Skill-Knoten für [[11170000|Overhead Slam]], [[11100000|Ruinous Blow]] und [[11010000|Rending Blow]], dann [[11360000|Rush Strike]] und [[11190000|Leaping Slam]] – die Top 10 nehmen sie auf jeder Tafel.',
+        en: 'Daevanion boards give you stats and extra skill levels (each of the four boards Nezekan to Triniel +1 for every active skill). Take the skill nodes for [[11170000|Overhead Slam]], [[11100000|Ruinous Blow]] and [[11010000|Rending Blow]] first, then [[11360000|Rush Strike]] and [[11190000|Leaping Slam]] – the top 10 take them on every board.',
       },
       {
         de: 'Jede Tafel hat besondere Knoten: **Nezekan** Kampftempo und Abklingzeitverringerung, **Zikel** Schadensverstärkung, **Vaizel** Krit.-Schadensverstärkung, **Triniel** Mehrfachtreffer.',
@@ -311,8 +365,8 @@ export const gladiatorGuide = classGuide({
       },
     ],
     stats: {
-      de: 'Reihenfolge auf den Tafeln: **Mehrfachtreffer** (in Guides oft „Double Chance“) > Krit.-Schadensverstärkung > Schadensverstärkung > Angriffskraft > Kampftempo > Krit.-Treffer > Präzision > Abklingzeitverringerung. Auf der Ausrüstung lohnt sich außerdem Schadensverstärkung (Frontal), weil du von vorne angreifst. Bring Krit.-Treffer und Präzision auf einen soliden Wert – globale Guides nennen für Krit. eine Grenze von 50 %.',
-      en: 'Order on the boards: **Multi-Hit Chance** (guides often call it “Double Chance”) > Critical Damage Boost > Damage Boost > Attack > Combat Speed > Critical Hit > Accuracy > Cooldown Reduction. On gear, Front Attack Damage Boost is also worth it, because you attack from the front. Bring Critical Hit and Accuracy to a solid value – global guides name a cap of 50% for crit.',
+      de: 'Reihenfolge auf den Tafeln: **Mehrfachtreffer** > Krit.-Schadensverstärkung > Schadensverstärkung > Angriffskraft > Kampftempo > Krit.-Treffer > Abklingzeitverringerung. Die besonderen Knoten (Mehrfachtreffer, Krit.-Schadensverstärkung, Schadensverstärkung, Kampftempo, Abklingzeitverringerung) haben alle Top 10 offen – dort zählt die Reihenfolge also nur, solange dir Punkte fehlen. Bei den übrigen Werten nennen die globalen Guides **Wucht** (englisch „Double Chance“, ein eigener Wert, nicht dasselbe wie Mehrfachtreffer) und Kampftempo zuerst, dann Krit.-Treffer, Schadensverstärkung und genug Präzision, damit du Bosse sicher triffst. Auf der Ausrüstung lohnt sich außerdem Schadensverstärkung (Frontal), weil du von vorne angreifst. Für Krit. nennen globale Guides eine Grenze von 50 %.',
+      en: 'Order on the boards: **Multi-Hit Chance** > Critical Damage Boost > Damage Boost > Attack > Combat Speed > Critical Hit > Cooldown Reduction. All of the top 10 have the special nodes open (Multi-Hit Chance, Critical Damage Boost, Damage Boost, Combat Speed, Cooldown Reduction) – so there the order only matters while you are short of points. For your other stats the global guides name **Double Chance** (a stat of its own, not the same as Multi-Hit) and Combat Speed first, then Critical Hit, Damage Boost and enough Accuracy to hit bosses reliably. On gear, Front Attack Damage Boost is also worth it, because you attack from the front. Global guides name a cap of 50% for crit.',
     },
   },
   macro: {
@@ -330,7 +384,10 @@ export const gladiatorGuide = classGuide({
         key: '2',
         ids: [11200000 /* Ankle Slice */],
         macro: true,
-        note: { de: 'Trifft bis zu 4 Gegner und hält normale Gegner fest.', en: 'Hits up to 4 enemies and roots normal enemies.' },
+        note: {
+          de: 'Geht nur nach einem **erfolgreichen Block** – [[11110000|Focused Block]] auf Taste 4 sorgt für einen. Bis dahin überspringt das Makro die Taste. Dann trifft der Skill bis zu 4 Gegner und hält normale Gegner 3 s fest.',
+          en: 'Only works after a **successful Block** – [[11110000|Focused Block]] on key 4 gives you one. Until then the macro skips the key. Then it hits up to 4 enemies and roots normal enemies for 3 s.',
+        },
       },
       {
         key: '8',
@@ -379,24 +436,32 @@ export const gladiatorGuide = classGuide({
       },
       {
         key: 'Q',
-        ids: [11360000 /* Rush Strike */, 11100000 /* Ruinous Blow */, 11190000 /* Leaping Slam */],
+        ids: [11100000 /* Ruinous Blow */],
         note: {
-          de: 'Ansturm und Sprung – von Hand, sonst trägt dich das Makro mitten in eine Gruppe. Die Taste nimmt zuerst [[11360000|Rush Strike]]. Ist dieser Skill nicht bereit, kommt [[11100000|Ruinous Blow]], sonst [[11190000|Leaping Slam]].',
-          en: 'Charge and leap – by hand, otherwise the macro carries you right into a pack. The key uses [[11360000|Rush Strike]] first. If that is not ready, [[11100000|Ruinous Blow]] comes, otherwise [[11190000|Leaping Slam]].',
+          de: 'Von Hand, sobald der Skill bereit ist: [[11100000|Ruinous Blow]] stürmt dich zum Ziel (7,5 m), deshalb nicht ins Makro. Er hat eine eigene Taste, damit ein Druck immer den Buff bringt.',
+          en: 'By hand as soon as it is ready: [[11100000|Ruinous Blow]] rushes you to the target (7.5 m), so it stays out of the macro. It has a key of its own, so one press always gives you the buff.',
+        },
+      },
+      {
+        key: 'E',
+        ids: [11360000 /* Rush Strike */, 11190000 /* Leaping Slam */],
+        note: {
+          de: 'Ansturm und Sprung – von Hand, sonst trägt dich das Makro mitten in eine Gruppe oder einen Boss-Angriff. Direkt nach einem Ausweichen nimmt die Taste [[11360000|Rush Strike]] (10 m, geht nur dann oder im Flug), sonst [[11190000|Leaping Slam]] (Sprung bis 20 m).',
+          en: 'Charge and leap – by hand, otherwise the macro carries you right into a pack or a boss attack. Right after a dodge the key uses [[11360000|Rush Strike]] (10 m, only works then or while flying), otherwise [[11190000|Leaping Slam]] (leap of up to 20 m).',
         },
       },
       {
         key: '4',
         ids: [11110000 /* Focused Block */],
         note: {
-          de: 'Vierter Stigma-Platz, Verteidigung von Hand. Laut Skilltext parierst du kurz garantiert, deine Block-Schadensreduktion steigt um 100 %, und beim Parieren bekommst du einmal MP und Ausdauer zurück. Die Guides nehmen es, wenn du Gegner hältst. Spielst du allein, nimm für diesen Platz [[11340000|Lifestealing Blade]].',
-          en: 'Fourth stigma slot, defence by hand. The skill text says you are guaranteed to parry for a short time, your Block Damage Reduction rises by 100%, and you get MP and Stamina back once on a parry. Guides take it when you hold enemies. If you play solo, take [[11340000|Lifestealing Blade]] for this slot.',
+          de: 'Vierter Stigma-Platz, von Hand gegen einen Boss-Angriff. Laut Skilltext parierst du kurz garantiert, deine Block-Schadensreduktion steigt um 100 %, und beim Parieren bekommst du einmal MP und Ausdauer zurück. Der Block löst [[11780000|Experienced Counterstrike]] aus und schaltet [[11200000|Ankle Slice]] auf Taste 2 frei. Spielst du allein, nimm für diesen Platz [[11340000|Lifestealing Blade]].',
+          en: 'Fourth stigma slot, by hand against a boss attack. The skill text says you are guaranteed to parry for a short time, your Block Damage Reduction rises by 100%, and you get MP and Stamina back once on a parry. The Block triggers [[11780000|Experienced Counterstrike]] and unlocks [[11200000|Ankle Slice]] on key 2. If you play solo, take [[11340000|Lifestealing Blade]] for this slot.',
         },
       },
     ],
     note: {
-      de: 'Das Makro drückt 1, 2, 8, 3 und zuletzt T – jeweils mit 10 ms. Halte dazu die Makro-Taste und die linke Maustaste. 5, 6, Q und 4 drückst du selbst: Was du drückst, hat immer Vorrang. [[11260000|Defiance]] liegt auf der Leertaste. Prüf die Stapel nach jeder Änderung an deinen Spezialisierungen.',
-      en: 'The macro presses 1, 2, 8, 3 and T last – each with 10 ms. Hold the macro key and the left mouse button. You press 5, 6, Q and 4 yourself: whatever you press always comes first. [[11260000|Defiance]] sits on Space. Check the stacks after every change to your specialisations.',
+      de: 'Das Makro drückt 1, 2, 8, 3 und zuletzt T – jeweils mit 10 ms. Halte dazu die Makro-Taste und die linke Maustaste. 5, 6, Q, E und 4 drückst du selbst: Was du drückst, hat immer Vorrang. [[11260000|Defiance]] liegt auf der Leertaste. Prüf die Stapel nach jeder Änderung an deinen Spezialisierungen.',
+      en: 'The macro presses 1, 2, 8, 3 and T last – each with 10 ms. Hold the macro key and the left mouse button. You press 5, 6, Q, E and 4 yourself: whatever you press always comes first. [[11260000|Defiance]] sits on Space. Check the stacks after every change to your specialisations.',
     },
   },
   mistakes: [
@@ -423,6 +488,10 @@ export const gladiatorGuide = classGuide({
     {
       de: '**Koreanische Builds kopieren:** Dort gibt es mehr Stigma-Plätze als die 4 im globalen Client. Plane mit 4.',
       en: '**Copying Korean builds:** they have more stigma slots than the 4 of the global client. Plan with 4.',
+    },
+    {
+      de: '**„[[11360000|Rush Strike]] oder [[11200000|Ankle Slice]] geht nicht“:** Das ist kein Fehler – [[11360000|Rush Strike]] geht nur direkt nach einem Ausweichen (oder im Flug), [[11200000|Ankle Slice]] nur nach einem erfolgreichen Block.',
+      en: '**“[[11360000|Rush Strike]] or [[11200000|Ankle Slice]] does not work”:** that is not a bug – [[11360000|Rush Strike]] only works right after a dodge (or while flying), [[11200000|Ankle Slice]] only after a successful Block.',
     },
   ],
   power: {
@@ -483,9 +552,15 @@ export const gladiatorGuide = classGuide({
     { href: 'https://aion2hub.com/updates/aion-2-update-2026-08-12', label: 'AION2Hub – KR update 2026-08-12 (Gladiator)' },
     { href: 'https://metabot.gg/en/aion-2/guides/class-builds-guide', label: 'MetaBot – Class builds guide' },
     { href: 'https://metabot.gg/en/aion-2/guides/stigma-guide', label: 'MetaBot – Stigma guide' },
+    { href: 'https://metabot.gg/en/aion-2/stats', label: 'MetaBot – Stats explained (Double Chance and Multi-Hit)' },
+    { href: 'https://aion2vault.com/builds/gladiator/pve/', label: 'AION2 Vault – Gladiator PvE build' },
+    { href: 'https://aion2-guides.info/en/gladiator/', label: 'AION 2 Guides – Gladiator (PvE and PvP)' },
+    { href: 'https://aion2-meta.com/guides/gladiator/', label: 'Aion 2 Meta – Gladiator guide' },
+    { href: 'https://aion2.wiki.fextralife.com/Gladiator', label: 'Fextralife – Gladiator' },
+    { href: 'https://aion2.wiki.fextralife.com/Gladiator_Builds', label: 'Fextralife – Gladiator builds' },
   ],
   caveat: {
-    de: 'Der globale Client entspricht etwa dem koreanischen Stand von Anfang September 2026. Guides von vor dem 12. August (Änderungen an [[11100000|Ruinous Blow]]) sind teils veraltet. Bei den Stigma-Stufen und der Spezialisierung von [[11020000|Keen Strike]] sind sich die Quellen nicht einig – einige raten, kein Stigma ganz auszubauen. Im Zweifel gilt, was im Spiel bei dir funktioniert.',
-    en: 'The global client is roughly at the Korean state of early September 2026. Guides from before 12 August (changes to [[11100000|Ruinous Blow]]) are partly outdated. Sources disagree on stigma levels and on the specialisation of [[11020000|Keen Strike]] – some advise not to max out a single stigma. When in doubt, what works for you in game wins.',
+    de: "Der globale Client entspricht etwa dem koreanischen Stand von Anfang September 2026. Guides von vor dem 12. August (Änderungen an [[11100000|Ruinous Blow]]) sind teils veraltet. Bei den Stigma-Stufen sind sich die Quellen nicht einig: Viele Guides nennen [[11390000|Rage Burst]] Stufe 5 und [[11250000|Zikel's Blessing]] Stufe 10, die Top 10 haben beide meist auf 15–20. Auch bei [[11280000|Sword Aura Rampage]] und der Spezialisierung von [[11020000|Keen Strike]] gehen die Meinungen auseinander. Dass [[11360000|Rush Strike]] nur nach einem Ausweichen und [[11200000|Ankle Slice]] nur nach einem Block geht, steht so im deutschen Skilltext und bei Fextralife – der englische Text ist an der Stelle unklar. Im Zweifel gilt, was im Spiel bei dir funktioniert.",
+    en: "The global client is roughly at the Korean state of early September 2026. Guides from before 12 August (changes to [[11100000|Ruinous Blow]]) are partly outdated. Sources disagree on stigma levels: many guides name [[11390000|Rage Burst]] level 5 and [[11250000|Zikel's Blessing]] level 10, while the top 10 mostly have both at 15–20. Opinions also differ on [[11280000|Sword Aura Rampage]] and on the specialisation of [[11020000|Keen Strike]]. That [[11360000|Rush Strike]] only works after a dodge and [[11200000|Ankle Slice]] only after a Block is what the German skill text and Fextralife say – the English text is unclear there. When in doubt, what works for you in game wins.",
   },
 });

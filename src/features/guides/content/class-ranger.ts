@@ -15,7 +15,7 @@ export const rangerGuide = classGuide({
     { de: 'Krit', en: 'Crit' },
     { de: 'Einsteiger', en: 'Beginner' },
   ],
-  updated: '2026-10-15',
+  updated: '2026-10-19',
   glance: [
     { label: { de: 'Rolle', en: 'Role' }, value: { de: '**Fernkampf-Schaden** mit vielen kritischen Treffern (Krits)', en: '**Ranged damage** with lots of critical hits (crits)' } },
     { label: { de: 'Schwierigkeit', en: 'Difficulty' }, value: { de: '**Mittel** – die Grundidee ist einfach, aber [[14090000|Marking Shot]] und der aufgeladene [[14010000|Deadshot]] brauchen gutes Timing', en: '**Medium** – the basic idea is simple, but [[14090000|Marking Shot]] and the charged [[14010000|Deadshot]] need good timing' } },
@@ -38,8 +38,8 @@ export const rangerGuide = classGuide({
         en: '**Against packs**, [[14110000|Gale Arrow]], [[14050000|Drill Dart]] and [[14340000|Tempest Shot]] hit up to 4 enemies. Place [[14170000|Explosion Trap]] at your feet when the pack comes to you.',
       },
       {
-        de: '**Verlangsamen lohnt sich:** [[14130000|Snare Shot]] bremst Gegner (Trägheit), und erst dann geht [[14080000|Burst Arrow]].',
-        en: '**Slowing pays off:** [[14130000|Snare Shot]] slows enemies, and only then does [[14080000|Burst Arrow]] work.',
+        de: '**Verlangsamen lohnt sich:** [[14130000|Snare Shot]] bremst Gegner (Trägheit), und erst dann geht [[14080000|Burst Arrow]]. Die Passive [[14770000|Rooting Eye]] macht gegen verlangsamte Ziele außerdem Zusatzschaden.',
+        en: '**Slowing pays off:** [[14130000|Snare Shot]] slows enemies, and only then does [[14080000|Burst Arrow]] work. The passive [[14770000|Rooting Eye]] also deals extra damage to slowed targets.',
       },
       {
         de: '**Achte auf deine MP.** [[14340000|Tempest Shot]] kostet viel MP, deine Grundattacke [[14020000|Snipe]] bringt MP zurück.',
@@ -47,8 +47,8 @@ export const rangerGuide = classGuide({
       },
     ],
     boss: {
-      de: 'Am Boss zählt **Letalität**: [[14090000|Marking Shot]] gibt dir +300 Krit.-Treffer, und [[14010000|Deadshot]] macht damit 35 % mehr Schaden. Jeder Treffer füllt die Benommen-Leiste des Bosses. Ist sie voll, **taumelt** er (Stagger) – dann geht [[14330000|Arrow Scattershot]]. Ein voll aufgeladener [[14010000|Deadshot]] füllt die Leiste stärker.',
-      en: 'At the boss, **Precision** is what counts: [[14090000|Marking Shot]] gives you +300 Critical Hit, and with it [[14010000|Deadshot]] deals 35% more damage. Every hit fills the boss’s Stagger bar. When it is full, the boss **staggers** – now [[14330000|Arrow Scattershot]] works. A fully charged [[14010000|Deadshot]] fills the bar more.',
+      de: 'Am Boss zählt **Letalität**: [[14090000|Marking Shot]] gibt dir +300 Krit.-Treffer, und [[14010000|Deadshot]] macht damit 35 % mehr Schaden. Fast jeder Skill füllt die Benommen-Leiste des Bosses. Ist sie voll, **taumelt** er (Stagger) – dann geht [[14330000|Arrow Scattershot]]. Ein voll aufgeladener [[14010000|Deadshot]] füllt die Leiste stärker.',
+      en: 'At the boss, **Precision** is what counts: [[14090000|Marking Shot]] gives you +300 Critical Hit, and with it [[14010000|Deadshot]] deals 35% more damage. Almost every skill fills the boss’s Stagger bar. When it is full, the boss **staggers** – now [[14330000|Arrow Scattershot]] works. A fully charged [[14010000|Deadshot]] fills the bar more.',
     },
     pvp: {
       de: "Im PvP hältst du Abstand: [[14130000|Snare Shot]] verlangsamt, [[14050000|Drill Dart]] senkt die Heilung, die der Gegner bekommt, um 60 %, und mit der passenden Spezialisierung schießt du [[14010000|Deadshot]] auch im Laufen. Wirst du betäubt (du kannst dann kurz nichts tun), befreit dich [[14260000|Defiance]] auf der Leertaste. [[14350000|Mother Nature's Breath]] (Stigma) senkt den Schaden, den du nimmst.",
@@ -130,7 +130,7 @@ export const rangerGuide = classGuide({
           { id: 14110000 /* Gale Arrow */, note: { de: 'Wirbelwind: mehr Tempo und Schaden', en: 'Gale: more speed and damage' } },
           { id: 14310000 /* Vaizel's Authority */, note: { de: '+20 % Angriffskraft', en: '+20% Attack' } },
           { id: 14220000 /* Bow of Blessing */, note: { de: '+200 Krit.-Treffer, +100 Präzision', en: '+200 Critical Hit, +100 Accuracy' } },
-          { id: 14380000 /* Supporting Fire */, note: { de: 'Kugel schießt 15 s mit', en: 'Orb shoots along for 15 s' } },
+          { id: 14380000 /* Supporting Fire */, note: { de: 'Kugel schießt 15 s mit (30 s ab Stigma-Stufe 10)', en: 'Orb shoots along for 15 s (30 s from stigma level 10)' } },
           { id: 14010000 /* Deadshot */, note: { de: 'Voll aufladen, dann Makro + linke Maustaste halten', en: 'Charge fully, then hold macro + left mouse button' } },
         ],
       },
@@ -140,8 +140,10 @@ export const rangerGuide = classGuide({
           { id: 14090000 /* Marking Shot */, note: { de: 'Jedes Mal, wenn bereit', en: 'Every time it is ready' } },
           { id: 14010000 /* Deadshot */, note: { de: 'Wenn bereit – nur mit Letalität', en: 'When ready – only with Precision' } },
           { id: 14110000 /* Gale Arrow */, note: { de: 'Wirbelwind aktiv halten', en: 'Keep Gale up' } },
+          { id: 14060000 /* Griffon Arrow */, note: { de: 'Stigma: wenn bereit, brennt 10 s nach', en: 'Stigma: when ready, burns for 10 s' } },
           { id: 14130000 /* Snare Shot */, note: { de: 'Ziel verlangsamen', en: 'Slow the target' } },
           { id: 14080000 /* Burst Arrow */, note: { de: 'Auf das verlangsamte Ziel', en: 'On the slowed target' } },
+          { id: 14070000 /* Suppressing Arrow */, note: { de: 'Einzelziel-Treffer, alle 20 s', en: 'Single-target hit, every 20 s' } },
           { id: 14050000 /* Drill Dart */, note: { de: 'Blutung, alle 5 s', en: 'Bleed, every 5 s' } },
           { id: 14330000 /* Arrow Scattershot */, note: { de: 'Nur wenn der Gegner taumelt', en: 'Only while the enemy staggers' } },
           { id: 14340000 /* Tempest Shot */, note: { de: 'Füller, kostet viel MP', en: 'Filler, costs a lot of MP' } },
@@ -169,47 +171,65 @@ export const rangerGuide = classGuide({
   },
   build: {
     intro: {
-      de: 'Im globalen Spiel ist die Höchststufe 45, und du hast **4 Stigma-Plätze** (ab Stufe 22, 27, 32 und 37). Koreanische Builds haben mehr Plätze – übernimm sie nicht eins zu eins. **Spezialisierungen:** Ein Skill bekommt ab Skillstufe 8 den ersten Platz, ab 12 den zweiten und ab 20 den dritten.',
-      en: 'In the global game the level cap is 45, and you have **4 stigma slots** (from level 22, 27, 32 and 37). Korean builds have more slots – do not copy them one to one. **Specialisations:** a skill gets its first slot at skill level 8, the second at 12 and the third at 20.',
+      de: 'Im globalen Spiel ist die Höchststufe 45, und du hast **4 Stigma-Plätze** (ab Stufe 22, 27, 32 und 37). Koreanische Builds haben mehr Plätze – übernimm sie nicht eins zu eins. **Spezialisierungen:** Ein Skill bekommt ab Skillstufe 8 den ersten Platz, ab 12 den zweiten und ab 20 den dritten. Mit Skillpunkten bringst du einen Skill nur bis Stufe 10 – höhere Stufen kommen von den Daevanion-Tafeln (bis +4) und von Ausrüstung und Arcana. Für alle Skills reichen die Punkte nie, darum zählt die Reihenfolge.',
+      en: 'In the global game the level cap is 45, and you have **4 stigma slots** (from level 22, 27, 32 and 37). Korean builds have more slots – do not copy them one to one. **Specialisations:** a skill gets its first slot at skill level 8, the second at 12 and the third at 20. Skill points only take a skill up to level 10 – higher levels come from the Daevanion boards (up to +4) and from gear and Arcana. There are never enough points for every skill, so the order matters.',
     },
     points: [
-      { de: '**[[14090000|Marking Shot]]** (ab Stufe 3) und **[[14050000|Drill Dart]]** (ab Stufe 4) zuerst – Letalität bringt dir mehr Krits mit allen Skills.', en: '**[[14090000|Marking Shot]]** (from level 3) and **[[14050000|Drill Dart]]** (from level 4) first – Precision gives you more crits with every skill.' },
-      { de: '**[[14110000|Gale Arrow]]** (ab Stufe 7) und **[[14340000|Tempest Shot]]**: dein Angriff mit Wirbelwind-Buff und dein Füller.', en: '**[[14110000|Gale Arrow]]** (from level 7) and **[[14340000|Tempest Shot]]**: your attack with the Gale buff and your filler.' },
-      { de: '**[[14010000|Deadshot]]**, sobald du ihn mit Stufe 14 lernst – er wird dein stärkster Schuss.', en: '**[[14010000|Deadshot]]** as soon as you learn it at level 14 – it becomes your strongest shot.' },
-      { de: 'Dann **[[14330000|Arrow Scattershot]]**, **[[14070000|Suppressing Arrow]]** und **[[14170000|Explosion Trap]]**. **[[14020000|Snipe]]** und **[[14130000|Snare Shot]]** mindestens auf Stufe 8 – dort bekommt deine Grundattacke [[14020000|Snipe]] ihre erste Spezialisierung.', en: 'Then **[[14330000|Arrow Scattershot]]**, **[[14070000|Suppressing Arrow]]** and **[[14170000|Explosion Trap]]**. **[[14020000|Snipe]]** and **[[14130000|Snare Shot]]** to at least level 8 – that is where your basic attack [[14020000|Snipe]] gets its first specialisation.' },
-      { de: "Passive: **[[14740000|Focused Eye]]** vor **[[14750000|Hunter's Resolve]]** vor **[[14800000|Hunter's Soul]]**.", en: "Passives: **[[14740000|Focused Eye]]** before **[[14750000|Hunter's Resolve]]** before **[[14800000|Hunter's Soul]]**." },
+      { de: '**[[14020000|Snipe]]** und **[[14340000|Tempest Shot]]** zuerst – deine Grundattacke und dein Füller laufen die ganze Zeit, so bringt jeder Punkt sofort mehr Schaden. Danach **[[14050000|Drill Dart]]** (ab Stufe 4) und **[[14110000|Gale Arrow]]** (ab Stufe 7).', en: '**[[14020000|Snipe]]** and **[[14340000|Tempest Shot]]** first – your basic attack and your filler run all the time, so every point adds damage right away. Then **[[14050000|Drill Dart]]** (from level 4) and **[[14110000|Gale Arrow]]** (from level 7).' },
+      { de: '**[[14080000|Burst Arrow]]** (ab Stufe 10) und **[[14010000|Deadshot]]**, sobald du ihn mit Stufe 14 lernst – er wird dein stärkster Schuss. Fast alle Top 10 haben diese sechs Angriffe auf Stufe 10.', en: '**[[14080000|Burst Arrow]]** (from level 10) and **[[14010000|Deadshot]]** as soon as you learn it at level 14 – it becomes your strongest shot. Almost all of the top 10 have these six attacks at level 10.' },
+      { de: "Passive (sie wirken immer, ganz ohne Taste): **[[14740000|Focused Eye]]** (ab Stufe 11: +1 % PvE-Schadensverstärkung pro Stufe und +100 Präzision) und **[[14750000|Hunter's Resolve]]** (ab Stufe 13: mehr Krit.-Schaden, +15 % auf Stufe 10). Die Top 10 bringen beide auf 10 (Median).", en: "Passives (they work all the time, no key needed): **[[14740000|Focused Eye]]** (from level 11: +1% PvE Damage Boost per level and +100 Accuracy) and **[[14750000|Hunter's Resolve]]** (from level 13: more Critical Damage, +15% at level 10). The top 10 take both to 10 (median)." },
+      { de: '**[[14090000|Marking Shot]]** (ab Stufe 3) mindestens auf Skillstufe 8 – dort bekommt er seinen ersten Spezialisierungsplatz für +5 s Letalität. Die +300 Krit.-Treffer von Letalität sind auf jeder Skillstufe gleich, weitere Punkte erhöhen nur den Schaden des Schusses. Dazu **[[14130000|Snare Shot]]** – erst er macht [[14080000|Burst Arrow]] möglich. Die Top 10 haben beide im Median auf 9–10.', en: '**[[14090000|Marking Shot]]** (from level 3) to at least skill level 8 – that is where it gets its first specialisation slot for +5 s Precision. Precision’s +300 Critical Hit is the same at every skill level, more points only raise the shot’s own damage. Add **[[14130000|Snare Shot]]** – it is what makes [[14080000|Burst Arrow]] possible. The top 10 have both at 9–10 (median).' },
+      { de: "Passive, die von selbst Zusatztreffer auslösen (jede höchstens einmal pro Sekunde): **[[14800000|Hunter's Soul]]** (ab Stufe 25: bei Krits), **[[14720000|Concentrated Fire]]** (ab Stufe 6: gegen Ziele mit Schaden über Zeit, z. B. der Blutung von [[14050000|Drill Dart]]), **[[14770000|Rooting Eye]]** (ab Stufe 17: gegen verlangsamte Ziele) und **[[14780000|Melee Fire]]** (ab Stufe 21: bei jedem Treffer). Die Top 10 bringen alle vier im Median auf 10.", en: "Passives that add extra hits by themselves (each at most once per second): **[[14800000|Hunter's Soul]]** (from level 25: on crits), **[[14720000|Concentrated Fire]]** (from level 6: on targets taking damage over time, e.g. the bleed from [[14050000|Drill Dart]]), **[[14770000|Rooting Eye]]** (from level 17: on slowed targets) and **[[14780000|Melee Fire]]** (from level 21: on any hit). The top 10 take all four to 10 (median)." },
+      { de: 'Zum Überleben **[[14710000|Vigilant Eye]]** (ab Stufe 1: +200 Ausweichen, +15 % max. LP auf Stufe 10) und **[[14790000|Revitalization Contract]]** (ab Stufe 23: Widerstand gegen Statuseffekte; fallen deine LP auf 10 %, heilt er dich sofort, auf Stufe 10 um 44 %, einmal pro 60 s) – auch die bringen die Top 10 im Median auf 10. Dazu **[[14070000|Suppressing Arrow]]** (ab Stufe 12) und **[[14170000|Explosion Trap]]** (ab Stufe 8): Top 10 im Median 9, manche lassen sie auf 1.', en: 'For survival **[[14710000|Vigilant Eye]]** (from level 1: +200 Evasion, +15% Max HP at level 10) and **[[14790000|Revitalization Contract]]** (from level 23: Status Effect Resist; when your HP drops to 10% it heals you at once, by 44% at level 10, once every 60 s) – the top 10 take these to 10 as well (median). Plus **[[14070000|Suppressing Arrow]]** (from level 12) and **[[14170000|Explosion Trap]]** (from level 8): top 10 median 9, some leave them at 1.' },
+      { de: "Zuletzt **[[14330000|Arrow Scattershot]]**: Er geht nur gegen taumelnde Gegner, und 6 der Top 10 lassen ihn auf Stufe 1–3 (4 bringen ihn auf 10). Restpunkte gehen in [[14260000|Defiance]] (kürzere Abklingzeit: 60 s auf Stufe 1, 51 s auf Stufe 10), [[14730000|Wind Vigor]] und [[14760000|Unyielding Resolve]].", en: "Last **[[14330000|Arrow Scattershot]]**: it only works on staggered enemies, and 6 of the top 10 keep it at level 1–3 (4 take it to 10). Leftover points go into [[14260000|Defiance]] (shorter cooldown: 60 s at level 1, 51 s at level 10), [[14730000|Wind Vigor]] and [[14760000|Unyielding Resolve]]." },
     ],
     specs: [
       {
         id: 14010000 /* Deadshot */,
         parts: [14010020 /* Deadshot: +30% Skill Speed */, 14010030 /* Deadshot: Changes to mobile skill */, 14010050 /* Deadshot: [Deadshot] grants extra damage on hit */],
         note: {
-          de: 'Schneller aufladen, im Laufen schießen und später Zusatzschaden – so empfehlen es die Guides.',
-          en: 'Charge faster, shoot while moving and later extra damage – that is what guides recommend.',
+          de: 'Schneller aufladen, im Laufen schießen und später Zusatzschaden – so empfehlen es die Guides. Den dritten Platz gibt es ab Skillstufe 20; 7 der Top 10 haben [[14010000|Deadshot]] so hoch.',
+          en: 'Charge faster, shoot while moving and later extra damage – that is what guides recommend. The third slot comes at skill level 20; 7 of the top 10 have [[14010000|Deadshot]] that high.',
         },
       },
       {
         id: 14020000 /* Snipe */,
-        parts: [14020030 /* Snipe: +50% Multi-Hit on hit */, 14020040 /* Snipe: -1s [Deadshot] cooldown on hit */, 14020050 /* Snipe: Adds [Tempest Arrow] Chain Skill */],
+        parts: [14020040 /* Snipe: -1s [Deadshot] cooldown on hit */, 14020050 /* Snipe: Adds [Tempest Arrow] Chain Skill */, 14020030 /* Snipe: +50% Multi-Hit on hit */],
         note: {
-          de: 'Mehr Mehrfachtreffer, jeder Treffer macht [[14010000|Deadshot]] 1 s früher bereit, und später kommt ein weiterer Folgeschuss dazu.',
-          en: 'More Multi-Hit, every hit makes [[14010000|Deadshot]] ready 1 s sooner, and later an extra follow-up shot joins.',
+          de: 'Jeder Treffer macht [[14010000|Deadshot]] 1 s früher bereit (ab Skillstufe 12), ab 16 kommt ein weiterer Folgeschuss dazu – diese zwei zuerst, denn die meisten Top 10 haben [[14020000|Snipe]] auf 16–19, also zwei Plätze. Der dritte Platz (ab 20): mehr Mehrfachtreffer, oder +20 % MP, wenn dir oft die MP ausgehen.',
+          en: 'Every hit makes [[14010000|Deadshot]] ready 1 s sooner (from skill level 12), and from 16 an extra follow-up shot joins – take these two first, because most of the top 10 have [[14020000|Snipe]] at 16–19, so two slots. The third slot (from 20): more Multi-Hit, or +20% MP if you often run out of MP.',
         },
       },
       {
         id: 14090000 /* Marking Shot */,
-        parts: [14090030 /* Marking Shot: +5s duration */],
+        parts: [14090030 /* Marking Shot: +5s duration */, 14090010 /* Marking Shot: +5% Perfect Chance for the duration */],
         note: {
-          de: 'Laut Skilltext hält Letalität 10 s, die Abklingzeit beträgt ebenfalls 10 s. Mit dieser Option hält Letalität 15 s – so bleiben dir 5 s Puffer, um den Skill neu zu setzen, bevor sie ausläuft.',
-          en: 'The skill text says Precision lasts 10 s, and the cooldown is 10 s as well. With this option Precision lasts 15 s – a 5 s buffer to recast the skill before it runs out.',
+          de: 'Laut Skilltext hält Letalität 10 s, die Abklingzeit beträgt ebenfalls 10 s. Mit +5 s hält Letalität 15 s – so bleiben dir 5 s Puffer, um den Skill neu zu setzen, bevor sie ausläuft. Ab Skillstufe 12 dazu +5 % Perfektion (Chance auf einen Treffer mit dem Höchstwert deiner Waffe), solange Letalität wirkt. Die Top 10 haben [[14090000|Marking Shot]] auf 12–17, also zwei Plätze.',
+          en: 'The skill text says Precision lasts 10 s, and the cooldown is 10 s as well. With +5 s Precision lasts 15 s – a 5 s buffer to recast the skill before it runs out. From skill level 12 add +5% Perfect Chance (the chance for a hit at the top of your weapon’s damage range) while Precision lasts. The top 10 have [[14090000|Marking Shot]] at 12–17, so two slots.',
         },
       },
       {
         id: 14110000 /* Gale Arrow */,
-        parts: [14110030 /* Gale Arrow: Changes to mobile skill */, 14110050 /* Gale Arrow: -10s cooldown */],
+        parts: [14110030 /* Gale Arrow: Changes to mobile skill */, 14110040 /* Gale Arrow: more Combat Speed and damage boost when less targets hit */, 14110050 /* Gale Arrow: -10s cooldown */],
         note: {
-          de: 'Im Laufen schießen; ab Skillstufe 16 ist der Skill mit −10 s Abklingzeit alle 10 s bereit – genauso lange hält Wirbelwind.',
-          en: 'Shoot while moving; from skill level 16, with −10 s cooldown the skill is ready every 10 s – exactly as long as Gale lasts.',
+          de: 'Im Laufen schießen; ab Skillstufe 12 mehr Kampftempo und Schaden, je weniger Ziele du triffst (am Boss also am meisten); ab Skillstufe 16 ist der Skill mit −10 s Abklingzeit alle 10 s bereit – genauso lange hält Wirbelwind. Hast du erst zwei Plätze, nimm ab 16 die −10 s auf jeden Fall.',
+          en: 'Shoot while moving; from skill level 12 more Combat Speed and damage the fewer targets you hit (so the most at a boss); from skill level 16, with −10 s cooldown the skill is ready every 10 s – exactly as long as Gale lasts. If you only have two slots, take the −10 s from 16 in any case.',
+        },
+      },
+      {
+        id: 14050000 /* Drill Dart */,
+        parts: [14050040 /* Drill Dart: Multi-Hit on hit */, 14050050 /* Drill Dart: Activates [Drill Dart] 1 extra time */, 14050030 /* Drill Dart: +20% Skill Speed */],
+        note: {
+          de: 'Jeder Treffer wird ein Mehrfachtreffer (ab Skillstufe 12), ab 16 feuert der Skill ein zweites Mal – diese zwei zuerst. +20 % Fähigkeitstempo füllt den Platz, solange die beiden noch fehlen, und ab Skillstufe 20 den dritten.',
+          en: 'Every hit becomes a Multi-Hit (from skill level 12), and from 16 the skill fires a second time – take these two first. +20% Skill Speed fills a slot while those two are not unlocked yet, and the third slot from skill level 20.',
+        },
+      },
+      {
+        id: 14340000 /* Tempest Shot */,
+        parts: [14340030 /* Tempest Shot: up to 12% more damage when less targets hit */, 14340050 /* Tempest Shot: +20% Skill Speed */, 14340010 /* Tempest Shot: -20% MP consumed */],
+        note: {
+          de: 'Bis zu 12 % mehr Schaden, je weniger Ziele du triffst, und ab Skillstufe 16 +20 % Fähigkeitstempo – so schießt dein Füller öfter. −20 % MP-Kosten nimmst du für den zweiten Platz, bis du Skillstufe 16 hast, und ab 20 für den dritten – der Füller frisst viel MP.',
+          en: 'Up to 12% more damage the fewer targets you hit, and from skill level 16 +20% Skill Speed – so your filler shoots more often. Take −20% MP cost for the second slot until you reach skill level 16, and for the third from 20 – the filler eats a lot of MP.',
         },
       },
     ],
@@ -217,10 +237,10 @@ export const rangerGuide = classGuide({
       {
         title: { de: 'Stigmen für PvE', en: 'Stigmas for PvE' },
         items: [
-          { id: 14310000 /* Vaizel's Authority */, note: { de: '+20 % Angriffskraft – dein wichtigster Buff.', en: '+20% Attack – your most important buff.' } },
+          { id: 14310000 /* Vaizel's Authority */, note: { de: '+20 % Angriffskraft – dein wichtigster Buff. Hält 10 s, auf Stigma-Stufe 20 dann 20 s. Auf Stufe 20 senkt außerdem jeder Krit mit 50 % Chance alle Abklingzeiten um 1 s, solange er wirkt – bring ihn zuerst auf 20.', en: '+20% Attack – your most important buff. Lasts 10 s, 20 s at stigma level 20. At level 20 every crit also has a 50% chance to cut all cooldowns by 1 s while it lasts – take it to 20 first.' } },
           { id: 14220000 /* Bow of Blessing */, note: { de: "+200 Krit.-Treffer und +100 Präzision. Zusammen mit [[14310000|Vaizel's Authority]] drücken.", en: "+200 Critical Hit and +100 Accuracy. Press it together with [[14310000|Vaizel's Authority]]." } },
-          { id: 14380000 /* Supporting Fire */, note: { de: 'Eine Kugel schießt 15 s lang mit und heilt dich dabei ein wenig.', en: 'An orb shoots along for 15 s and heals you a little.' } },
-          { id: 14060000 /* Griffon Arrow */, note: { de: 'Trifft bis zu 4 Gegner und brennt 10 s nach. Bewegen sich die Gegner, brennt es stärker.', en: 'Hits up to 4 enemies and burns for 10 s. If the enemies move, it burns more.' } },
+          { id: 14380000 /* Supporting Fire */, note: { de: 'Eine Kugel schießt 15 s lang mit (ab Stigma-Stufe 10: 30 s) und heilt dich dabei ein wenig.', en: 'An orb shoots along for 15 s (from stigma level 10: 30 s) and heals you a little.' } },
+          { id: 14060000 /* Griffon Arrow */, note: { de: 'Trifft bis zu 4 Gegner und brennt 10 s nach. Bewegen sich die Gegner, brennt es stärker. Hier sind sich die Guides nicht einig: 5 der Top 10 nehmen ihn, 3 stattdessen [[14360000|Explosive Arrow]] – ein großer Treffer auf bis zu 4 Gegner mit +20 % Schaden gegen verlangsamte Ziele.', en: 'Hits up to 4 enemies and burns for 10 s. If the enemies move, it burns more. Guides disagree on this slot: 5 of the top 10 take it, 3 take [[14360000|Explosive Arrow]] instead – a big hit on up to 4 enemies with +20% damage against slowed targets.' } },
         ],
       },
     ],
@@ -234,8 +254,8 @@ export const rangerGuide = classGuide({
         en: '**Zikel** (level 20): Damage Boost. **Vaizel** (level 30): Critical Damage Boost – very valuable for you. **Triniel** (level 40): Multi-Hit Chance.',
       },
       {
-        de: 'Skillstufen-Knoten geben deinen Skills Extra-Stufen. Jede Stufe zählt auch für die Plätze der Spezialisierungen.',
-        en: 'Skill level nodes give your skills extra levels. Every level also counts for the specialisation slots.',
+        de: 'Skillstufen-Knoten geben deinen Skills Extra-Stufen (bis +4 pro Skill). Nimm zuerst die von [[14010000|Deadshot]], [[14110000|Gale Arrow]], [[14340000|Tempest Shot]], [[14050000|Drill Dart]], [[14020000|Snipe]] und [[14080000|Burst Arrow]] – alle Top 10 haben bei diesen sechs die vollen +4. Jede Stufe zählt auch für die Plätze der Spezialisierungen.',
+        en: 'Skill level nodes give your skills extra levels (up to +4 per skill). Take the ones for [[14010000|Deadshot]], [[14110000|Gale Arrow]], [[14340000|Tempest Shot]], [[14050000|Drill Dart]], [[14020000|Snipe]] and [[14080000|Burst Arrow]] first – all of the top 10 have the full +4 on these six. Every level also counts for the specialisation slots.',
       },
       {
         de: '**Azphel** (Stufe 45) ist die PvP-Tafel. Du bezahlst sie mit **Kampfkristallen** aus dem PvP, nicht mit Daevanion-Kristallen. Ihre Werte zählen nur gegen Spieler – und nur hier gibt es Präzision.',
@@ -243,8 +263,8 @@ export const rangerGuide = classGuide({
       },
     ],
     stats: {
-      de: 'Diese Werte zählen für dich, das wichtigste zuerst: **Krit.-Treffer** > **Krit.-Schadensverstärkung** > **Angriffskraft** > **Präzision** (nur auf Azphel) > **Schadensverstärkung** > **Kampftempo** > **Abklingzeitverringerung**.',
-      en: 'These stats matter for you, most important first: **Critical Hit** > **Critical Damage Boost** > **Attack** > **Accuracy** (only on Azphel) > **Damage Boost** > **Combat Speed** > **Cooldown Reduction**.',
+      de: 'Zuerst **Präzision**, bis du etwa 1.100–1.200 hast – diesen Wert nennen zwei globale Guides; darunter gehen Schüsse daneben. [[14740000|Focused Eye]] und [[14220000|Bow of Blessing]] geben je +100. Danach: **Angriffskraft** und **Schadensverstärkung**, dann **Krit.-Treffer** und **Krit.-Schadensverstärkung**, dann **Kampftempo** und **Abklingzeitverringerung**. Krit.-Treffer bekommst du ohnehin viel von Letalität (+300) und [[14220000|Bow of Blessing]] (+200). Auf den Daevanion-Tafeln gibt es Präzision nur auf Azphel (PvP).',
+      en: 'First **Accuracy**, until you have about 1,100–1,200 – the value two global guides name; below that, shots miss. [[14740000|Focused Eye]] and [[14220000|Bow of Blessing]] give +100 each. After that: **Attack** and **Damage Boost**, then **Critical Hit** and **Critical Damage Boost**, then **Combat Speed** and **Cooldown Reduction**. You already get a lot of Critical Hit from Precision (+300) and [[14220000|Bow of Blessing]] (+200). On the Daevanion boards, Accuracy only exists on Azphel (PvP).',
     },
   },
   macro: {
@@ -260,11 +280,11 @@ export const rangerGuide = classGuide({
       },
       {
         key: '2',
-        ids: [14070000 /* Suppressing Arrow */, 14130000 /* Snare Shot */],
+        ids: [14130000 /* Snare Shot */, 14070000 /* Suppressing Arrow */],
         macro: true,
         note: {
-          de: '[[14070000|Suppressing Arrow]] ist der stärkere Treffer und kommt zuerst; mit Letalität kann er betäuben (normale Gegner immer). Sonst kommt [[14130000|Snare Shot]] – er verlangsamt und macht so [[14080000|Burst Arrow]] auf Taste 3 möglich.',
-          en: '[[14070000|Suppressing Arrow]] is the stronger hit and comes first; with Precision it can stun (normal enemies always). Otherwise [[14130000|Snare Shot]] comes – it slows and so makes [[14080000|Burst Arrow]] on key 3 possible.',
+          de: '[[14130000|Snare Shot]] kommt zuerst: Er verlangsamt und macht so [[14080000|Burst Arrow]] auf Taste 3 möglich – und Zusatzschaden von [[14770000|Rooting Eye]]. Ist er nicht bereit, kommt [[14070000|Suppressing Arrow]], ein starker Einzeltreffer; mit Letalität kann er betäuben (normale Gegner immer).',
+          en: '[[14130000|Snare Shot]] comes first: it slows and so makes [[14080000|Burst Arrow]] on key 3 possible – plus extra damage from [[14770000|Rooting Eye]]. When it is not ready, [[14070000|Suppressing Arrow]] comes, a strong single-target hit; with Precision it can stun (normal enemies always).',
         },
       },
       {
@@ -280,15 +300,15 @@ export const rangerGuide = classGuide({
         key: '8',
         ids: [14060000 /* Griffon Arrow */],
         macro: true,
-        note: { de: 'Stigma: trifft bis zu 4 Gegner und brennt 10 s nach.', en: 'Stigma: hits up to 4 enemies and burns for 10 s.' },
+        note: { de: 'Stigma: trifft bis zu 4 Gegner und brennt 10 s nach. Nimmst du stattdessen [[14360000|Explosive Arrow]], kommt er auf diese Taste.', en: 'Stigma: hits up to 4 enemies and burns for 10 s. If you take [[14360000|Explosive Arrow]] instead, it goes on this key.' },
       },
       {
         key: 'T',
         ids: [14330000 /* Arrow Scattershot */, 14340000 /* Tempest Shot */],
         macro: true,
         note: {
-          de: 'Letzter Schritt im Makro. Füller oben: [[14340000|Tempest Shot]]. Darunter [[14330000|Arrow Scattershot]]: Er kommt nur, wenn der Gegner taumelt – dann nimmt die Taste ihn von selbst. [[14340000|Tempest Shot]] kostet viel MP – halte die linke Maustaste, sie bringt MP zurück.',
-          en: 'Last step of the macro. Filler on top: [[14340000|Tempest Shot]]. Below it [[14330000|Arrow Scattershot]]: it only comes while the enemy staggers – then the key uses it by itself. [[14340000|Tempest Shot]] costs a lot of MP – keep holding the left mouse button, it brings MP back.',
+          de: 'Letzter Schritt im Makro. Füller oben: [[14340000|Tempest Shot]]. Darunter [[14330000|Arrow Scattershot]]: Er kommt nur, wenn der Gegner taumelt – dann nimmt die Taste ihn von selbst. Er lohnt sich erst, wenn du ihn gelevelt hast: Laut Skilltext macht er auf Stufe 1 nur 96 Schaden, [[14340000|Tempest Shot]] auf Stufe 16 schon 614. Lässt du ihn wie die meisten Top 10 auf Stufe 1–3, nimm ihn aus der Kette. [[14340000|Tempest Shot]] kostet viel MP – halte die linke Maustaste, sie bringt MP zurück.',
+          en: 'Last step of the macro. Filler on top: [[14340000|Tempest Shot]]. Below it [[14330000|Arrow Scattershot]]: it only comes while the enemy staggers – then the key uses it by itself. It only pays off once you have levelled it: the skill text gives it just 96 damage at level 1, while [[14340000|Tempest Shot]] at level 16 deals 614. If you keep it at level 1–3 like most of the top 10, take it out of the chain. [[14340000|Tempest Shot]] costs a lot of MP – keep holding the left mouse button, it brings MP back.',
         },
       },
       {
@@ -313,8 +333,8 @@ export const rangerGuide = classGuide({
         key: '7',
         ids: [14380000 /* Supporting Fire */],
         note: {
-          de: 'Stigma: Eine Kugel schießt 15 s lang mit. Von Hand in der Eröffnung, direkt nach den Buffs.',
-          en: 'Stigma: an orb shoots along for 15 s. By hand in the opener, right after the buffs.',
+          de: 'Stigma: Eine Kugel schießt 15 s lang mit (ab Stigma-Stufe 10: 30 s). Von Hand in der Eröffnung, direkt nach den Buffs.',
+          en: 'Stigma: an orb shoots along for 15 s (from stigma level 10: 30 s). By hand in the opener, right after the buffs.',
         },
       },
       {
@@ -367,6 +387,10 @@ export const rangerGuide = classGuide({
     {
       de: '**Keine MP mehr.** [[14340000|Tempest Shot]] kostet viel MP. Halte [[14020000|Snipe]] gedrückt – die Grundattacke bringt MP zurück.',
       en: '**Running out of MP.** [[14340000|Tempest Shot]] costs a lot of MP. Keep holding [[14020000|Snipe]] – the basic attack brings MP back.',
+    },
+    {
+      de: '**Skillpunkte zu früh in [[14330000|Arrow Scattershot]] und die Passiven vergessen.** [[14330000|Arrow Scattershot]] geht nur, solange der Gegner taumelt – 6 der Top 10 lassen ihn auf Stufe 1–3. Dafür haben fast alle Top 10 [[14080000|Burst Arrow]] und Passive wie [[14740000|Focused Eye]] und [[14750000|Hunter\'s Resolve]] auf 10.',
+      en: '**Putting skill points into [[14330000|Arrow Scattershot]] too early and forgetting the passives.** [[14330000|Arrow Scattershot]] only works while the enemy staggers – 6 of the top 10 keep it at level 1–3. Instead, almost all of the top 10 have [[14080000|Burst Arrow]] and passives like [[14740000|Focused Eye]] and [[14750000|Hunter\'s Resolve]] at 10.',
     },
   ],
   power: {
@@ -425,5 +449,13 @@ export const rangerGuide = classGuide({
     { href: 'https://mobalytics.gg/gamebase/guides/aion-2-ranger-pve-build', label: 'Mobalytics – Ranger PvE build' },
     { href: 'https://www.inven.co.kr/board/aion2/6450/19498', label: 'Inven – Ranger board (KR)' },
     { href: 'https://gameplay.tips/guides/aion-2-ranger-rotation-and-macro-guide-pve.html', label: 'Gameplay.tips – Ranger rotation and macro (PvE)' },
+    { href: 'https://aion2vault.com/builds/ranger/pve/', label: 'AION2 Vault – Ranger PvE build' },
+    { href: 'https://couga54.github.io/aion2-guides/en/ranger/', label: 'AION 2 Guides – Ranger (PvE, levelling)' },
+    { href: 'https://aion2-meta.com/guides/ranger/', label: 'aion2-meta – Ranger guide (Korean top players)' },
+    { href: 'https://expcarry.com/aion-2-ranger-guide', label: 'Expcarry – Ranger guide' },
   ],
+  caveat: {
+    de: 'Builds ändern sich mit Patches. Laut Expcarry hat der globale Patch vom 14.10.2026 den Waldläufer nicht verändert. Die Skillstufen der Top 10 stammen von AION2 Index (18.10.2026); Spezialisierungen zeigt die Seite nicht, die stammen aus den Guides. Uneinig sind sich die Quellen bei [[14330000|Arrow Scattershot]] (4 der Top 10 bringen ihn auf 10, 6 lassen ihn auf 1–3), beim vierten Stigma ([[14060000|Griffon Arrow]] oder [[14360000|Explosive Arrow]]) und beim Präzisions-Ziel – eine feste Grenze für den globalen Client kennt noch niemand.',
+    en: 'Builds change with patches. According to Expcarry, the global patch of 2026-10-14 did not change the Ranger. The skill levels of the top 10 come from AION2 Index (2026-10-18); that site does not show specialisations, so those follow the guides. Sources disagree on [[14330000|Arrow Scattershot]] (4 of the top 10 take it to 10, 6 keep it at 1–3), on the fourth stigma ([[14060000|Griffon Arrow]] or [[14360000|Explosive Arrow]]) and on the Accuracy target – nobody knows a fixed cap for the global client yet.',
+  },
 });
