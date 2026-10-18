@@ -5,6 +5,7 @@ import { craftingGear } from './crafting-gear';
 import { farmingPower } from './farming-power';
 import { combatPower } from './combat-power';
 import { powerSprint } from './power-sprint';
+import { multiCharacters } from './multi-characters';
 import { pets } from './pets';
 import { macros } from './macros';
 import { gladiatorGuide } from './class-gladiator';
@@ -24,6 +25,7 @@ export const GUIDES: Guide[] = [
   macros,
   combatPower,
   powerSprint,
+  multiCharacters,
   gladiatorGuide,
   templarGuide,
   assassinGuide,
