@@ -7,6 +7,7 @@ import { normalizeBuild } from '../../state/build';
 import { decodeLearned } from '../../lib/daevanionGraph';
 import { useLoadBuild } from '../../components/SavedBuildsDialog';
 import { InfoTip } from '../../components/InfoTip';
+import { SectionHead } from '../../components/SectionHead';
 import type { TopGear, TopPlayer } from './types';
 import { fmtDelta, fmtInt, gearGroup, gradeClass, slotName } from './topFormat';
 import { BoardMap, BoardPicker } from './BoardMap';
@@ -269,8 +270,7 @@ export function PlayerList({ players, boards, headingId }: { players: TopPlayer[
   });
   return (
     <section className="top-section" aria-labelledby={headingId}>
-      <h2 className="top-h2" id={headingId}>{t('topPlayersTitle', { n: ranked.length })}</h2>
-      <p className="top-note">{t('topPlayersHint')}</p>
+      <SectionHead id={headingId} title={t('topPlayersTitle', { n: ranked.length })} text={t('topPlayersHint')} flush />
       <ol className="top-players">
         {ranked.map((p) => <PlayerRow key={`${p.rank}-${p.name}`} p={p} open={open.has(p.rank)} onToggle={() => toggle(p.rank)} boards={boards} uid={headingId} />)}
       </ol>

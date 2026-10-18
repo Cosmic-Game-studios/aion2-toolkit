@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 // base './' so the build works from GitHub Pages sub-paths or a plain static folder.
 // In development, /api is forwarded to the community server (npm run server / npm run dev:all).
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   base: './',
   server: {
     port: 5173,

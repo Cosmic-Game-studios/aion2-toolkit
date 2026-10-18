@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { BarChart3, Shield, Sparkles, Swords } from 'lucide-react';
 import type { StringKey } from '../../i18n/strings';
 import { useLoadedGame } from '../../data/GameDataContext';
+import { SectionHead } from '../../components/SectionHead';
 import type { GearSlotStat, TopStats } from './topStats';
 import { fmtAvg, fmtInt, gearGroup, gradeClass, slotName, type GearGroup } from './topFormat';
 import { Frac, SkillIcon } from './parts';
@@ -182,7 +183,7 @@ export function TopStatsView({ s, headingId }: { s: TopStats; headingId: string 
   const { t } = useLoadedGame();
   return (
     <section className="top-section" aria-labelledby={headingId}>
-      <h2 className="top-h2" id={headingId}>{t('topStatsTitle', { n: s.players })}</h2>
+      <SectionHead id={headingId} title={t('topStatsTitle', { n: s.players })} flush />
       <div className="top-stats">
         <Overview s={s} />
         <StigmaStats s={s} />

@@ -4,6 +4,7 @@ import type { ClassType, Skill } from '../../data/types';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useEnglishDataState } from '../../data/useEnglishData';
 import { useLoadBuild } from '../../components/SavedBuildsDialog';
+import { SectionHead } from '../../components/SectionHead';
 import { BAR_KEYS, BASIC_COL } from '../../state/build';
 import { effectiveLevel } from '../../lib/buildCalc';
 import { CLASS_GUIDE_SECTION, classGuideHref } from '../guides/guideLinks';
@@ -44,8 +45,7 @@ export function TopRecommendation({ cls, players, stats, headingId }: { cls: Cla
 
   return (
     <section className="top-section top-rec" aria-labelledby={headingId} aria-busy={!rec}>
-      <h2 className="top-h2" id={headingId}>{t('topRecTitle', { n })}</h2>
-      <p className="top-note">{t('topRecIntro', { n })}</p>
+      <SectionHead id={headingId} title={t('topRecTitle', { n })} text={t('topRecIntro', { n })} flush />
       {!rec ? (
         <p className="top-rec-loading" role="status">{t('topRecLoading')}</p>
       ) : (

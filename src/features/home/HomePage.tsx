@@ -14,6 +14,7 @@ import { LevelControl } from '../../components/LevelControl';
 import { SkillTile } from '../../components/SkillTile';
 import { Meter } from '../../components/ui';
 import { useBuildActions } from '../../components/BuildActions';
+import { SECTION_LINK, SectionHead } from '../../components/SectionHead';
 import { MQ, matches } from '../../components/hooks';
 import { BuildCard } from '../community/BuildCard';
 import { COMMUNITY_ENABLED, listBuilds, type BuildSummary } from '../../lib/communityApi';
@@ -208,7 +209,10 @@ export function HomePage() {
 
   return (
     <div className="page home landing">
-      <section className="lp-hero">
+      <section className="lp-hero tw:relative tw:isolate">
+        {/* gold light behind the title and a cooler one behind the build preview */}
+        <div aria-hidden className="tw:pointer-events-none tw:absolute tw:-top-40 tw:-left-32 tw:-z-10 tw:size-[560px] tw:rounded-full tw:bg-[radial-gradient(closest-side,rgba(227,184,102,.16),transparent)]" />
+        <div aria-hidden className="tw:pointer-events-none tw:absolute tw:-top-24 tw:right-0 tw:-z-10 tw:hidden tw:size-[480px] tw:rounded-full tw:bg-[radial-gradient(closest-side,rgba(95,140,255,.12),transparent)] tw:lg:block" />
         <div className="lp-hero-text">
           <span className="lp-kicker"><Sparkles size={14} aria-hidden /> {t('lpKicker')}</span>
           <h1 className="lp-title">{t('appTitle')}</h1>
@@ -292,12 +296,7 @@ export function HomePage() {
       </section>
 
       <section aria-labelledby={stepsTitleId}>
-        <div className="home-head">
-          <div>
-            <h2 id={stepsTitleId}>{picked ? t('stepsTitle', { cls }) : t('stepsTitleAny')}</h2>
-            <p>{t('lpFeaturesText')}</p>
-          </div>
-        </div>
+        <SectionHead id={stepsTitleId} title={picked ? t('stepsTitle', { cls }) : t('stepsTitleAny')} text={t('lpFeaturesText')} />
         <ol className="steps">
           <Step no={1} total={total} href="#/skills" Icon={Swords} title={t('stepSkills')} text={t('stepSkillsText')}
             state={state(spSpent, sp.total)} progress={sp.total ? spSpent / sp.total : 0}
@@ -327,10 +326,10 @@ export function HomePage() {
 
       {saved.length > 0 && (
         <section>
-          <div className="home-head">
-            <h2>{t('myBuilds')}</h2>
-            <button type="button" className="link home-link" onClick={actions.openSavedBuilds}>{t('manage')} <ArrowRight size={14} aria-hidden /></button>
-          </div>
+          <SectionHead
+            title={t('myBuilds')}
+            action={<button type="button" className={`link ${SECTION_LINK}`} onClick={actions.openSavedBuilds}>{t('manage')} <ArrowRight size={14} aria-hidden /></button>}
+          />
           <div className="saved-grid">
             {saved.slice(0, 6).map((e) => (
               <button key={e.id} type="button" className="saved-tile" onClick={() => { if (loadSaved(e)) location.hash = '/skills'; }}>
@@ -347,14 +346,25 @@ export function HomePage() {
       )}
 
       <section>
-        <div className="home-head"><h2>{t('lpToolsTitle')}</h2></div>
-        <div className="lp-features">
+        <SectionHead title={t('lpToolsTitle')} />
+        {/* cards from 901 px (tone light on top, lift on hover), compact rows below */}
+        <div className="tw:grid tw:grid-cols-1 tw:gap-2 tw:md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] tw:md:gap-3">
           {tools.map(({ href, title, text, Icon, tone }) => (
-            <a key={href} href={href} className={`lp-feature tone-${tone}`}>
-              <span className="tool-icon" aria-hidden><Icon size={20} /></span>
-              <strong>{t(title)}</strong>
-              <p>{t(text)}</p>
-              <span className="tool-open" aria-hidden><span className="tool-open-label">{t('open')}</span><ArrowRight size={16} /></span>
+            <a
+              key={href}
+              href={href}
+              className={`tone-${tone} tw:group tw:relative tw:isolate tw:grid tw:grid-cols-[40px_minmax(0,1fr)_auto] tw:items-center tw:gap-x-3 tw:gap-y-0.5 tw:overflow-hidden tw:rounded-lg tw:border tw:border-line tw:bg-surface tw:px-4 tw:py-3 tw:text-fg tw:shadow-[var(--shadow-card)] tw:transition tw:duration-200 tw:active:bg-surface-2 tw:hover:-translate-y-0.5 tw:hover:border-[color-mix(in_srgb,var(--tone)_55%,transparent)] tw:hover:text-fg tw:md:flex tw:md:flex-col tw:md:items-start tw:md:gap-2 tw:md:px-5 tw:md:py-5`}
+            >
+              <span aria-hidden className="tw:pointer-events-none tw:absolute tw:inset-x-0 tw:-top-16 tw:-z-10 tw:hidden tw:h-40 tw:bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--tone)_22%,transparent),transparent)] tw:opacity-60 tw:transition-opacity tw:duration-200 tw:group-hover:opacity-100 tw:md:block" />
+              <span aria-hidden className="tw:row-span-2 tw:grid tw:size-10 tw:place-items-center tw:rounded-md tw:border tw:border-[color-mix(in_srgb,var(--tone)_35%,transparent)] tw:bg-[color-mix(in_srgb,var(--tone)_14%,transparent)] tw:text-[var(--tone)] tw:shadow-[inset_0_1px_0_rgba(255,255,255,.08)] tw:md:size-11">
+                <Icon size={20} />
+              </span>
+              <strong className="tw:col-start-2 tw:row-start-1 tw:text-md tw:text-fg-strong">{t(title)}</strong>
+              <p className="tw:col-start-2 tw:row-start-2 tw:text-sm tw:text-fg-2 tw:md:flex-1">{t(text)}</p>
+              <span aria-hidden className="tw:col-start-3 tw:row-span-2 tw:row-start-1 tw:inline-flex tw:items-center tw:gap-1 tw:text-sm tw:font-semibold tw:text-accent">
+                <span className="tw:hidden tw:sm:inline">{t('open')}</span>
+                <ArrowRight size={16} className="tw:transition-transform tw:duration-150 tw:group-hover:translate-x-0.5" />
+              </span>
             </a>
           ))}
         </div>
@@ -362,23 +372,30 @@ export function HomePage() {
 
       {latest && latest.length > 0 && (
         <section>
-          <div className="home-head">
-            <h2>{t('latestBuilds')}</h2>
-            <a href="#/community" className="home-link">{t('viewAll')} <ArrowRight size={14} aria-hidden /></a>
-          </div>
+          <SectionHead
+            title={t('latestBuilds')}
+            action={<a href="#/community" className={SECTION_LINK}>{t('viewAll')} <ArrowRight size={14} aria-hidden /></a>}
+          />
           <div className="build-grid">
             {latest.map((b) => <BuildCard key={b.id} b={b} />)}
           </div>
         </section>
       )}
 
-      <section className="lp-faq">
-        <div className="home-head"><h2>{t('faqTitle')}</h2></div>
-        <div className="faq-list">
+      <section>
+        <SectionHead title={t('faqTitle')} />
+        <div className="tw:grid tw:grid-cols-1 tw:items-start tw:gap-3 tw:min-[761px]:grid-cols-2">
           {FAQ.map(([q, a]) => (
-            <details key={q} className="faq" id={q === 'faq2q' ? FAQ_DATA_ID : undefined}>
-              <summary>{t(q)} <ChevronDown size={16} aria-hidden /></summary>
-              <p>{t(a)}</p>
+            <details
+              key={q}
+              id={q === 'faq2q' ? FAQ_DATA_ID : undefined}
+              className="tw:group tw:scroll-mt-[calc(var(--topbar-h)+var(--sp-4))] tw:scroll-mb-4 tw:rounded-lg tw:border tw:border-line tw:bg-surface tw:shadow-[var(--shadow-card)] tw:transition-colors tw:hover:border-line-strong tw:open:border-[var(--gold-line)]"
+            >
+              <summary className="tw:flex tw:min-h-[var(--tap)] tw:cursor-pointer tw:list-none tw:items-center tw:justify-between tw:gap-3 tw:rounded-lg tw:px-4 tw:py-3 tw:font-semibold tw:text-fg-strong tw:active:bg-surface-2 tw:[&::-webkit-details-marker]:hidden">
+                {t(q)}
+                <ChevronDown size={16} aria-hidden className="tw:shrink-0 tw:text-muted tw:transition-transform tw:duration-200 tw:group-open:rotate-180 tw:group-open:text-gold" />
+              </summary>
+              <p className="tw:px-4 tw:pb-4 tw:leading-[var(--lh-base)] tw:text-fg-2">{t(a)}</p>
             </details>
           ))}
         </div>

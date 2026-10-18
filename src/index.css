@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Stylesheet entry: Tailwind v4 next to the hand-written design system (styles.css).
+
+   - Tailwind classes carry the prefix `tw:` (tw:flex, tw:md:grid-cols-2, tw:hover:text-gold). Many class names of
+     styles.css are also Tailwind utility names (table, grid, hidden, container …); the prefix keeps them apart.
+   - Layers: theme < base < components < utilities. styles.css sits in `components`, so a tw: class always wins over
+     it. There is no Tailwind preflight: styles.css has its own base rules.
+   - The theme below maps the design tokens of styles.css (:root) to Tailwind names, so tw:bg-surface-2,
+     tw:text-muted, tw:border-line, tw:rounded-lg, tw:font-heading … use the same values as the hand-written CSS.
+     Breakpoints are the ones of styles.css, mobile first: sm > phone (641), md > tablet (901),
+     lg = desktop with sidebar (1200), xl = wide (1440).
+   ========================================================================== */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme) prefix(tw);
+@import './styles.css' layer(components);
+@import 'tailwindcss/utilities.css' layer(utilities) source('./');
+
+@theme inline {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 641px;
+  --breakpoint-md: 901px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1440px;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-solid: var(--surface-solid);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-input: var(--input);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-line-strong: var(--line-strong);
+  --color-control: var(--control-border);
+  --color-fg-strong: var(--text-strong);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-display: var(--display);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+
+  --font-sans: var(--font);
+  --font-heading: var(--font-display);
+
+  --text-2xs: var(--fs-2xs);
+  --text-xs: var(--fs-xs);
+  --text-sm: var(--fs-sm);
+  --text-base: var(--fs-base);
+  --text-md: var(--fs-md);
+  --text-lg: var(--fs-lg);
+  --text-xl: var(--fs-xl);
+  --text-2xl: var(--fs-2xl);
+  --text-display: var(--fs-display);
+  --text-hero: var(--fs-hero);
+
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-pill: var(--r-pill);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow);
+  --shadow-lg: var(--shadow-lg);
+
+  --ease-out: var(--ease-out);
+}

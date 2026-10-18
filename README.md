@@ -45,6 +45,8 @@ npm run dev:all    # frontend (http://localhost:5173) + community server (port 8
 | `npm run build` | Production build in `dist/` |
 | `npm start` | Build, then serve `dist/` **and** the API from one Node process on port 8787 |
 
+**Styling:** `src/styles.css` is the hand-written design system (tokens, components). [Tailwind CSS v4](https://tailwindcss.com) runs next to it for new or rebuilt parts. Its classes carry the prefix `tw:` (`tw:flex`, `tw:md:grid-cols-2`) so they never clash with the existing class names. The design tokens are mapped to Tailwind names (`tw:bg-surface-2`, `tw:text-muted`, `tw:font-heading`). The breakpoints are the ones of `styles.css` (`sm` 641, `md` 901, `lg` 1200, `xl` 1440 px). Setup and layer order are in `src/index.css`.
+
 ## GitHub Pages
 
 `.github/workflows/pages.yml` builds the site on every push to `main` and publishes it to GitHub Pages.

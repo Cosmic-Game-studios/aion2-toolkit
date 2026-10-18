@@ -8,6 +8,7 @@ import type { Lang, Skill } from '../../data/types';
 import type { StringKey } from '../../i18n/strings';
 import { useBuild } from '../../state/BuildContext';
 import { Card, EmptyState, PageHeader } from '../../components/ui';
+import { SectionHead } from '../../components/SectionHead';
 import { PlainIcon, SkillTile } from '../../components/SkillTile';
 import { SkillText as GText, tipLevel } from '../../components/SkillText';
 import { useSkillTip } from '../../components/SkillTooltip';
@@ -483,7 +484,7 @@ function GuideView({ g }: { g: Guide }) {
             <section key={i} className="card guide-section" aria-labelledby={`g-${i}`}>
               <h2 id={`g-${i}`} tabIndex={-1}>
                 {hasToc && <span className="g-sec-no" aria-hidden>{i + 1}</span>}
-                <span>{tx(s.title)}</span>
+                <span className="gold-text">{tx(s.title)}</span>
               </h2>
               {s.blocks.map((b, j) => <Block key={j} b={b} guideId={g.id} index={`${i}-${j}`} />)}
             </section>
@@ -493,7 +494,7 @@ function GuideView({ g }: { g: Guide }) {
             <p className="ge-basis"><Info size={16} aria-hidden /><span><strong>{t('guideBasis')}:</strong> {tx(g.basis)}</span></p>
             {more.length > 0 && (
               <section className="ge-related" aria-labelledby={`ge-${g.id}`}>
-                <h2 className="ge-title" id={`ge-${g.id}`}>{t('gdRelated')}</h2>
+                <SectionHead id={`ge-${g.id}`} title={t('gdRelated')} flush />
                 <div className="guide-grid related">
                   {more.map((x) => <GuideTile key={x.id} g={x} compact />)}
                 </div>
@@ -592,7 +593,7 @@ function GuideList({ notFound }: { notFound: boolean }) {
             const list = GUIDES.filter((g) => g.category === id);
             return list.length > 0 && (
               <section key={id} className="guide-group" aria-labelledby={`gc-${id}`}>
-                <h2 className="guide-group-title" id={`gc-${id}`}>{t(key)} <span className="count">{list.length}</span></h2>
+                <SectionHead id={`gc-${id}`} title={t(key)} badge={<span className="count tw:ml-0">{list.length}</span>} flush />
                 <div className={`guide-grid ${id}`}>
                   {list.map((g) => <GuideTile key={g.id} g={g} mine={g === mine} />)}
                 </div>

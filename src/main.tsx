@@ -11,7 +11,7 @@ import { ConfirmProvider } from './components/ConfirmDialog';
 import { BuildActionsProvider } from './components/BuildActions';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { TooltipProvider } from './components/SkillTooltip';
-import './styles.css';
+import './index.css';
 
 // After a redeploy the old hashed chunks are gone: reload once to get the new version instead of a broken page.
 window.addEventListener('vite:preloadError', (e) => {
