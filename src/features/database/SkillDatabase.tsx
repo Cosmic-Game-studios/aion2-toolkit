@@ -275,7 +275,9 @@ export function SkillDatabase({ param }: { param?: string | null }) {
           <section key={g.cls} className="db-group" aria-labelledby={cls === 'all' ? `${uid}-${g.cls}` : undefined}>
             {cls === 'all' && (
               <h2 className="db-group-head" id={`${uid}-${g.cls}`}>
-                <ClassEmblem cls={g.cls} size={22} /> {g.name} <span className="count">{g.total}</span>
+                <ClassEmblem cls={g.cls} size={22} />
+                <span className="gold-text tw:font-heading tw:text-lg tw:font-bold tw:tracking-[.03em]">{g.name}</span>
+                <span className="count">{g.total}</span>
               </h2>
             )}
             {g.kinds.map((k) => (

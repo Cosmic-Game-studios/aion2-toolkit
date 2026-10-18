@@ -1,8 +1,9 @@
 import { useEffect, useId, useMemo, useState } from 'react';
-import { BookOpen, Check, ChevronDown, CircleDashed, RotateCcw, ShieldCheck, Workflow } from 'lucide-react';
+import { BookOpen, ChevronDown, RotateCcw, ShieldCheck, Workflow } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useBuild } from '../../state/BuildContext';
 import { Card, EmptyState, PageHeader, Segmented } from '../../components/ui';
+import { SectionHead } from '../../components/SectionHead';
 import { useClassName } from '../../components/ClassSelect';
 import { COMBO_CONTENT, COMBO_RATINGS, classCombos, comboTouchesBuild, sortCombos } from '../../lib/combos';
 import { storage } from '../../lib/storage';
@@ -142,17 +143,13 @@ export function CombosPage() {
             <>
               {ready.length > 0 && (
                 <section className="combo-group" aria-labelledby={`${uid}-ready`}>
-                  <h2 className="combo-group-title ok" id={`${uid}-ready`}>
-                    <Check size={16} aria-hidden /> {t('comboReady')} <span className="count">{ready.length}</span>
-                  </h2>
+                  <SectionHead id={`${uid}-ready`} title={t('comboReady')} badge={<span className="count tw:ml-0">{ready.length}</span>} flush />
                   {grid(ready)}
                 </section>
               )}
               {notReady.length > 0 && (
                 <section className="combo-group" aria-labelledby={`${uid}-open`}>
-                  <h2 className="combo-group-title" id={`${uid}-open`}>
-                    <CircleDashed size={16} aria-hidden /> {t('comboGroupOpen')} <span className="count">{notReady.length}</span>
-                  </h2>
+                  <SectionHead id={`${uid}-open`} title={t('comboGroupOpen')} badge={<span className="count tw:ml-0">{notReady.length}</span>} flush />
                   {grid(notReady)}
                 </section>
               )}

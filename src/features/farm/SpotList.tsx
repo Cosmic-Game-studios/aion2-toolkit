@@ -2,6 +2,7 @@ import { memo, useEffect, useId, useMemo, useRef, useState, type CSSProperties, 
 import { Check, ChevronDown, Clock, Crosshair, Flag, Link2, MapPin, Pencil, Plus, RotateCcw, SearchX, Send } from 'lucide-react';
 import { useGame } from '../../data/GameDataContext';
 import { EmptyState } from '../../components/ui';
+import { SectionHead } from '../../components/SectionHead';
 import { CATEGORIES, CATEGORY_GROUPS, GROUP_NAMES, categoryById, type CategoryGroup, type FarmSpot, type Lang, type Region } from './farmRules';
 import { categoryIcon, GROUP_COLOR } from './farmIcons';
 import type { Draft } from './farmDrafts';
@@ -253,7 +254,7 @@ export function SpotList({ region, spots, drafts, total, selected, hasImage, pic
 
   return (
     <section className="farm-list" aria-labelledby={`${uid}-h`}>
-      <h2 className="farm-h2" id={`${uid}-h`} ref={headRef} tabIndex={-1}>{t('farmListTitle', { region: regionName })}</h2>
+      <SectionHead id={`${uid}-h`} headRef={headRef} title={t('farmListTitle', { region: regionName })} flush />
 
       {drafts.length > 0 && (
         <div className="farm-group farm-mine">

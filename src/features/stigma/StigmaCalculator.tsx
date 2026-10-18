@@ -7,6 +7,7 @@ import type { StigmaSlot } from '../../state/build';
 import { SkillTile, PlainIcon } from '../../components/SkillTile';
 import { CdChip, EmptyState, NumberField, PageHeader, Segmented } from '../../components/ui';
 import { Modal } from '../../components/Modal';
+import { SectionHead } from '../../components/SectionHead';
 import { useToast } from '../../components/Toast';
 import { MQ, useMediaQuery } from '../../components/hooks';
 import { maxStigmaLevel, stigmaShardStep, stigmaShardsTo } from '../../lib/skillCosts';
@@ -336,14 +337,20 @@ export function StigmaCalculator({ param, visit }: { param?: string | null; visi
       <ShardsCard />
 
       <section className="stigma-loadout" aria-labelledby="stigma-loadout-title">
-        <div className="loadout-head">
-          <h2 className="section-title" id="stigma-loadout-title">{t('stigmaEquipped')}</h2>
-          <span className="chip">{t('slotsUsed', { n: usedOpen, m: openCount })}</span>
-          <span className={`chip budget-chip ${left < 0 ? 'over' : ''}`}>
-            {left < 0 ? <TriangleAlert size={13} aria-hidden /> : <Gem size={13} aria-hidden />}
-            {left < 0 ? t('shardsOver', { n: -left }) : t('shardsLeft', { n: left })}
-          </span>
-        </div>
+        <SectionHead
+          id="stigma-loadout-title"
+          title={t('stigmaEquipped')}
+          badge={(
+            <>
+              <span className="chip">{t('slotsUsed', { n: usedOpen, m: openCount })}</span>
+              <span className={`chip budget-chip tw:ml-0 ${left < 0 ? 'over' : ''}`}>
+                {left < 0 ? <TriangleAlert size={13} aria-hidden /> : <Gem size={13} aria-hidden />}
+                {left < 0 ? t('shardsOver', { n: -left }) : t('shardsLeft', { n: left })}
+              </span>
+            </>
+          )}
+          flush
+        />
         <div className="stigma-slots">{build.st.map(renderSlot)}</div>
       </section>
 
