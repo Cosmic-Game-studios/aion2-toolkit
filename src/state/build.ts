@@ -25,8 +25,8 @@ export const BAR_GROUPS: number[][] = [[2, 3, 4, 5], [8, 9, 10, 11], [6, 7, 0, 1
 export const BAR_ORDER = BAR_GROUPS.flat();
 /** the game has one skill macro with one key */
 export const MAX_MACROS = 1;
-/** our own cap: the game does not document one, and twelve keys rarely need more */
-export const MAX_MACRO_STEPS = 12;
+/** the global client's macro takes up to 20 steps (Daeva Guides, Aion2Tools, games.gg, allthings.how; NC states none) */
+export const MAX_MACRO_STEPS = 20;
 export const DEFAULT_DELAY = 10;
 /** specialisation slots per skill */
 export const MAX_SPECS = 3;
