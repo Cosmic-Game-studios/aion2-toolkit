@@ -3,6 +3,7 @@ import { speedrun45 } from './speedrun45';
 import { gatheringCrafting } from './gathering-crafting';
 import { craftingGear } from './crafting-gear';
 import { farmingPower } from './farming-power';
+import { pets } from './pets';
 import { macros } from './macros';
 import { gladiatorGuide } from './class-gladiator';
 import { templarGuide } from './class-templar';
@@ -30,5 +31,6 @@ export const GUIDES: Guide[] = [
   gatheringCrafting,
   craftingGear,
   farmingPower,
+  pets,
   speedrun45,
 ];
