@@ -1,0 +1,163 @@
+/* ==========================================================================
+   Motion: entrance of the home page, rising embers, scroll reveals, shine, nav markers, bars, loading.
+
+   - Every movement lives inside @media (prefers-reduced-motion: no-preference): with reduced motion the page is
+     simply there (styles.css also cuts any other animation short).
+   - Only transform, opacity, filter and background-position move: nothing triggers layout while animating.
+   - Entrances fill backwards only: once played they let go, so hover lifts and transitions work as before.
+   - Scroll reveals use scroll-driven animations (animation-timeline: view()) where the browser has them; elsewhere
+     the content just shows. Only short blocks reveal (cards, rows, tiles): a tall section would stay faded while read.
+   - Sits in the components layer after styles.css (see index.css), so it can refine those rules; tw: utilities win.
+   ========================================================================== */
+
+/* ---------- loading: a gold rune ring instead of the grey spinner (stands still with reduced motion) ---------- */
+.spinner {
+  border: 0; border-radius: 50%;
+  background: conic-gradient(from 90deg, transparent 0 30%, var(--gold-deep) 62%, var(--gold-light) 100%);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  filter: drop-shadow(0 0 6px rgba(227, 184, 102, .55));
+}
+.loading { flex-direction: column; }
+.loading .spinner { width: 34px; height: 34px; }
+
+/* the embers exist only where motion is welcome */
+.lp-embers { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ---------- page change: a short rise ---------- */
+  .page { animation: page-in .38s var(--ease-out); }
+  @keyframes page-in { from { opacity: 0; transform: translateY(10px); } }
+
+  /* ---------- home: the hero builds itself up in a quick cascade ---------- */
+  .landing .lp-kicker { animation: rise .6s var(--ease-out) .05s backwards; }
+  .landing .lp-claim { animation: rise .6s var(--ease-out) .32s backwards; }
+  .landing .lp-pick { animation: rise .7s var(--ease-out) .42s backwards; }
+  .landing .lp-paths { animation: rise .7s var(--ease-out) .54s backwards; }
+  .landing .lp-trust { animation: rise .7s var(--ease-out) .64s backwards; }
+  .landing .lp-hero-visual { animation: float-in .9s var(--ease-out) .35s backwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+  @keyframes float-in { from { opacity: 0; transform: translateX(28px) scale(.97); } }
+
+  /* class tiles drop in one after another */
+  .landing .class-grid > .class-tile { animation: rise .5s var(--ease-out) .5s backwards; }
+  .landing .class-grid > .class-tile:nth-child(2) { animation-delay: .54s; }
+  .landing .class-grid > .class-tile:nth-child(3) { animation-delay: .58s; }
+  .landing .class-grid > .class-tile:nth-child(4) { animation-delay: .62s; }
+  .landing .class-grid > .class-tile:nth-child(5) { animation-delay: .66s; }
+  .landing .class-grid > .class-tile:nth-child(6) { animation-delay: .7s; }
+  .landing .class-grid > .class-tile:nth-child(7) { animation-delay: .74s; }
+  .landing .class-grid > .class-tile:nth-child(8) { animation-delay: .78s; }
+  .landing .class-grid > .class-tile:nth-child(n + 9) { animation-delay: .82s; }
+
+  /* the title comes out of a golden haze, then a light runs across it now and then */
+  @media (forced-colors: none) {
+    .landing .lp-title {
+      background-image:
+        linear-gradient(105deg, transparent 42%, rgba(255, 252, 240, .85) 50%, transparent 58%),
+        linear-gradient(180deg, #fff6df 10%, var(--gold) 70%, #b98a3c);
+      background-size: 300% 100%, 100% 100%; background-repeat: no-repeat; background-position: 130% 0, 0 0;
+      animation: title-in .9s var(--ease-out) .12s backwards, title-shine 9s ease-in-out 1.3s infinite;
+    }
+  }
+  @keyframes title-in {
+    from { opacity: 0; transform: scale(1.05); filter: blur(10px) drop-shadow(0 6px 30px rgba(227, 184, 102, 0)); }
+    to { opacity: 1; transform: none; filter: blur(0) drop-shadow(0 6px 30px rgba(227, 184, 102, .18)); }
+  }
+  @keyframes title-shine {
+    0% { background-position: 130% 0, 0 0; }
+    22%, 100% { background-position: -30% 0, 0 0; }
+  }
+
+  /* embers: small gold sparks drifting up behind the hero (the page clips sideways overflow) */
+  .lp-embers {
+    display: block; position: absolute; top: -80px; left: -24px; right: -24px; height: 720px; z-index: -1;
+    overflow: hidden; pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, transparent, #000 20%, #000 65%, transparent);
+    mask-image: linear-gradient(to top, transparent, #000 20%, #000 65%, transparent);
+  }
+  .lp-embers > span {
+    position: absolute; left: var(--x); bottom: -12px; width: var(--s); height: var(--s); border-radius: 50%;
+    background: radial-gradient(circle, #fff3cf, rgba(240, 200, 120, .9) 45%, rgba(227, 184, 102, 0) 75%);
+    box-shadow: 0 0 6px 1px rgba(240, 200, 120, .5);
+    opacity: 0; will-change: transform, opacity;
+    animation: ember var(--d) linear var(--delay) infinite;
+  }
+  @keyframes ember {
+    0% { opacity: 0; transform: translate3d(0, 0, 0) scale(1); }
+    12% { opacity: .95; }
+    55% { opacity: .6; transform: translate3d(calc(var(--drift) * .45), -380px, 0) scale(.9); }
+    100% { opacity: 0; transform: translate3d(var(--drift), -700px, 0) scale(.6); }
+  }
+  @media (max-width: 640px) { .lp-embers > span:nth-child(2n) { display: none; } }
+
+  /* ---------- the chosen class: a gold ring breaks outward and the emblem jumps ---------- */
+  .top-class { position: relative; }
+  .class-tile.on::after, .top-class.on::after {
+    content: ''; position: absolute; inset: -1px; border-radius: inherit; border: 2px solid var(--gold-light);
+    opacity: 0; pointer-events: none; animation: ring-out .65s var(--ease-out);
+  }
+  @keyframes ring-out { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.08); } }
+  .class-tile.on .emblem, .top-class.on .emblem { animation: emblem-pop .45s var(--ease-out); }
+  @keyframes emblem-pop { 0% { transform: scale(.82); } 60% { transform: scale(1.1); } }
+
+  /* ---------- gold buttons: a glint runs across on hover; the main path glints once after the entrance ---------- */
+  .btn.primary, .lp-path.plan { position: relative; }
+  .btn.primary::after, .lp-path.plan::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .5) 50%, transparent 62%) no-repeat;
+    background-size: 250% 100%; background-position: 140% 0;
+  }
+  .landing .lp-path.plan::after { animation: glint 1.1s ease-in-out 1.6s; }
+  @media (hover: hover) {
+    .btn.primary:hover:where(:not(:disabled, [aria-disabled='true']))::after, .lp-path.plan:hover::after {
+      animation: glint-hover .8s ease-out;
+    }
+  }
+  /* two names, so going from the entrance glint to the hover glint starts it again */
+  @keyframes glint { from { background-position: 140% 0; } to { background-position: -40% 0; } }
+  @keyframes glint-hover { from { background-position: 140% 0; } to { background-position: -40% 0; } }
+
+  /* ---------- navigation: the active marker grows in, the bottom-nav icon pops ---------- */
+  .sb-nav a.active::before { animation: mark-in .35s var(--ease-out) backwards; }
+  .nav a.active::after, .planner-tabs a.on::after { animation: line-in .35s var(--ease-out) backwards; }
+  .bottom-nav a.active .bn-icon { animation: icon-pop .4s var(--ease-out); }
+  @keyframes mark-in { from { opacity: 0; transform: scaleY(0); } }
+  @keyframes line-in { from { opacity: 0; transform: scaleX(0); } }
+  @keyframes icon-pop { 0% { transform: scale(.8); } 60% { transform: scale(1.1); } }
+
+  /* ---------- bars fill up when they appear (later changes keep their width transition) ---------- */
+  .step-track > span, .meter-track span, .top-frac-bar > span, .bt-track span, .bp-track span, .g-check-bar > span {
+    transform-origin: left center; animation: bar-fill 1s var(--ease-out) .15s backwards;
+  }
+  @keyframes bar-fill { from { transform: scaleX(0); } }
+
+  /* ---------- scroll reveals (browsers with scroll-driven animations) ---------- */
+  @supports (animation-timeline: view()) {
+    :is(
+      .landing .steps > li, .landing .reveal, .landing .saved-grid > *, .build-grid > .build-card:not(.skeleton),
+      .guide-feature, .guide-grid > .guide-tile, .top-players > li
+    ) {
+      animation: reveal backwards cubic-bezier(.2, .8, .2, 1);
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+    /* neighbours in a row follow a little later */
+    :is(.landing .steps, .guide-grid, .build-grid, .landing .saved-grid) > :nth-child(3n + 2),
+    .landing .reveal:nth-child(3n + 2) { animation-range: entry 8% entry 78%; }
+    :is(.landing .steps, .guide-grid, .build-grid, .landing .saved-grid) > :nth-child(3n),
+    .landing .reveal:nth-child(3n) { animation-range: entry 16% entry 86%; }
+
+    /* section ornaments draw themselves */
+    .sh-line {
+      transform-origin: right center; animation: draw backwards var(--ease-out);
+      animation-timeline: view(); animation-range: entry 20% cover 35%;
+    }
+    .sh-line.end { transform-origin: left center; }
+    .sh-gem { animation: gem backwards var(--ease-out); animation-timeline: view(); animation-range: entry 20% cover 35%; }
+  }
+  @keyframes reveal { from { opacity: 0; transform: translateY(26px) scale(.98); } }
+  @keyframes draw { from { opacity: 0; transform: scaleX(0); } }
+  @keyframes gem { from { opacity: 0; transform: scale(0); } 70% { transform: scale(1.5); } }
+}

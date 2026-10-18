@@ -53,6 +53,26 @@ const FAQ: [StringKey, StringKey][] = [
 ];
 const FAQ_DATA_ID = 'faq-data';
 
+/** Embers rising behind the hero: fixed spread (no random jumps between renders), negative delays so they are
+ *  already in flight on load. Purely decorative; motion.css animates them and hides them under reduced motion. */
+const EMBERS = Array.from({ length: 18 }, (_, i) => ({
+  x: (i * 37 + 7) % 100,
+  s: 2 + (i % 3),
+  d: 9 + ((i * 7) % 9),
+  delay: -((i * 13) % 14),
+  drift: ((i * 29) % 70) - 35,
+}));
+
+function Embers() {
+  return (
+    <div className="lp-embers" aria-hidden>
+      {EMBERS.map((e, i) => (
+        <span key={i} style={{ '--x': `${e.x}%`, '--s': `${e.s}px`, '--d': `${e.d}s`, '--delay': `${e.delay}s`, '--drift': `${e.drift}px` } as CSSProperties} />
+      ))}
+    </div>
+  );
+}
+
 function Step({ no, total, href, Icon, title, text, state, progress, status }: {
   no: number; total: number; href: string; Icon: typeof Swords; title: string; text: string;
   state: StepState; progress: number | null; status: ReactNode;
@@ -213,6 +233,7 @@ export function HomePage() {
         {/* gold light behind the title and a cooler one behind the build preview */}
         <div aria-hidden className="tw:pointer-events-none tw:absolute tw:-top-40 tw:-left-32 tw:-z-10 tw:size-[560px] tw:rounded-full tw:bg-[radial-gradient(closest-side,rgba(227,184,102,.16),transparent)]" />
         <div aria-hidden className="tw:pointer-events-none tw:absolute tw:-top-24 tw:right-0 tw:-z-10 tw:hidden tw:size-[480px] tw:rounded-full tw:bg-[radial-gradient(closest-side,rgba(95,140,255,.12),transparent)] tw:lg:block" />
+        <Embers />
         <div className="lp-hero-text">
           <span className="lp-kicker"><Sparkles size={14} aria-hidden /> {t('lpKicker')}</span>
           <h1 className="lp-title">{t('appTitle')}</h1>
@@ -353,7 +374,7 @@ export function HomePage() {
             <a
               key={href}
               href={href}
-              className={`tone-${tone} tw:group tw:relative tw:isolate tw:grid tw:grid-cols-[40px_minmax(0,1fr)_auto] tw:items-center tw:gap-x-3 tw:gap-y-0.5 tw:overflow-hidden tw:rounded-lg tw:border tw:border-line tw:bg-surface tw:px-4 tw:py-3 tw:text-fg tw:shadow-[var(--shadow-card)] tw:transition tw:duration-200 tw:active:bg-surface-2 tw:hover:-translate-y-0.5 tw:hover:border-[color-mix(in_srgb,var(--tone)_55%,transparent)] tw:hover:text-fg tw:md:flex tw:md:flex-col tw:md:items-start tw:md:gap-2 tw:md:px-5 tw:md:py-5`}
+              className={`reveal tone-${tone} tw:group tw:relative tw:isolate tw:grid tw:grid-cols-[40px_minmax(0,1fr)_auto] tw:items-center tw:gap-x-3 tw:gap-y-0.5 tw:overflow-hidden tw:rounded-lg tw:border tw:border-line tw:bg-surface tw:px-4 tw:py-3 tw:text-fg tw:shadow-[var(--shadow-card)] tw:transition tw:duration-200 tw:active:bg-surface-2 tw:hover:-translate-y-0.5 tw:hover:border-[color-mix(in_srgb,var(--tone)_55%,transparent)] tw:hover:text-fg tw:md:flex tw:md:flex-col tw:md:items-start tw:md:gap-2 tw:md:px-5 tw:md:py-5`}
             >
               <span aria-hidden className="tw:pointer-events-none tw:absolute tw:inset-x-0 tw:-top-16 tw:-z-10 tw:hidden tw:h-40 tw:bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--tone)_22%,transparent),transparent)] tw:opacity-60 tw:transition-opacity tw:duration-200 tw:group-hover:opacity-100 tw:md:block" />
               <span aria-hidden className="tw:row-span-2 tw:grid tw:size-10 tw:place-items-center tw:rounded-md tw:border tw:border-[color-mix(in_srgb,var(--tone)_35%,transparent)] tw:bg-[color-mix(in_srgb,var(--tone)_14%,transparent)] tw:text-[var(--tone)] tw:shadow-[inset_0_1px_0_rgba(255,255,255,.08)] tw:md:size-11">

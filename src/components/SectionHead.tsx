@@ -31,10 +31,10 @@ export function SectionHead({ id, title, badge, text, action, flush, headRef }: 
 /** The gilded line with a diamond above section titles (decoration only). */
 export function SectionOrnament({ className = '' }: { className?: string }) {
   return (
-    <div aria-hidden className={`tw:mb-2 tw:flex tw:items-center tw:gap-1.5 ${className}`}>
-      <span className="tw:h-px tw:w-5 tw:bg-linear-to-r tw:from-transparent tw:to-gold/70" />
-      <span className="tw:size-1.5 tw:rotate-45 tw:bg-gold tw:shadow-[0_0_8px_rgba(227,184,102,.75)]" />
-      <span className="tw:h-px tw:w-14 tw:bg-linear-to-r tw:from-gold/70 tw:to-transparent" />
+    <div aria-hidden className={`sh-ornament tw:mb-2 tw:flex tw:items-center tw:gap-1.5 ${className}`}>
+      <span className="sh-line tw:h-px tw:w-5 tw:bg-linear-to-r tw:from-transparent tw:to-gold/70" />
+      <span className="sh-gem tw:size-1.5 tw:rotate-45 tw:bg-gold tw:shadow-[0_0_8px_rgba(227,184,102,.75)]" />
+      <span className="sh-line end tw:h-px tw:w-14 tw:bg-linear-to-r tw:from-gold/70 tw:to-transparent" />
     </div>
   );
 }
