@@ -19,7 +19,7 @@ import { BuildCard } from '../community/BuildCard';
 import { COMMUNITY_ENABLED, listBuilds, type BuildSummary } from '../../lib/communityApi';
 import { useSavedBuilds } from '../../state/savedBuilds';
 import { useLoadSaved } from '../../components/SavedBuildsDialog';
-import { classSkills, daevanionTotals, shardBudget, shardsSpent, skillLevel, skillPointBudget, skillPointsSpent } from '../../lib/buildCalc';
+import { classSkills, daevanionTotals, shardBudget, shardsSpent, shownLevel, skillPointBudget, skillPointsSpent } from '../../lib/buildCalc';
 import { classCombos, comboReady } from '../../lib/combos';
 import { decodeLearned, nodeKey } from '../../lib/daevanionGraph';
 import { STIGMA_SLOT_LEVELS, unlockedStigmaSlots } from '../../lib/stigmaRules';
@@ -104,12 +104,12 @@ function HeroBuild({ href }: { href: string }) {
       </div>
       <div className="lp-build-row actives">
         {actives.map((s) => (
-          <SkillTile key={s.id} skill={s} level={skillLevel(data, build, s)} size={44} tip={false} showCd={false} showLevel={!fresh} />
+          <SkillTile key={s.id} skill={s} level={shownLevel(data, build, s)} size={44} tip={false} showCd={false} showLevel={!fresh} />
         ))}
       </div>
       <div className="lp-build-row stigmas">
         {stigmas.map((s) => (
-          <SkillTile key={s.id} skill={s} level={skillLevel(data, build, s)} size={40} tip={false} showCd={false} showLevel={!fresh && equipped.length > 0} />
+          <SkillTile key={s.id} skill={s} level={shownLevel(data, build, s)} size={40} tip={false} showCd={false} showLevel={!fresh && equipped.length > 0} />
         ))}
         <span className="lp-build-label">{t('stigma')}</span>
       </div>

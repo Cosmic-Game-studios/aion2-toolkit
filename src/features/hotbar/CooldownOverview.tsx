@@ -4,7 +4,7 @@ import { useLoadedGame } from '../../data/GameDataContext';
 import type { Build } from '../../state/build';
 import { SkillTile } from '../../components/SkillTile';
 import { Card, EmptyState } from '../../components/ui';
-import { buildCd, skillLevel } from '../../lib/buildCalc';
+import { buildCd, shownLevel } from '../../lib/buildCalc';
 import { cdTier, fmtCdLong } from '../../lib/cooldown';
 import { timerState, type Timers } from './useCooldownTimers';
 
@@ -30,7 +30,7 @@ export function CooldownOverview({ data, build, timers, now = 0 }: { data: GameD
             const running = !!st && !st.zero;
             return (
               <li key={s.id} className={running ? 'running' : ''}>
-                <SkillTile skill={s} level={skillLevel(data, build, s)} size={32} showCd={false} />
+                <SkillTile skill={s} level={shownLevel(data, build, s)} size={32} showCd={false} />
                 <div className="cd-main">
                   <div className="cd-name">
                     <span>{s.name}</span>

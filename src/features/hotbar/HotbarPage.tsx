@@ -9,7 +9,7 @@ import { Card, EmptyState, PageHeader, Segmented } from '../../components/ui';
 import { ClassGuideLink } from '../../components/ClassGuideLink';
 import { useToast } from '../../components/Toast';
 import { useIsTouch } from '../../components/hooks';
-import { buildCd, skillLevel, usableSkills } from '../../lib/buildCalc';
+import { buildCd, shownLevel, usableSkills } from '../../lib/buildCalc';
 import { isSpaceSkill } from '../../lib/classInfo';
 import { keyLabel } from '../../lib/keyLabel';
 import { HotbarGrid, type FiredKey } from './HotbarGrid';
@@ -67,7 +67,7 @@ const Palette = memo(function Palette({ data, build, actives, stigmas, space, pi
         aria-pressed={pick === s.id}
         aria-label={key ? t('paletteOnKey', { skill: s.name, key }) : s.name}
       >
-        <SkillTile skill={s} level={skillLevel(data, build, s)} size={44} />
+        <SkillTile skill={s} level={shownLevel(data, build, s)} size={44} />
         {auto.has(s.id) && <span className="slot-auto" aria-hidden><Zap size={11} strokeWidth={2.5} /></span>}
         {key && <span className="pal-key" aria-hidden>{key}</span>}
       </button>

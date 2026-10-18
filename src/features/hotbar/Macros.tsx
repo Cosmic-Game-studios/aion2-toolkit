@@ -11,7 +11,7 @@ import { SkillTile } from '../../components/SkillTile';
 import { EmptyState, NumberField } from '../../components/ui';
 import { InfoTip } from '../../components/InfoTip';
 import { useToast } from '../../components/Toast';
-import { skillLevel } from '../../lib/buildCalc';
+import { shownLevel } from '../../lib/buildCalc';
 import { RotationPreview } from './RotationPreview';
 import { keyLabel } from '../../lib/keyLabel';
 import { attackKeys, isCharged, keyBlocker, stackSkills, stepIssues, type StepIssue } from './keyStacks';
@@ -55,7 +55,7 @@ function KeyStack({ data, build, col, size, issues }: { data: GameData; build: B
             {stack.map((s, i) => (
               <Fragment key={s.id}>
                 {i > 0 && <ChevronRight size={12} className="mk-sep" aria-hidden />}
-                <SkillTile skill={s} level={skillLevel(data, build, s)} size={size} cdr={build.cdr} />
+                <SkillTile skill={s} level={shownLevel(data, build, s)} size={size} cdr={build.cdr} />
               </Fragment>
             ))}
           </span>
@@ -199,7 +199,7 @@ export const MacroEditor = memo(function MacroEditor({ data, build, setBuild }: 
               onClick={() => setSteps((list) => [...list, { k: c, delay: DEFAULT_DELAY }])}
             >
               <kbd>{keyLabel(c, t)}</kbd>
-              {st[0] && <SkillTile skill={st[0]} level={skillLevel(data, build, st[0])} size={24} showCd={false} tip={false} />}
+              {st[0] && <SkillTile skill={st[0]} level={shownLevel(data, build, st[0])} size={24} showCd={false} tip={false} />}
               {st.length > 1 && <span className="mk-add-more">+{st.length - 1}</span>}
             </button>
           );

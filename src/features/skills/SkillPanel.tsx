@@ -12,7 +12,7 @@ import { activeSpecs, effectiveLevel, isUnlocked, skillLevel, skillPointBudget, 
 export type SkillTab = 'effect' | 'specs' | 'combos';
 
 /**
- * Everything about one skill of the build: level control (bought level, effective level with gear), then tabs
+ * Everything about one skill of the build: level control (bought level, effective level with gear and Arcana), then tabs
  * Effect | Specialisations | Combos. Used in the side panel (wide screens) and in the bottom sheet (phones, tablets).
  */
 export function SkillPanel({ skill, tab, onTab, inSheet }: { skill: Skill; tab: SkillTab; onTab: (t: SkillTab) => void; inSheet?: boolean }) {
@@ -43,7 +43,7 @@ export function SkillPanel({ skill, tab, onTab, inSheet }: { skill: Skill; tab: 
 
   return (
     <div className="skill-panel">
-      <SkillHead skill={skill} level={lvl} locked={!unlocked} hideName={inSheet} noLevel />
+      <SkillHead skill={skill} level={eff.total} locked={!unlocked} hideName={inSheet} noLevel />
 
       <div className="sp-level">
         <div className="sp-row">
@@ -69,7 +69,7 @@ export function SkillPanel({ skill, tab, onTab, inSheet }: { skill: Skill; tab: 
             <span className="sr-next warn"><Lock size={12} aria-hidden /> {t('lockedUntil', { lvl: skill.acquireLevel })}</span>
           )}
         </div>
-        {pickable && <EffLevel skill={skill} />}
+        {!skill.isStigma && <EffLevel skill={skill} />}
       </div>
 
       {tabs.length > 1 && <DetailTabs tabs={tabs} value={shown} onChange={onTab} label={t('detailTabs')} idBase={idBase} className="sp-tabs" autoFocus={inSheet} />}
@@ -77,7 +77,7 @@ export function SkillPanel({ skill, tab, onTab, inSheet }: { skill: Skill; tab: 
       <div role={tabs.length > 1 ? 'tabpanel' : undefined} id={`${idBase}-panel`} aria-labelledby={tabs.length > 1 ? `${idBase}-tab-${shown}` : undefined} className="sp-panel">
         {shown === 'effect' && (
           <>
-            <SkillDetail skill={skill} level={lvl} locked={!unlocked} head={false} hideSpecs={parts.length > 0} />
+            <SkillDetail skill={skill} level={eff.total} locked={!unlocked} head={false} hideSpecs={parts.length > 0} />
             {pickable && (
               <button
                 type="button"

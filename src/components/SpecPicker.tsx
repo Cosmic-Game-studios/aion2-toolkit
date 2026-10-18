@@ -1,4 +1,4 @@
-import { Check, Info, Lock } from 'lucide-react';
+import { Check, Info, Lock, Minus, Plus } from 'lucide-react';
 import type { Skill } from '../data/types';
 import { useLoadedGame } from '../data/GameDataContext';
 import { useBuild } from '../state/BuildContext';
@@ -11,14 +11,16 @@ import { NumberField } from './ui';
 import { InfoTip } from './InfoTip';
 
 /**
- * Effective skill level of a normal skill: bought level + Daevanion skill nodes + gear (editable), capped at the
- * in-game maximum. Specialisation slots follow it.
+ * Effective skill level of a normal skill: bought level + Daevanion skill nodes + gear and Arcana (editable), capped
+ * at the in-game maximum (40). Specialisation slots, texts and cooldowns follow it.
  */
 export function EffLevel({ skill }: { skill: Skill }) {
   const { t, data } = useLoadedGame();
   const { build, setBuild } = useBuild();
   const eff = effectiveLevel(data, build, skill);
   const atCap = eff.base + eff.dv + eff.gear >= eff.cap;
+  // what gear and Arcana still have to add to reach the cap with the bought and Daevanion levels
+  const toCap = Math.max(0, eff.cap - eff.base - eff.dv);
   const setGear = (n: number) => setBuild((b) => {
     const gx = { ...b.gx };
     const v = Math.min(GAME_SKILL_CAP, Math.max(0, Math.round(n) || 0));
@@ -37,11 +39,22 @@ export function EffLevel({ skill }: { skill: Skill }) {
       <div className="eff-sum">
         <span>= <b>{eff.base}</b> {t('fromPointsShort')}</span>
         <span>+ <b>{eff.dv}</b> {t('navDaevanion')}</span>
-        <label className="eff-gear">
+        <span className="eff-gear" role="group" aria-label={t('gearLevels')}>
           <span aria-hidden>+</span>
+          <button type="button" className="icon-btn sm" disabled={eff.gear <= 0} onClick={() => setGear(eff.gear - 1)} aria-label={t('gearDown')}>
+            <Minus size={14} aria-hidden />
+          </button>
           <NumberField value={eff.gear} min={0} max={GAME_SKILL_CAP} onChange={setGear} aria-label={t('gearLevels')} />
+          <button type="button" className="icon-btn sm" disabled={atCap} onClick={() => setGear(eff.gear + 1)} aria-label={t('gearUp')}>
+            <Plus size={14} aria-hidden />
+          </button>
           <span>{t('gearLevels')}</span>
-        </label>
+        </span>
+        {!atCap && (
+          <button type="button" className="btn ghost sm eff-max" onClick={() => setGear(toCap)} title={t('gearToCapHint', { n: eff.cap })}>
+            {t('gearToCap', { n: eff.cap })}
+          </button>
+        )}
         <InfoTip text={<>{t('gearHint')} {t('levelCapHint', { n: eff.cap })}</>} label={t('gearLevels')} />
       </div>
     </div>

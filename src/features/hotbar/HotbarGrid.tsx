@@ -5,7 +5,7 @@ import { useLoadedGame } from '../../data/GameDataContext';
 import { BAR_GROUPS, BAR_KEYS, BAR_ROWS, BASIC_COL, STIGMA_COLS, slotKey, type Build } from '../../state/build';
 import { keyLabel } from '../../lib/keyLabel';
 import { SkillTile } from '../../components/SkillTile';
-import { skillLevel } from '../../lib/buildCalc';
+import { shownLevel } from '../../lib/buildCalc';
 import { timerState, type Timers } from './useCooldownTimers';
 import { blockedSlots, isHotbarDrag, readDrag, startDrag } from './keyStacks';
 
@@ -148,7 +148,7 @@ export function HotbarGrid({
                         over === k ? 'drop-over' : '',
                       ].filter(Boolean).join(' ');
                       const tile = skill && (
-                        <SkillTile skill={skill} level={skillLevel(data, build, skill)} size={size ?? 46} cdr={build.cdr} tip={!testing} />
+                        <SkillTile skill={skill} level={shownLevel(data, build, skill)} size={size ?? 46} cdr={build.cdr} tip={!testing} />
                       );
                       return (
                         <div

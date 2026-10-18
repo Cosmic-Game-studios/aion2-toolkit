@@ -21,7 +21,7 @@ import {
   ApiError, COMMUNITY_ENABLED, deleteBuild, getBuild, isMine, listBuilds, reportBuild, toggleLike,
   type BuildEntry, type BuildList,
 } from '../../lib/communityApi';
-import { classSkills, skillLevel } from '../../lib/buildCalc';
+import { classSkills, shownLevel } from '../../lib/buildCalc';
 import { applyCdr, cdAt } from '../../lib/cooldown';
 import { readHash, shareOrCopy } from '../../lib/shareLink';
 import { fmtDate, richText } from '../../lib/format';
@@ -278,7 +278,7 @@ function SkillLevels({ build }: { build: Build }) {
   const { data, t } = useLoadedGame();
   const [all, setAll] = useState(false);
   const skills = classSkills(data, build).filter((s) => !s.isStigma && s.acquireLevel <= build.l);
-  const levels = new Map(skills.map((s) => [s.id, skillLevel(data, build, s)]));
+  const levels = new Map(skills.map((s) => [s.id, shownLevel(data, build, s)]));
   const base = skills.filter((s) => (levels.get(s.id) ?? 1) <= 1);
   const group = (type: 'active' | 'passive') => {
     const list = skills.filter((s) => s.type === type && (all || (levels.get(s.id) ?? 1) > 1));

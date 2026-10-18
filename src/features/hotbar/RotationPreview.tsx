@@ -4,7 +4,7 @@ import type { GameData, Skill } from '../../data/types';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { keyStack, type Build, type MacroStep } from '../../state/build';
 import { SkillTile } from '../../components/SkillTile';
-import { activeSpecs, skillLevel } from '../../lib/buildCalc';
+import { activeSpecs, shownLevel } from '../../lib/buildCalc';
 import { CLASS_MECHANICS } from '../../data/mechanics';
 import { Segmented } from '../../components/ui';
 import { applyCdr, cdAt } from '../../lib/cooldown';
@@ -32,7 +32,7 @@ export const RotationPreview = memo(function RotationPreview({ data, build, step
       stack: keyStack(build, step.k)
         .map((id) => data.skillById.get(id))
         .filter((skill): skill is Skill => !!skill)
-        .map((skill) => ({ id: skill.id, skill, cd: applyCdr(cdAt(skill, skillLevel(data, build, skill)), build.cdr) })),
+        .map((skill) => ({ id: skill.id, skill, cd: applyCdr(cdAt(skill, shownLevel(data, build, skill)), build.cdr) })),
     }));
     const rot = keys.flatMap((k) => k.stack);
     if (!rot.length) return null;
@@ -81,7 +81,7 @@ export const RotationPreview = memo(function RotationPreview({ data, build, step
               if (!skill) return null;
               return (
                 <li key={i} className="rot-cast">
-                  <SkillTile skill={skill} level={skillLevel(data, build, skill)} size={28} showCd={false} />
+                  <SkillTile skill={skill} level={shownLevel(data, build, skill)} size={28} showCd={false} />
                   {e.key != null && <span className="rot-cast-key" aria-hidden>{keyLabel(e.key, t)}</span>}
                   <span className="rot-cast-t">{Math.round(e.t)}s</span>
                   <span className="sr-only">{skill.name}{e.key != null ? ` (${t('column', { n: keyLabel(e.key, t) })})` : ''}</span>
@@ -115,7 +115,7 @@ export const RotationPreview = memo(function RotationPreview({ data, build, step
                 <div key={r.id} className="rot-lane">
                   <span className="rot-label">
                     {g.stack.length > 1 && <span className="rot-ord">{i + 1}.</span>}
-                    <SkillTile skill={r.skill} level={skillLevel(data, build, r.skill)} size={24} showCd={false} />
+                    <SkillTile skill={r.skill} level={shownLevel(data, build, r.skill)} size={24} showCd={false} />
                     <span className="rot-name">{r.skill.name}</span>
                     <span className={`rot-count ${mine.length ? '' : 'zero'}`}>{mine.length ? t('uses', { n: mine.length }) : t('rotNever')}</span>
                   </span>

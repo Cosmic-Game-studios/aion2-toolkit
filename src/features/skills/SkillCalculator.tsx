@@ -145,9 +145,9 @@ export function SkillCalculator({ param, visit }: { param?: string | null; visit
     const max = maxBuyableLevel(costs, s.id);
     const next = unlocked && lvl < max ? skillPointStep(costs, s.id, lvl + 1) : 0;
     const short = next > 0 && next > left;
-    const base = cdAt(s, lvl);
-    const specs = activeSpecs(data, build, s).map((id) => s.parts?.find((p) => p.id === id)).filter((p) => !!p);
     const eff = effectiveLevel(data, build, s).total;
+    const base = cdAt(s, eff);
+    const specs = activeSpecs(data, build, s).map((id) => s.parts?.find((p) => p.id === id)).filter((p) => !!p);
     const isSel = sel?.id === s.id;
     return (
       <div key={s.id} id={`skill-row-${s.id}`} className={`skill-row ${unlocked ? '' : 'locked'} ${isSel ? 'selected' : ''}`}>
@@ -158,7 +158,7 @@ export function SkillCalculator({ param, visit }: { param?: string | null; visit
           aria-pressed={narrow ? undefined : isSel}
           aria-haspopup={narrow ? 'dialog' : undefined}
         >
-          <SkillTile skill={s} level={lvl} size={44} showLevel={unlocked} dim={!unlocked} />
+          <SkillTile skill={s} level={eff} size={44} showLevel={unlocked} dim={!unlocked} />
           <span className="sr-main">
             <span className="sr-name">{s.name}</span>
             <span className="sr-meta">

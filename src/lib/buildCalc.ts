@@ -16,9 +16,9 @@ export function skillLevel(data: GameData, build: Build, skill: Skill): number {
 
 export const isUnlocked = (build: Build, skill: Skill) => skill.acquireLevel <= build.l;
 
-/** Effective cooldown of a skill in this build (level + manual reduction). */
+/** Effective cooldown of a skill in this build (level the game shows + manual reduction). */
 export const buildCd = (data: GameData, build: Build, skill: Skill) =>
-  applyCdr(cdAt(skill, skillLevel(data, build, skill)), build.cdr);
+  applyCdr(cdAt(skill, shownLevel(data, build, skill)), build.cdr);
 
 export function skillPointBudget(data: GameData, build: Build) {
   const base = pointsAtLevel(data.points, build.l).skill;
@@ -98,6 +98,12 @@ export function effectiveLevel(data: GameData, build: Build, skill: Skill) {
   const cap = skillCap(skill);
   return { base, dv, gear, cap, total: Math.min(cap, base + dv + gear) };
 }
+
+/**
+ * Level the game shows for a skill of this build: bought + Daevanion + gear and Arcana (stigmas: their stigma level).
+ * Texts, cooldowns and tiles use it; skill point costs use the bought level (`skillLevel`).
+ */
+export const shownLevel = (data: GameData, build: Build, skill: Skill) => effectiveLevel(data, build, skill).total;
 
 /** Number of specialisation slots open at this effective level (normal skills: Lv. 8 / 12 / 20). */
 export const specSlotCount = (skill: Skill, level: number) => (skill.specSlots ?? []).filter((l) => level >= l).length;

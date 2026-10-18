@@ -6,7 +6,7 @@ import { slotKey, type Build } from '../../state/build';
 import { Modal } from '../../components/Modal';
 import { SkillTile } from '../../components/SkillTile';
 import { CdChip, EmptyState } from '../../components/ui';
-import { buildCd, skillLevel } from '../../lib/buildCalc';
+import { buildCd, shownLevel } from '../../lib/buildCalc';
 import { keyLabel } from '../../lib/keyLabel';
 
 interface Props {
@@ -60,7 +60,7 @@ export function SlotMenu({ data, build, row, col, usable, placedOn, blocker, onC
           aria-current={s.id === id ? 'true' : undefined}
           onClick={() => onAssign(s.id)}
         >
-          <SkillTile skill={s} level={skillLevel(data, build, s)} size={36} tip={false} />
+          <SkillTile skill={s} level={shownLevel(data, build, s)} size={36} tip={false} />
           <span className="sm-name">{s.name}</span>
           {s.isStigma && <span className="mini-tag stigma" role="img" aria-label={t('stigma')} title={t('stigma')}>S</span>}
           {on != null && <kbd className="sm-key" aria-hidden>{keyLabel(on, t)}</kbd>}
@@ -76,7 +76,7 @@ export function SlotMenu({ data, build, row, col, usable, placedOn, blocker, onC
       {skill && !choosing ? (
         <>
           <div className="sm-skill">
-            <SkillTile skill={skill} level={skillLevel(data, build, skill)} size={44} tip={false} />
+            <SkillTile skill={skill} level={shownLevel(data, build, skill)} size={44} tip={false} />
             <div className="sm-skill-text">
               <strong>{skill.name}</strong>
               <CdChip cd={buildCd(data, build, skill)} />
