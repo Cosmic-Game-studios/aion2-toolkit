@@ -30,6 +30,19 @@ export function layoutOf(guide: Guide): LayoutKey[] | null {
 
 const cache = new Map<ClassType, LayoutKey[] | null>();
 
+/** whether the class has a guide whose layout can be loaded */
+export const hasGuideLayout = (cls: ClassType) => !!GUIDES[cls];
+
+/** The class's key layout outside React (null = no guide); shares the cache with the hook. */
+export async function loadGuideLayout(cls: ClassType): Promise<LayoutKey[] | null> {
+  if (cache.has(cls)) return cache.get(cls)!;
+  const load = GUIDES[cls];
+  if (!load) return null;
+  const layout = layoutOf(await load());
+  cache.set(cls, layout);
+  return layout;
+}
+
 export type LayoutState = { state: 'loading' } | { state: 'done'; layout: LayoutKey[] | null } | { state: 'error'; error: unknown };
 
 /** The class's key layout; `null` when the class has no guide. A guide that fails to load gives `error`. */
@@ -37,12 +50,11 @@ export function useGuideLayout(cls: ClassType): LayoutState {
   const [state, setState] = useState<LayoutState>(() => (cache.has(cls) ? { state: 'done', layout: cache.get(cls)! } : { state: 'loading' }));
   useEffect(() => {
     if (cache.has(cls)) { setState({ state: 'done', layout: cache.get(cls)! }); return; }
-    const load = GUIDES[cls];
-    if (!load) { setState({ state: 'done', layout: null }); return; }
+    if (!GUIDES[cls]) { setState({ state: 'done', layout: null }); return; }
     let alive = true;
     setState({ state: 'loading' });
-    load().then(
-      (g) => { const layout = layoutOf(g); cache.set(cls, layout); if (alive) setState({ state: 'done', layout }); },
+    loadGuideLayout(cls).then(
+      (layout) => { if (alive) setState({ state: 'done', layout }); },
       // a failed chunk (offline, new deploy) is not cached: the next visit tries again
       (error) => { if (alive) setState({ state: 'error', error }); },
     );

@@ -9,7 +9,7 @@ import { Card, EmptyState, PageHeader, Segmented } from '../../components/ui';
 import { ClassGuideLink } from '../../components/ClassGuideLink';
 import { useToast } from '../../components/Toast';
 import { useIsTouch } from '../../components/hooks';
-import { buildCd, shownLevel, usableSkills } from '../../lib/buildCalc';
+import { buildCd, shownLevel } from '../../lib/buildCalc';
 import { isSpaceSkill } from '../../lib/classInfo';
 import { keyLabel } from '../../lib/keyLabel';
 import { HotbarGrid, type FiredKey } from './HotbarGrid';
@@ -18,6 +18,8 @@ import { MacroEditor } from './Macros';
 import { SlotMenu } from './SlotMenu';
 import { timerState, useCooldownTimers } from './useCooldownTimers';
 import { blockedSlots, isSlotDrag, placedKeys, readDrag, startDrag } from './keyStacks';
+import { barSkills } from './topBar';
+import { TopBarButton, TopBarCta, useTopBar } from './TopBarAction';
 
 /** "3/12" with a full sentence for screen readers */
 function PlacedCount({ n, m }: { n: number; m: number }) {
@@ -125,10 +127,7 @@ export function HotbarPage({ param }: { param?: string | null }) {
   const { timers, now, trigger, reset } = useCooldownTimers();
   const macroRef = useRef<HTMLDivElement>(null);
 
-  const usable = useMemo(
-    () => usableSkills(data, build).filter((s) => s.isStigma || s.acquireLevel <= build.l),
-    [data, build],
-  );
+  const usable = useMemo(() => barSkills(data, build), [data, build]);
   const { space, actives, stigmas, choices } = useMemo(() => {
     // Defiance stays on the Space bar in game
     const sp = usable.find(isSpaceSkill);
@@ -196,6 +195,19 @@ export function HotbarPage({ param }: { param?: string | null }) {
     setMoving(null);
     toast(t('barCleared'), 'ok', { action: { label: t('undo'), onClick: () => restoreBar(prev) } });
   };
+
+  // the Top 10 bar in one click; its skills land with a short gold glow
+  const [landed, setLanded] = useState(0);
+  const top = useTopBar(() => {
+    setPick(null);
+    setMoving(null);
+    setLanded((n) => n + 1);
+  });
+  useEffect(() => {
+    if (!landed) return;
+    const id = window.setTimeout(() => setLanded(0), 900);
+    return () => window.clearTimeout(id);
+  }, [landed]);
 
   // ---- cooldown test: a key fires its first ready skill, like in game ----
   const setMode = (on: boolean) => {
@@ -304,7 +316,7 @@ export function HotbarPage({ param }: { param?: string | null }) {
       <Card
         title={t('skillBar')}
         icon={<Keyboard size={16} />}
-        className={`hb-card ${test ? 'testing' : ''}`}
+        className={`hb-card ${test ? 'testing' : ''} ${landed ? 'landed' : ''}`}
         extra={
           <>
             <Segmented<'edit' | 'test'>
@@ -319,7 +331,10 @@ export function HotbarPage({ param }: { param?: string | null }) {
             {test ? (
               <button type="button" className="btn ghost sm" onClick={reset}><RotateCcw size={14} aria-hidden /> {t('testReset')}</button>
             ) : (
-              <button type="button" className="btn ghost sm danger" disabled={!filled} onClick={clearBar}><Eraser size={14} aria-hidden /> {t('clearBar')}</button>
+              <>
+                {filled && top.shown && <TopBarButton top={top} />}
+                <button type="button" className="btn ghost sm danger" disabled={!filled} onClick={clearBar}><Eraser size={14} aria-hidden /> {t('clearBar')}</button>
+              </>
             )}
           </>
         }
@@ -341,13 +356,21 @@ export function HotbarPage({ param }: { param?: string | null }) {
           />
         )}
 
-        {!filled && !test && (
+        {!filled && !test && (top.shown ? (
+          <div className="hint-box hb-empty with-top">
+            <Keyboard size={16} aria-hidden />
+            <div className="hb-empty-body">
+              <p>{t('hbEmpty')}</p>
+              <TopBarCta top={top} />
+            </div>
+          </div>
+        ) : (
           <p className="hint-box hb-empty">
             <Keyboard size={16} aria-hidden />
             <span>{t('hbEmpty')}</span>
             <a className="hb-empty-top" href="#/top">{t('hbEmptyTop')} <ArrowRight size={14} aria-hidden /></a>
           </p>
-        )}
+        ))}
 
         <HotbarGrid
           data={data}

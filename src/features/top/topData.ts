@@ -69,3 +69,6 @@ export const useTopIndex = () => useJson('index', isIndex);
 
 /** One class file; `null` skips the request (the index says there is none). */
 export const useTopFile = (cls: ClassType | null) => useJson(cls, isFile);
+
+/** One class file outside React (null = none); it shows at once when the Top 10 page opens later. */
+export const loadTopFile = (cls: ClassType) => getJson(cls, isFile);

@@ -1393,6 +1393,35 @@ a.next-step:active { background: var(--surface-2); }
 .hb-empty { flex-wrap: wrap; align-items: center; }
 .hb-empty > span { flex: 1 1 260px; }
 .hb-empty-top { display: inline-flex; align-items: center; gap: var(--sp-1); min-height: var(--tap-sm); font-weight: 600; white-space: nowrap; }
+/* with a Top 10 bar for the class (TopBarAction.tsx): a gilded panel – the hint, the gold button, the whole build */
+.hb-empty.with-top { flex-wrap: nowrap; align-items: flex-start; padding: var(--sp-3) var(--sp-4); background: var(--sel-fill), var(--glass); border-color: var(--gold-line); }
+.hb-empty.with-top > svg { color: var(--gold); margin-top: 3px; }
+.hb-empty-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: var(--sp-3); }
+.hb-empty-body > p { margin: 0; color: var(--text); }
+.hb-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4); }
+.hb-top-note { flex-basis: 100%; margin: 0; }
+.hb-top-btn[aria-busy='true'] { cursor: progress; }
+.hb-top-btn .spinner { width: 14px; height: 14px; }
+.btn.primary.hb-top-btn .spinner { border-color: rgba(28, 19, 5, .25); border-top-color: var(--on-primary); }
+.btn.ghost.hb-top-btn { border-color: var(--gold-line); }
+.btn.ghost.hb-top-btn > svg { color: var(--gold); }
+.btn.ghost.hb-top-btn .spinner { border-top-color: var(--gold); }
+.hb-top-error {
+  flex-basis: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md);
+  background: rgba(255, 107, 122, .08); border: 1px solid rgba(255, 107, 122, .35); color: var(--text); font-size: var(--fs-sm);
+}
+.hb-top-error > svg { flex: none; color: var(--bad); }
+.hb-top-error > span { flex: 1 1 200px; }
+@media (max-width: 640px) { .hb-top > .hb-top-btn { flex: 1 1 100%; white-space: normal; } }
+/* the Top 10 bar lands: its skills appear with a short gold glow, row by row */
+.hb-card.landed .slot.filled .tile { animation: hb-land .55s cubic-bezier(.2, .8, .3, 1.15) backwards; }
+.hb-card.landed .slot.r1 .tile { animation-delay: 70ms; }
+.hb-card.landed .slot.r2 .tile { animation-delay: 140ms; }
+.hb-card.landed .slot.r3 .tile { animation-delay: 210ms; }
+@keyframes hb-land {
+  from { opacity: 0; transform: scale(.6); box-shadow: 0 0 0 2px var(--gold), 0 0 22px rgba(227, 184, 102, .9); }
+  70% { opacity: 1; transform: scale(1.05); box-shadow: 0 0 0 2px var(--gold-light), 0 0 14px rgba(227, 184, 102, .5); }
+}
 .hb-chain-note { margin-top: calc(var(--sp-1) * -1); }
 .hb-test-hint { display: flex; align-items: flex-start; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); background: var(--accent-soft); border: 1px solid rgba(95, 180, 255, .3); color: var(--text-2); font-size: var(--fs-sm); line-height: var(--lh-snug); }
 .hb-test-hint > svg { flex: none; margin-top: 2px; color: var(--accent); }
@@ -2482,6 +2511,7 @@ button.bp-row:active { background: var(--surface-2); }
 
 /* confirm dialog (ConfirmDialog.tsx) */
 .confirm-title { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.confirm-title > svg { flex: none; color: var(--gold); }
 .confirm-dialog.danger .confirm-title > svg { flex: none; color: var(--bad); }
 .confirm-dialog .modal-body:empty { display: none; }
 .confirm-message { color: var(--text-2); line-height: var(--lh-base); white-space: pre-line; }

@@ -127,7 +127,8 @@ function macroSkill(s: Skill, en: GameData): boolean {
 const colOf = (key: string) => BAR_KEYS.indexOf(key === 'LMB' ? 'R' : key);
 const T_COL = colOf('T');
 const ACTIVE_COLS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-const STIGMA_FIRST = [8, 9, 10, 11, 2, 3, 4, 5, 6, 7];
+/** free keys for a stigma, 5–8 first (the hotbar page puts the player's own stigmas there too) */
+export const STIGMA_FIRST = [8, 9, 10, 11, 2, 3, 4, 5, 6, 7];
 
 /**
  * The guide's keys with only the recommended skills on them, the recommended skills the guide does not place on free
