@@ -333,7 +333,7 @@ export const assassinGuide = classGuide({
     ],
     stats: {
       de: 'Diese Werte zählen für dich, das wichtigste zuerst: **Krit.-Treffer** > **Krit.-Schadensverstärkung** > **Angriffskraft** > **Schadensverstärkung** > **Kampftempo** > **Mehrfachtreffer** > **Abklingzeitverringerung**. Krit steht vorn, weil [[13350000|Heart Gore]] nur nach Krits kommt. Dazu so viel **Präzision**, dass deine Treffer sitzen – ein verfehlter Schlag ist auch kein Krit.',
-      en: 'These stats matter for you, most important first: **Critical Hit** > **Critical Damage Boost** > **Attack** > **Damage Boost** > **Combat Speed** > **Multi-Hit Chance** (Double Chance) > **Cooldown Reduction**. Crit comes first because [[13350000|Heart Gore]] only comes after crits. Plus enough **Accuracy** that your hits land – a missed hit is no crit either.',
+      en: 'These stats matter for you, most important first: **Critical Hit** > **Critical Damage Boost** > **Attack** > **Damage Boost** > **Combat Speed** > **Multi-Hit Chance** > **Cooldown Reduction**. Crit comes first because [[13350000|Heart Gore]] only comes after crits. Plus enough **Accuracy** that your hits land – a missed hit is no crit either.',
     },
   },
   macro: {
