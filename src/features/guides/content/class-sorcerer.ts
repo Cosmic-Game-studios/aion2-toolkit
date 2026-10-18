@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { sorcererPlaystyles } from './playstyle-sorcerer';
 
 /** Beginner guide for the Sorcerer: ranged fire and ice damage, burst windows and MP. */
 export const sorcererGuide = classGuide({
@@ -290,6 +291,7 @@ export const sorcererGuide = classGuide({
       },
     ],
   },
+  playstyles: sorcererPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/sorcerer/build', label: 'Metabot – Sorcerer build' },
     { href: 'https://aion2-guides.info/en/sorcerer/', label: 'AION 2 Guides – Sorcerer' },
@@ -300,7 +302,7 @@ export const sorcererGuide = classGuide({
     { href: 'https://aion2vault.com/builds/sorcerer/pve/', label: 'AION2 Vault – Sorcerer PvE build (creator builds compared)' },
   ],
   caveat: {
-    de: 'Der globale Client hat 4 Stigma-Plätze und Stufe 45 als Grenze – koreanische Builds mit 6 Stigmen passen nicht 1:1. Die Quellen beschreiben die Option der Stufe 12 von [[15210000|Flame Arrow]] anders als die Spieldaten. [[15090000|Ice Chain]] bringen die meisten der Top 10 auf 10, viele Creator lassen ihn niedrig – hier liegt er für Gruppen auf einer eigenen Taste, nicht im Makro. Fürs PvP nennt jede Quelle andere Stigmen; die Auswahl oben folgt den Schutz-Stigmen, die mehrere der Top 10 in einem zweiten Stigma-Set haben. Builds ändern sich mit Patches – was bei dir im Spiel funktioniert, zählt.',
-    en: 'The global client has 4 stigma slots and a level cap of 45 – Korean builds with 6 stigmas do not fit 1:1. The sources describe the level-12 option of [[15210000|Flame Arrow]] differently from the game data. Most of the top 10 take [[15090000|Ice Chain]] to 10, many creators leave it low – here it sits on a key of its own for packs, not in the macro. Every source names other PvP stigmas; the set above follows the protective stigmas several of the top 10 keep in a second stigma set. Builds change with patches – what works for you in game wins.',
+    de: 'Der globale Client hat 4 Stigma-Plätze und Stufe 45 als Grenze – koreanische Builds mit mehr Stigma-Plätzen passen nicht 1:1. Die Quellen beschreiben die Option der Stufe 12 von [[15210000|Flame Arrow]] anders als die Spieldaten. [[15090000|Ice Chain]] bringen die meisten der Top 10 auf 10, viele Creator lassen ihn niedrig – hier liegt er für Gruppen auf einer eigenen Taste, nicht im Makro. Fürs PvP nennt jede Quelle andere Stigmen; die Auswahl oben folgt den Schutz-Stigmen, die mehrere der Top 10 in einem zweiten Stigma-Set haben. Builds ändern sich mit Patches – was bei dir im Spiel funktioniert, zählt.',
+    en: 'The global client has 4 stigma slots and a level cap of 45 – Korean builds with more stigma slots do not fit 1:1. The sources describe the level-12 option of [[15210000|Flame Arrow]] differently from the game data. Most of the top 10 take [[15090000|Ice Chain]] to 10, many creators leave it low – here it sits on a key of its own for packs, not in the macro. Every source names other PvP stigmas; the set above follows the protective stigmas several of the top 10 keep in a second stigma set. Builds change with patches – what works for you in game wins.',
   },
 });

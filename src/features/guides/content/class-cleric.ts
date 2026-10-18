@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { clericPlaystyles } from './playstyle-cleric';
 
 export const clericGuide = classGuide({
   id: 'cleric',
@@ -632,6 +633,7 @@ export const clericGuide = classGuide({
       },
     ],
   },
+  playstyles: clericPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/cleric/build', label: 'Metabot – Cleric build' },
     { href: 'https://daevaguides.com/en/cleric/', label: 'Daeva Guides – Cleric guide' },

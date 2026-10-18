@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { gladiatorPlaystyles } from './playstyle-gladiator';
 
 /** Beginner guide for the Gladiator. Hotbar and macro are set up for bosses. */
 export const gladiatorGuide = classGuide({
@@ -599,6 +600,7 @@ export const gladiatorGuide = classGuide({
       },
     ],
   },
+  playstyles: gladiatorPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/gladiator', label: 'MetaBot – Gladiator class guide' },
     { href: 'https://dbaion2.ru/en/guides/gayd-gladiator/', label: 'dbaion2 – Gladiator guide' },

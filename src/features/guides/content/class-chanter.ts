@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { chanterPlaystyles } from './playstyle-chanter';
 
 export const chanterGuide = classGuide({
   id: 'chanter',
@@ -384,8 +385,8 @@ export const chanterGuide = classGuide({
           {
             id: 18170000 /* Healing Touch */,
             note: {
-              de: "Für den 4. Platz, wenn kein Kleriker dabei ist: große Gruppenheilung. [[18240000|Impeding Authority]] (Schild für alle) geht auch. Keiner der Top 10 nutzt es.",
-              en: "For the 4th slot when there is no Cleric: a big group heal. [[18240000|Impeding Authority]] (a shield for everyone) works too. None of the top 10 slots it.",
+              de: "Für den 4. Platz, wenn kein Kleriker dabei ist: deine größte Gruppenheilung – aber nur ein Bruchteil dessen, was ein Kleriker heilt (Abschnitt „Spielstile“).[[18240000|Impeding Authority]] (Schild für alle) geht auch. Keiner der Top 10 nutzt es.",
+              en: "For the 4th slot when there is no Cleric: your biggest group heal – but only a fraction of what a Cleric heals (see “Playstyles”).[[18240000|Impeding Authority]] (a shield for everyone) works too. None of the top 10 slots it.",
             },
           },
           {
@@ -503,8 +504,8 @@ export const chanterGuide = classGuide({
         key: '5',
         ids: [18160000 /* Sprint Mantra */],
         note: {
-          de: "Beliebtes Stigma für den 4. Platz: ein zweites Mantra – die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig. Wie jedes Mantra ein Schalter: einmal vor dem Kampf anschalten, nie ins Makro. Die Top 10 legen hier etwas öfter [[18420000|Guardian Blessing]] hin (lohnt sich ab Stigma-Stufe 15; von Hand vor dem Kampf, alle 5 Minuten). Ist kein Kleriker dabei, kannst du hier [[18170000|Healing Touch]] hinlegen (große Gruppenheilung – von Hand, wenn es eng wird), mit Kleriker [[18140000|Focused Defense]].",
-          en: "A popular stigma for the 4th slot: a second mantra – the group runs faster and heals a little while attacking. Like every mantra it is a switch: turn it on once before the pull, never in the macro. The top 10 put [[18420000|Guardian Blessing]] here a little more often (worth it from stigma level 15; by hand before the pull, every 5 minutes). Without a Cleric in the group you can put [[18170000|Healing Touch]] here (a big group heal – by hand when things get tight), with a Cleric [[18140000|Focused Defense]].",
+          de: "Beliebtes Stigma für den 4. Platz: ein zweites Mantra – die Gruppe läuft schneller und heilt sich beim Angreifen ein wenig. Wie jedes Mantra ein Schalter: einmal vor dem Kampf anschalten, nie ins Makro. Die Top 10 legen hier etwas öfter [[18420000|Guardian Blessing]] hin (lohnt sich ab Stigma-Stufe 15; von Hand vor dem Kampf, alle 5 Minuten). Ist kein Kleriker dabei, kannst du hier [[18170000|Healing Touch]] hinlegen (deine größte Gruppenheilung, aber kein Ersatz für einen Kleriker – von Hand, wenn es eng wird), mit Kleriker [[18140000|Focused Defense]].",
+          en: "A popular stigma for the 4th slot: a second mantra – the group runs faster and heals a little while attacking. Like every mantra it is a switch: turn it on once before the pull, never in the macro. The top 10 put [[18420000|Guardian Blessing]] here a little more often (worth it from stigma level 15; by hand before the pull, every 5 minutes). Without a Cleric in the group you can put [[18170000|Healing Touch]] here (your biggest group heal, but no stand-in for a Cleric – by hand when things get tight), with a Cleric [[18140000|Focused Defense]].",
         },
       },
       {
@@ -607,6 +608,7 @@ export const chanterGuide = classGuide({
       },
     ],
   },
+  playstyles: chanterPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/chanter/build', label: 'Metabot – Chanter build' },
     { href: 'https://daevaguides.com/en/chanter/', label: 'Daeva Guides – Chanter guide' },

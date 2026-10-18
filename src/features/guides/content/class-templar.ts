@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { templarPlaystyles } from './playstyle-templar';
 
 /** Beginner guide for the Templar. Hotbar and macro are set up for tanking. */
 export const templarGuide = classGuide({
@@ -591,6 +592,7 @@ export const templarGuide = classGuide({
       },
     ],
   },
+  playstyles: templarPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/templar', label: 'MetaBot – Templar class guide' },
     { href: 'https://aion2.run/en/classes/templier', label: 'aion2.run – Templar class page' },

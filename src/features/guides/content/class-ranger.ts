@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { rangerPlaystyles } from './playstyle-ranger';
 
 /** Beginner guide for the Ranger: ranged crit damage from 20 m. Hotbar and macro are set up for bosses. */
 export const rangerGuide = classGuide({
@@ -55,8 +56,8 @@ export const rangerGuide = classGuide({
       en: "In PvP you keep your distance: [[14130000|Snare Shot]] slows, [[14050000|Drill Dart]] cuts the healing the enemy receives by 60%, and with the right specialisation you can shoot [[14010000|Deadshot]] while moving. If you are stunned (you cannot act for a moment), [[14260000|Defiance]] on Space frees you. [[14350000|Mother Nature's Breath]] (stigma) lowers the damage you take.",
     },
     solo: {
-      de: 'Allein hilft dir der Abstand: Verlangsame Gegner mit [[14130000|Snare Shot]] und schieß, während sie zu dir laufen. Kommen dir Gegner oft zu nah, tausch das Stigma [[14380000|Supporting Fire]] (Taste 7) gegen [[14120000|Ambush Kick]]: Der Skill stößt einen nahen Gegner zurück und bringt dich auf Abstand.',
-      en: 'Solo, distance is your friend: slow enemies with [[14130000|Snare Shot]] and shoot while they walk towards you. If enemies often get too close, swap the stigma [[14380000|Supporting Fire]] (key 7) for [[14120000|Ambush Kick]]: it knocks a close enemy back and puts distance between you.',
+      de: 'Allein hilft dir der Abstand: Verlangsame Gegner mit [[14130000|Snare Shot]] und schieß, während sie zu dir laufen. Kommen dir Gegner oft zu nah, tausch dein viertes Stigma [[14060000|Griffon Arrow]] (Taste 8) gegen [[14120000|Ambush Kick]]: Der Skill stößt einen nahen Gegner zurück und bringt dich auf Abstand. [[14380000|Supporting Fire]] bleibt – seine Schüsse saugen dir LP zurück, und alle zehn der Top 10 behalten es.',
+      en: 'Solo, distance is your friend: slow enemies with [[14130000|Snare Shot]] and shoot while they walk towards you. If enemies often get too close, swap your fourth stigma [[14060000|Griffon Arrow]] (key 8) for [[14120000|Ambush Kick]]: it knocks a close enemy back and puts distance between you. Keep [[14380000|Supporting Fire]] – its shots drain HP back to you, and all ten of the top 10 keep it.',
     },
   },
   skills: [
@@ -498,6 +499,7 @@ export const rangerGuide = classGuide({
       },
     ],
   },
+  playstyles: rangerPlaystyles,
   sources: [
     { href: 'https://game8.co/games/Aion-2/archives/626143', label: 'Game8 – Ranger build' },
     { href: 'https://daevaguides.com/en/ranger/', label: 'Daeva Guides – Ranger' },

@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { assassinPlaystyles } from './playstyle-assassin';
 
 /** Beginner guide for the Assassin: melee burst from behind. Hotbar and macro are set up for bosses. */
 export const assassinGuide = classGuide({
@@ -492,6 +493,7 @@ export const assassinGuide = classGuide({
       },
     ],
   },
+  playstyles: assassinPlaystyles,
   sources: [
     { href: 'https://game8.co/games/Aion-2/archives/616882', label: 'Game8 – Assassin build' },
     { href: 'https://daevaguides.com/en/assassin/', label: 'Daeva Guides – Assassin' },

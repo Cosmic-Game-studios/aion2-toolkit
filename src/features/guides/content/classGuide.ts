@@ -94,6 +94,11 @@ export interface ClassGuideInput {
     slotted?: { id: number; n: number; level: number }[];
     tips: L10n[];
   };
+  /**
+   * the section "Playstyles" after the core build: the other sensible ways to play the class (role, content, PvP),
+   * each with what changes and when to switch, and the styles that do not work (playstyle-<class>.ts)
+   */
+  playstyles: GuideBlock[];
   sources: { href: string; label: string }[];
   /** extra note in the sources section, e.g. where sources disagree */
   caveat?: L10n;
@@ -374,6 +379,7 @@ export function classGuide(g: ClassGuideInput): Guide {
       sec('Die wichtigsten Skills', 'The most important skills', [{ type: 'skills', items: g.skills }]),
       sec('Rotation', 'Rotation', rotation),
       sec('Kern-Build', 'Core build', build),
+      sec('Spielstile', 'Playstyles', g.playstyles),
       sec('Leiste & Makro', 'Hotbar & macro', [
         {
           type: 'text',

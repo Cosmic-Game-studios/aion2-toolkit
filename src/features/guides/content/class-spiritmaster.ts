@@ -1,4 +1,5 @@
 import { classGuide } from './classGuide';
+import { spiritmasterPlaystyles } from './playstyle-spiritmaster';
 
 /** Beginner guide for the Spiritmaster (classType Elementalist): ranged damage together with spirits. */
 export const spiritmasterGuide = classGuide({
@@ -290,6 +291,7 @@ export const spiritmasterGuide = classGuide({
       },
     ],
   },
+  playstyles: spiritmasterPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/spiritmaster', label: 'Metabot – Spiritmaster' },
     { href: 'https://metaroad.gg/aion2/build-guides/spiritmaster-pve-build', label: 'MetaRoad – Spiritmaster PvE build' },
