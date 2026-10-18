@@ -1,5 +1,6 @@
 import type { ClassType } from '../../../data/types';
 import type { Guide, GuideBlock, GuideSection, L10n } from '../types';
+import { GUIDE_IDS, guideHref } from '../guideLinks';
 
 /**
  * Shared layout of the class guides: every class guide has the same sections in the same order,
@@ -33,6 +34,19 @@ export interface ClassGuideInput {
    */
   macro: { keys: { key: string; ids: number[]; note?: L10n; macro?: boolean }[]; note: L10n };
   mistakes: L10n[];
+  /**
+   * The class part of "Highest Combat Power" (the general part is the combat-power guide): what the top 10 of the
+   * class wear and level (public/data/top, read on the date in `asOf`) and what to do first.
+   */
+  power: {
+    asOf: string;
+    intro: L10n;
+    gear: L10n[];
+    arcana: L10n;
+    /** stigmas to take to level 20 first, most important first */
+    stigmas: { id: number; note: L10n }[];
+    tips: L10n[];
+  };
   sources: { href: string; label: string }[];
   /** extra note in the sources section, e.g. where sources disagree */
   caveat?: L10n;
@@ -122,6 +136,34 @@ export function classGuide(g: ClassGuideInput): Guide {
     ],
   });
 
+  const power: GuideBlock[] = [
+    { type: 'text', text: g.power.intro },
+    { type: 'heading', text: { de: 'Ausrüstung der Top 10', en: 'Gear of the top 10' } },
+    { type: 'list', items: g.power.gear },
+    { type: 'heading', text: { de: 'Arcana', en: 'Arcana' } },
+    { type: 'text', text: g.power.arcana },
+    { type: 'heading', text: { de: 'Diese Stigmen zuerst auf Stufe 20', en: 'Take these stigmas to level 20 first' } },
+    { type: 'skills', items: g.power.stigmas },
+    { type: 'list', items: g.power.tips },
+    {
+      type: 'callout',
+      tone: 'info',
+      title: { de: 'Stand', en: 'As of' },
+      text: {
+        de: `Die Zahlen zu den Top 10 stammen vom ${g.power.asOf.split('-').reverse().join('.')} (AION2 Index). Die Spitze legt pro Woche um rund 35–65K Kampfkraft zu – die aktuellen Werte zeigt die Top-10-Seite.`,
+        en: `The top 10 numbers are from ${g.power.asOf} (AION2 Index). The top gains about 35–65K Combat Power per week – the top 10 page shows the current values.`,
+      },
+    },
+    {
+      type: 'links',
+      items: [
+        { href: guideHref(GUIDE_IDS.combatPower), label: { de: 'Kampfkraft-Guide: was wie viel bringt', en: 'Combat Power guide: what gives how much' }, primary: true },
+        { href: `#/top/${g.cls.toLowerCase()}`, label: { de: 'Top 10 der Klasse (aktuell)', en: 'Top 10 of the class (current)' } },
+        { href: '#/stigma', label: { de: 'Stigmen planen', en: 'Plan stigmas' }, cls: g.cls },
+      ],
+    },
+  ];
+
   const sources: GuideBlock[] = [
     {
       type: 'callout',
@@ -171,6 +213,7 @@ export function classGuide(g: ClassGuideInput): Guide {
         { type: 'links', items: [{ href: '#/guides/macros', label: { de: 'Makro-Guide lesen', en: 'Read the macro guide' } }, { href: '#/hotbar', label: { de: 'Makro im Planer bauen', en: 'Build the macro in the planner' }, cls: g.cls }] },
       ]),
       sec('Häufige Fehler', 'Common mistakes', [{ type: 'list', items: g.mistakes }]),
+      sec('Höchste Kampfkraft', 'Highest Combat Power', power),
       sec('Community-Builds', 'Community builds', communityBuilds(g.cls)),
       sec('Quellen', 'Sources', sources),
     ],

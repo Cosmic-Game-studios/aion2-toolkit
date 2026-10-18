@@ -437,6 +437,55 @@ export const templarGuide = classGuide({
       en: '**Not practising:** try the windows on the training scarecrow until [[12240000|Judgment]] lands every time.',
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Templer haben im Median **214K** Kampfkraft bei Gegenstandsstufe **3.176** (Spanne 201–239K) – Platz 7 der acht Klassen. Mit ≈66 Kampfkraft pro Gegenstandsstufe zeigt der Templer weniger als die Schadensklassen; vergleiche dich darum mit anderen Templern, nicht mit der Gesamtliste.",
+      en: "The top 10 Templars have a median **214K** Combat Power at item level **3,176** (range 201–239K) – 7th of the eight classes. At ≈66 Combat Power per item level the Templar shows less than the damage classes, so compare yourself with other Templars, not with the overall list.",
+    },
+    gear: [
+      {
+        de: "**Waffe:** Splendent Ebony / Wise Dragon Lord Longsword – alle zehn auf +15 mit Amplified +5. Die Waffe ist das Erste, was bei den Top-Templern fertig ist.",
+        en: "**Weapon:** Splendent Ebony / Wise Dragon Lord Longsword – all ten at +15 with Amplified +5. The weapon is the first thing the top Templars finish.",
+      },
+      {
+        de: "**Rüstung:** gemischt – 32 von 70 Teilen Splendent (Gegenstandsstufe 102), 15 Splendent White / Dark Dragon Lord (86), 21 Nuakum. Fast alles auf +15, Amplified Enhancement im Median erst +3. Nur 3 der 10 tragen das ganze 102er-Set.",
+        en: "**Armour:** mixed – 32 of 70 pieces Splendent (item level 102), 15 Splendent White / Dark Dragon Lord (86), 21 Nuakum. Nearly all at +15, Amplified Enhancement only +3 at the median. Only 3 of the 10 wear the full 102 set.",
+      },
+      {
+        de: "**Schmuck:** 33 von 50 Teilen Splendent 102, der Rest Splendent 86, Enraged Kromede oder Gartua – fast alle auf +15.",
+        en: "**Jewellery:** 33 of 50 pieces Splendent 102, the rest Splendent 86, Enraged Kromede or Gartua – nearly all at +15.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80) plus meist ein Liberator Bracelet +10; Revelation Amulet +10 (8 von 10), Noble Belt +10 (7 von 10). Flügel meist Dark Veil (6).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more) plus mostly a Liberator Bracelet +10; Revelation Amulet +10 (8 of 10), Noble Belt +10 (7 of 10). Wings mostly Dark Veil (6).",
+      },
+    ],
+    arcana: {
+      de: "**Chalice und Parchment of Vigor** (9 und 8 von 10) wie fast alle Klassen; bei Compass, Bell und Mirror ist es nahezu halb und halb. Manche Guides raten Tanks zu vier Magic-Karten – das macht nur einer der Top 10. 36 von 50 Karten sind auf +5.",
+      en: "**Chalice and Parchment of Vigor** (9 and 8 of 10) like nearly every class; on Compass, Bell and Mirror it is close to half and half. Some guides advise tanks to take four Magic cards – only one of the top 10 does. 36 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 12450000, note: { de: '7 von 10 · Median Stufe 20', en: '7 of 10 · median level 20' } },
+      { id: 12120000, note: { de: '5 von 10 · Median Stufe 20', en: '5 of 10 · median level 20' } },
+      { id: 12070000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
+      { id: 12230000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
+    ],
+    tips: [
+      {
+        de: "**Amplified ist der Abstand:** Die Top-Templer haben im Median 4 von 20 Plätzen auf Amplified +5, Gladiatoren 14. Dort liegt der größte Teil des Unterschieds zu den Schadensklassen.",
+        en: "**Amplified is the gap:** the top Templars have a median 4 of 20 slots at Amplified +5, Gladiators 14. That is where most of the gap to the damage classes lies.",
+      },
+      {
+        de: "**Nuakum reicht lange:** 21 von 70 Rüstungsteilen der Top 10 sind noch Nuakum (Gegenstandsstufe 86) auf +15. Der Wechsel aufs Splendent-Set kommt bei Templern zuletzt – Waffe zuerst.",
+        en: "**Nuakum lasts a long time:** 21 of 70 armour pieces of the top 10 are still Nuakum (item level 86) at +15. Templars switch to the Splendent set last – weapon first.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 59, 61 und 57 von 88 Knoten auf den ersten drei Tafeln offen, 73 von 116 auf der vierten und 36 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 59, 61 and 57 of 88 nodes are open on the first three boards, 73 of 116 on the fourth and 36 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/templar', label: 'MetaBot – Templar class guide' },
     { href: 'https://aion2.run/en/classes/templier', label: 'aion2.run – Templar class page' },

@@ -176,6 +176,55 @@ export const sorcererGuide = classGuide({
     { de: '**Explosion zu spät:** Im Makro kommt [[15320000|Delayed Explosion]] erst nach deinen anderen Angriffen. Im Burst drückst du sie zuerst – dann treffen deine Skills 4 s lang 15 % härter.', en: '**Explosion too late:** in the macro [[15320000|Delayed Explosion]] only comes after your other attacks. In a burst press it first – then your skills hit 15% harder for 4 s.' },
     { de: '**Zu nah dran:** Du hältst wenig aus. Bleib auf Abstand und lauf aus Flächenangriffen heraus.', en: '**Too close:** you cannot take many hits. Keep your distance and walk out of area attacks.' },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Magier haben im Median **233K** Kampfkraft bei Gegenstandsstufe **3.327** (Spanne 222–250K) – Platz 3 der acht Klassen und mit ≈71 Kampfkraft pro Gegenstandsstufe Platz 2. Offen sind vor allem Arcana, Gürtel und die fünfte Daevanion-Tafel.",
+      en: "The top 10 Sorcerers have a median **233K** Combat Power at item level **3,327** (range 222–250K) – 3rd of the eight classes and 2nd at ≈71 Combat Power per item level. What is still open is mainly Arcana, the belt and the fifth Daevanion board.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Spellbook – alle zehn auf +15 mit Amplified +5; der Guard ebenso (einer noch Nuakum).",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Spellbook – all ten at +15 with Amplified +5; the guard as well (one still Nuakum).",
+      },
+      {
+        de: "**Rüstung:** 50 von 70 Teilen Splendent (Gegenstandsstufe 102), 12 Nuakum, 8 Splendent White / Dark Dragon Lord (86); 6 der 10 tragen das ganze Set, 55 Teile auf Amplified +5.",
+        en: "**Armour:** 50 of 70 pieces Splendent (item level 102), 12 Nuakum, 8 Splendent White / Dark Dragon Lord (86); 6 of the 10 wear the full set, 55 pieces at Amplified +5.",
+      },
+      {
+        de: "**Schmuck:** 44 von 50 Teilen Splendent 102, alle auf +15, 46 mit Amplified +5.",
+        en: "**Jewellery:** 44 of 50 pieces Splendent 102, all at +15, 46 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80), meist +15, plus meist ein Liberator Bracelet +10; Revelation Amulet +10 (9 von 10), Noble Belt +10 nur bei 6 von 10. Flügel gemischt: Talisra (4), Dark Veil und Kromede (je 2).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more), mostly +15, plus mostly a Liberator Bracelet +10; Revelation Amulet +10 (9 of 10), Noble Belt +10 only for 6 of 10. Wings mixed: Talisra (4), Dark Veil and Kromede (2 each).",
+      },
+    ],
+    arcana: {
+      de: "Bei den Magiern gehen die Karten am weitesten auseinander. Am häufigsten: **Chalice of Vigor** (8 von 10), **Mirror of Vigor** (7), **Parchment und Compass of Vigor** (je 6) und **Bell of Magic** (8). Nur 33 von 50 Karten sind auf +5, zwei tragen die Bell of Magic noch auf +0.",
+      en: "The Sorcerers’ cards differ the most. Most common: **Chalice of Vigor** (8 of 10), **Mirror of Vigor** (7), **Parchment and Compass of Vigor** (6 each) and **Bell of Magic** (8). Only 33 of 50 cards are at +5, two still wear the Bell of Magic at +0.",
+    },
+    stigmas: [
+      { id: 15400000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
+      { id: 15390000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
+      { id: 15320000, note: { de: '7 von 10 · Median Stufe 20', en: '7 of 10 · median level 20' } },
+      { id: 15200000, note: { de: '8 von 10 · Median Stufe 15', en: '8 of 10 · median level 15' } },
+    ],
+    tips: [
+      {
+        de: "**Arcana auf +5:** 17 von 50 Karten der Top 10 sind noch darunter – Arcana-Verzauberung kann nicht scheitern.",
+        en: "**Arcana to +5:** 17 of 50 cards of the top 10 are still below – Arcana enhancement can’t fail.",
+      },
+      {
+        de: "**Gürtel:** 4 der Top 10 haben den Noble Belt noch unter +10, zwei auf +0. Er gelingt bis +10 immer (eine Schriftrolle pro Stufe).",
+        en: "**Belt:** 4 of the top 10 still have the Noble Belt below +10, two at +0. It always succeeds up to +10 (one scroll per step).",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 60, 55 und 62 von 88 Knoten auf den ersten drei Tafeln offen, 71 von 116 auf der vierten und 26 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 60, 55 and 62 of 88 nodes are open on the first three boards, 71 of 116 on the fourth and 26 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/sorcerer/build', label: 'Metabot – Sorcerer build' },
     { href: 'https://aion2-guides.info/en/sorcerer/', label: 'AION 2 Guides – Sorcerer' },

@@ -453,6 +453,55 @@ export const chanterGuide = classGuide({
       en: "**Double buffs:** two Chanters with the same mantras, or [[18190000|Undefeated Mantra]] next to [[17410000|Light of Protection]] – only one of each works.",
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Kantoren haben im Median **217K** Kampfkraft bei Gegenstandsstufe **3.233** (Spanne 202–264K) – Platz 5 der acht Klassen, ≈67 Kampfkraft pro Gegenstandsstufe. Die Spanne ist die größte aller Klassen: Platz 1 hat mit 264K die höchste Kampfkraft aller 80 Top-Spieler.",
+      en: "The top 10 Chanters have a median **217K** Combat Power at item level **3,233** (range 202–264K) – 5th of the eight classes, ≈67 Combat Power per item level. The range is the widest of all classes: 1st place has 264K, the highest Combat Power of all 80 top players.",
+    },
+    gear: [
+      {
+        de: "**Waffe:** Splendent Ebony / Wise Dragon Lord Staff (7 von 10), zwei spielen das **Enraged Kromede Rod**, einer den Splendent White Dragon Lord Staff – alle zehn auf +15 mit Amplified +5.",
+        en: "**Weapon:** Splendent Ebony / Wise Dragon Lord Staff (7 of 10), two play the **Enraged Kromede Rod**, one the Splendent White Dragon Lord Staff – all ten at +15 with Amplified +5.",
+      },
+      {
+        de: "**Rüstung:** 35 von 70 Teilen Splendent (Gegenstandsstufe 102), 33 Nuakum. Nur 52 Teile auf +15, Amplified Enhancement im Median +4; 4 der 10 tragen das ganze 102er-Set.",
+        en: "**Armour:** 35 of 70 pieces Splendent (item level 102), 33 Nuakum. Only 52 pieces at +15, Amplified Enhancement +4 at the median; 4 of the 10 wear the full 102 set.",
+      },
+      {
+        de: "**Schmuck:** 37 von 50 Teilen Splendent 102, der Rest Splendent 86 – alle auf +15, 33 mit Amplified +5.",
+        en: "**Jewellery:** 37 of 50 pieces Splendent 102, the rest Splendent 86 – all at +15, 33 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80) (+10 bis +15) plus Liberator oder Pilgrim Bracelet; Revelation Amulet +10 und Noble Belt +10 (je 6 von 10). Flügel: Dark Veil (7) oder Talisra (3).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more) (+10 to +15) plus a Liberator or Pilgrim Bracelet; Revelation Amulet +10 and Noble Belt +10 (6 of 10 each). Wings: Dark Veil (7) or Talisra (3).",
+      },
+    ],
+    arcana: {
+      de: "Kantoren nehmen am meisten Vigor: **Chalice und Parchment of Vigor** bei allen zehn, **Compass of Vigor** (8), **Mirror of Vigor** (6), dazu **Bell of Magic** (8). Nur 27 von 50 Karten sind auf +5 – die wenigsten aller Klassen.",
+      en: "Chanters take the most Vigor: **Chalice and Parchment of Vigor** for all ten, **Compass of Vigor** (8), **Mirror of Vigor** (6), plus **Bell of Magic** (8). Only 27 of 50 cards are at +5 – the fewest of all classes.",
+    },
+    stigmas: [
+      { id: 18190000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 18250000, note: { de: '8 von 10 · Median Stufe 20', en: '8 of 10 · median level 20' } },
+      { id: 18420000, note: { de: '6 von 10 · Median Stufe 20', en: '6 of 10 · median level 20' } },
+      { id: 18330000, note: { de: '8 von 10 · Median Stufe 16', en: '8 of 10 · median level 16' } },
+    ],
+    tips: [
+      {
+        de: "**Arcana auf +5:** 23 von 50 Karten der Top 10 sind noch darunter – Arcana-Verzauberung kann nicht scheitern.",
+        en: "**Arcana to +5:** 23 of 50 cards of the top 10 are still below – Arcana enhancement can’t fail.",
+      },
+      {
+        de: "**Rüstung auf +15:** 18 von 70 Rüstungsteilen der Top 10 sind noch unter +15. Über +10 geht bei einem Fehlschlag keine Stufe verloren, jeder Fehlschlag erhöht die Chance.",
+        en: "**Armour to +15:** 18 of 70 armour pieces of the top 10 are still below +15. Past +10 a failure loses no level, and every failure raises the chance.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 64, 61 und 61 von 88 Knoten auf den ersten drei Tafeln offen, 74 von 116 auf der vierten und 35 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 64, 61 and 61 of 88 nodes are open on the first three boards, 74 of 116 on the fourth and 35 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/chanter/build', label: 'Metabot – Chanter build' },
     { href: 'https://daevaguides.com/en/chanter/', label: 'Daeva Guides – Chanter guide' },

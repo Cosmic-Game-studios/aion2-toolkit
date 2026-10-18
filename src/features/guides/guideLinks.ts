@@ -31,7 +31,7 @@ export const classGuideHref = (cls: ClassType, section?: number): string | null 
 };
 
 /** Sections of every class guide (content/classGuide.ts builds them in this order). */
-export const CLASS_GUIDE_SECTION = { glance: 0, group: 1, skills: 2, rotation: 3, build: 4, hotbar: 5, mistakes: 6, community: 7, sources: 8 } as const;
+export const CLASS_GUIDE_SECTION = { glance: 0, group: 1, skills: 2, rotation: 3, build: 4, hotbar: 5, mistakes: 6, power: 7, community: 8, sources: 9 } as const;
 
 /** The general guides that planner pages may point to. */
-export const GUIDE_IDS = { macros: 'macros', speedrun: 'speedrun-45', crafting: 'gathering-crafting', craftingGear: 'crafting-gear' } as const;
+export const GUIDE_IDS = { macros: 'macros', speedrun: 'speedrun-45', crafting: 'gathering-crafting', craftingGear: 'crafting-gear', combatPower: 'combat-power' } as const;

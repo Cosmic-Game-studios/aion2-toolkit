@@ -3,6 +3,7 @@ import { speedrun45 } from './speedrun45';
 import { gatheringCrafting } from './gathering-crafting';
 import { craftingGear } from './crafting-gear';
 import { farmingPower } from './farming-power';
+import { combatPower } from './combat-power';
 import { pets } from './pets';
 import { macros } from './macros';
 import { gladiatorGuide } from './class-gladiator';
@@ -20,6 +21,7 @@ import { chanterGuide } from './class-chanter';
  */
 export const GUIDES: Guide[] = [
   macros,
+  combatPower,
   gladiatorGuide,
   templarGuide,
   assassinGuide,

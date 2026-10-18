@@ -361,6 +361,55 @@ export const assassinGuide = classGuide({
       en: '**Using [[13130000|Insignia Explosion]] with few Insignias.** Damage and stun chance grow with every Insignia up to 5. Build them up first with [[13100000|Savage Roar]] and [[13270000|Savage Fang]].',
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Assassinen haben im Median **228K** Kampfkraft bei Gegenstandsstufe **3.355** (Spanne 220–254K) – Platz 4 der acht Klassen, ≈70 Kampfkraft pro Gegenstandsstufe. Die Ausrüstung ist fast fertig; der Unterschied liegt bei den Arcana und der fünften Daevanion-Tafel.",
+      en: "The top 10 Assassins have a median **228K** Combat Power at item level **3,355** (range 220–254K) – 4th of the eight classes, ≈70 Combat Power per item level. The gear is nearly done; the difference lies in the Arcana and the fifth Daevanion board.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Dagger und Guard – alle zehn auf +15 mit Amplified +5.",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Dagger and Guard – all ten at +15 with Amplified +5.",
+      },
+      {
+        de: "**Rüstung:** 63 von 70 Teilen Splendent (Gegenstandsstufe 102), 8 der 10 tragen das ganze Set; 52 Teile auf Amplified +5.",
+        en: "**Armour:** 63 of 70 pieces Splendent (item level 102), 8 of the 10 wear the full set; 52 pieces at Amplified +5.",
+      },
+      {
+        de: "**Schmuck:** alle 50 Teile Splendent auf +15 mit Amplified +5.",
+        en: "**Jewellery:** all 50 pieces Splendent at +15 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80), meist +15, plus Liberator oder Pilgrim Bracelet +10; Revelation Amulet +10 und Noble Belt +10 (je 7 von 10). Flügel: Talisra (6) oder Dark Veil (4).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more), mostly +15, plus a Liberator or Pilgrim Bracelet +10; Revelation Amulet +10 and Noble Belt +10 (7 of 10 each). Wings: Talisra (6) or Dark Veil (4).",
+      },
+    ],
+    arcana: {
+      de: "Anders als die meisten Klassen nehmen Assassinen den **Mirror of Vigor** (9 von 10) und dafür den **Compass of Magic** (7). Dazu **Chalice und Parchment of Vigor** (9 und 7) und **Bell of Magic** (8). Nur 36 von 50 Karten sind auf +5.",
+      en: "Unlike most classes, Assassins take the **Mirror of Vigor** (9 of 10) and the **Compass of Magic** instead (7). Plus **Chalice and Parchment of Vigor** (9 and 7) and **Bell of Magic** (8). Only 36 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 13310000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 13390000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
+      { id: 13300000, note: { de: '7 von 10 · Median Stufe 17', en: '7 of 10 · median level 17' } },
+      { id: 13270000, note: { de: '7 von 10 · Median Stufe 15', en: '7 of 10 · median level 15' } },
+    ],
+    tips: [
+      {
+        de: "**Arcana auf +5:** 14 von 50 Karten der Top 10 sind noch darunter – und Arcana-Verzauberung kann nicht scheitern.",
+        en: "**Arcana to +5:** 14 of 50 cards of the top 10 are still below – and Arcana enhancement can’t fail.",
+      },
+      {
+        de: "**Fünfte Daevanion-Tafel:** Assassinen haben dort im Median nur 22 von 152 Knoten offen, die wenigsten aller Klassen (die anderen 26–37). Jeder Knoten zählt zur Gegenstandsstufe.",
+        en: "**Fifth Daevanion board:** Assassins have a median of only 22 of 152 nodes open there, the fewest of all classes (the others 26–37). Every node counts towards item level.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 66, 61 und 60 von 88 Knoten auf den ersten drei Tafeln offen, 71 von 116 auf der vierten und 22 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 66, 61 and 60 of 88 nodes are open on the first three boards, 71 of 116 on the fourth and 22 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://game8.co/games/Aion-2/archives/616882', label: 'Game8 – Assassin build' },
     { href: 'https://daevaguides.com/en/assassin/', label: 'Daeva Guides – Assassin' },

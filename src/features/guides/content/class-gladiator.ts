@@ -425,6 +425,55 @@ export const gladiatorGuide = classGuide({
       en: '**Copying Korean builds:** they have more stigma slots than the 4 of the global client. Plan with 4.',
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Gladiatoren haben im Median **240K** Kampfkraft bei Gegenstandsstufe **3.432** (Spanne 226–254K) – Platz 2 der acht Klassen, ≈70 Kampfkraft pro Gegenstandsstufe. Kein anderer Top-10-Kreis ist so gleichmäßig ausgebaut: Alle zehn tragen das komplette Set auf Gegenstandsstufe 102.",
+      en: "The top 10 Gladiators have a median **240K** Combat Power at item level **3,432** (range 226–254K) – 2nd of the eight classes, ≈70 Combat Power per item level. No other top 10 is built up as evenly: all ten wear the full item level 102 set.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Greatsword und Guard – alle zehn auf +15 mit Amplified +5.",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Greatsword and Guard – all ten at +15 with Amplified +5.",
+      },
+      {
+        de: "**Rüstung und Schmuck:** das ganze Splendent-Set – 68 von 70 Rüstungsteilen und alle 50 Schmuckstücke auf +15 mit Amplified +5.",
+        en: "**Armour and jewellery:** the full Splendent set – 68 of 70 armour pieces and all 50 pieces of jewellery at +15 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80), meist +15, dazu ein Liberator oder Pilgrim Bracelet +10.",
+        en: "**Bracelets:** exactly one Ascension Bracelet (none of the top 80 wears more), mostly +15, plus a Liberator or Pilgrim Bracelet +10.",
+      },
+      {
+        de: "**Rest:** Noble Belt +10 (9 von 10), Revelation Amulet +10 (6 von 10, drei tragen noch ein Fierce Battle Amulet), zwei Clash Runes +3 bis +5. Flügel: Dark Veil (6) oder Talisra (4).",
+        en: "**The rest:** Noble Belt +10 (9 of 10), Revelation Amulet +10 (6 of 10, three still wear a Fierce Battle Amulet), two Clash Runes +3 to +5. Wings: Dark Veil (6) or Talisra (4).",
+      },
+    ],
+    arcana: {
+      de: "**Chalice, Parchment und Compass of Vigor** (9, 8 und 7 von 10), dazu **Bell of Magic** (9) und **Mirror of Magic** (7). 41 von 50 Karten sind auf +5.",
+      en: "**Chalice, Parchment and Compass of Vigor** (9, 8 and 7 of 10), plus **Bell of Magic** (9) and **Mirror of Magic** (7). 41 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 11400000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 11250000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
+      { id: 11390000, note: { de: '10 von 10 · Median Stufe 18', en: '10 of 10 · median level 18' } },
+      { id: 11110000, note: { de: '4 von 10 · Median Stufe 15', en: '4 of 10 · median level 15' } },
+    ],
+    tips: [
+      {
+        de: "**Das Set ist fertig:** Die Top-Gladiatoren legen im Median „nur“ +40K pro Woche zu, weniger als die meisten Klassen. Was noch dazukommt, kommt vor allem aus Daevanion-Knoten, Titeln und den letzten Arcana-Stufen.",
+        en: "**The set is done:** the top Gladiators gain a median of “only” +40K per week, less than most classes. What still comes on top comes mostly from Daevanion nodes, titles and the last Arcana levels.",
+      },
+      {
+        de: "**Amulett und Gürtel:** Beide gelingen bis +10 immer (eine Schriftrolle pro Stufe) – bring sie hoch, bevor du über +10 hinaus verzauberst.",
+        en: "**Amulet and belt:** both always succeed up to +10 (one scroll per step) – take them up before you enhance past +10.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 62, 57 und 60 von 88 Knoten auf den ersten drei Tafeln offen, 75 von 116 auf der vierten und 37 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 62, 57 and 60 of 88 nodes are open on the first three boards, 75 of 116 on the fourth and 37 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/gladiator', label: 'MetaBot – Gladiator class guide' },
     { href: 'https://dbaion2.ru/en/guides/gayd-gladiator/', label: 'dbaion2 – Gladiator guide' },

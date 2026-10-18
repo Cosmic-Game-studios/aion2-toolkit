@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import {
-  ArrowLeft, ArrowRight, ArrowUp, BookOpen, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Hammer, Info, Keyboard,
+  ArrowLeft, ArrowRight, ArrowUp, BookOpen, CalendarDays, CheckCircle2, Clock, Download, ExternalLink, Gauge, Hammer, Info, Keyboard,
   LayoutGrid, Leaf, Lightbulb, PawPrint, RotateCcw, ScrollText, Timer, TrendingUp, TriangleAlert,
 } from 'lucide-react';
 import { useLoadedGame } from '../../data/GameDataContext';
@@ -21,7 +21,7 @@ import type { Guide, GuideBlock, GuideCategory, GuideCell, GuideIcon, L10n } fro
 import { GUIDES } from './content';
 import { guideHref } from './guideLinks';
 
-const ICONS: Record<GuideIcon, typeof Timer> = { speed: Timer, craft: Hammer, gather: Leaf, book: BookOpen, macro: Keyboard, power: TrendingUp, pet: PawPrint };
+const ICONS: Record<GuideIcon, typeof Timer> = { speed: Timer, craft: Hammer, gather: Leaf, book: BookOpen, macro: Keyboard, power: TrendingUp, pet: PawPrint, score: Gauge };
 
 const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'basics', key: 'guideCatBasics' },

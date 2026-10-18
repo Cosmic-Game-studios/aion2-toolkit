@@ -369,6 +369,55 @@ export const rangerGuide = classGuide({
       en: '**Running out of MP.** [[14340000|Tempest Shot]] costs a lot of MP. Keep holding [[14020000|Snipe]] – the basic attack brings MP back.',
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Waldläufer haben im Median **250K** Kampfkraft bei Gegenstandsstufe **3.420** (Spanne 244–257K) – Platz 1 der acht Klassen und mit ≈73 Kampfkraft pro Gegenstandsstufe auch der höchste Wert. Sie legen im Median +63K pro Woche zu, mehr als jede andere Klasse.",
+      en: "The top 10 Rangers have a median **250K** Combat Power at item level **3,420** (range 244–257K) – 1st of the eight classes and, at ≈73 Combat Power per item level, also the highest value. They gain a median +63K per week, more than any other class.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Bow und Guard – alle zehn auf +15 mit Amplified +5.",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Bow and Guard – all ten at +15 with Amplified +5.",
+      },
+      {
+        de: "**Rüstung:** 64 von 70 Teilen Splendent (Gegenstandsstufe 102), der Rest Nuakum auf +15; 8 der 10 tragen das ganze Set, 59 Teile auf Amplified +5.",
+        en: "**Armour:** 64 of 70 pieces Splendent (item level 102), the rest Nuakum at +15; 8 of the 10 wear the full set, 59 pieces at Amplified +5.",
+      },
+      {
+        de: "**Schmuck:** alle 50 Teile Splendent auf +15 mit Amplified +5.",
+        en: "**Jewellery:** all 50 pieces Splendent at +15 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80), fast immer +15, plus meist ein Pilgrim Bracelet +10; Revelation Amulet +10 (9 von 10), Noble Belt +10 (8 von 10), Clash Runes im Median +5 – so hoch wie bei keiner anderen Klasse. Flügel meist Dark Veil (8).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more), nearly always +15, plus mostly a Pilgrim Bracelet +10; Revelation Amulet +10 (9 of 10), Noble Belt +10 (8 of 10), Clash Runes +5 at the median – higher than any other class. Wings mostly Dark Veil (8).",
+      },
+    ],
+    arcana: {
+      de: "**Chalice of Vigor** bei allen zehn, **Parchment of Vigor** (8), **Bell of Magic** (9) und **Mirror of Magic** (7); beim Compass ist es halb und halb. 39 von 50 Karten sind auf +5.",
+      en: "**Chalice of Vigor** for all ten, **Parchment of Vigor** (8), **Bell of Magic** (9) and **Mirror of Magic** (7); the Compass is half and half. 39 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 14310000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 14220000, note: { de: '9 von 10 · Median Stufe 20', en: '9 of 10 · median level 20' } },
+      { id: 14380000, note: { de: '10 von 10 · Median Stufe 18', en: '10 of 10 · median level 18' } },
+      { id: 14060000, note: { de: '5 von 10 · Median Stufe 15', en: '5 of 10 · median level 15' } },
+    ],
+    tips: [
+      {
+        de: "**Eng an der Spitze:** Platz 1 und Platz 10 trennen nur 12K. Wer aufholen will, braucht die letzten Amplified-Stufen und die Nuakum-Teile auf Splendent.",
+        en: "**Tight at the top:** only 12K separate 1st and 10th place. To catch up you need the last Amplified levels and the Nuakum pieces swapped for Splendent.",
+      },
+      {
+        de: "**Clash Runes zuletzt:** Die Rune fällt bei einem Fehlschlag eine Stufe und hat keinen Bonus pro Fehlschlag – versuch +5 erst, wenn alles andere steht.",
+        en: "**Clash Runes last:** the rune drops a level on a failure and has no bonus per failure – try +5 only when everything else is done.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 65, 58 und 61 von 88 Knoten auf den ersten drei Tafeln offen, 72 von 116 auf der vierten und 36 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 65, 58 and 61 of 88 nodes are open on the first three boards, 72 of 116 on the fourth and 36 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://game8.co/games/Aion-2/archives/626143', label: 'Game8 – Ranger build' },
     { href: 'https://daevaguides.com/en/ranger/', label: 'Daeva Guides – Ranger' },

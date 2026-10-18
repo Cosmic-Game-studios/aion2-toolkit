@@ -459,6 +459,55 @@ export const clericGuide = classGuide({
       en: "**No specialisations** – or mixing up the two similar passives: [[17730000|Empyrean Lord's Grace]] is strong, [[17720000|Empyrean Lords' Benediction]] is hardly worth it.",
     },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Kleriker haben im Median **210K** Kampfkraft bei Gegenstandsstufe **3.182** (Spanne 204–222K) – Platz 8 der acht Klassen, ≈66 Kampfkraft pro Gegenstandsstufe. Heiler zeigen weniger Kampfkraft als Schadensklassen; vergleiche dich darum mit anderen Klerikern. Dafür legen die Top-Kleriker mit +55K pro Woche am zweitschnellsten zu.",
+      en: "The top 10 Clerics have a median **210K** Combat Power at item level **3,182** (range 204–222K) – 8th of the eight classes, ≈66 Combat Power per item level. Healers show less Combat Power than damage classes, so compare yourself with other Clerics. In return the top Clerics grow second fastest at +55K per week.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Mace auf +15 mit Amplified +5 (9 von 10); der Guard ebenfalls +15 (8 Splendent, 2 Nuakum).",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Mace at +15 with Amplified +5 (9 of 10); the guard at +15 too (8 Splendent, 2 Nuakum).",
+      },
+      {
+        de: "**Rüstung:** Nuakum ist hier die Regel – 35 von 70 Teilen, dazu 21 Splendent 102 und 13 Splendent White / Dark Dragon Lord (86). Nur 3 der 10 tragen das ganze 102er-Set; Amplified Enhancement im Median +3.",
+        en: "**Armour:** Nuakum is the rule here – 35 of 70 pieces, plus 21 Splendent 102 and 13 Splendent White / Dark Dragon Lord (86). Only 3 of the 10 wear the full 102 set; Amplified Enhancement +3 at the median.",
+      },
+      {
+        de: "**Schmuck:** 40 von 50 Teilen Splendent 102, der Rest Splendent 86, Enraged Kromede oder Aulamus – alle auf +15, 30 mit Amplified +5.",
+        en: "**Jewellery:** 40 of 50 pieces Splendent 102, the rest Splendent 86, Enraged Kromede or Aulamus – all at +15, 30 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80) plus fast immer ein Liberator Bracelet +10. Revelation Amulet und Noble Belt sind oft noch offen: nur 3 von 10 haben sie auf +10. Flügel meist Dark Veil (8).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more) plus nearly always a Liberator Bracelet +10. Revelation Amulet and Noble Belt are often still open: only 3 of 10 have them at +10. Wings mostly Dark Veil (8).",
+      },
+    ],
+    arcana: {
+      de: "Wie Assassinen nehmen Kleriker den **Mirror of Vigor** (9 von 10); dazu **Chalice und Parchment of Vigor** (je 8), **Compass of Magic** (6) und **Bell of Magic** (7). 30 von 50 Karten sind auf +5.",
+      en: "Like Assassins, Clerics take the **Mirror of Vigor** (9 of 10); plus **Chalice and Parchment of Vigor** (8 each), **Compass of Magic** (6) and **Bell of Magic** (7). 30 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 17400000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 17430000, note: { de: '9 von 10 · Median Stufe 18', en: '9 of 10 · median level 18' } },
+      { id: 17440000, note: { de: '8 von 10 · Median Stufe 18', en: '8 of 10 · median level 18' } },
+      { id: 17410000, note: { de: '9 von 10 · Median Stufe 16', en: '9 of 10 · median level 16' } },
+    ],
+    tips: [
+      {
+        de: "**Gürtel und Amulett zuerst:** 5 der Top 10 haben den Noble Belt noch auf +0, 4 das Revelation Amulet. Beides gelingt bis +10 immer (eine Schriftrolle pro Stufe) – sichere Kampfkraft ohne Risiko.",
+        en: "**Belt and amulet first:** 5 of the top 10 still have the Noble Belt at +0, 4 the Revelation Amulet. Both always succeed up to +10 (one scroll per step) – safe Combat Power without risk.",
+      },
+      {
+        de: "**Nuakum reicht lange:** Die Hälfte der Rüstung der Top-Kleriker ist Nuakum auf +15. Du musst nicht sofort aufs Splendent-Set wechseln – Waffe, Schmuck und Arcana zuerst.",
+        en: "**Nuakum lasts a long time:** half the armour of the top Clerics is Nuakum at +15. You don’t have to switch to the Splendent set right away – weapon, jewellery and Arcana first.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 60, 57 und 60 von 88 Knoten auf den ersten drei Tafeln offen, 71 von 116 auf der vierten und 31 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 60, 57 and 60 of 88 nodes are open on the first three boards, 71 of 116 on the fourth and 31 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/cleric/build', label: 'Metabot – Cleric build' },
     { href: 'https://daevaguides.com/en/cleric/', label: 'Daeva Guides – Cleric guide' },

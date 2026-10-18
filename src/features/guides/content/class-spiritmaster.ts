@@ -176,6 +176,55 @@ export const spiritmasterGuide = classGuide({
     { de: '**Korrosion vergessen:** Ohne [[16150000|Jointstrike: Corrode]] machen deine Geister am Boss 10 % weniger Schaden.', en: '**Forgetting the debuff:** without [[16150000|Jointstrike: Corrode]] your spirits deal 10% less damage at the boss.' },
     { de: '**Aufladbare Fusion im Makro:** Wählst du für [[16300000|Elemental Fusion]] die Auflade-Option, lädt das Makro sie nicht auf. Nimm die Optionen aus diesem Guide oder drück sie von Hand.', en: '**A charged Fusion in the macro:** if you pick the charge option for [[16300000|Elemental Fusion]], the macro does not charge it. Take the options from this guide or press it by hand.' },
   ],
+  power: {
+    asOf: '2026-10-18',
+    intro: {
+      de: "Die Top 10 der Beschwörer haben im Median **217K** Kampfkraft bei Gegenstandsstufe **3.403** (Spanne 213–243K) – die dritthöchste Gegenstandsstufe aller Klassen, aber nur ≈67 Kampfkraft pro Stufe, so wenig wie Kantor, Templer und Kleriker. Vergleiche dich darum mit anderen Beschwörern, nicht mit der Gesamtliste.",
+      en: "The top 10 Spiritmasters have a median **217K** Combat Power at item level **3,403** (range 213–243K) – the third-highest item level of all classes, but only ≈67 Combat Power per level, as little as Chanter, Templar and Cleric. So compare yourself with other Spiritmasters, not with the overall list.",
+    },
+    gear: [
+      {
+        de: "**Waffe und Guard:** Splendent Ebony / Wise Dragon Lord Orb und Guard – alle zehn auf +15 mit Amplified +5.",
+        en: "**Weapon and guard:** Splendent Ebony / Wise Dragon Lord Orb and Guard – all ten at +15 with Amplified +5.",
+      },
+      {
+        de: "**Rüstung:** 45 von 70 Teilen Splendent (Gegenstandsstufe 102), 20 Nuakum, 4 Splendent White / Dark Dragon Lord (86); 67 Teile auf +15, 49 mit Amplified +5. 6 der 10 tragen das ganze Set.",
+        en: "**Armour:** 45 of 70 pieces Splendent (item level 102), 20 Nuakum, 4 Splendent White / Dark Dragon Lord (86); 67 pieces at +15, 49 with Amplified +5. 6 of the 10 wear the full set.",
+      },
+      {
+        de: "**Schmuck:** alle 50 Teile Splendent auf +15, 45 mit Amplified +5.",
+        en: "**Jewellery:** all 50 pieces Splendent at +15, 45 with Amplified +5.",
+      },
+      {
+        de: "**Armreifen und Rest:** genau ein Ascension Bracelet (mehr trägt keiner der Top 80) (+10 oder +15) plus meist ein Liberator Bracelet +10; Revelation Amulet +10 und Noble Belt +10 (je 7 von 10). Flügel: Dark Veil (4), Kromede, Talisra oder Forest Spirit (je 2).",
+        en: "**Bracelets and the rest:** exactly one Ascension Bracelet (none of the top 80 wears more) (+10 or +15) plus mostly a Liberator Bracelet +10; Revelation Amulet +10 and Noble Belt +10 (7 of 10 each). Wings: Dark Veil (4), Kromede, Talisra or Forest Spirit (2 each).",
+      },
+    ],
+    arcana: {
+      de: "**Bell of Magic** bei allen zehn, **Chalice und Parchment of Vigor** (10 und 9), **Compass of Vigor** (7); beim Mirror ist es halb und halb. 39 von 50 Karten sind auf +5.",
+      en: "**Bell of Magic** for all ten, **Chalice and Parchment of Vigor** (10 and 9), **Compass of Vigor** (7); the Mirror is half and half. 39 of 50 cards are at +5.",
+    },
+    stigmas: [
+      { id: 16190000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 16250000, note: { de: '10 von 10 · Median Stufe 20', en: '10 of 10 · median level 20' } },
+      { id: 16370000, note: { de: '8 von 10 · Median Stufe 20', en: '8 of 10 · median level 20' } },
+      { id: 16150000, note: { de: '8 von 10 · Median Stufe 13', en: '8 of 10 · median level 13' } },
+    ],
+    tips: [
+      {
+        de: "**Nuakum als Zwischenschritt:** 20 von 70 Rüstungsteilen der Top 10 sind noch Nuakum (Gegenstandsstufe 86), meist auf +15 mit Amplified. Den Wechsel aufs Splendent-Set kannst du dir also Zeit lassen.",
+        en: "**Nuakum as a step in between:** 20 of 70 armour pieces of the top 10 are still Nuakum (item level 86), mostly at +15 with Amplified. So you can take your time switching to the Splendent set.",
+      },
+      {
+        de: "**Weniger Kampfkraft pro Stufe:** Bei gleicher Gegenstandsstufe zeigt der Beschwörer ≈8 % weniger als der Waldläufer. Warum, sagt keine Quelle – deine Schadenszahlen sind davon nicht betroffen.",
+        en: "**Less Combat Power per level:** at the same item level the Spiritmaster shows ≈8% less than the Ranger. No source says why – it says nothing about your damage.",
+      },
+      {
+        de: "**Daevanion:** Im Median sind 62, 61 und 61 von 88 Knoten auf den ersten drei Tafeln offen, 73 von 116 auf der vierten und 35 von 152 auf der fünften.",
+        en: "**Daevanion:** at the median 62, 61 and 61 of 88 nodes are open on the first three boards, 73 of 116 on the fourth and 35 of 152 on the fifth.",
+      },
+    ],
+  },
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/spiritmaster', label: 'Metabot – Spiritmaster' },
     { href: 'https://metaroad.gg/aion2/build-guides/spiritmaster-pve-build', label: 'MetaRoad – Spiritmaster PvE build' },
