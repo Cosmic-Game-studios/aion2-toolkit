@@ -4,6 +4,10 @@ import type { Guide, L10n } from '../types';
  * Pets on the global server (October 2026). Facts and numbers from the community guides in the sources, paraphrased;
  * where they disagree the guide says so in "Not confirmed yet". The pets of the top players are counted from our own
  * top-10 data (public/data/top, AION2 Index, 2026-10-18): 80 players, 61 on a shop, pass or event pet.
+ * Combat Power: no source measures it for the global server; the only measurement is Korean (Inven, 2026-03-18,
+ * per Genus Insight line), and the 5–35K for all 45 lines is worked out from it. Monster shares per genus are
+ * aion2tierlist's count of the client tables (level 45+). The class table joins the class stat priorities of the
+ * planner (src/lib/statPriority.ts) with the genus lines; tank and healer lines follow aion2tierlist.
  */
 
 /** A name that is the same in both languages (as the English client calls it). */
@@ -49,6 +53,14 @@ export const pets: Guide = {
               },
             },
             {
+              label: { de: 'Beste Gattung', en: 'Best genus' },
+              value: { de: '**Cogni** – 77 % der Bosse ab Stufe 45 gehören dazu', en: '**Cogni** – 77% of bosses from level 45 belong to it' },
+            },
+            {
+              label: { de: 'Kampfkraft', en: 'Combat Power' },
+              value: { de: 'Auf Global nicht gemessen; in Korea bis etwa 35K mit voller Genus Insight', en: 'Not measured on Global; up to about 35K with full Genus Insight in Korea' },
+            },
+            {
               label: { de: 'Anzahl', en: 'Count' },
               value: { de: '207 Haustiere in 5 Gattungen: Fera 65, Natura 48, Varian 46, Cogni 41, Special 7', en: '207 pets in 5 genera: Fera 65, Natura 48, Varian 46, Cogni 41, Special 7' },
             },
@@ -71,8 +83,8 @@ export const pets: Guide = {
           tone: 'tip',
           title: { de: 'Die Kurzfassung', en: 'The short version' },
           text: {
-            de: 'Nimm beim Questen und Farmen jede Seele mit, schalte **viele verschiedene** Haustiere frei statt weniger teurer, und gib Kristalle für die Genus Insight erst gezielt aus, wenn die Gattung hoch steht. Ausrüstung und Daevanion bleiben wichtiger – Haustiere laufen nebenher.',
-            en: 'Pick up every soul while questing and farming, unlock **many different** pets rather than a few expensive ones, and only spend crystals on Genus Insight with a plan once the genus is high. Gear and Daevanion still matter more – pets run alongside.',
+            de: 'Nimm beim Questen und Farmen jede Seele mit, schalte **viele verschiedene** Haustiere frei statt weniger teurer, setz in der Genus Insight auf **Cogni** und gib Kristalle erst gezielt aus, wenn die Gattung hoch steht. Ausrüstung und Daevanion bleiben wichtiger – Haustiere laufen nebenher.',
+            en: 'Pick up every soul while questing and farming, unlock **many different** pets rather than a few expensive ones, focus Genus Insight on **Cogni** and only spend crystals with a plan once the genus is high. Gear and Daevanion still matter more – pets run alongside.',
           },
         },
         {
@@ -112,7 +124,7 @@ export const pets: Guide = {
             ],
             [
               { de: '**Genus Insight**', en: '**Genus Insight**' },
-              { de: 'Bis zu 9 gewürfelte Werte pro Gattung (Angriff, kritischer Schaden, Waffenschaden, HP %, Schadenstoleranz …). Zählt in die Kampfkraft, nicht in die Gegenstandsstufe.', en: 'Up to 9 rolled stats per genus (attack, critical damage, weapon damage, HP %, damage tolerance …). Counts towards Combat Power, not item level.' },
+              { de: 'Bis zu 9 gewürfelte Werte pro Gattung (Angriff, kritischer Schaden, HP %, Schadenstoleranz …), Gattungs-Werte nur gegen Monster dieser Gattung. Zählt in die Kampfkraft, nicht in die Gegenstandsstufe.', en: 'Up to 9 rolled stats per genus (attack, critical damage, HP %, damage tolerance …), genus stats only against monsters of that genus. Counts towards Combat Power, not item level.' },
               { de: '**Groß** im Endgame', en: '**High** in the endgame' },
             ],
             [
@@ -140,6 +152,49 @@ export const pets: Guide = {
           },
         },
         { type: 'links', items: [{ href: '#/top', label: { de: 'Top 10 ansehen', en: 'See the top 10' } }] },
+      ],
+    },
+    {
+      title: { de: 'Wie viel Kampfkraft bringen Haustiere?', en: 'How much Combat Power do pets give?' },
+      blocks: [
+        {
+          type: 'text',
+          text: {
+            de: 'Eine gemessene Zahl für den globalen Server gibt es nicht: Das Spiel rechnet die Kampfkraft auf dem Server, die Formel ist nicht öffentlich. Die einzige Messung stammt aus Korea (Inven, März 2026, als die Kampfkraft dort eingeführt wurde). Sie zählt pro Zeile der Genus Insight:',
+            en: 'There is no measured number for the global server: the game computes Combat Power on the server and the formula is not public. The only measurement comes from Korea (Inven, March 2026, when Combat Power was introduced there). It counts per Genus Insight line:',
+          },
+        },
+        {
+          type: 'table',
+          head: [{ de: 'Was', en: 'What' }, { de: 'Kampfkraft (Korea)', en: 'Combat Power (Korea)' }],
+          rows: [
+            [{ de: '1 Genus-Insight-Zeile mit schwachem Wert', en: '1 Genus Insight line with a weak stat' }, { de: '≈ 0,1–0,2K', en: '≈ 0.1–0.2K' }],
+            [{ de: '1 Genus-Insight-Zeile mit starkem Wert (Damage Boost, Critical Damage Boost)', en: '1 Genus Insight line with a strong stat (Damage Boost, Critical Damage Boost)' }, { de: '≈ 0,5–0,8K', en: '≈ 0.5–0.8K' }],
+            [{ de: '**Alle 45 Zeilen (9 × 5 Gattungen), gerechnet**', en: '**All 45 lines (9 × 5 genera), worked out**' }, { de: '**≈ 5–35K**', en: '**≈ 5–35K**' }],
+            [{ de: 'Zum Vergleich: ein Skill von Stufe 1 auf 10', en: 'For comparison: one skill from level 1 to 10' }, '≈ 1–3K'],
+            [{ de: 'Zum Vergleich: ein Rüstungsteil', en: 'For comparison: one armour piece' }, '≈ 3–12K'],
+            [{ de: 'Zum Vergleich: ein Stigma von Stufe 1 auf 20', en: 'For comparison: one stigma from level 1 to 20' }, '≈ 10–15K'],
+            [{ de: 'Zum Vergleich: ein Armreif', en: 'For comparison: one bracelet' }, '≈ 30K'],
+          ],
+        },
+        {
+          type: 'callout',
+          tone: 'info',
+          title: { de: 'Auf dem globalen Server eher weniger', en: 'Probably less on the global server' },
+          text: {
+            de: 'Global hat Haustiere nur bis Stufe 3 (Korea 5), und das Genus-Insight-Fenster ist hier defensiver gebaut – laut koreanischen Spielern zählt die Kampfkraft Angriff deutlich stärker als Verteidigung. Nimm die Zahlen deshalb als Obergrenze. Die Owned Effects (+1 bis +2 pro Haustier) hat niemand gemessen; sie sind klein.',
+            en: 'Global only has pets up to level 3 (Korea 5), and its Genus Insight panel is built more defensively – Korean players say Combat Power weighs attack far more than defence. So take these numbers as a ceiling. Nobody has measured the Owned Effects (+1 to +2 per pet); they are small.',
+          },
+        },
+        {
+          type: 'callout',
+          tone: 'tip',
+          title: { de: 'So misst du es selbst', en: 'Measure it yourself' },
+          text: {
+            de: 'Schreib deine Kampfkraft im Charakterfenster auf, schalte ein paar Haustiere frei oder würfle einmal und vergleich danach – ohne dazwischen Ausrüstung, Preset oder Titel zu wechseln.',
+            en: 'Note your Combat Power in the character window, unlock a few pets or roll once, then compare – without changing gear, preset or title in between.',
+          },
+        },
       ],
     },
     {
@@ -178,6 +233,24 @@ export const pets: Guide = {
             },
           ],
         },
+        { type: 'heading', text: { de: 'Leicht zu farmen', en: 'Easy to farm' } },
+        {
+          type: 'text',
+          text: {
+            de: 'Alle Haustiere einer Gattung geben dieselben Werte – Seltenheit bringt nichts. Nimm also die, deren Monster niedrig sind und oft vorkommen:',
+            en: 'All pets of a genus give the same stats – rarity adds nothing. So take the ones whose monsters are low level and common:',
+          },
+        },
+        {
+          type: 'table',
+          head: [{ de: 'Gattung', en: 'Genus' }, 'Elyos (Verteron)', { de: 'Asmodier (Altgard)', en: 'Asmodians (Altgard)' }],
+          rows: [
+            ['**Cogni**', { de: 'Wandering Klaw (≈ St. 19), Krall Laborer', en: 'Wandering Klaw (≈ Lv 19), Krall Laborer' }, { de: 'Decomposed Lupyllini (St. 10)', en: 'Decomposed Lupyllini (Lv 10)' }],
+            ['**Natura**', both('Fungie, Agrint'), both('Rafflesia')],
+            ['**Fera**', { de: 'Skyray (mehrere Varianten geben dieselbe Seele), Sparkie, Crestlich', en: 'Skyray (several variants drop the same soul), Sparkie, Crestlich' }, both('Papis')],
+            ['**Varian**', both('Kalgolem, Contaminated Slime'), { de: 'Contaminated Swarm (St. 11)', en: 'Contaminated Swarm (Lv 11)' }],
+          ],
+        },
       ],
     },
     {
@@ -197,8 +270,8 @@ export const pets: Guide = {
           tone: 'tip',
           title: { de: 'Erst breit, dann tief', en: 'Wide first, then deep' },
           text: {
-            de: 'Ein neues Haustier kostet 5 Seelen, die Stufen 2 und 3 zusammen 100. Für die Stufe der Gattung zählt aber vor allem, **wie viele** Haustiere du hast (laut einer Quelle 500 Erfahrung pro neuem Haustier, 250 pro Stufe 2 oder 3). Schalte also erst viele frei und zieh dann die hoch, deren Monster du sowieso oft triffst.',
-            en: 'A new pet costs 5 souls, levels 2 and 3 together cost 100. But the genus level mostly counts **how many** pets you have (one source says 500 experience per new pet, 250 per level 2 or 3). So unlock many first, then level the ones whose monsters you meet often anyway.',
+            de: 'Ein neues Haustier kostet 5 Seelen und gibt seiner Gattung 500 Erfahrung. Die Stufen 2 und 3 kosten zusammen 100 Seelen und geben je 250. Für die Gattung zählt also vor allem, **wie viele** Haustiere du hast. Schalte erst viele frei und zieh dann die hoch, deren Monster du sowieso oft triffst.',
+            en: 'A new pet costs 5 souls and gives its genus 500 experience. Levels 2 and 3 cost 100 souls together and give 250 each. So the genus mostly counts **how many** pets you have. Unlock many first, then level the ones whose monsters you meet often anyway.',
           },
         },
       ],
@@ -246,11 +319,42 @@ export const pets: Guide = {
           },
         },
         {
+          type: 'callout',
+          tone: 'warn',
+          title: { de: 'Gattungs-Werte wirken nur gegen die eigene Gattung', en: 'Genus stats only work against their own genus' },
+          text: {
+            de: 'Trägt ein Wert den Namen einer Gattung (zum Beispiel „Cogni Attack“), wirkt er nur gegen Monster dieser Gattung – Cogni Damage Boost macht gegen einen Fera-Boss nichts. Allgemeine Werte wie Attack Bonus, Boss Attack oder PvE Attack wirken immer. **Special** hat nur allgemeine Werte, darum gehören die Regenbogen-Kristalle dorthin.',
+            en: 'When a stat carries the name of a genus (“Cogni Attack”, for example), it only works against monsters of that genus – Cogni Damage Boost does nothing against a Fera boss. General stats like Attack Bonus, Boss Attack or PvE Attack always work. **Special** only has general stats, which is why rainbow crystals belong there.',
+          },
+        },
+        {
+          type: 'table',
+          caption: { de: 'Welcher Gattung die Gegner ab Stufe 45 angehören (Client-Tabellen)', en: 'Which genus the enemies from level 45 belong to (client tables)' },
+          head: [{ de: 'Gattung', en: 'Genus' }, { de: 'Bosse', en: 'Bosses' }, { de: 'Elite-Gegner', en: 'Elites' }, { de: 'Monster', en: 'Monsters' }],
+          rows: [
+            ['**Cogni**', pct(77), pct(52), pct(57)],
+            ['Varian', pct(11), pct(26), pct(22)],
+            ['Natura', pct(6), pct(11), pct(7)],
+            ['Fera', pct(2), pct(4), pct(12)],
+          ],
+          grid: true,
+        },
+        {
+          type: 'callout',
+          tone: 'tip',
+          title: { de: 'Darum Cogni zuerst', en: 'That’s why Cogni comes first' },
+          text: {
+            de: 'Cogni-Werte treffen fast jeden Endgame-Boss, Varian lohnt sich als Zweites (viele Elite-Gegner). In Natura und Fera würfelst du Gattungs-Werte weg und behältst nur allgemeine. Die Anteile zählen die Monster im Client, nicht wie oft du ihnen begegnest – der Abstand ist aber so groß, dass sich an der Reihenfolge kaum etwas ändert.',
+            en: 'Cogni stats hit almost every endgame boss, Varian is worth it second (many elites). In Natura and Fera, reroll genus stats away and keep only general ones. The shares count monsters in the client, not how often you meet them – but the gap is so large that the order hardly changes.',
+          },
+        },
+        {
           type: 'facts',
           items: [
             { label: { de: 'Ein Wurf kostet', en: 'One roll costs' }, value: { de: '4 Soul Crystals der Gattung (oder Regenbogen-Kristalle) + 1.000 Kinah', en: '4 Soul Crystals of the genus (or rainbow crystals) + 1,000 Kinah' } },
             { label: { de: 'Sperren', en: 'Locking' }, value: { de: 'Gute Zeilen kannst du sperren – jede gesperrte Zeile macht den nächsten Wurf deutlich teurer', en: 'You can lock good lines – every locked line makes the next roll a lot more expensive' } },
             { label: { de: 'Presets', en: 'Presets' }, value: { de: 'Bis zu 3', en: 'Up to 3' } },
+            { label: { de: 'Erstes Ziel', en: 'First goal' }, value: { de: 'Stufe 4 in Cogni (5.000 Erfahrung, etwa 10 Haustiere) – sie öffnet Zeile 4 mit den Schadenswerten', en: 'Level 4 in Cogni (5,000 experience, about 10 pets) – it opens line 4 with the damage stats' } },
             { label: { de: 'Ziel', en: 'Goal' }, value: { de: 'Alle 5 Gattungen auf 10: Titel **Unbound by Genus** mit +4,5 % PvE Damage Boost', en: 'All 5 genera at 10: the title **Unbound by Genus** with +4.5% PvE Damage Boost' } },
           ],
         },
@@ -288,6 +392,49 @@ export const pets: Guide = {
             ['7', both('Damage Tolerance / PvE Damage Tolerance > Endurance')],
           ],
         },
+        {
+          type: 'text',
+          text: {
+            de: 'Die Ziele pro Zeile stammen aus einem Guide (gameplay.tips). Bekommst du auf einer Zeile einen Gattungs-Wert, gilt die Regel oben: behalten bei Cogni, mit Abstrichen bei Varian, sonst weg.',
+            en: 'The targets per line come from one guide (gameplay.tips). If a line rolls a genus stat, the rule above applies: keep it on Cogni, maybe on Varian, otherwise reroll it.',
+          },
+        },
+      ],
+    },
+    {
+      title: { de: 'Haustiere für deine Klasse', en: 'Pets for your class' },
+      blocks: [
+        {
+          type: 'text',
+          text: {
+            de: 'Ein bestimmtes Haustier braucht keine Klasse – alle Haustiere einer Gattung geben dieselben Werte. Was sich unterscheidet, sind die Zeilen, die du in der Genus Insight behältst. Die Tabelle verbindet die Werte, die jede Klasse laut Planer am meisten braucht, mit den passenden Gattungen.',
+            en: 'No class needs a particular pet – all pets of a genus give the same stats. What differs are the lines you keep in Genus Insight. The table joins the stats each class needs most according to the planner with the genera that give them.',
+          },
+        },
+        {
+          type: 'table',
+          head: [{ de: 'Klasse', en: 'Class' }, { de: 'Zeilen behalten', en: 'Lines to keep' }, { de: 'Passende Owned Effects', en: 'Matching Owned Effects' }],
+          rows: [
+            ['**Gladiator**', both('Cogni: Attack, Critical Hit, Damage Boost · Special: Double Chance'), both('Cogni (Might, Critical Hit)')],
+            [{ de: '**Templer**', en: '**Templar**' }, both('Cogni: Damage Tolerance, Defense, Block · HP Increase %'), both('Cogni (HP), Natura (Critical Hit Resist), Varian (Evasion, Constitution)')],
+            [{ de: '**Assassine**', en: '**Assassin**' }, both('Cogni: Critical Hit, Attack, Damage Boost'), both('Cogni (Critical Hit, Might)')],
+            [{ de: '**Waldläufer**', en: '**Ranger**' }, both('Cogni: Critical Hit, Attack, Accuracy'), both('Cogni, Fera (Accuracy)')],
+            [{ de: '**Magier**', en: '**Sorcerer**' }, both('Cogni: Damage Boost, Attack, Critical Hit'), both('Cogni')],
+            [{ de: '**Beschwörer**', en: '**Spiritmaster**' }, both('Cogni: Attack, Damage Boost'), both('Cogni')],
+            [{ de: '**Kleriker**', en: '**Cleric**' }, { de: 'Erst Überleben: Damage Tolerance, HP Increase % – dann Cogni: Attack', en: 'Survival first: Damage Tolerance, HP Increase % – then Cogni: Attack' }, both('Cogni (HP), Varian')],
+            [{ de: '**Kantor**', en: '**Chanter**' }, both('Cogni: Attack, Accuracy · Special: Double Chance'), both('Cogni, Fera (Accuracy)')],
+          ],
+        },
+        {
+          type: 'callout',
+          tone: 'info',
+          title: { de: 'Für alle gleich', en: 'The same for everyone' },
+          text: {
+            de: 'Allgemeine Werte (Attack Bonus, Boss Attack, PvE Attack) wirken gegen jedes Monster – die behältst du in jeder Gattung. **Double Chance** ist der Mehrfachtreffer, den Gladiator und Kantor besonders brauchen. Combat Speed und Cooldown Reduction, die Magier und Kleriker am meisten wollen, nennen die Quellen bei Haustieren nicht – die holst du über Daevanion und Ausrüstung.',
+            en: 'General stats (Attack Bonus, Boss Attack, PvE Attack) work against every monster – keep them on every genus. **Double Chance** is the multi-hit that Gladiators and Chanters need most. Combat Speed and Cooldown Reduction, which Sorcerers and Clerics want most, aren’t named for pets in the sources – get them from Daevanion and gear.',
+          },
+        },
+        { type: 'links', items: [{ href: '#/daevanion', label: { de: 'Werte-Reihenfolge deiner Klasse ansehen', en: 'See your class’s stat priority' } }] },
       ],
     },
     {
@@ -310,8 +457,8 @@ export const pets: Guide = {
               en: '**Duty quests and hidden cubes:** crystals of every colour, including the rare light-blue ones for Special.',
             },
             {
-              de: '**Farben:** Cogni blau, Fera rot, Natura grün, Varian gelb, Special hellblau. **Regenbogen-Kristalle** zählen für jede Gattung – heb sie für Special auf, die anderen Farben farmst du leicht.',
-              en: '**Colours:** Cogni blue, Fera red, Natura green, Varian yellow, Special light blue. **Rainbow crystals** count for any genus – save them for Special, the other colours are easy to farm.',
+              de: '**Farben:** Cogni blau, Fera rot, Natura grün, Varian gelb, Special hellblau. **Regenbogen-Kristalle** zählen für jede Gattung – heb sie für Special auf: Die anderen Farben farmst du leicht, und Special steigt laut einer Quelle nur durch Analyze.',
+              en: '**Colours:** Cogni blue, Fera red, Natura green, Varian yellow, Special light blue. **Rainbow crystals** count for any genus – save them for Special: the other colours are easy to farm, and one source says Special only levels through Analyze.',
             },
           ],
         },
@@ -352,8 +499,8 @@ export const pets: Guide = {
             {
               title: { de: 'Im Endgame: Stufe 3 und Genus Insight', en: 'In the endgame: level 3 and Genus Insight' },
               text: {
-                de: 'Zieh Haustiere auf Stufe 3 (danach fallen Kristalle), lass die Gattungen steigen und würfle erst ab Stufe 9–10 gezielt.',
-                en: 'Take pets to level 3 (then crystals drop), let the genera rise and only roll with a plan from level 9–10.',
+                de: 'Zieh Haustiere auf Stufe 3 (danach fallen Kristalle), bring Cogni zuerst auf Stufe 4 und würfle erst ab Stufe 9–10 gezielt. Regenbogen-Kristalle gehen in Special.',
+                en: 'Take pets to level 3 (then crystals drop), get Cogni to level 4 first and only roll with a plan from level 9–10. Rainbow crystals go into Special.',
               },
             },
             {
@@ -392,6 +539,10 @@ export const pets: Guide = {
               en: '**Levelling a few pets instead of unlocking many** – a new pet costs 5 souls, two levels cost 100, and the genus mostly counts the number of pets.',
             },
             {
+              de: '**Gattungs-Werte der falschen Gattung behalten** – „Fera Damage Boost“ wirkt nur gegen Fera, und das sind 2 % der Bosse ab Stufe 45.',
+              en: '**Keeping genus stats of the wrong genus** – “Fera Damage Boost” only works against Fera, which is 2% of bosses from level 45.',
+            },
+            {
               de: '**Früh sperren** – unter Stufe 7 gibt es kein Unique, und gesperrte schwache Zeilen machen jeden Wurf teurer.',
               en: '**Locking early** – below level 7 there is no Unique, and locked weak lines make every roll more expensive.',
             },
@@ -415,8 +566,8 @@ export const pets: Guide = {
           type: 'callout',
           tone: 'info',
           text: {
-            de: 'Die Quellen sind sich nicht in allem einig: ob die Genus Insight 9 oder 10 Zeilen hat, ob die Gattungs-Stufe nach der Zahl der Haustiere oder nach Erfahrung steigt, was der Titel Unbound by Genus außer +4,5 % PvE noch gibt, wie die Special-Gattung steigt und ob die Halloween-Haustiere eigene Werte haben. Die Summen in der Owned-Effects-Tabelle sind gerechnet, nicht gemessen. Wenn du es im Spiel siehst, sag Bescheid – dann wird der Guide ergänzt.',
-            en: 'The sources don’t agree on everything: whether Genus Insight has 9 or 10 lines, whether the genus level rises with the number of pets or with experience, what the Unbound by Genus title gives besides +4.5% PvE, how the Special genus levels and whether the Halloween pets have stats of their own. The totals in the Owned Effects table are worked out, not measured. If you see it in game, let us know and the guide gets updated.',
+            de: 'Die Quellen sind sich nicht in allem einig: ob die Genus Insight 9 oder 10 Zeilen hat, welche Werte genau an eine Gattung gebunden sind, was der Titel Unbound by Genus außer +4,5 % PvE noch gibt, wie die Special-Gattung steigt und ob die Halloween-Haustiere eigene Werte haben. Die Kampfkraft-Zahlen stammen aus Korea (Stufe 5, anderes Genus-Insight-Fenster), die Summen in der Owned-Effects-Tabelle und die 5–35K sind gerechnet, nicht gemessen. Wenn du es im Spiel siehst, sag Bescheid – dann wird der Guide ergänzt.',
+            en: 'The sources don’t agree on everything: whether Genus Insight has 9 or 10 lines, which stats exactly are tied to a genus, what the Unbound by Genus title gives besides +4.5% PvE, how the Special genus levels and whether the Halloween pets have stats of their own. The Combat Power numbers come from Korea (level 5, a different Genus Insight panel); the totals in the Owned Effects table and the 5–35K are worked out, not measured. If you see it in game, let us know and the guide gets updated.',
           },
         },
       ],
@@ -428,6 +579,13 @@ export const pets: Guide = {
           type: 'sources',
           items: [
             { href: 'https://metabot.gg/en/aion-2/guides/mounts-wings-guide', label: 'metabot.gg – Mounts, pets & wings guide' },
+            { href: 'https://aion2tierlist.com/guides/aion-2-pet-tier-list', label: 'aion2tierlist – Pet tier list (monster shares per genus)' },
+            { href: 'https://daevaguides.com/en/guides/pets-genus-insight/', label: 'daevaguides – Pets & Genus Insight' },
+            { href: 'https://aion2builds.org/guides/pets/', label: 'aion2builds – Pets & Genus Insight' },
+            { href: 'https://game8.co/games/Aion-2/archives/629180', label: 'Game8 – Best pets to farm for stats' },
+            { href: 'https://www.inven.co.kr/board/aion2/6444/1529', label: 'Inven (KR) – Measured Combat Power changes' },
+            { href: 'https://www.inven.co.kr/board/aion2/6444/636', label: 'Inven (KR) – Why invest in Special' },
+            { href: 'https://metabot.gg/en/aion-2/guides/combat-power-guide', label: 'metabot.gg – Combat Power guide' },
             { href: 'https://gameplay.tips/guides/aion-2-pet-genus-system-guide.html', label: 'gameplay.tips – Pet genus system guide' },
             { href: 'https://www.iggm.com/news/aion-2-pet-system-deep-dive-hidden-stat-pool-more-than-mounts', label: 'IGGM – Pet system deep dive' },
             { href: 'https://mein-mmo.de/aion-2-arkana-pet-daevanion/3/', label: 'Mein-MMO – Pets (DE)' },
