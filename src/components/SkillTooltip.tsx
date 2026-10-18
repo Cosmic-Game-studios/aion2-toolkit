@@ -37,7 +37,7 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!tip) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') hide(); };
-    // any tap or click elsewhere, scrolling or Escape closes it – it never sticks
+    // any tap or click elsewhere, scrolling, a page change (Back, a key) or Escape closes it – it never sticks
     const onDown = (e: PointerEvent) => {
       const target = e.target as Node;
       if (card.current?.contains(target)) return; // a tapped card closes on its own click
@@ -47,10 +47,12 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
     window.addEventListener('scroll', hide, true);
     window.addEventListener('pointerdown', onDown, true);
     window.addEventListener('keydown', onKey);
+    window.addEventListener('hashchange', hide);
     return () => {
       window.removeEventListener('scroll', hide, true);
       window.removeEventListener('pointerdown', onDown, true);
       window.removeEventListener('keydown', onKey);
+      window.removeEventListener('hashchange', hide);
     };
   }, [tip, hide]);
   const value = useMemo(() => ({ show, hide, blur }), [show, hide, blur]);

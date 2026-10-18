@@ -5,7 +5,7 @@ import type { Skill } from '../../data/types';
 import { useBuild } from '../../state/BuildContext';
 import type { StigmaSlot } from '../../state/build';
 import { SkillTile, PlainIcon } from '../../components/SkillTile';
-import { CdChip, EmptyState, NumberField, PageHeader, Segmented } from '../../components/ui';
+import { Bump, CdChip, EmptyState, NumberField, PageHeader, Segmented } from '../../components/ui';
 import { Modal } from '../../components/Modal';
 import { SectionHead } from '../../components/SectionHead';
 import { useToast } from '../../components/Toast';
@@ -242,7 +242,7 @@ export function StigmaCalculator({ param, visit }: { param?: string | null; visi
             <span className="ss-name">{s.name}</span>
             <span className="ss-meta">
               <CdChip cd={applyCdr(base, build.cdr)} base={base} short />
-              <span className="ss-lv">{t('lv')} {slot.lv} / {max}</span>
+              <span className="ss-lv">{t('lv')} <Bump value={slot.lv} /> / {max}</span>
             </span>
           </span>
         </button>

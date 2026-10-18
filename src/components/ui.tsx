@@ -99,6 +99,17 @@ export function Segmented<T extends string>({ value, options, onChange, label }:
 }
 
 /**
+ * A number that pops briefly when it changes (not on the first render), so a click visibly lands. The pop is CSS
+ * (.bump in styles.css) and stops under reduced motion.
+ */
+export function Bump({ value, className = '' }: { value: number | string; className?: string }) {
+  const [prev, setPrev] = useState(value);
+  const [n, setN] = useState(0);
+  if (prev !== value) { setPrev(value); setN(n + 1); }
+  return <span key={n} className={`${n > 0 ? 'bump' : ''} ${className}`}>{value}</span>;
+}
+
+/**
  * Budget bar. `showLeft` adds "12 left" / "over by 3" (with a warning icon when over), so the state is not colour only.
  * `short`: a shorter label that narrow layouts may show instead (.meter-label / .meter-short); screen readers keep the long one.
  */
@@ -106,11 +117,12 @@ export function Meter({ label, short, spent, max, hint, icon, showLeft }: { labe
   const { t } = useGame();
   const pct = max > 0 ? Math.min(100, (spent / max) * 100) : 0;
   const over = spent > max;
+  const full = max > 0 && spent === max;
   return (
-    <div className={`meter ${over ? 'over' : ''}`} title={hint}>
+    <div className={`meter ${over ? 'over' : ''} ${full ? 'full' : ''}`} title={hint}>
       <div className="meter-head">
         <span>{icon}{short ? <><span className="meter-label">{label}</span><span className="meter-short" aria-hidden>{short}</span></> : label}</span>
-        <strong>{spent}<span className="meter-max"> / {max}</span></strong>
+        <strong><Bump value={spent} /><span className="meter-max"> / {max}</span></strong>
       </div>
       <div className="meter-track"><span style={{ width: `${pct}%` }} /></div>
       {showLeft && (

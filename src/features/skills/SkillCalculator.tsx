@@ -5,7 +5,7 @@ import type { Skill } from '../../data/types';
 import { useBuild } from '../../state/BuildContext';
 import type { Faction } from '../../state/build';
 import { SkillTile, PlainIcon } from '../../components/SkillTile';
-import { CdChip, EmptyState, NumberField, PageHeader, Segmented } from '../../components/ui';
+import { Bump, CdChip, EmptyState, NumberField, PageHeader, Segmented } from '../../components/ui';
 import { ClassGuideLink } from '../../components/ClassGuideLink';
 import { Modal } from '../../components/Modal';
 import { MQ, useMediaQuery } from '../../components/hooks';
@@ -193,9 +193,9 @@ export function SkillCalculator({ param, visit }: { param?: string | null; visit
           </button>
         </div>
         <div className="sr-lvnum">
-          <span className="sr-lv"><b>{unlocked ? lvl : '–'}</b>/{max}</span>
+          <span className="sr-lv"><b><Bump value={unlocked ? lvl : '–'} /></b>/{max}</span>
           {unlocked && (
-            <small className={`sr-next ${short ? 'warn' : ''}`} title={next ? t('nextLevelCost', { n: next }) : undefined}>
+            <small className={`sr-next ${short ? 'warn' : ''} ${next ? '' : 'max'}`} title={next ? t('nextLevelCost', { n: next }) : undefined}>
               {next
                 ? <>{short && <TriangleAlert size={12} aria-hidden />}<span className="sr-only">{t('nextLevel')}: </span>{t('nextCostShort', { n: next })}{short && <span className="sr-only"> – {t('notEnoughPoints')}</span>}</>
                 : t('levelMax')}

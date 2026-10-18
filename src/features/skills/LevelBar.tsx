@@ -21,7 +21,7 @@ interface Props {
 /**
  * Level boxes 1..max that work as one slider: a click or tap sets exactly that level (no toggling), the keyboard
  * uses arrows, Page Up / Page Down (one band) and Home / End. With a mouse, hovering previews what a click changes.
- * Visual base: the foundation `.pips` / `.pip` classes.
+ * Visual base: the foundation `.pips` / `.pip` classes; `.full` (every box set) turns them gold.
  */
 export function LevelBar({ value, max, onChange, label, valueText, disabled, bands, marks, pipTitle, className = '' }: Props) {
   const [hover, setHover] = useState<number | null>(null);
@@ -63,7 +63,7 @@ export function LevelBar({ value, max, onChange, label, valueText, disabled, ban
 
   return (
     <div
-      className={`pips level-bar ${bands ? 'banded' : ''} ${disabled ? 'disabled' : ''} ${className}`}
+      className={`pips level-bar ${bands ? 'banded' : ''} ${disabled ? 'disabled' : ''} ${!disabled && max > 1 && value >= max ? 'full' : ''} ${className}`}
       role="slider"
       aria-label={label}
       aria-valuemin={1}

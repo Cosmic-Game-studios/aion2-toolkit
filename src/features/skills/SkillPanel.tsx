@@ -6,6 +6,7 @@ import { useBuild } from '../../state/BuildContext';
 import { DetailTabs, SkillCombos, SkillDetail, SkillHead, useSkillCombos, type DetailTab } from '../../components/SkillDetail';
 import { EffLevel, SpecPicker } from '../../components/SpecPicker';
 import { PlainIcon } from '../../components/SkillTile';
+import { Bump } from '../../components/ui';
 import { maxBuyableLevel, skillPointStep } from '../../lib/skillCosts';
 import { activeSpecs, effectiveLevel, isUnlocked, skillLevel, skillPointBudget, skillPointsSpent, specSlotCount } from '../../lib/buildCalc';
 
@@ -53,14 +54,14 @@ export function SkillPanel({ skill, tab, onTab, inSheet }: { skill: Skill; tab: 
               <Minus size={15} aria-hidden />
             </button>
             <span className="sp-value" aria-live="polite">
-              {unlocked ? lvl : '–'}<small> / {max}</small>
+              <Bump value={unlocked ? lvl : '–'} /><small> / {max}</small>
             </span>
             <button type="button" className="icon-btn sm" disabled={!unlocked || lvl >= max} onClick={() => setLevel(lvl + 1)} aria-label={t('levelUp')}>
               <Plus size={15} aria-hidden />
             </button>
           </div>
           {unlocked ? (
-            <span className={`sr-next ${short ? 'warn' : ''}`}>
+            <span className={`sr-next ${short ? 'warn' : ''} ${next ? '' : 'max'}`}>
               {next
                 ? <>{short && <TriangleAlert size={12} aria-hidden />}{t('nextLevelCost', { n: next })}{short && <span className="sr-only"> – {t('notEnoughPoints')}</span>}</>
                 : t('levelMaxed')}

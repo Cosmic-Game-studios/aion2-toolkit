@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Eraser, Keyboard, Move, Pencil, Play, RotateCcw, ScrollText, X, Zap } from 'lucide-react';
+import { ArrowRight, Eraser, Keyboard, Move, Pencil, Play, RotateCcw, ScrollText, X, Zap } from 'lucide-react';
 import type { GameData, Skill } from '../../data/types';
 import { useLoadedGame } from '../../data/GameDataContext';
 import { useBuild } from '../../state/BuildContext';
@@ -345,6 +345,7 @@ export function HotbarPage({ param }: { param?: string | null }) {
           <p className="hint-box hb-empty">
             <Keyboard size={16} aria-hidden />
             <span>{t('hbEmpty')}</span>
+            <a className="hb-empty-top" href="#/top">{t('hbEmptyTop')} <ArrowRight size={14} aria-hidden /></a>
           </p>
         )}
 
