@@ -745,7 +745,10 @@ export function FarmPage({ param, visit }: { param: string | null; visit: number
   const how = (
     <p className="farm-how">
       <Info size={15} aria-hidden />{' '}
-      <span>{t(sourceData ? 'farmPageHowSource' : 'farmPageHow')}{sourceData?.gather && <> {t('farmPageHowGather')}</>}</span>
+      <span>
+        {t(sourceData ? 'farmPageHowSource' : 'farmPageHow')}{sourceData?.gather && <> {t('farmPageHowGather')}</>}
+        {' '}<a href="#/cubes">{t('farmCubeOddsLink')}</a>
+      </span>
     </p>
   );
   const draftsPanel = liveDrafts.length > 0 && (

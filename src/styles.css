@@ -4799,3 +4799,157 @@ button.bp-row:active { background: var(--surface-2); }
     opacity: .65;
   }
 }
+
+/* ==========================================================================
+   Hidden cubes (#/cubes): the reward lines with their odds without and with a key, the odds calculator and the
+   Global facts. A line is a button that opens its item list; on phones the two odds sit side by side under the name.
+   ========================================================================== */
+.cube-h2 { font-family: var(--font-display); font-size: var(--fs-xl); line-height: var(--lh-tight); color: var(--display); }
+.cube-h3 { margin-bottom: var(--sp-2); font-size: var(--fs-base); font-weight: 700; color: var(--text-strong); }
+
+.cube-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: var(--sp-3); margin: 0; }
+.cube-stats > div {
+  position: relative; display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 6px; min-width: 0; padding: var(--sp-4);
+  border: 1px solid var(--line); border-radius: var(--radius); background: radial-gradient(120% 100% at 0% 0%, rgba(227, 184, 102, .09), transparent 60%), var(--glass), var(--surface);
+  box-shadow: var(--shadow-card); overflow: hidden;
+}
+.cube-stats > div::before { content: ''; position: absolute; inset: -1px 14% auto; height: 1px; background: var(--gold-edge); }
+.cube-stats dd {
+  margin: 0; font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 36px); line-height: 1; color: var(--gold-light);
+  text-shadow: 0 0 26px rgba(227, 184, 102, .35); font-variant-numeric: tabular-nums;
+}
+.cube-stats dt { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+
+.cube-table, .cube-global { display: flex; flex-direction: column; gap: var(--sp-3); }
+.cube-table-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2) var(--sp-3); }
+
+.cube-how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--sp-2); counter-reset: how; }
+.cube-how li {
+  counter-increment: how; display: flex; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md);
+  background: var(--surface-2); border: 1px solid var(--line-soft); font-size: var(--fs-sm); line-height: 1.5; color: var(--text-2);
+}
+.cube-how li::before {
+  content: counter(how); flex: none; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  font: 800 var(--fs-xs)/1 var(--font); color: var(--on-primary); background: linear-gradient(180deg, var(--primary-1), var(--primary-2));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
+}
+
+.cube-cols, .cube-head { display: grid; grid-template-columns: 34px minmax(0, 1fr) 124px 124px 18px; grid-template-areas: 'cat name normal key chev'; gap: var(--sp-3); align-items: center; }
+.cube-cols { padding: var(--sp-1) var(--sp-3) 0; font-size: var(--fs-2xs); font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.cube-cols > span:first-child { grid-column: cat / name; }
+.cube-cols > span:not(:first-child) { display: inline-flex; align-items: center; justify-content: flex-end; gap: 4px; }
+.cube-cols > span:nth-child(2) { grid-area: normal; }
+.cube-cols > span:last-child { grid-area: key; color: var(--gold); }
+
+.cube-list { display: flex; flex-direction: column; gap: 6px; }
+.cube-row {
+  border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-soft);
+  transition: border-color var(--dur-fast), background-color var(--dur-fast), box-shadow var(--dur) var(--ease-smooth);
+}
+.cube-row.open {
+  border-color: var(--gold-line); background: linear-gradient(180deg, rgba(227, 184, 102, .06), transparent 70%), var(--surface-2);
+  box-shadow: 0 10px 30px -18px rgba(227, 184, 102, .5);
+}
+.cube-head { width: 100%; padding: var(--sp-3); border: 0; border-radius: inherit; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+@media (hover: hover) { .cube-row:not(.open):hover { border-color: var(--line-strong); background-color: var(--surface-3); } }
+
+.cube-cat { grid-area: cat; display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--r-sm); background: var(--surface-3); border: 1px solid var(--line-soft); }
+.cube-cat.cat-growth { color: var(--ok); }
+.cube-cat.cat-combat { color: var(--cd-long); }
+.cube-cat.cat-material { color: var(--gold); }
+.cube-cat.cat-look { color: var(--k-stigma); }
+.cube-name { grid-area: name; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cube-name strong { font-size: var(--fs-base); font-weight: 650; line-height: var(--lh-snug); color: var(--text-strong); }
+.cube-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.cube-note { font-size: var(--fs-xs); color: var(--muted); }
+.cube-gnote { font-size: var(--fs-xs); line-height: 1.45; color: color-mix(in srgb, var(--accent) 80%, var(--text)); }
+.cube-g {
+  display: inline-flex; align-items: center; gap: 3px; height: 18px; padding: 0 6px; border-radius: var(--r-xs);
+  font-size: var(--fs-2xs); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;
+}
+.cube-g-yes { color: var(--ok); background: rgba(79, 209, 161, .1); }
+.cube-g-part { color: var(--warn); background: rgba(242, 184, 75, .1); }
+.cube-g-no { color: var(--muted); background: rgba(142, 153, 172, .12); }
+.cube-g-key { color: var(--gold-light); background: var(--gold-soft); }
+.cube-item-name + .cube-g { margin-left: 6px; vertical-align: 1px; }
+
+.cube-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.cube-head > .cube-cell:nth-of-type(1) { grid-area: normal; }
+.cube-head > .cube-cell:nth-of-type(2) { grid-area: key; }
+.cube-cell strong { font-size: var(--fs-lg); font-weight: 700; line-height: 1; color: var(--text-strong); }
+.cube-cell strong.sure { color: var(--ok); }
+.cube-cell strong.rare { color: var(--gold-light); text-shadow: 0 0 14px rgba(227, 184, 102, .45); }
+.cube-cell.none { color: var(--faint); font-size: var(--fs-lg); }
+.cube-qty { font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.cube-bar { width: 100%; max-width: 100px; height: 4px; border-radius: var(--r-pill); background: var(--input); overflow: hidden; }
+.cube-bar > span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--gold-deep), var(--gold-light)); box-shadow: 0 0 8px rgba(227, 184, 102, .5); }
+.cube-cell-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cube-chev { grid-area: chev; color: var(--muted); transition: rotate var(--dur) var(--ease-smooth), color var(--dur-fast); }
+.cube-row.open .cube-chev { rotate: 180deg; color: var(--gold); }
+
+.cube-details { display: flex; flex-direction: column; gap: var(--sp-3); padding: 0 var(--sp-3) var(--sp-3); }
+.cubes-page tbody th[scope='row'] { position: static; background: none; font-size: inherit; font-weight: 500; color: var(--text); text-transform: none; letter-spacing: 0; }
+.cube-maps tbody th[scope='row'] { font-weight: 650; color: var(--text-strong); }
+.cube-items :is(th, td):not(:first-child) { text-align: right; }
+.cube-items td { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--text-strong); }
+.cube-items td small { display: block; font-size: var(--fs-2xs); color: var(--muted); }
+.cube-tiers { display: flex; flex-direction: column; gap: 6px; font-size: var(--fs-sm); color: var(--text-2); }
+.cube-avg { font-size: var(--fs-sm); color: var(--text-2); }
+.cube-avg b { color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.cube-foot { margin-top: var(--sp-1); }
+
+/* phones: name on top, the two odds side by side below it, each with its label */
+@media (max-width: 640px) {
+  .cube-cols { display: none; }
+  .cube-head { grid-template-columns: 34px minmax(0, 1fr) minmax(0, 1fr) 18px; grid-template-areas: 'cat name name chev' 'normal normal key key'; row-gap: var(--sp-2); }
+  .cube-cell { align-items: flex-start; text-align: left; padding: var(--sp-2) 10px; border-radius: var(--r-sm); background: rgba(0, 0, 0, .16); border: 1px solid var(--line-soft); }
+  .cube-cell-label { position: static; width: auto; height: auto; clip: auto; font-size: var(--fs-2xs); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .cube-head > .cube-cell:nth-of-type(2) .cube-cell-label { color: var(--gold); }
+  .cube-bar { max-width: none; }
+  .cube-details { padding-inline: var(--sp-2); }
+}
+
+/* the odds calculator */
+.cube-calc { display: flex; flex-direction: column; gap: var(--sp-3); }
+.cube-calc-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--sp-5); align-items: start; }
+@media (max-width: 900px) { .cube-calc-grid { grid-template-columns: minmax(0, 1fr); } }
+.cube-calc-in { display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0; }
+.cube-field { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-2); min-width: 0; }
+.cube-label { font-size: var(--fs-2xs); font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.cube-opens { display: flex; align-items: center; gap: var(--sp-3); width: 100%; }
+.cube-opens input[type='range'] { flex: 1 1 auto; min-width: 0; accent-color: var(--gold); }
+.cube-opens-num { width: 96px; flex: none; text-align: right; font-variant-numeric: tabular-nums; }
+.cube-calc-out {
+  position: relative; display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0; padding: var(--sp-4); border-radius: var(--radius);
+  background: radial-gradient(120% 90% at 100% 0%, rgba(227, 184, 102, .16), transparent 60%), radial-gradient(80% 80% at 0% 100%, rgba(95, 180, 255, .08), transparent 70%), var(--surface-2);
+  border: 1px solid var(--gold-line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 18px 40px -26px rgba(227, 184, 102, .55);
+}
+.cube-big {
+  font-family: var(--font-display); font-size: clamp(42px, 6vw, 60px); line-height: 1; color: var(--gold-light);
+  text-shadow: 0 0 34px rgba(227, 184, 102, .45); font-variant-numeric: tabular-nums;
+}
+.cube-big-label { font-size: var(--fs-sm); color: var(--text-2); }
+.cube-calc-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-2); margin: var(--sp-2) 0 0; }
+.cube-calc-facts > div { min-width: 0; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); background: rgba(0, 0, 0, .2); border: 1px solid var(--line-soft); }
+.cube-calc-facts dt { font-size: var(--fs-2xs); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.cube-calc-facts dd { margin: 3px 0 0; font-weight: 700; color: var(--text-strong); font-variant-numeric: tabular-nums; }
+.cube-calc-note { display: flex; gap: 6px; align-items: flex-start; margin-top: var(--sp-1); font-size: var(--fs-xs); line-height: 1.5; color: var(--muted); }
+.cube-calc-note > svg { flex: none; margin-top: 2px; }
+.cube-calc-note b { color: var(--warn); font-weight: 600; }
+
+/* Global facts */
+.cube-maps :is(th, td) { white-space: nowrap; }
+.cube-maps td:nth-child(3), .cube-maps td:nth-child(4) { text-align: right; font-variant-numeric: tabular-nums; }
+.cube-maps td:nth-child(5) { white-space: normal; min-width: 180px; }
+.cube-keys td:last-child { white-space: nowrap; color: var(--text-strong); }
+.cube-global-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: var(--sp-4) var(--sp-5); margin-top: var(--sp-2); }
+.cube-global-grid .g-list { font-size: var(--fs-base); }
+.cube-global-grid .table-wrap { margin-top: var(--sp-2); }
+.cube-global-grid .cube-tiers { margin-top: var(--sp-3); }
+.cube-map-link { max-width: 100%; margin-top: var(--sp-4); height: auto; min-height: var(--control-h); padding-block: 8px; white-space: normal; text-align: left; }
+.cube-map-link > svg { flex: none; }
+.cube-map-link > span { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; line-height: 1.25; }
+.cube-map-link small { font-size: var(--fs-2xs); font-weight: 500; color: var(--muted); }
+.cube-sources { display: flex; flex-direction: column; gap: var(--sp-2); padding: 0 var(--sp-1); }
+.cube-sources ul { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); color: var(--muted); }
+.cube-sources a { color: var(--accent); }

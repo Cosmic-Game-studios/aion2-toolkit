@@ -1,5 +1,5 @@
 import { memo, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
-import { Check, ChevronDown, Clock, Crosshair, Flag, Link2, MapPin, Pencil, Plus, RotateCcw, SearchX, Send } from 'lucide-react';
+import { Box, Check, ChevronDown, Clock, Crosshair, Flag, Link2, MapPin, Pencil, Plus, RotateCcw, SearchX, Send } from 'lucide-react';
 import { useGame } from '../../data/GameDataContext';
 import { EmptyState } from '../../components/ui';
 import { SectionHead } from '../../components/SectionHead';
@@ -166,6 +166,10 @@ export const SpotCard = memo(function SpotCard({ spot, id, selected, hasImage, p
             <button type="button" className="btn ghost sm" onClick={() => onSelect(id, true)}>
               <Crosshair size={14} aria-hidden /> {t('farmListShowOnMap')}{nameSr}
             </button>
+          )}
+          {/* the selected hidden cube: what it can give */}
+          {current && spot.cat === 'cube' && (
+            <a className="btn ghost sm" href="#/cubes"><Box size={14} aria-hidden /> {t('farmCubeOdds')}</a>
           )}
           {showSwitch && (
             <button type="button" className="btn ghost sm farm-found-btn" aria-pressed={!!found} onClick={() => onFound?.(id)}>

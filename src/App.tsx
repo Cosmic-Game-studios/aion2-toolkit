@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType } from 'react';
-import { BookOpen, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, Map as MapIcon, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
+import { BookOpen, Box, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, Map as MapIcon, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
@@ -32,6 +32,8 @@ const GuidesPage = lazy(() => import('./features/guides/GuidesPage').then((m) =>
 const TopPage = lazy(() => import('./features/top/TopPage').then((m) => ({ default: m.TopPage })));
 // the farm map: spots players found in the game (its data loads with the page)
 const FarmPage = lazy(() => import('./features/farm/FarmPage').then((m) => ({ default: m.FarmPage })));
+// what hidden cubes give and how often (official odds)
+const CubesPage = lazy(() => import('./features/cubes/CubesPage').then((m) => ({ default: m.CubesPage })));
 
 type Group = 'start' | 'planner' | 'knowledge' | 'community';
 
@@ -47,6 +49,8 @@ interface RouteDef {
   short?: StringKey;
   /** more addresses that open the page (a shorter or an older name) */
   alias?: string[];
+  /** a sub-page: only in the sidebar and the search; the top and bottom navigation mark this page instead */
+  parent?: string;
 }
 
 // planner tabs in the order a build is filled in (same as PLANNER_FLOW)
@@ -61,6 +65,7 @@ const ROUTES: RouteDef[] = [
   { path: '/guides', key: 'navGuides', Icon: ScrollText, Comp: GuidesPage, group: 'knowledge' },
   { path: '/top', key: 'navTop', Icon: Trophy, Comp: TopPage, group: 'knowledge' },
   { path: '/farm', alias: ['/map'], key: 'navFarm', short: 'navFarmShort', Icon: MapIcon, Comp: FarmPage, group: 'knowledge' },
+  { path: '/cubes', alias: ['/hidden-cubes'], key: 'navCubes', Icon: Box, Comp: CubesPage, group: 'knowledge', parent: '/farm' },
   { path: '/community', key: 'navCommunity', Icon: Users, Comp: CommunityPage, group: 'community' },
 ];
 
@@ -213,8 +218,8 @@ export default function App() {
   // top and bottom navigation: the planner tabs count as one "Planner" entry
   const navItems = [
     { path: current.tab ? current.path : lastTab(), key: 'navPlanner' as StringKey, short: 'navPlanner' as StringKey, Icon: LayoutGrid, active: !!current.tab },
-    ...ROUTES.filter((r) => r.path !== '/' && !r.tab && visible(r))
-      .map((r) => ({ path: r.path, key: r.key, short: r.short ?? r.key, Icon: r.Icon, active: r.path === current.path })),
+    ...ROUTES.filter((r) => r.path !== '/' && !r.tab && !r.parent && visible(r))
+      .map((r) => ({ path: r.path, key: r.key, short: r.short ?? r.key, Icon: r.Icon, active: r.path === current.path || r.path === current.parent })),
   ];
   // phones: Home is a bottom item too while there is room for it (at most five items)
   const bottomItems = navItems.length < 5
