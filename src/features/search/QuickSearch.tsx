@@ -162,7 +162,7 @@ function buildIndex(
 
   if (guides) {
     const tx = (x: L10n) => x[lang] ?? x.en;
-    const cat = (g: Guide) => t(g.category === 'basics' ? 'guideCatBasics' : g.category === 'class' ? 'guideCatClass' : 'guideCatWorld');
+    const cat = (g: Guide) => t(g.category === 'basics' ? 'guideCatBasics' : g.category === 'class' ? 'guideCatClass' : g.category === 'endgame' ? 'guideCatEndgame' : 'guideCatWorld');
     for (const g of guides) {
       const title = tx(g.title);
       out.push({

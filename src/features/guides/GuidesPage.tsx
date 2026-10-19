@@ -30,6 +30,7 @@ import { fold, queryTokens } from '../search/searchIndex';
 const CATEGORIES: { id: GuideCategory; key: StringKey }[] = [
   { id: 'basics', key: 'guideCatBasics' },
   { id: 'class', key: 'guideCatClass' },
+  { id: 'endgame', key: 'guideCatEndgame' },
   { id: 'world', key: 'guideCatWorld' },
 ];
 

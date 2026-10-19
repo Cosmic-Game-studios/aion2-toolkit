@@ -165,7 +165,7 @@ export const farmingPower: Guide = {
             ['**Kina**', { de: 'Währung – kauft Ausrüstung, Verbesserungen und (mit Membership) Market-Waren', en: 'Currency – buys gear, upgrades and (with Membership) Market items' }, { de: 'Odyle-Würfel, Duties, Market', en: 'Odyle cubes, Duties, Market' }, { de: '≈6,3 Mio./Woche solo · ≈25–50 Mio. mit Twinks', en: '≈6.3M/week solo · ≈25–50M with alts' }],
             ['**iLv**', { de: 'Summe des Charakters aus Ausrüstung, Verzauberung und Arcana', en: 'Character total of gear, enhancement and Arcana' }, { de: 'Ausrüstungswechsel, sicheres +10, Arcana', en: 'Gear swaps, safe +10, Arcana' }, num('700 → 1,400 → 2,100 → 2,500')],
             ['**CP**', { de: 'Der Stärkewert des Spiels – bis etwa Gegenstandsstufe 2.000 ≈45 pro Punkt, an der Spitze ≈69', en: "The game's strength score – ≈45 per item level point up to about 2,000, ≈69 at the top" }, { de: 'Gegenstandsstufe, Stigmen, Daevanion, Titel, Flügel', en: 'Item level, stigmas, Daevanion, titles, wings' }, '≈50K → ≈100K+'],
-            ['**AP**', { de: 'Abyss-Währung – Stigma Shards, Daevanion Crystals, Potential Stones', en: 'Abyss currency – Stigma Shards, Daevanion Crystals, Potential Stones' }, { de: 'Supply Requests, Quests, Corridor, Abyss-Monster', en: 'Supply Requests, quests, Corridor, Abyss mobs' }, { de: '≈110–380K pro Woche und Charakter (Schätzung)', en: '≈110–380K per week per character (estimate)' }],
+            ['**AP**', { de: 'Abyss-Währung – Stigma Shards, Azphel-Kristalle, Potential Stones', en: 'Abyss currency – Stigma Shards, Azphel crystals, Potential Stones' }, { de: 'Supply Requests, Quests, Corridor, Abyss-Monster', en: 'Supply Requests, quests, Corridor, Abyss mobs' }, { de: '≈110–380K pro Woche und Charakter (Schätzung)', en: '≈110–380K per week per character (estimate)' }],
           ],
         },
       ],
@@ -260,8 +260,8 @@ export const farmingPower: Guide = {
           type: 'compare',
           title: { de: 'Gratis oder Membership', en: 'Free or Membership' },
           caption: {
-            de: 'Membership (≈15 $ im Monat) gilt für alle Charaktere des Accounts. Grenzen aus den Client-Daten (metabot.gg) und NCs Patch-Notes vom 14.10. (über daevaguides.com).',
-            en: 'Membership (≈$15 a month) covers every character of the account. Limits from the client data (metabot.gg) and NC’s patch notes of 14 Oct (via daevaguides.com).',
+            de: 'Membership (≈15 $ im Monat) gilt für alle Charaktere auf einem Server. Grenzen aus den Client-Daten (metabot.gg) und NCs Patch-Notes vom 14.10. (über daevaguides.com).',
+            en: 'Membership (≈$15 a month) covers every character on one server. Limits from the client data (metabot.gg) and NC’s patch notes of 14 Oct (via daevaguides.com).',
           },
           items: [
             {
@@ -463,7 +463,7 @@ export const farmingPower: Guide = {
             { de: '**Das Dienstag-Aufräumen ist das Sicherheitsnetz:** zweite Odyle-Session plus jeder Wochenrest.', en: '**Tuesday clean-up is the safety net:** second Odyle session plus every weekly leftover.' },
             { de: '**Abyss: ohne Obergrenze vor gedeckelt.** Erst Quest-AP und Lieferungen, dann Corridor-Schübe, dann Monster bis zur Grenze.', en: '**Abyss: uncapped before capped.** Quest AP and deliveries first, then Corridor bursts, then mobs to the cap.' },
             { de: '**Drei Abyss-Blöcke an den Belagerungs-Abenden** (Montag, Donnerstag, Samstag um 21:00 Serverzeit in Lower Reshanta): Die Siegerfraktion bekommt AP und den Corridor, und 30 Minuten danach erscheinen die Executors. So teilst du die 7 Std. pro Ebene auf, ohne Zeit verfallen zu lassen.', en: '**Three Abyss blocks on the siege nights** (Monday, Thursday, Saturday at 21:00 server time in Lower Reshanta): the winning faction gets AP and the Corridor, and the Executors spawn 30 minutes later. That splits the 7 h per layer without ever leaving time unused.' },
-            { de: '**AP sofort ausgeben** für Stigma Shards und Daevanion Crystals – AP im Geldbeutel bringen keine Stärke.', en: '**Spend AP right away** on Stigma Shards and Daevanion Crystals – AP sitting in the wallet adds no power.' },
+            { de: '**AP sofort ausgeben** für Stigma Shards und Azphel-Kristalle – AP im Geldbeutel bringen keine Stärke.', en: '**Spend AP right away** on Stigma Shards and Azphel crystals – AP sitting in the wallet adds no power.' },
           ],
         },
       ],
@@ -688,7 +688,7 @@ export const farmingPower: Guide = {
             [{ de: 'Wichtigster Schritt', en: 'Key move' }, { de: 'Gegenstandsstufe 1.400 erreichen – Conquest 2★ zahlt 1,5× so viel wie 1★', en: 'Reach item level 1,400 – Conquest 2★ pays 1.5× as much as 1★' }, { de: 'Einen Twink nach dem anderen auf 700, dann 1.400 bringen', en: 'Push one alt at a time to 700, then 1,400' }],
             [{ de: 'Odyle-Extras', en: 'Odyle extras' }, { de: '4 Morphs + 4 Wind-Breeze-Käufe (Membership) + 3 Season-Belohnungen', en: '4 Morphs + 4 Wind Breeze buys (Membership) + 3 Season rewards' }, { de: 'Je Charakter dasselbe, Morph und Laden höchstens 16 pro Server', en: 'The same per character, Morph and shop at most 16 per server' }],
             [{ de: 'Kina-Fluss', en: 'Kina flow' }, { de: 'Gratis: gesammeltes Odyle morphen. Membership: Odyle und Materialien am Market verkaufen (2 % Gebühr + 10 % Steuer)', en: 'Free: morph gathered Odyle. Membership: sell Odyle and materials on the Market (2% fee + 10% tax)' }, { de: 'Handelbares Kina über das Server Storage zum Main; gebundenes über Ausrüstung, die der Twink verzaubert', en: 'Tradeable Kina to the main via Server Storage; bound Kina via gear the alt enhances' }],
-            ['Membership', { de: 'Market + Exchange, 2 Abholungen pro Würfel, Odyle-Grenze 840', en: 'Market + Exchange, 2 claims per cube, Odyle cap 840' }, { de: 'Gilt für jeden Charakter des Accounts', en: 'Covers every character of the account' }],
+            ['Membership', { de: 'Market + Exchange, 2 Abholungen pro Würfel, Odyle-Grenze 840', en: 'Market + Exchange, 2 claims per cube, Odyle cap 840' }, { de: 'Gilt für jeden Charakter auf dem Server', en: 'Covers every character on the server' }],
           ],
         },
         {
@@ -872,8 +872,8 @@ export const farmingPower: Guide = {
           tone: 'tip',
           title: { de: 'Der schnellste Weg zu mehr Stärke', en: 'Fastest path to power' },
           text: {
-            de: 'Kina mit Würfeln farmen → Verbesserung für den schwächsten Platz kaufen → sicheres +10 → Arcana → AP für Stigma Shards und Daevanion Crystals ausgeben. Wiederholen. Nie hoch verzaubern, bevor deine Ausrüstung komplett ist.',
-            en: 'Farm Kina with cubes → buy the weakest slot upgrade → safe +10 → Arcana → spend AP on Stigma Shards and Daevanion Crystals. Repeat. Never gamble high enhancement before your gear is complete.',
+            de: 'Kina mit Würfeln farmen → Verbesserung für den schwächsten Platz kaufen → sicheres +10 → Arcana → AP für Stigma Shards und Azphel-Kristalle ausgeben. Wiederholen. Nie hoch verzaubern, bevor deine Ausrüstung komplett ist.',
+            en: 'Farm Kina with cubes → buy the weakest slot upgrade → safe +10 → Arcana → spend AP on Stigma Shards and Azphel crystals. Repeat. Never gamble high enhancement before your gear is complete.',
           },
         },
         {
@@ -885,7 +885,7 @@ export const farmingPower: Guide = {
           type: 'checklist',
           items: [
             { de: 'Checkliste Gegenstandsstufe erledigt (Säule II)', en: 'Item level checklist done (Pillar II)' },
-            { de: 'Alle AP für Stigma Shards und Daevanion Crystals ausgegeben', en: 'All AP spent on Stigma Shards and Daevanion Crystals' },
+            { de: 'Alle AP für Stigma Shards und Azphel-Kristalle ausgegeben', en: 'All AP spent on Stigma Shards and Azphel crystals' },
             { de: 'Stigma Shards aus Nightmare- und Shugo-Shop geholt (je bis 35)', en: 'Stigma Shards from the Nightmare and Shugo shops taken (up to 35 each)' },
             { de: 'Neue Daevanion-Knoten entlang des geplanten Wegs geöffnet', en: 'New Daevanion nodes opened along your planned path' },
             { de: 'Neue Titel und Flügel gesammelt – der Sammel-Bonus zählt auch nicht ausgerüstet', en: 'New titles and wings collected – the collection bonus counts even unequipped' },

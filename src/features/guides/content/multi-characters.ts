@@ -139,7 +139,7 @@ export const multiCharacters: Guide = {
               tone: 'green',
               points: [
                 { kind: 'pro', text: { de: '**Eigene Odyle-Energie:** 21 Beute-Würfel mehr pro Woche, auf Tier 2 ≈5,6 Mio. handelbares Kina – über das Server-Lager zum Main.', en: '**Own Odyle Energy:** 21 more loot claims a week, ≈5.6M tradeable Kina at Tier 2 – sent to the main via Server Storage.' } },
-                { kind: 'pro', text: { de: '**Eigene Wochenbelohnungen:** Nightmare (14 Eintritte), Ascension Trial (3), Battleground-Siege (3), 7 Std. Abyss-Zeit, eigene Odyle-Morphs.', en: '**Own weekly rewards:** Nightmare (14 entries), Ascension Trial (3), battleground wins (3), 7 h of Abyss time, own Odyle morphs.' } },
+                { kind: 'pro', text: { de: '**Eigene Wochenbelohnungen:** Nightmare (14 Eintritte), Ascension Trial (3), Battleground-Siege (3), 7 Std. Abyss-Zeit pro Ebene, eigene Odyle-Morphs.', en: '**Own weekly rewards:** Nightmare (14 entries), Ascension Trial (3), battleground wins (3), 7 h of Abyss time per layer, own Odyle morphs.' } },
                 { kind: 'pro', text: { de: '**Füttert den gemeinsamen Fortschritt:** Haustiere, Pet Genus, Closet-Skins und Server-Titel gelten für alle Charaktere – was der Twink sammelt, hat auch der Main.', en: '**Feeds shared progress:** pets, Pet Genus, Closet skins and server titles count for every character – what the alt collects, the main has too.' } },
                 { kind: 'pro', text: { de: '**Eine zweite Rolle:** Ein Heiler oder Tank als Twink findet schneller Gruppen und füllt Lücken in deiner Legion.', en: '**A second role:** a healer or tank alt finds groups faster and fills gaps in your Legion.' } },
                 { kind: 'pro', text: { de: '**Einmal-Belohnungen pro Charakter:** Bezirks-Quests, versiegelte Dungeons, Strongholds – ≈+240 Gegenstandsstufe ohne Kina.', en: '**One-time rewards per character:** district quests, sealed dungeons, Strongholds – ≈+240 item level for no Kina.' } },
@@ -253,7 +253,7 @@ export const multiCharacters: Guide = {
             [{ de: 'Stufe, Skills, Stigmen, Daevanion, Arcana, Pantheon', en: 'Level, skills, Stigmas, Daevanion, Arcana, Pantheon' }, { de: 'Jeder Twink beginnt bei null.', en: 'Every alt starts from zero.' }],
             [{ de: '**Odyle-Energie:** +15 alle 3 Std. (120 pro Tag, 840 pro Woche), Grenze 560 (Membership 840)', en: '**Odyle Energy:** +15 every 3 h (120 a day, 840 a week), cap 560 (Membership 840)' }, { de: 'Der Grund, warum Twinks Kina bringen. Dazu hat jeder Charakter 4 eigene Odyle-Morphs pro Woche.', en: 'The reason alts bring Kina. On top, every character has 4 own Odyle morphs a week.' }],
             [{ de: 'Nightmare (2 pro Tag, bis 14), Ascension Trial (3 pro Woche), Battleground (3 Siege), Arena', en: 'Nightmare (2 a day, up to 14), Ascension Trial (3 a week), battlegrounds (3 wins), Arena' }, { de: 'Bekommt jeder Charakter einzeln.', en: 'Every character gets these on its own.' }],
-            [{ de: 'Abyss-Zeit (7 Std. pro Woche), Abyss Corridor, Abyss-Punkte (AP), Season-Ranglistenpunkte', en: 'Abyss time (7 h a week), Abyss Corridor, Abyss Points (AP), season rank points' }, { de: 'Jeder Twink farmt und gibt seine eigenen AP aus.', en: 'Every alt farms and spends its own AP.' }],
+            [{ de: 'Abyss-Zeit (7 Std. pro Ebene und Woche), Abyss Corridor, Abyss-Punkte (AP), Season-Ranglistenpunkte', en: 'Abyss time (7 h per layer a week), Abyss Corridor, Abyss Points (AP), season rank points' }, { de: 'Jeder Twink farmt und gibt seine eigenen AP aus.', en: 'Every alt farms and spends its own AP.' }],
             [{ de: 'Ausrüstung', en: 'Gear' }, { de: 'Bindet beim Anlegen, Dungeon-Beute schon beim Aufheben; hochgestufte Handwerks-Ausrüstung bindet an den Hersteller.', en: 'Binds when equipped, dungeon loot already on pickup; upcrafted gear binds to the crafter.' }],
             [{ de: 'Gebundenes Kina, Quna, Daeva Pass', en: 'Bound Kina, Quna, Daeva Pass' }, { de: 'Der Daeva Pass gilt nur für den Charakter, der ihn kauft.', en: 'The Daeva Pass only pays the character that buys it.' }],
             [{ de: 'Flügel, Charakter-Titel und Charakter-Erfolge', en: 'Wings, character titles and character achievements' }, { de: 'Muss jeder Charakter selbst verdienen.', en: 'Every character has to earn them itself.' }],
@@ -786,8 +786,8 @@ export const multiCharacters: Guide = {
           tone: 'tip',
           title: { de: 'In Kina pro Stunde rechnen', en: 'Count Kina per hour' },
           text: {
-            de: 'Eine Stunde Odyle-Sammeln in Lower Reshanta brachte Raid Relay ≈2,8 Mio. Kina nach Market-Gebühren (mit Membership zum Verkaufen) – mehr als die ≈0,9 Mio. pro Stunde eines Würfel-Twinks. Sie kostet aber Abyss-Zeit (7 Std. pro Charakter und Woche) und hängt an den Preisen. Für Market-Spieler ist Sammeln darum oft die bessere Twink-Stunde, solange die Preise halten.',
-            en: 'One hour of Odyle gathering in Lower Reshanta earned Raid Relay ≈2.8M Kina after Market fees (with Membership to sell) – more than the ≈0.9M per hour of a cube alt. It costs Abyss time, though (7 h per character per week), and depends on prices. For market players gathering is therefore often the better alt hour, as long as prices hold.',
+            de: 'Eine Stunde Odyle-Sammeln in Lower Reshanta brachte Raid Relay ≈2,8 Mio. Kina nach Market-Gebühren (mit Membership zum Verkaufen) – mehr als die ≈0,9 Mio. pro Stunde eines Würfel-Twinks. Sie kostet aber Abyss-Zeit (7 Std. pro Ebene, Charakter und Woche) und hängt an den Preisen. Für Market-Spieler ist Sammeln darum oft die bessere Twink-Stunde, solange die Preise halten.',
+            en: 'One hour of Odyle gathering in Lower Reshanta earned Raid Relay ≈2.8M Kina after Market fees (with Membership to sell) – more than the ≈0.9M per hour of a cube alt. It costs Abyss time, though (7 h per layer, character and week), and depends on prices. For market players gathering is therefore often the better alt hour, as long as prices hold.',
           },
         },
         {
@@ -810,8 +810,8 @@ export const multiCharacters: Guide = {
               en: '**One faction per server:** every alt on your server has your main’s faction. Playing the other side means another server, its own storage, its own Membership, nothing shared.',
             },
             {
-              de: '**Abyss ab Stufe 45 und Gegenstandsstufe 1.000.** Jeder Charakter hat 7 Std. Abyss-Zeit pro Woche; beim Reset springt sie auf 7 Std. zurück, Reste verfallen.',
-              en: '**Abyss from level 45 and item level 1,000.** Every character has 7 h of Abyss time a week; at reset it goes back to 7 h, leftovers are lost.',
+              de: '**Abyss ab Stufe 45 und Gegenstandsstufe 1.000.** Jeder Charakter hat 7 Std. Abyss-Zeit pro Ebene und Woche (mit Membership 14 in Lower und Middle); beim Reset füllt sie sich wieder auf, Reste verfallen.',
+              en: '**Abyss from level 45 and item level 1,000.** Every character has 7 h of Abyss time per layer a week (14 in Lower and Middle with Membership); at reset it fills up again, leftovers are lost.',
             },
             {
               de: '**AP bleiben auf dem Charakter:** Jeder Twink kauft seine Stigma Shards (im Abyss-Shop die ersten 50 für je 10.000 AP) und Manastones selbst.',
@@ -830,8 +830,8 @@ export const multiCharacters: Guide = {
               en: '**Fixed events belong to the main:** Artifact Siege (Mon, Thu, Sat 21:00 server time) and the Abyss bosses can only be played on one character at a time.',
             },
             {
-              de: '**Abyss-Rang pro Charakter:** Auf Global gibt nur der Abyss-Rang Boni. PvP-Zeit auf Twinks bremst den Rang deines Mains.',
-              en: '**Abyss rank per character:** on Global only the Abyss rank gives buffs. PvP time on alts slows your main’s rank.',
+              de: '**Abyss-Rang pro Charakter:** Abyss-Rang und Arena-Grade geben denselben Buff – es zählt nur der höchste. PvP-Zeit auf Twinks bremst den Rang deines Mains.',
+              en: '**Abyss rank per character:** the Abyss rank and the arena grades give the same buff – only the highest counts. PvP time on alts slows your main’s rank.',
             },
             {
               de: '**Gruppen über Server hinweg:** Die Dungeon-Gruppensuche sucht in deiner Region über alle Server und im PvE auch über die Fraktionen (mit Option „nur meine Fraktion“). Ein Heiler-Twink kommt so schnell in Gruppen.',

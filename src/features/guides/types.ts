@@ -72,10 +72,10 @@ export interface GuideSection {
   blocks: GuideBlock[];
 }
 
-export type GuideIcon = 'speed' | 'craft' | 'gather' | 'book' | 'macro' | 'power' | 'pet' | 'score' | 'users' | 'rocket' | 'gem';
+export type GuideIcon = 'speed' | 'craft' | 'gather' | 'book' | 'macro' | 'power' | 'pet' | 'score' | 'users' | 'rocket' | 'gem' | 'pvp' | 'dungeon' | 'board' | 'compass' | 'wings' | 'award' | 'zap';
 
 /** where a guide is listed on the overview */
-export type GuideCategory = 'basics' | 'class' | 'world';
+export type GuideCategory = 'basics' | 'class' | 'endgame' | 'world';
 
 export interface Guide {
   /** used in the URL: #/guides/<id> */

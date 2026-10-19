@@ -17,13 +17,22 @@ import { sorcererGuide } from './class-sorcerer';
 import { spiritmasterGuide } from './class-spiritmaster';
 import { clericGuide } from './class-cleric';
 import { chanterGuide } from './class-chanter';
+import { abyssPvp } from './abyss-pvp';
+import { daevanionStigmaArcana } from './daevanion-stigma-arcana';
+import { beginner } from './beginner';
+import { dungeons } from './dungeons';
+import { wings } from './wings';
+import { titlesCollections } from './titles-collections';
+import { theostonesSoulBinding } from './theostones-soul-binding';
 
 /**
- * All guides. The overview groups them by category (basics, classes, levelling & professions)
+ * All guides. The overview groups them by category (basics, classes, endgame & PvP, world)
  * and keeps this order inside a group. Add a new guide as its own file and list it here.
  */
 export const GUIDES: Guide[] = [
+  beginner,
   macros,
+  daevanionStigmaArcana,
   combatPower,
   powerSprint,
   multiCharacters,
@@ -35,10 +44,15 @@ export const GUIDES: Guide[] = [
   spiritmasterGuide,
   clericGuide,
   chanterGuide,
+  dungeons,
+  abyssPvp,
   gatheringCrafting,
   craftingGear,
   farmingPower,
   manastones,
+  theostonesSoulBinding,
   pets,
+  wings,
+  titlesCollections,
   speedrun45,
 ];
