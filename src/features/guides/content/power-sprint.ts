@@ -320,7 +320,7 @@ export const powerSprint: Guide = {
             { de: '**≈+5 pro Amplified-Stufe** – eine Amplified-Stufe zählt wie fünf normale (unsere Anpassung: 4,9).', en: '**≈+5 per Amplified level** – one Amplified level counts like five normal ones (our fit: 4.9).' },
             { de: '**≈+1 pro Daevanion-Knoten**, den du öffnest (unsere Anpassung; games.gg nennt +1 pro ausgegebenem Kristall).', en: '**≈+1 per Daevanion node** you open (our fit; games.gg says +1 per crystal spent).' },
             { de: '**Arcana:** 20 (Common), 40 (Rare), 60 (Epic) oder 80 (Unique) pro Karte, +1 pro Kartenstufe.', en: '**Arcana:** 20 (Common), 40 (Rare), 60 (Epic) or 80 (Unique) per card, +1 per card level.' },
-            { de: '**Manasteine:** etwa +1 bis +4 pro Stein (games.gg) – jeden Sockel füllen, auch mit billigen Steinen.', en: '**Manastones:** about +1 to +4 per stone (games.gg) – fill every socket, even with cheap stones.' },
+            { de: '**Manasteine:** etwa +1 bis +4 pro gefülltem Sockel (games.gg) – ein Unique-Teil hat 4 Sockel. Jeden Sockel füllen, auch mit billigen Steinen (Guide „Manasteine“).', en: '**Manastones:** about +1 to +4 per filled socket (games.gg) – a Unique piece has 4 sockets. Fill every socket, even with cheap stones ("Manastones" guide).' },
           ],
         },
         {
