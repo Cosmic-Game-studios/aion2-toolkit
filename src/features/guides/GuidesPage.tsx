@@ -496,6 +496,8 @@ function GuideView({ g, visit }: { g: Guide; visit: number }) {
 
   return (
     <article className={`guide-article ${hasToc ? 'has-toc' : ''}`}>
+      {/* how far the page is read: a gold line under the top edge (motion.css, scroll-driven) */}
+      <div className="read-progress" aria-hidden />
       <a className="back-link" href="#/guides"><ArrowLeft size={16} aria-hidden /> {t('allGuides')}</a>
       <header className={`guide-hero tone-${g.tone}`}>
         <GuideMark g={g} size={26} />

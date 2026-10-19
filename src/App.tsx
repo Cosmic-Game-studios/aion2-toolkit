@@ -15,6 +15,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { NextStep } from './components/NextStep';
 import { DataUpdateNotice, SharedLinkBanner } from './components/ShellNotices';
 import { MQ, matches, useMediaQuery } from './components/hooks';
+import { Sky, pageTransition, usePointerLight } from './components/Ambient';
 import { HomePage } from './features/home/HomePage';
 import { SkillCalculator } from './features/skills/SkillCalculator';
 import { HotbarPage } from './features/hotbar/HotbarPage';
@@ -160,12 +161,22 @@ export default function App() {
   // the ad column only exists where it is shown (an ad in a hidden column would still load)
   const adColumn = useMediaQuery('(min-width: 1880px)');
   const search = useQuickSearch();
+  usePointerLight();
+  // the page shown now, for the hash listener (a new page changes inside a view transition, a new parameter does not)
+  const baseRef = useRef(hash.base);
+  baseRef.current = hash.base;
 
   // counts every visit of an address, also a click on a link to the address already shown (no hashchange there),
   // so a page can select its deep-link target again after the player picked something else
   const [visit, setVisit] = useState(0);
   useEffect(() => {
-    const onHash = () => { setHash(readHash()); setVisit((v) => v + 1); };
+    const onHash = () => {
+      const next = readHash();
+      const apply = () => { setHash(next); setVisit((v) => v + 1); };
+      if (next.base === baseRef.current) { apply(); return; }
+      // a new page: it starts at the top inside the transition, so the browser captures it there
+      pageTransition(() => { apply(); window.scrollTo({ top: 0 }); });
+    };
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const a = (e.target as Element | null)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
@@ -220,6 +231,7 @@ export default function App() {
     <div className="app">
       <a className="skip-link" href="#main" onClick={(e) => { e.preventDefault(); mainRef.current?.focus(); }}>{t('skipToContent')}</a>
       {switching && <div className="lang-progress" role="progressbar" aria-label={t('loading')} />}
+      <Sky />
 
       {/* desktop: all pages in one sidebar (an icon rail up to 1439 px), the build bar stays on top of the content */}
       <aside className="sidebar">
@@ -233,6 +245,8 @@ export default function App() {
                 const active = path === current.path;
                 return (
                   <a key={path} href={`#${path}`} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined} title={rail ? t(key) : undefined}>
+                    {/* the marker of the current page: one element, so it can glide to the next page */}
+                    {active && <span className="sb-pill" aria-hidden />}
                     <Icon size={18} aria-hidden />
                     <span className="sb-label">{t(key)}</span>
                   </a>
@@ -253,6 +267,7 @@ export default function App() {
           <nav className="nav" aria-label={t('mainNav')}>
             {navItems.map(({ path, key, Icon, active }) => (
               <a key={key} href={`#${path}`} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined}>
+                {active && <span className="nav-mark" aria-hidden />}
                 <Icon size={16} aria-hidden />
                 <span>{t(key)}</span>
               </a>
@@ -271,6 +286,7 @@ export default function App() {
                 return (
                   // the visible label switches between .pt-label and .pt-short with the width, so the name is set here
                   <a key={path} href={`#${path}`} className={on ? 'on' : ''} aria-current={on ? 'page' : undefined} aria-label={t(key)}>
+                    {on && <span className="pt-mark" aria-hidden />}
                     <span className="pt-no" aria-hidden>{i + 1}</span>
                     <Icon size={16} aria-hidden />
                     <span className="pt-label">{t(key)}</span>
@@ -319,7 +335,7 @@ export default function App() {
             // the active item scrolls back to the top (the hash does not change, so nothing else would happen)
             onClick={(e) => { if (active && readHash().base === hash.base) { e.preventDefault(); window.scrollTo({ top: 0, behavior: matches(MQ.reducedMotion) ? 'auto' : 'smooth' }); } }}
           >
-            <span className="bn-icon"><Icon size={20} aria-hidden /></span>
+            <span className="bn-icon">{active && <span className="bn-pill" aria-hidden />}<Icon size={20} aria-hidden /></span>
             <span className="bn-label">{t(short)}</span>
           </a>
         ))}
