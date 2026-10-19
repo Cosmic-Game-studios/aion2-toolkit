@@ -4954,50 +4954,114 @@ button.bp-row:active { background: var(--surface-2); }
 .cube-sources ul { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); color: var(--muted); }
 .cube-sources a { color: var(--accent); }
 
-/* pets at level 3: totals per stat in the genus colour (Cogni blue, Fera red, Natura green, Varian yellow, Special light blue) */
-.cube-pets { display: flex; flex-direction: column; gap: var(--sp-3); }
-.cube-pets .cube-h2 { display: flex; align-items: center; gap: var(--sp-2); }
-.cube-pets .cube-h2 > svg { flex: none; color: var(--gold); }
-.cube-pets .cube-h3 { margin: var(--sp-2) 0 0; }
-.cube-pets-text { font-size: var(--fs-base); line-height: 1.6; color: var(--text-2); }
-.cube-pets-text + .cube-pets-text { margin-top: var(--sp-2); }
-.cube-pets .g-cogni { --gc: #5fb4ff; }
-.cube-pets .g-fera { --gc: #ff7a6b; }
-.cube-pets .g-natura { --gc: #4fd1a1; }
-.cube-pets .g-varian { --gc: #f2c94b; }
-.cube-pets .g-special { --gc: #8fe3ff; }
+/* the link to the pets page (#/pets), where the pet block used to be */
+.cube-pets-link { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); color: inherit; text-decoration: none; transition: border-color .2s; }
+.cube-pets-link > span:nth-child(2) { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.cube-pets-link strong { font-size: var(--fs-md); color: var(--text-strong); }
+.cube-pets-link small { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+.cube-pets-link > svg { flex: none; color: var(--gold); transition: transform .2s; }
+.cube-pets-link:hover { border-color: var(--gold-edge); }
+.cube-pets-link:hover > svg { transform: translateX(3px); }
+.cube-pets-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ==========================================================================
+   Pets (#/pets): the collection calculator (pets at level 3 per genus, stat totals in the genus colour: Cogni blue,
+   Fera red, Natura green, Varian yellow, Special light blue), the genus table (one card per genus on phones), levels,
+   titles and crystals. Shares the headings, stat tiles, link buttons and sources of the cube page above.
+   ========================================================================== */
+.pets-page .g-cogni { --gc: #5fb4ff; }
+.pets-page .g-fera { --gc: #ff7a6b; }
+.pets-page .g-natura { --gc: #4fd1a1; }
+.pets-page .g-varian { --gc: #f2c94b; }
+.pets-page .g-special { --gc: #8fe3ff; }
+.pets-page tbody th[scope='row'] { position: static; background: none; font-size: inherit; font-weight: 650; color: var(--text-strong); text-transform: none; letter-spacing: 0; white-space: nowrap; }
+.pets-page .cube-map-link > svg:last-child { margin-left: auto; }
+.pet-card, .pet-calc { display: flex; flex-direction: column; gap: var(--sp-3); }
+.pet-text { font-size: var(--fs-base); line-height: 1.6; color: var(--text-2); max-width: 75ch; }
+.genus-dot { display: inline-block; flex: none; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--gc); box-shadow: 0 0 8px var(--gc); vertical-align: 1px; }
+
+/* calculator */
+.pet-calc-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.pet-presets { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.pet-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: var(--sp-2) var(--sp-5); }
+.pet-input { display: grid; grid-template-columns: 92px minmax(0, 1fr) 72px 48px; align-items: center; gap: var(--sp-3); min-height: 44px; }
+.pet-input label { display: flex; align-items: center; font-weight: 650; color: var(--text-strong); }
+.pet-input input[type='range'] { width: 100%; min-width: 0; accent-color: var(--gc); }
+.pet-input-num { width: 72px; text-align: right; font-variant-numeric: tabular-nums; }
+.pet-of { font-size: var(--fs-sm); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pet-result { display: flex; flex-direction: column; gap: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--line-soft); }
+.pet-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: var(--sp-2); margin: 0; }
+.pet-sum > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 2px; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-soft); }
+.pet-sum dt { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--text-2); }
+.pet-sum dd { margin: 0; font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1.1; color: var(--display); font-variant-numeric: tabular-nums; }
+.pet-sum dd small { font-family: inherit; font-size: var(--fs-sm); color: var(--muted); }
+
+/* stat tiles: value, stat, "of the max" and a fill line for the share of the max */
 .pet-totals { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: var(--sp-2); }
 .pet-totals li {
   position: relative; display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: var(--sp-3); padding-left: calc(var(--sp-3) + 4px);
   border-radius: var(--r-md); background: linear-gradient(90deg, color-mix(in srgb, var(--gc) 12%, transparent), transparent 70%), var(--surface-2);
-  border: 1px solid var(--line-soft); overflow: hidden;
+  border: 1px solid var(--line-soft); overflow: hidden; transition: opacity .2s;
 }
 .pet-totals li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gc); box-shadow: 0 0 12px var(--gc); }
+.pet-totals li.zero { opacity: .55; }
 .pet-totals strong {
   font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 28px); line-height: 1; color: var(--text-strong);
   text-shadow: 0 0 20px color-mix(in srgb, var(--gc) 45%, transparent); font-variant-numeric: tabular-nums;
 }
 .pet-totals span { font-size: var(--fs-sm); color: var(--text-2); }
-.genus-dot { display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--gc); box-shadow: 0 0 8px var(--gc); vertical-align: 1px; }
-.cube-genera td { line-height: 1.5; }
-.cube-genera :is(th, td):nth-child(2) { text-align: right; }
-.cube-genera tbody :is(th, td) { vertical-align: middle; }
+.pet-totals small { font-size: var(--fs-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+.pet-fill { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--gc); opacity: .7; transition: width .25s ease-out; }
+
+/* genus table */
+.pet-genera td { line-height: 1.5; }
+.pet-genera :is(th, td):nth-child(2) { text-align: right; }
+.pet-genera tbody :is(th, td) { vertical-align: middle; }
 .pet-lines { display: flex; flex-direction: column; gap: 2px; }
 .pet-lines b { font-weight: 650; color: var(--text-strong); white-space: nowrap; }
 .pet-lines .ride { color: var(--muted); }
 .pet-lines .ride b { color: var(--text-2); }
 .pet-lines small { margin-left: 6px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 999px; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
-.cube-genera td:nth-child(4) .pet-lines b { color: var(--gold-light); }
+.pet-genera td:nth-child(4) .pet-lines b { color: var(--gold-light); }
+
+/* levels; the two titles side by side */
+.pet-levels td:last-child { min-width: 260px; }
+.pet-levels :is(th, td):nth-child(-n + 4) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pet-levels :is(th, td):nth-child(2), .pet-levels :is(th, td):nth-child(3) { text-align: right; }
+.pet-titles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: var(--sp-3); }
+.pet-titles > li { display: flex; flex-direction: column; gap: 4px; padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--surface-2); border: 1px solid var(--line-soft); }
+.pet-titles strong { font-family: var(--font-display); font-size: var(--fs-lg); color: var(--display); }
+.pet-need { font-size: var(--fs-sm); color: var(--muted); }
+.pet-titles dl { display: flex; flex-direction: column; gap: var(--sp-2); margin: var(--sp-2) 0 0; }
+.pet-titles dl > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: var(--sp-3); }
+.pet-titles dt { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+.pet-titles dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pet-titles dd span { padding: 2px 8px; border-radius: 999px; border: 1px solid var(--gold-edge); background: rgba(227, 184, 102, .07); font-size: var(--fs-sm); color: var(--text-strong); }
+
 @media (max-width: 640px) {
+  .pet-input { grid-template-columns: minmax(0, 1fr) 72px 48px; grid-template-areas: 'name num of' 'range range range'; gap: 4px var(--sp-3); }
+  .pet-input label { grid-area: name; }
+  .pet-input input[type='range'] { grid-area: range; }
+  .pet-input-num { grid-area: num; }
+  .pet-of { grid-area: of; }
+  .pet-titles dl > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   /* one card per genus: name and pet count on top, the two stat lists below */
-  .cube-genera thead { display: none; }
-  .cube-genera, .cube-genera tbody { display: block; }
-  .cube-genera tr { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-3); padding: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
-  .cube-genera tr:last-child { border-bottom: 0; }
-  .cube-genera tbody :is(th, td) { display: block; padding: 0; border: 0; }
-  .cube-genera td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-  .cube-genera td:nth-child(2)::before { display: inline; margin: 0 6px 0 0; }
-  .cube-genera td:nth-child(3), .cube-genera td:nth-child(4) { grid-column: 1 / -1; }
+  .pet-genera thead { display: none; }
+  .pet-genera, .pet-genera tbody { display: block; }
+  .pet-genera tr { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-3); padding: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
+  .pet-genera tr:last-child { border-bottom: 0; }
+  .pet-genera tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  .pet-genera td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .pet-genera td:nth-child(2)::before { display: inline; margin: 0 6px 0 0; }
+  .pet-genera td:nth-child(3), .pet-genera td:nth-child(4) { grid-column: 1 / -1; }
+  /* levels the same way: level on top, souls, total and experience in a row, what it gives below */
+  .pet-levels thead { display: none; }
+  .pet-levels, .pet-levels tbody { display: block; }
+  .pet-levels tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2) var(--sp-3); padding: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
+  .pet-levels tr:last-child { border-bottom: 0; }
+  .pet-levels tbody :is(th, td):nth-child(n) { display: block; min-width: 0; padding: 0; border: 0; text-align: left; white-space: normal; }
+  .pet-levels tbody th[scope='row'] { grid-column: 1 / -1; font-family: var(--font-display); font-size: var(--fs-lg); color: var(--display); }
+  .pet-levels tbody th[scope='row']::before { content: attr(data-label) ' '; }
+  .pet-levels td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .pet-levels td:last-child { grid-column: 1 / -1; min-width: 0; }
 }
-.cube-genera tbody th[scope='row'] { white-space: nowrap; font-weight: 650; color: var(--text-strong); }
-.cube-pets .cube-map-link > svg:last-child { margin-left: auto; }

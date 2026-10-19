@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType } from 'react';
-import { BookOpen, Box, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, Map as MapIcon, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
+import { BookOpen, Box, ChevronRight, Hexagon, Home, Keyboard, LayoutGrid, Map as MapIcon, PawPrint, RefreshCw, ScrollText, Sparkles, Swords, TriangleAlert, Trophy, Users, Workflow, type LucideIcon } from 'lucide-react';
 import { useGame } from './data/GameDataContext';
 import type { StringKey } from './i18n/strings';
 import { readHash } from './lib/shareLink';
@@ -34,6 +34,7 @@ const TopPage = lazy(() => import('./features/top/TopPage').then((m) => ({ defau
 const FarmPage = lazy(() => import('./features/farm/FarmPage').then((m) => ({ default: m.FarmPage })));
 // what hidden cubes give and how often (official odds)
 const CubesPage = lazy(() => import('./features/cubes/CubesPage').then((m) => ({ default: m.CubesPage })));
+const PetsPage = lazy(() => import('./features/pets/PetsPage').then((m) => ({ default: m.PetsPage })));
 
 type Group = 'start' | 'planner' | 'knowledge' | 'community';
 
@@ -66,6 +67,7 @@ const ROUTES: RouteDef[] = [
   { path: '/top', key: 'navTop', Icon: Trophy, Comp: TopPage, group: 'knowledge' },
   { path: '/farm', alias: ['/map'], key: 'navFarm', short: 'navFarmShort', Icon: MapIcon, Comp: FarmPage, group: 'knowledge' },
   { path: '/cubes', alias: ['/hidden-cubes'], key: 'navCubes', Icon: Box, Comp: CubesPage, group: 'knowledge', parent: '/farm' },
+  { path: '/pets', alias: ['/haustiere'], key: 'navPets', Icon: PawPrint, Comp: PetsPage, group: 'knowledge', parent: '/guides' },
   { path: '/community', key: 'navCommunity', Icon: Users, Comp: CommunityPage, group: 'community' },
 ];
 

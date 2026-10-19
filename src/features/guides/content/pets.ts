@@ -331,6 +331,7 @@ export const pets: Guide = {
             en: 'The right column is worked out, not measured in game – it only shows why many small stats add up. For damage **Cogni** gives the most (Critical Hit and Might), **Fera** helps accuracy and makes riding faster. In practice you collect what you meet on the way: every new pet counts.',
           },
         },
+        { type: 'links', items: [{ href: '#/pets', label: { de: 'Deine eigene Sammlung durchrechnen', en: 'Work out your own collection' } }] },
       ],
     },
     {
