@@ -307,3 +307,29 @@ export const KEY_SOURCES: { what: L; keys: L }[] = [
 ];
 
 export const ACHIEVEMENT_TIERS = [3, 10, 30, 50, 100, 150, 200];
+
+/*
+ * Pets at level 3, the max on Global: what all of them give together. Per-pet values, pet counts, souls and genus
+ * experience as in the pets guide (src/features/guides/content/pets.ts: daevaguides and aion2builds, re-checked
+ * 2026-10-19), the titles from MetaBot's titles guide. The totals are worked out (value × pets), not measured in game.
+ * Soul Crystals from the cubes pay for Analyze in Genus Insight; pet levels come from souls.
+ */
+export type Genus = 'cogni' | 'fera' | 'natura' | 'varian' | 'special';
+export interface PetStat { stat: L; v: number; unit?: '%'; riding?: boolean }
+export const PET_GENERA: { id: Genus; name: string; pets: number; perPet: PetStat[] }[] = [
+  { id: 'cogni', name: 'Cogni', pets: 41, perPet: [{ stat: n('HP'), v: 30 }, { stat: n('Critical Hit'), v: 2 }, { stat: n('Might'), v: 1 }] },
+  { id: 'fera', name: 'Fera', pets: 65, perPet: [{ stat: n('Accuracy'), v: 2 }, { stat: n('Dexterity'), v: 1 }, { stat: n('Mount ground speed', 'Bodentempo beim Reiten'), v: 3, riding: true }] },
+  { id: 'natura', name: 'Natura', pets: 48, perPet: [{ stat: n('Critical Hit Resist'), v: 2 }, { stat: n('Precision'), v: 1 }, { stat: n('Stamina'), v: 9, riding: true }] },
+  { id: 'varian', name: 'Varian', pets: 46, perPet: [{ stat: n('Evasion'), v: 2 }, { stat: n('Constitution'), v: 1 }, { stat: n('Sprint cost when riding', 'Sprint-Kosten beim Reiten'), v: -0.3, unit: '%', riding: true }] },
+  { id: 'special', name: 'Special', pets: 7, perPet: [] },
+];
+/** souls per pet up to level 3 (5 to unlock, +25, +75) and the genus experience they give (500, +250, +250) */
+export const PET_SOULS = [5, 25, 75];
+export const PET_GENUS_EXP = [500, 250, 250];
+/** one Analyze roll in Genus Insight */
+export const ANALYZE = { crystals: 4, kina: 1000 };
+export const PET_TITLE = {
+  name: 'Rule All Creation', pets: 200,
+  equipped: [n('Defense Bonus +320'), n('Boss Damage Tolerance +4%', 'Boss Damage Tolerance +4 %'), n('Back Attack Damage Tolerance +3%', 'Back Attack Damage Tolerance +3 %')],
+  owned: n('Move Speed +1%', 'Move Speed +1 %'),
+};

@@ -1,12 +1,12 @@
 import { useId, useMemo, useState, type ReactNode } from 'react';
-import { Box, ChevronDown, Coins, ExternalLink, Info, KeyRound, Map as MapIcon, Sparkles, Swords, TrendingUp, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Box, ChevronDown, Coins, ExternalLink, Info, KeyRound, Map as MapIcon, PawPrint, Sparkles, Swords, TrendingUp, type LucideIcon } from 'lucide-react';
 import { useGame } from '../../data/GameDataContext';
 import type { Lang } from '../../data/types';
 import { NumberField, PageHeader, Segmented } from '../../components/ui';
 import { fmtDate } from '../../lib/format';
 import {
-  ACHIEVEMENT_TIERS, GODSTONE_TIERS, KEY_SOURCES, MAPS, REWARDS, SOURCE, TARGETS,
-  atLeastOnce, avgPerOpening, chanceOf, opensFor, type Cat, type GlobalHas, type L, type Mode, type Reward, type Roll,
+  ACHIEVEMENT_TIERS, ANALYZE, GODSTONE_TIERS, KEY_SOURCES, MAPS, PET_GENERA, PET_GENUS_EXP, PET_SOULS, PET_TITLE, REWARDS, SOURCE, TARGETS,
+  atLeastOnce, avgPerOpening, chanceOf, opensFor, type Cat, type Genus, type GlobalHas, type L, type Mode, type PetStat, type Reward, type Roll,
 } from './cubeData';
 
 /** the page's own texts (item names live in cubeData) */
@@ -94,6 +94,42 @@ const T = {
   achv: { en: 'Achievement tiers (cubes opened)', de: 'Erfolgsstufen (geöffnete Würfel)' },
   mapLink: { en: 'Cube spots on the map', de: 'Würfel-Orte auf der Karte' },
   mapLinkNote: { en: 'Verteron and Altgard, from the AION2 Interactive Map data', de: 'Verteron und Altgard, aus den Daten der AION2 Interactive Map' },
+  petsTitle: { en: 'All pets at level 3: what it brings', de: 'Alle Haustiere auf Stufe 3: was das bringt' },
+  petsIntro: {
+    en: 'Every pet gives small permanent stats of its genus, whichever one you ride, and they add up over the whole collection. Level 3 is the max on Global. Here is what all pets together give at level 3 – worked out, not measured in the game.',
+    de: 'Jedes Haustier gibt kleine Dauerwerte seiner Gattung, egal welches du reitest, und die addieren sich über die ganze Sammlung. Stufe 3 ist auf Global die Höchststufe. Hier, was alle Haustiere zusammen auf Stufe 3 geben – gerechnet, nicht im Spiel gemessen.',
+  },
+  petsCount: { en: 'pets with souls, plus {n} Special pets without stats', de: 'Haustiere mit Seelen, dazu {n} Special-Haustiere ohne Werte' },
+  petsSouls: { en: 'souls for all of them at level 3 ({n} per pet)', de: 'Seelen für alle auf Stufe 3 ({n} pro Haustier)' },
+  petsExp: { en: 'genus experience per pet at level 3 (Genus Insight)', de: 'Gattungs-Erfahrung pro Haustier auf Stufe 3 (Genus Insight)' },
+  petsRolls: { en: 'Analyze rolls from 1,000 Soul Crystals, what one keyed cube gives', de: 'Analyze-Würfe aus 1.000 Soul Crystals, so viel wie ein Schlüssel-Würfel gibt' },
+  petsAll: { en: 'Everything together', de: 'Alles zusammen' },
+  genus: { en: 'Genus', de: 'Gattung' },
+  pets: { en: 'Pets', de: 'Haustiere' },
+  onePet: { en: 'One pet at level 3', de: 'Ein Haustier auf Stufe 3' },
+  allPets: { en: 'All at level 3', de: 'Alle auf Stufe 3' },
+  noStats: { en: 'No genus stats', de: 'Keine Gattungs-Werte' },
+  riding: { en: 'When riding, on top', de: 'Beim Reiten zusätzlich' },
+  ridingTag: { en: 'riding', de: 'Reiten' },
+  petsMore: { en: 'What else level 3 gives', de: 'Was Stufe 3 sonst noch gibt' },
+  petsMore1: { en: 'Transformation: Empathy Candy turns you into the pet for 5 minutes.', de: 'Verwandlung: Empathy Candy verwandelt dich 5 Minuten lang in das Haustier.' },
+  petsMore2: { en: 'Its monster now drops crystals.', de: 'Sein Monster lässt jetzt Kristalle fallen.' },
+  petsMore3: { en: 'Level 2 already lets you glide on the pet.', de: 'Gleiten mit dem Haustier geht schon ab Stufe 2.' },
+  petsTitleLine: {
+    en: 'Title {name} for {n} pets (any level): equipped {eq}; just owned {owned}.',
+    de: 'Titel {name} für {n} Haustiere (egal welche Stufe): ausgerüstet {eq}; nur besessen {owned}.',
+  },
+  petsCubes: { en: 'What the cubes have to do with it', de: 'Was die Würfel damit zu tun haben' },
+  petsCubesText: {
+    en: 'Pet levels come from souls, not from the cubes. The Soul Crystals from the cubes pay for Analyze in Genus Insight: one roll costs {c} crystals and {k} Kina, so the 1,000 crystals of a keyed cube pay for {r} rolls.',
+    de: 'Die Stufen der Haustiere kommen aus Seelen, nicht aus den Würfeln. Die Soul Crystals aus den Würfeln bezahlen Analyze in der Genus Insight: Ein Wurf kostet {c} Kristalle und {k} Kina, die 1.000 Kristalle eines Schlüssel-Würfels reichen also für {r} Würfe.',
+  },
+  petsWide: {
+    en: 'Wide first, then deep: a new pet gives its genus 500 experience for 5 souls, levels 2 and 3 together 500 for 100 souls.',
+    de: 'Erst breit, dann tief: Ein neues Haustier gibt seiner Gattung 500 Erfahrung für 5 Seelen, Stufe 2 und 3 zusammen 500 für 100 Seelen.',
+  },
+  petsGuide: { en: 'Everything about pets in the pets guide', de: 'Alles zu Haustieren im Haustier-Guide' },
+  srcPets: { en: 'Pets: daevaguides and aion2builds (stats, souls, experience), MetaBot titles guide', de: 'Haustiere: daevaguides und aion2builds (Werte, Seelen, Erfahrung), MetaBot-Titel-Guide' },
   sources: { en: 'Sources', de: 'Quellen' },
   srcNc: { en: 'NCSOFT probability list (Korea): hidden cubes, Elyos and Asmodian pages', de: 'NCSOFT-Wahrscheinlichkeitsliste (Korea): versteckte Würfel, Seiten Elyos und Asmodier' },
   srcMb: { en: 'MetaBot: hidden cube page (Global client data)', de: 'MetaBot: Seite zu versteckten Würfeln (Daten des Global-Clients)' },
@@ -287,6 +323,102 @@ function OddsCalculator({ lang }: { lang: Lang }) {
   );
 }
 
+/** "+1,230", "−13.8%": a signed stat value */
+function statValue(v: number, unit: PetStat['unit'], lang: Lang) {
+  const sign = v < 0 ? '−' : '+';
+  const s = num(Math.abs(v), lang, 1);
+  return unit === '%' ? `${sign}${s}${lang === 'de' ? '\u202f%' : '%'}` : `${sign}${s}`;
+}
+function StatLines({ stats, times, lang }: { stats: PetStat[]; times: number; lang: Lang }) {
+  return (
+    <ul className="pet-lines">
+      {stats.map((x) => (
+        <li key={x.stat.en} className={x.riding ? 'ride' : undefined}>
+          {x.stat[lang]} <b>{statValue(x.v * times, x.unit, lang)}</b>{x.riding && <small>{T.ridingTag[lang]}</small>}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function PetsSection({ lang }: { lang: Lang }) {
+  const withSouls = PET_GENERA.filter((g) => g.perPet.length);
+  const petCount = withSouls.reduce((s, g) => s + g.pets, 0);
+  const special = PET_GENERA.find((g) => g.id === 'special')?.pets ?? 0;
+  const soulsPerPet = PET_SOULS.reduce((a, b) => a + b, 0);
+  const expPerPet = PET_GENUS_EXP.reduce((a, b) => a + b, 0);
+  // every combat stat once, with its total and genus, biggest first
+  const totals = withSouls
+    .flatMap((g) => g.perPet.filter((x) => !x.riding).map((x) => ({ genus: g.id, stat: x.stat, total: x.v * g.pets, unit: x.unit })))
+    .sort((a, b) => b.total - a.total);
+  const ridingTotals = withSouls.flatMap((g) => g.perPet.filter((x) => x.riding).map((x) => ({ ...x, v: x.v * g.pets })));
+  return (
+    <section className="card cube-pets" aria-labelledby="cube-pets-h">
+      <h2 id="cube-pets-h" className="cube-h2"><PawPrint size={20} aria-hidden /> {T.petsTitle[lang]}</h2>
+      <p className="muted">{T.petsIntro[lang]}</p>
+
+      <dl className="cube-stats pets">
+        <div><dt>{fill(T.petsCount[lang], { n: special })}</dt><dd>{petCount}</dd></div>
+        <div><dt>{fill(T.petsSouls[lang], { n: soulsPerPet })}</dt><dd>{num(petCount * soulsPerPet, lang, 0)}</dd></div>
+        <div><dt>{T.petsExp[lang]}</dt><dd>+{num(expPerPet, lang, 0)}</dd></div>
+        <div><dt>{T.petsRolls[lang]}</dt><dd>{num(1000 / ANALYZE.crystals, lang, 0)}</dd></div>
+      </dl>
+
+      <h3 className="cube-h3">{T.petsAll[lang]}</h3>
+      <ul className="pet-totals">
+        {totals.map((x) => (
+          <li key={x.stat.en} className={`g-${x.genus}`}>
+            <strong>{statValue(x.total, x.unit, lang)}</strong>
+            <span>{x.stat[lang]}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="muted small">{T.riding[lang]}: {ridingTotals.map((x) => `${x.stat[lang]} ${statValue(x.v, x.unit, lang)}`).join(' · ')}</p>
+
+      <div className="table-wrap flat">
+        <table className="table cube-genera">
+          <thead>
+            <tr>
+              <th scope="col">{T.genus[lang]}</th>
+              <th scope="col">{T.pets[lang]}</th>
+              <th scope="col">{T.onePet[lang]}</th>
+              <th scope="col">{T.allPets[lang]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PET_GENERA.map((g) => (
+              <tr key={g.id}>
+                <th scope="row"><span className={`genus-dot g-${g.id as Genus}`} aria-hidden />{g.name}</th>
+                <td data-label={T.pets[lang]}>{g.pets}</td>
+                <td data-label={T.onePet[lang]}>{g.perPet.length ? <StatLines stats={g.perPet} times={1} lang={lang} /> : T.noStats[lang]}</td>
+                <td data-label={T.allPets[lang]}>{g.perPet.length ? <StatLines stats={g.perPet.filter((x) => !x.riding)} times={g.pets} lang={lang} /> : '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="cube-global-grid">
+        <div>
+          <h3 className="cube-h3">{T.petsMore[lang]}</h3>
+          <ul className="g-list">
+            <li>{T.petsMore1[lang]}</li>
+            <li>{T.petsMore2[lang]}</li>
+            <li>{T.petsMore3[lang]}</li>
+            <li>{fill(T.petsTitleLine[lang], { name: PET_TITLE.name, n: PET_TITLE.pets, eq: PET_TITLE.equipped.map((x) => x[lang]).join(', '), owned: PET_TITLE.owned[lang] })}</li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="cube-h3">{T.petsCubes[lang]}</h3>
+          <p className="cube-pets-text">{fill(T.petsCubesText[lang], { c: ANALYZE.crystals, k: num(ANALYZE.kina, lang, 0), r: num(1000 / ANALYZE.crystals, lang, 0) })}</p>
+          <p className="cube-pets-text muted">{T.petsWide[lang]}</p>
+          <a className="btn cube-map-link" href="#/guides/pets"><PawPrint size={16} aria-hidden /><span>{T.petsGuide[lang]}</span><ArrowRight size={16} aria-hidden /></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Ext({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer">{children} <ExternalLink size={12} aria-hidden /></a>;
 }
@@ -341,6 +473,8 @@ export function CubesPage(_: { param: string | null; visit: number }) {
       </section>
 
       <OddsCalculator lang={lang} />
+
+      <PetsSection lang={lang} />
 
       <section className="card cube-global" aria-labelledby="cube-global-h">
         <h2 id="cube-global-h" className="cube-h2">{T.globalTitle[lang]}</h2>
@@ -410,6 +544,7 @@ export function CubesPage(_: { param: string | null; visit: number }) {
           <li><Ext href={SOURCE.ncUrl}>{T.srcNc[lang]}</Ext> · {date}</li>
           <li><Ext href={SOURCE.metabotPage}>{T.srcMb[lang]}</Ext></li>
           <li><Ext href={SOURCE.metabotGuide}>{T.srcMbGuide[lang]}</Ext></li>
+          <li><Ext href="https://daevaguides.com/en/guides/pets-genus-insight/">{T.srcPets[lang]}</Ext></li>
         </ul>
         <p className="muted small">{T.srcNote[lang]}</p>
       </section>

@@ -4953,3 +4953,51 @@ button.bp-row:active { background: var(--surface-2); }
 .cube-sources { display: flex; flex-direction: column; gap: var(--sp-2); padding: 0 var(--sp-1); }
 .cube-sources ul { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); color: var(--muted); }
 .cube-sources a { color: var(--accent); }
+
+/* pets at level 3: totals per stat in the genus colour (Cogni blue, Fera red, Natura green, Varian yellow, Special light blue) */
+.cube-pets { display: flex; flex-direction: column; gap: var(--sp-3); }
+.cube-pets .cube-h2 { display: flex; align-items: center; gap: var(--sp-2); }
+.cube-pets .cube-h2 > svg { flex: none; color: var(--gold); }
+.cube-pets .cube-h3 { margin: var(--sp-2) 0 0; }
+.cube-pets-text { font-size: var(--fs-base); line-height: 1.6; color: var(--text-2); }
+.cube-pets-text + .cube-pets-text { margin-top: var(--sp-2); }
+.cube-pets .g-cogni { --gc: #5fb4ff; }
+.cube-pets .g-fera { --gc: #ff7a6b; }
+.cube-pets .g-natura { --gc: #4fd1a1; }
+.cube-pets .g-varian { --gc: #f2c94b; }
+.cube-pets .g-special { --gc: #8fe3ff; }
+.pet-totals { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: var(--sp-2); }
+.pet-totals li {
+  position: relative; display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: var(--sp-3); padding-left: calc(var(--sp-3) + 4px);
+  border-radius: var(--r-md); background: linear-gradient(90deg, color-mix(in srgb, var(--gc) 12%, transparent), transparent 70%), var(--surface-2);
+  border: 1px solid var(--line-soft); overflow: hidden;
+}
+.pet-totals li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gc); box-shadow: 0 0 12px var(--gc); }
+.pet-totals strong {
+  font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 28px); line-height: 1; color: var(--text-strong);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--gc) 45%, transparent); font-variant-numeric: tabular-nums;
+}
+.pet-totals span { font-size: var(--fs-sm); color: var(--text-2); }
+.genus-dot { display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--gc); box-shadow: 0 0 8px var(--gc); vertical-align: 1px; }
+.cube-genera td { line-height: 1.5; }
+.cube-genera :is(th, td):nth-child(2) { text-align: right; }
+.cube-genera tbody :is(th, td) { vertical-align: middle; }
+.pet-lines { display: flex; flex-direction: column; gap: 2px; }
+.pet-lines b { font-weight: 650; color: var(--text-strong); white-space: nowrap; }
+.pet-lines .ride { color: var(--muted); }
+.pet-lines .ride b { color: var(--text-2); }
+.pet-lines small { margin-left: 6px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 999px; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.cube-genera td:nth-child(4) .pet-lines b { color: var(--gold-light); }
+@media (max-width: 640px) {
+  /* one card per genus: name and pet count on top, the two stat lists below */
+  .cube-genera thead { display: none; }
+  .cube-genera, .cube-genera tbody { display: block; }
+  .cube-genera tr { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-3); padding: var(--sp-3); border-bottom: 1px solid var(--line-soft); }
+  .cube-genera tr:last-child { border-bottom: 0; }
+  .cube-genera tbody :is(th, td) { display: block; padding: 0; border: 0; }
+  .cube-genera td::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .cube-genera td:nth-child(2)::before { display: inline; margin: 0 6px 0 0; }
+  .cube-genera td:nth-child(3), .cube-genera td:nth-child(4) { grid-column: 1 / -1; }
+}
+.cube-genera tbody th[scope='row'] { white-space: nowrap; font-weight: 650; color: var(--text-strong); }
+.cube-pets .cube-map-link > svg:last-child { margin-left: auto; }
