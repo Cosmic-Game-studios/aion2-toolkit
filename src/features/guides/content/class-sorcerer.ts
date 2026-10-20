@@ -295,7 +295,6 @@ export const sorcererGuide = classGuide({
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/sorcerer/build', label: 'Metabot – Sorcerer build' },
     { href: 'https://aion2-guides.info/en/sorcerer/', label: 'AION 2 Guides – Sorcerer' },
-    { href: 'https://metaroad.gg/aion2/build-guides/sorcerer-pve-dps-build', label: 'MetaRoad – Sorcerer PvE DPS build' },
     { href: 'https://games.gg/aion-2/guides/aion-2-sorcerer-guide/', label: 'games.gg – Sorcerer guide' },
     { href: 'https://gamerblurb.com/guides/aion-2-sorcerer-build-guide-pve-pvp-and-leveling-global', label: 'GamerBlurb – Sorcerer build (PvE, PvP, levelling)' },
     { href: 'https://www.inven.co.kr/board/aion2/6453/13273', label: 'Inven (KR) – Sorcerer forum' },

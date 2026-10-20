@@ -13,7 +13,7 @@ import type { Guide, GuideCell, L10n } from '../types';
  *   Transcendence gates, weekly limits, stigma shard costs, Daevanion boards, Combat Power per item level band.
  *   Kina per item level point = expected tries (with the bonus after every failure) × cost per try; the sums match
  *   metabot.gg's own averages (+10 → +15 ≈14.1M, Amplified +5 ≈26.2M).
- * - games.gg, MeinMMO, KeenGamer, AllThings.How: content gates, one-time content, belt/amulet, advice.
+ * - games.gg, MeinMMO, AllThings.How: content gates, one-time content, belt/amulet, advice.
  * Times per phase are estimates; the real clocks are the 8 Oct statistics and the top 80 (early access 30 Sep).
  */
 
@@ -487,8 +487,8 @@ export const powerSprint: Guide = {
           tone: 'warn',
           title: { de: 'In dieser Phase auslassen', en: 'Skip in this phase' },
           text: {
-            de: '+11 und höher auf irgendetwas · Clash Runes über +1 (ein Fehlschlag kostet eine Stufe, ohne Bonus) · einen kompletten Abyss-Shop-Satz kaufen (KeenGamer) · beim Shugo Festival mitmachen, bevor du Reward Keys hast – ohne sie gibt es keine Belohnung (MeinMMO).',
-            en: '+11 and higher on anything · Clash Runes past +1 (a failure costs a level, with no bonus) · buying a full Abyss shop set (KeenGamer) · joining the Shugo Festival before you have Reward Keys – without them there is no reward (MeinMMO).',
+            de: '+11 und höher auf irgendetwas · Clash Runes über +1 (ein Fehlschlag kostet eine Stufe, ohne Bonus) · beim Shugo Festival mitmachen, bevor du Reward Keys hast – ohne sie gibt es keine Belohnung (MeinMMO).',
+            en: '+11 and higher on anything · Clash Runes past +1 (a failure costs a level, with no bonus) · joining the Shugo Festival before you have Reward Keys – without them there is no reward (MeinMMO).',
           },
         },
         {
@@ -772,8 +772,8 @@ export const powerSprint: Guide = {
             {
               title: { de: 'Titel und Sammlungen', en: 'Titles and collections' },
               text: {
-                de: 'Jeder Titel zählt, auch wenn du ihn nicht trägst. Doppelte Skins im Closet kombinieren gibt etwas dauerhafte, accountweite Kampfkraft.',
-                en: 'Every title counts, even when you don’t wear it. Combining duplicate skins in the closet gives a little permanent, account-wide Combat Power.',
+                de: 'Jeder Titel zählt, auch wenn du ihn nicht trägst. Doppelte Skins im Closet kombinieren gibt einen kleinen dauerhaften Bonus für alle Charaktere auf dem Server; ob er in die Kampfkraft zählt, ist nicht bestätigt.',
+                en: 'Every title counts, even when you don’t wear it. Combining duplicate skins in the closet gives a small permanent bonus for every character on the server; whether it counts towards Combat Power is not confirmed.',
               },
             },
           ],
@@ -883,7 +883,7 @@ export const powerSprint: Guide = {
                 { kind: 'pro', text: { de: 'Transfer-Rezepte nehmen Verzauberung und Amplified mit – nichts geht verloren', en: 'Transfer recipes keep enhancement and Amplified – nothing is lost' } },
                 { kind: 'pro', text: { de: '5 zufällige Nebenwerte; hergestellte Waffen +5 % PvE-Schaden', en: '5 random sub-stats; crafted weapons +5% PvE damage' } },
                 { kind: 'con', text: { de: 'Erst Meisterschaft 55/60, drei Artisan’s-Splendent-Teile pro Platz', en: 'Mastery 55/60 first, three Artisan’s Splendent pieces per slot' } },
-                { kind: 'con', text: { de: 'Das erste True-Rezept gelingt an der Rezeptstufe nur zu 67,5 % – ein Fehlschlag kostet alles', en: 'The first True recipe only succeeds 67.5% of the time at recipe level – a failure costs everything' } },
+                { kind: 'con', text: { de: 'Ein Fehlschlag kostet alle Zutaten – deine Chance zeigt der Knopf Probability Info', en: 'A failure costs all the materials – the Probability Info button shows your chance' } },
               ],
               verdict: { de: 'Dein Hauptweg ab 2.100 – den Beruf ab Tag eins leveln.', en: 'Your main path from 2,100 – level the profession from day one.' },
             },
@@ -1012,8 +1012,8 @@ export const powerSprint: Guide = {
           type: 'callout',
           tone: 'info',
           text: {
-            de: 'Für Global noch nicht belegt: die Startwerte einer frischen 45 (≈1.000 und ≈46K nennt MeinMMO, ohne den Client zu nennen; metabot.gg zeigt für unter 1.000 im Median 40,5K), die genauen Regeln der Gegenstandsstufe (unsere stammen aus einer Anpassung an die Ausrüstung der Top 80 und passen zu games.gg; der „Rest“ von ≈720 ist nicht weiter aufgeteilt), wie viel Kampfkraft jede Stigma-Stufe bringt (wir nehmen für jede Stufe gleich viel an), die Kampfkraft zwischen Gegenstandsstufe 2.100 und 2.950 (keine öffentlichen Daten), die Zeiten pro Phase (Schätzungen), das Ludra-Tor von 2.800 (aus Guides, nicht offiziell), ob sich Verzauberung und Amplified von einem Drop-Teil auf ein neues übertragen lassen (ein Guide sagt: bis zu sechsmal; Handwerks-Transfers nehmen sie laut Fextralife mit) und die Termine von Season 2. Wenn du etwas im Spiel misst, sag Bescheid – dann wird der Guide ergänzt.',
-            en: 'Not confirmed for Global yet: the start values of a fresh 45 (≈1,000 and ≈46K are from MeinMMO, which does not name the client; metabot.gg shows a median of 40.5K below 1,000), the exact item level rules (ours come from a fit to the gear of the top 80 and agree with games.gg; the “rest” of ≈720 is not split further), how much Combat Power each stigma level gives (we assume the same for every level), Combat Power between item level 2,100 and 2,950 (no public data), the times per phase (estimates), the Ludra gate of 2,800 (from guides, not official), whether enhancement and Amplified levels can be moved from a dropped piece to a new one (one guide says up to six times; crafting transfers keep them according to Fextralife) and the Season 2 dates. If you measure something in game, let us know and the guide gets updated.',
+            de: 'Für Global noch nicht belegt: die Startwerte einer frischen 45 (≈1.000 und ≈46K nennt MeinMMO, ohne den Client zu nennen; metabot.gg zeigt für unter 1.000 im Median 40,5K), die genauen Regeln der Gegenstandsstufe (unsere stammen aus einer Anpassung an die Ausrüstung der Top 80 und passen zu games.gg; der „Rest“ von ≈720 ist nicht weiter aufgeteilt), wie viel Kampfkraft jede Stigma-Stufe bringt (wir nehmen für jede Stufe gleich viel an), die Kampfkraft zwischen Gegenstandsstufe 2.100 und 2.950 (keine öffentlichen Daten), die Zeiten pro Phase (Schätzungen), das Ludra-Tor von 2.800 (aus Guides, nicht offiziell), ob sich Verzauberung und Amplified von einem Drop-Teil auf ein neues übertragen lassen (ein Guide sagt: bis zu sechsmal; Handwerks-Transfers nehmen sie laut metabot.gg mit) und die Termine von Season 2. Wenn du etwas im Spiel misst, sag Bescheid – dann wird der Guide ergänzt.',
+            en: 'Not confirmed for Global yet: the start values of a fresh 45 (≈1,000 and ≈46K are from MeinMMO, which does not name the client; metabot.gg shows a median of 40.5K below 1,000), the exact item level rules (ours come from a fit to the gear of the top 80 and agree with games.gg; the “rest” of ≈720 is not split further), how much Combat Power each stigma level gives (we assume the same for every level), Combat Power between item level 2,100 and 2,950 (no public data), the times per phase (estimates), the Ludra gate of 2,800 (from guides, not official), whether enhancement and Amplified levels can be moved from a dropped piece to a new one (one guide says up to six times; crafting transfers keep them according to metabot.gg) and the Season 2 dates. If you measure something in game, let us know and the guide gets updated.',
           },
         },
       ],
@@ -1036,7 +1036,6 @@ export const powerSprint: Guide = {
             { href: 'https://metabot.gg/en/aion-2/guides/daevanion-guide', label: 'metabot.gg – Daevanion boards' },
             { href: 'https://games.gg/aion-2/guides/aion-2-item-level-guide/', label: 'games.gg – Item level guide' },
             { href: 'https://mein-mmo.de/en/aion-2-itemlevel-guide-how-to-quickly-obtain-the-best-gear-in-pve,1586095/', label: 'MeinMMO – Item level guide' },
-            { href: 'https://www.keengamer.com/articles/guides/aion-2-leveling-progression-guide-level-1-to-endgame/', label: 'KeenGamer – Progression to endgame' },
             { href: 'https://allthings.how/?p=250380', label: 'AllThings.How – Raising Combat Power' },
             { href: 'https://aion2hub.com/guides/aion-2-release-date', label: 'AION2Hub – Global launch and early access dates' },
           ],

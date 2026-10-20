@@ -5,11 +5,11 @@ import type { Guide, L10n } from '../types';
  * where they disagree the guide says so in "Not confirmed yet". The pets of the top players are counted from our own
  * top-10 data (public/data/top, AION2 Index, 2026-10-18): 80 players, 61 on a shop, pass or event pet.
  * Combat Power: no source measures it for the global server; the only measurement is Korean (Inven, 2026-03-18,
- * per Genus Insight line), and the 5–35K for all 45 lines is worked out from it. Monster shares per genus are
- * aion2tierlist's count of the client tables (level 45+, 2026-10-17). Genus experience per soul is worked out from the
+ * per Genus Insight line), and the 5–35K for all 45 lines is worked out from it. Which genus helps most in combat:
+ * daevaguides (Cogni and Fera). Genus experience per soul is worked out from the
  * genus experience per pet and level (daevaguides, aion2builds). Titles: metabot.gg (updated 2026-10-15). The class
  * table joins the class stat priorities of the planner (src/lib/statPriority.ts) with the genus lines; tank and healer
- * lines follow aion2tierlist.
+ * lines use the survival targets of the line table (gameplay.tips).
  */
 
 /** A name that is the same in both languages (as the English client calls it). */
@@ -49,7 +49,7 @@ export const pets: Guide = {
           items: [
             { value: '207', label: { de: 'Haustiere', en: 'pets' }, note: { de: 'Fera 65 · Natura 48 · Varian 46 · Cogni 41 · Special 7', en: 'Fera 65 · Natura 48 · Varian 46 · Cogni 41 · Special 7' }, tone: 'teal' },
             { value: '105', label: { de: 'Seelen für ein volles Haustier', en: 'souls for a maxed pet' }, note: { de: 'Stufe 3, die Höchststufe auf Global (Korea: 5)', en: 'level 3, the max on Global (Korea: 5)' }, tone: 'blue' },
-            { value: { de: '77 %', en: '77%' }, label: { de: 'der Bosse ab Stufe 45 sind Cogni', en: 'of bosses from level 45 are Cogni' }, note: { de: 'darum Cogni zuerst', en: 'that is why Cogni comes first' }, tone: 'gold' },
+            { value: '4', label: { de: 'Cogni-Stufe als erstes Ziel', en: 'Cogni level as the first goal' }, note: { de: 'öffnet Zeile 4 mit den Schadenswerten', en: 'opens line 4 with the damage stats' }, tone: 'gold' },
             { value: { de: '+4,5 %', en: '+4.5%' }, label: { de: 'PvE Damage Boost als Titel', en: 'PvE Damage Boost as a title' }, note: { de: 'alle 5 Gattungen auf Stufe 10', en: 'all 5 genera at level 10' }, tone: 'violet' },
           ],
         },
@@ -354,27 +354,12 @@ export const pets: Guide = {
           },
         },
         {
-          type: 'shares',
-          title: { de: 'Welcher Gattung die Bosse ab Stufe 45 angehören', en: 'Which genus the bosses from level 45 belong to' },
-          caption: {
-            de: 'Zählung der Client-Tabellen (aion2tierlist, 17.10.2026): Anteil an allen Bossen ab Stufe 45, darunter die Anteile bei Elite-Gegnern und normalen Monstern. Gezählt sind Monster im Client, nicht wie oft du ihnen begegnest.',
-            en: 'Count of the client tables (aion2tierlist, 2026-10-17): share of all bosses from level 45, below it the shares among elites and normal monsters. It counts monsters in the client, not how often you meet them.',
-          },
-          items: [
-            { label: '**Cogni**', value: 77, note: { de: 'Elite 52 % · Monster 57 %', en: 'elites 52% · monsters 57%' }, tone: 'gold' },
-            { label: 'Varian', value: 11, note: { de: 'Elite 26 % · Monster 22 %', en: 'elites 26% · monsters 22%' }, tone: 'blue' },
-            { label: 'Natura', value: 6, note: { de: 'Elite 11 % · Monster 7 %', en: 'elites 11% · monsters 7%' }, tone: 'green' },
-            { label: 'Special', value: 4, note: { de: 'Elite 8 % · Monster 2 %', en: 'elites 8% · monsters 2%' }, tone: 'violet' },
-            { label: 'Fera', value: 2, note: { de: 'Elite 4 % · Monster 12 %', en: 'elites 4% · monsters 12%' }, tone: 'rose' },
-          ],
-        },
-        {
           type: 'callout',
           tone: 'tip',
-          title: { de: 'Darum Cogni zuerst', en: 'That’s why Cogni comes first' },
+          title: { de: 'Welche Gattung zuerst?', en: 'Which genus first?' },
           text: {
-            de: 'Cogni-Werte treffen fast jeden Endgame-Boss, Varian lohnt sich als Zweites (viele Elite-Gegner). In Natura und Fera würfelst du Gattungs-Werte weg und behältst nur allgemeine. Der Abstand ist so groß, dass sich an der Reihenfolge kaum etwas ändert, auch wenn du manche Monster öfter triffst als andere.',
-            en: 'Cogni stats hit almost every endgame boss, Varian is worth it second (many elites). In Natura and Fera, reroll genus stats away and keep only general ones. The gap is so large that the order hardly changes, even if you meet some monsters more often than others.',
+            de: 'Laut daevaguides helfen Cogni- und Fera-Werte im Kampf am meisten. Gattungs-Werte behältst du dort, wo du die passenden Monster bekämpfst; sonst würfelst du sie weg und behältst nur allgemeine.',
+            en: 'According to daevaguides, Cogni and Fera stats help most in combat. Keep genus stats where you fight the matching monsters; otherwise reroll them away and keep only general ones.',
           },
         },
       ],
@@ -445,8 +430,8 @@ export const pets: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Die Ziele pro Zeile stammen aus einem Guide (gameplay.tips). Bekommst du auf einer Zeile einen Gattungs-Wert, gilt die Regel oben: behalten bei Cogni, mit Abstrichen bei Varian, sonst weg. Cogni Damage Boost gibt es nur auf Zeile 4, Cogni Damage Tolerance nur auf Zeile 7 (aion2tierlist).',
-            en: 'The targets per line come from one guide (gameplay.tips). If a line rolls a genus stat, the rule above applies: keep it on Cogni, maybe on Varian, otherwise reroll it. Cogni Damage Boost only appears on line 4, Cogni Damage Tolerance only on line 7 (aion2tierlist).',
+            de: 'Die Ziele pro Zeile stammen aus einem Guide (gameplay.tips). Bekommst du auf einer Zeile einen Gattungs-Wert, gilt die Regel oben: behalten, wenn du gegen diese Gattung kämpfst, sonst weg.',
+            en: 'The targets per line come from one guide (gameplay.tips). If a line rolls a genus stat, the rule above applies: keep it if you fight that genus, otherwise reroll it.',
           },
         },
       ],
@@ -558,8 +543,8 @@ export const pets: Guide = {
           tone: 'info',
           title: { de: 'Twinks und die Sammlung', en: 'Alts and the collection' },
           text: {
-            de: 'Laut den Guides teilen sich alle Charaktere eines Servers die Sammlung. Für Korea hat NC das im Januar 2026 angekündigt; dort zählt für die Genus Insight der beste Stand unter deinen Charakteren. NC hat die Details für Global nicht bestätigt. Wie du mehrere Charaktere sonst sinnvoll einsetzt, steht im Twink-Guide.',
-            en: 'According to the guides all characters on a server share the collection. NC announced this for Korea in January 2026; there Genus Insight uses the best progress among your characters. NC has not confirmed the details for Global. How to use several characters well otherwise is in the alts guide.',
+            de: 'Laut den Guides teilen sich alle Charaktere eines Servers die Sammlung. NC hat die Details für Global nicht bestätigt. Wie du mehrere Charaktere sonst sinnvoll einsetzt, steht im Twink-Guide.',
+            en: 'According to the guides all characters on a server share the collection. NC has not confirmed the details for Global. How to use several characters well otherwise is in the alts guide.',
           },
         },
         { type: 'links', items: [{ href: '#/guides/multi-characters', label: { de: 'Mehrere Charaktere spielen', en: 'Playing several characters' } }] },
@@ -590,8 +575,8 @@ export const pets: Guide = {
               en: '**Levelling a few pets instead of unlocking many** – a soul for a new pet gives the genus 30 times as much as one for level 3.',
             },
             {
-              de: '**Gattungs-Werte der falschen Gattung behalten** – „Fera Damage Boost“ wirkt nur gegen Fera, und das sind 2 % der Bosse ab Stufe 45.',
-              en: '**Keeping genus stats of the wrong genus** – “Fera Damage Boost” only works against Fera, which is 2% of bosses from level 45.',
+              de: '**Gattungs-Werte behalten, ohne zu prüfen, wogegen du kämpfst** – „Fera Damage Boost“ wirkt nur gegen Fera-Monster.',
+              en: '**Keeping genus stats without checking what you fight** – “Fera Damage Boost” only works against Fera monsters.',
             },
             {
               de: '**Früh sperren** – unter Stufe 7 gibt es kein Unique, und gesperrte schwache Zeilen machen jeden Wurf teurer.',
@@ -630,19 +615,14 @@ export const pets: Guide = {
           type: 'sources',
           items: [
             { href: 'https://metabot.gg/en/aion-2/guides/mounts-wings-guide', label: 'metabot.gg – Mounts, pets & wings guide (titles, collection rewards)' },
-            { href: 'https://aion2tierlist.com/guides/aion-2-pet-tier-list', label: 'aion2tierlist – Pet tier list (monster shares per genus)' },
             { href: 'https://daevaguides.com/en/guides/pets-genus-insight/', label: 'daevaguides – Pets & Genus Insight' },
             { href: 'https://aion2builds.org/guides/pets/', label: 'aion2builds – Pets & Genus Insight' },
-            { href: 'https://game8.co/games/Aion-2/archives/629180', label: 'Game8 – Best pets to farm for stats' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/1529', label: 'Inven (KR) – Measured Combat Power changes' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/636', label: 'Inven (KR) – Why invest in Special' },
             { href: 'https://metabot.gg/en/aion-2/guides/combat-power-guide', label: 'metabot.gg – Combat Power guide' },
             { href: 'https://gameplay.tips/guides/aion-2-pet-genus-system-guide.html', label: 'gameplay.tips – Pet genus system guide' },
             { href: 'https://www.iggm.com/news/aion-2-pet-system-deep-dive-hidden-stat-pool-more-than-mounts', label: 'IGGM – Pet system deep dive' },
             { href: 'https://mein-mmo.de/aion-2-arkana-pet-daevanion/3/', label: 'Mein-MMO – Pets (DE)' },
-            { href: 'https://aion2.wiki.fextralife.com/Pets', label: 'Fextralife wiki – Pets' },
-            { href: 'https://www.keengamer.com/articles/guides/all-pets-and-how-to-get-them-in-aion-2/', label: 'KeenGamer – All pets and how to get them' },
-            { href: 'https://guildorder.com/games/aion2/guides/pets-and-genus-insight', label: 'Guild Order – Pets and Genus Insight (Korean server sharing)' },
             { href: 'https://www.tribality.com/articles/how-to-boost-endgame-combat-power-in-aion-2-iggm-reveals-hidden-bonuses-you-may-be-missing/', label: 'Tribality – Hidden Combat Power bonuses' },
             { href: 'https://leprestore.com/guides/aion2/gear-score-combat-power/', label: 'leprestore – Gear score vs Combat Power' },
             { href: 'https://howtovideogame.com/aion-2-combat-power/', label: 'howtovideogame – How to increase Combat Power' },

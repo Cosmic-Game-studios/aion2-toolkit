@@ -2,7 +2,7 @@ import type { Guide } from '../types';
 
 /**
  * Gathering (Essence Extraction) and the five crafting professions on the global client (October 2026).
- * - Gathering experience, skill points and skills: metabot.gg (read from the global client) and Fextralife (2026-10-09).
+ * - Gathering experience, skill points and skills: metabot.gg (read from the global client).
  * - Crafting experience per level and per recipe: Inven (KR, 2026-01-20 and 2026-04-09); the Novice total (8,809)
  *   matches metabot's global number, the Professional total (82,734) is within 0.1 % of it (82,680).
  * - Gathering points per material and area: counted from public/data/farm/gathering.json (Aion 2 – Map Overlay,
@@ -225,8 +225,8 @@ export const gatheringCrafting: Guide = {
           type: 'bars',
           title: { de: 'Sammelpunkte: was du bekommst und was alles kosten würde', en: 'Gathering points: what you get and what maxing everything would cost' },
           caption: {
-            de: 'Globaler Client (metabot.gg, Fextralife): bis Stufe 100 gibt es 95 allgemeine (45 als Novice, 50 als Professional) und 14 Spezialpunkte (6 + 8). Alles voll geht nicht – zwei allgemeine Skills auf 10 (80 Punkte), der Rest in den dritten.',
-            en: 'Global client (metabot.gg, Fextralife): up to level 100 you get 95 common (45 as Novice, 50 as Professional) and 14 special points (6 + 8). Maxing everything is impossible – two common skills to 10 (80 points), the rest into the third.',
+            de: 'Globaler Client (metabot.gg): bis Stufe 100 gibt es 95 allgemeine (45 als Novice, 50 als Professional) und 14 Spezialpunkte (6 + 8). Alles voll geht nicht – zwei allgemeine Skills auf 10 (80 Punkte), der Rest in den dritten.',
+            en: 'Global client (metabot.gg): up to level 100 you get 95 common (45 as Novice, 50 as Professional) and 14 special points (6 + 8). Maxing everything is impossible – two common skills to 10 (80 points), the rest into the third.',
           },
           unit: { de: 'Punkte', en: 'points' },
           items: [
@@ -366,7 +366,7 @@ export const gatheringCrafting: Guide = {
         {
           type: 'list',
           items: [
-            { de: 'Die **Erfolgschance** liegt an der Rezeptstufe bei 67,5 % (Dragon Lord) bis 79,6 % (Artisan’s) und steigt mit höherer Meisterschaft bis 93–97 %. Ein Fehlschlag verbraucht die Materialien.', en: 'The **success chance** is 67.5% (Dragon Lord) to 79.6% (Artisan’s) at recipe level and rises with higher mastery up to 93–97%. A failure uses up the materials.' },
+            { de: 'Die **Erfolgschance** steigt mit deiner Meisterschaft – wie hoch sie gerade ist, zeigt im Spiel der Knopf **Probability Info**. Ein Fehlschlag verbraucht die Materialien.', en: 'The **success chance** rises with your mastery – in game the **Probability Info** button shows how high it is. A failure uses up the materials.' },
             { de: 'Ein Treffer während des Herstellens zählt als Fehlschlag – **stell nur an sicheren Orten her**.', en: 'Getting hit while crafting counts as a failure – **only craft in safe places**.' },
             { de: 'Reagenzien gibt es beim Berufshändler in den großen Städten, mit Special-Quai-Abo auch im Wind-Breeze-Shop. Sie sind immer gebunden.', en: 'Reagents are sold by the profession vendors in the big cities, with the Special Quai membership also in the Wind Breeze shop. They are always bound.' },
           ],
@@ -516,10 +516,7 @@ export const gatheringCrafting: Guide = {
             { href: 'https://metabot.gg/en/aion-2/gathering', label: 'metabot.gg – Gathering (skills, experience, points)' },
             { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kina farming' },
             { href: 'https://aion2.gaming.tools/guides/crafting', label: 'aion2.gaming.tools – Crafting (global)' },
-            { href: 'https://aion2.wiki.fextralife.com/Gathering', label: 'Fextralife wiki – Gathering' },
-            { href: 'https://aion2.wiki.fextralife.com/Crafting', label: 'Fextralife wiki – Crafting' },
             { href: 'https://allthings.how/aion-2-how-to-upgrade-essence-extraction-to-professional/', label: 'allthings.how – Essence Extraction to Professional' },
-            { href: 'https://aion2atlas.app/guides/essence-extraction/', label: 'aion2atlas – Essence Extraction' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/1161', label: 'Inven (KR) – Crafting experience per level' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/1624', label: 'Inven (KR) – Experience per recipe (April 2026)' },
             { href: 'https://github.com/problem-xyz/aion2-map-overlay', label: 'Aion 2 – Map Overlay (gathering points, CC BY-NC 4.0)' },

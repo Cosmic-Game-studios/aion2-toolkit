@@ -501,7 +501,6 @@ export const rangerGuide = classGuide({
   },
   playstyles: rangerPlaystyles,
   sources: [
-    { href: 'https://game8.co/games/Aion-2/archives/626143', label: 'Game8 – Ranger build' },
     { href: 'https://daevaguides.com/en/ranger/', label: 'Daeva Guides – Ranger' },
     { href: 'https://aion2.run/en/classes/rodeur', label: 'AION2.run – Ranger class' },
     { href: 'https://mobalytics.gg/gamebase/guides/aion-2-ranger-pve-build', label: 'Mobalytics – Ranger PvE build' },

@@ -495,7 +495,6 @@ export const assassinGuide = classGuide({
   },
   playstyles: assassinPlaystyles,
   sources: [
-    { href: 'https://game8.co/games/Aion-2/archives/616882', label: 'Game8 – Assassin build' },
     { href: 'https://daevaguides.com/en/assassin/', label: 'Daeva Guides – Assassin' },
     { href: 'https://aion2.run/en/classes/assassin', label: 'AION2.run – Assassin class' },
     { href: 'https://couga54.github.io/aion2-guides/en/assassin/', label: 'AION 2 Guides – Assassin' },

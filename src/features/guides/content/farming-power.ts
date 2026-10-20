@@ -1,11 +1,11 @@
 import type { Guide, L10n } from '../types';
 
 /*
- * Farming & power. Numbers checked on 2026-10-19 against: Raid Relay's Kina guide for the global client (Kina per claim,
- * run times, the server-wide run counter, hours and Kina per week, 16 Oct), metabot.gg (entry caps and refills, dungeon
- * gates, Combat Power statistics, Abyss), daevaguides.com (Odyle Energy, Wind Breeze limits from NC's 14 Oct notes) and
- * the AION2 Index ranking (19 Oct). The Kina-per-week figures are cubes only: 21 claims of 40 Odyle per character and week.
- * The printable PDF is the version of 18 Oct and still has the older figures.
+ * Farming & power. Kina per claim (Conquest tiers), the server-wide run counter and the hours and Kina per hour come from
+ * the author's own guide (the printable PDF of 18 Oct). Checked on 2026-10-19 against metabot.gg (entry caps and refills,
+ * dungeon gates, Combat Power statistics, Abyss), daevaguides.com (Odyle Energy, Wind Breeze limits from NC's 14 Oct notes)
+ * and the AION2 Index ranking (19 Oct). The Kina-per-week figures are cubes only: 21 claims of 40 Odyle per character and
+ * week. No source we use gives Kina per claim for Transcendence or a measured run time, so the guide names neither.
  */
 
 /** A name that is the same in both languages (content and places as the English client calls them). */
@@ -28,15 +28,11 @@ const pdfLink = {
   items: [{ href: PDF, download: true, primary: true, label: { de: 'PDF herunterladen (22 Seiten, englisch)', en: 'Download the PDF (22 pages)' } }],
 };
 
-/** Kina per claim (40 Odyle) and its gate, Raid Relay (global client, 16 Oct 2026); run times timed by the author or estimated (≈). */
-const CLAIMS: { label: string; kina: number; ilv: string; time: string; transcendence: boolean }[] = [
-  { label: 'Conquest 1★ · Krao Cave, Draupnir', kina: 200, ilv: '700', time: '8', transcendence: false },
-  { label: 'Conquest 2★ · Urugugu Canyon, Vakron', kina: 300, ilv: '1,400', time: '10', transcendence: false },
-  { label: 'Transcendence 1', kina: 300, ilv: '1,600', time: '10', transcendence: true },
-  { label: 'Transcendence 2', kina: 360, ilv: '1,900', time: '≈12', transcendence: true },
-  { label: 'Conquest 3★ · Fire Temple, Horn Den', kina: 400, ilv: '2,100', time: '≈12', transcendence: false },
-  { label: 'Transcendence 3', kina: 420, ilv: '2,200', time: '≈12', transcendence: true },
-  { label: 'Transcendence 4', kina: 480, ilv: '2,500', time: '≈12', transcendence: true },
+/** Kina per claim (40 Odyle, ≈ thousands) and its gate, from the author's own guide (PDF, 18 Oct 2026). */
+const CLAIMS: { label: string; kina: number; ilv: string }[] = [
+  { label: 'Conquest 1★ · Krao Cave, Draupnir', kina: 200, ilv: '700' },
+  { label: 'Conquest 2★ · Urugugu Canyon, Vakron', kina: 300, ilv: '1,400' },
+  { label: 'Conquest 3★ · Fire Temple, Horn Den', kina: 400, ilv: '2,100' },
 ];
 
 /**
@@ -77,8 +73,8 @@ export const farmingPower: Guide = {
     { de: 'Abyss-Punkte', en: 'Abyss Points' },
   ],
   basis: {
-    de: 'Recherche zum globalen Server, PvE (Stand 19.10.2026): Kina-Werte und Zeiten aus einem gemessenen Spieler-Guide, Obergrenzen und Freischaltungen aus den Client-Daten, die Rangliste von AION2 Index. Die AP-Mengen und die Zeiten der Routen sind Schätzungen zum Planen; Werte können sich mit Patches ändern.',
-    en: 'Research for the global server, PvE (as of 19 Oct 2026): Kina values and times from a measured player guide, caps and unlocks from the client data, the AION2 Index ranking. The AP amounts and the route times are estimates for planning; values can change with patches.',
+    de: 'Recherche zum globalen Server, PvE (Stand 19.10.2026): Kina-Werte und Zeiten aus eigener Recherche (wie im PDF), Obergrenzen und Freischaltungen aus den Client-Daten, die Rangliste von AION2 Index. Die AP-Mengen und die Zeiten der Routen sind Schätzungen zum Planen; Werte können sich mit Patches ändern.',
+    en: 'Research for the global server, PvE (as of 19 Oct 2026): Kina values and times from own research (as in the PDF), caps and unlocks from the client data, the AION2 Index ranking. The AP amounts and the route times are estimates for planning; values can change with patches.',
   },
   sections: [
     {
@@ -183,7 +179,7 @@ export const farmingPower: Guide = {
         {
           type: 'stats',
           items: [
-            { value: num('≈67M'), label: { de: 'Kina pro Woche aus Würfeln', en: 'Kina per week from cubes' }, note: { de: '8 Charaktere, Membership, Conquest 3★ – mit Transcendence 4 noch mehr', en: '8 characters, Membership, Conquest 3★ – more with Transcendence 4' }, tone: 'gold' },
+            { value: num('≈67M'), label: { de: 'Kina pro Woche aus Würfeln', en: 'Kina per week from cubes' }, note: { de: '8 Charaktere, Membership, Conquest 3★', en: '8 characters, Membership, Conquest 3★' }, tone: 'gold' },
             { value: num('3,471'), label: { de: 'höchste Gegenstandsstufe der Top 50', en: 'highest item level of the top 50' }, note: { de: 'AION2 Index, 19.10.', en: 'AION2 Index, 19 Oct' }, tone: 'blue' },
             { value: '265K', label: { de: 'höchste Kampfkraft', en: 'highest Combat Power' }, note: { de: 'Platz 10.000: 143K', en: 'rank 10,000: 143K' }, tone: 'teal' },
             { value: '?', label: { de: 'AP-Wochengrenze auf Global', en: 'weekly AP cap on Global' }, note: { de: 'nicht veröffentlicht – Korea: 400K für Monster + PvP zusammen', en: 'not published – Korea: 400K for mobs + PvP together' }, tone: 'violet' },
@@ -220,8 +216,8 @@ export const farmingPower: Guide = {
           type: 'bars',
           title: { de: 'Kina pro Woche aus Odyle-Würfeln', en: 'Kina per week from Odyle cubes' },
           caption: {
-            de: 'Nur Würfel, 21 Abholungen pro Charakter und Woche: Conquest 2★ zahlt 300.000, Conquest 3★ 400.000 Kina pro Abholung (Raid Relay, 16.10.2026). Gratis zahlt jeder Lauf über 84 auf dem Server weniger (siehe Säule I). „Normal“ ist eine Annahme zum Vergleich: Tier 1, die Hälfte der Odyle verschwendet.',
-            en: 'Cubes only, 21 claims per character and week: Conquest 2★ pays 300,000, Conquest 3★ 400,000 Kina per claim (Raid Relay, 16 Oct 2026). Free, every run past 84 on the server pays less (see Pillar I). “Casual” is an assumption for comparison: Tier 1, half the Odyle wasted.',
+            de: 'Nur Würfel, 21 Abholungen pro Charakter und Woche: Conquest 2★ zahlt ≈300.000, Conquest 3★ ≈400.000 Kina pro Abholung (eigene Werte, wie im PDF). Gratis zahlt jeder Lauf über 84 auf dem Server weniger (siehe Säule I). „Normal“ ist eine Annahme zum Vergleich: Tier 1, die Hälfte der Odyle verschwendet.',
+            en: 'Cubes only, 21 claims per character and week: Conquest 2★ pays ≈300,000, Conquest 3★ ≈400,000 Kina per claim (own values, as in the PDF). Free, every run past 84 on the server pays less (see Pillar I). “Casual” is an assumption for comparison: Tier 1, half the Odyle wasted.',
           },
           items: [
             { label: { de: 'Normal: 1 Charakter', en: 'Casual: 1 character' }, note: { de: 'Tier 1, halbe Odyle verschwendet', en: 'Tier 1, half the Odyle wasted' }, value: 2.0, display: num('≈2.0M'), tone: 'slate' },
@@ -292,38 +288,32 @@ export const farmingPower: Guide = {
           ],
         },
         {
-          type: 'line',
-          title: { de: 'Stunden pro Woche für die volle Kina-Routine', en: 'Hours per week for the full Kina routine' },
-          caption: {
-            de: 'Von Raid Relay gemessen und hochgerechnet (globaler Client, 16.10.2026): alle Kina-Quellen eines Accounts, Dungeon-Zeit und Wege. Kina pro Woche gratis 11,3 / 18,6 / 25,5 / 30,6 Mio., mit Membership 10,3 / 17,4 / 24,5 / 31,6 Mio. – fast gleich viel Kina in halb so viel Zeit.',
-            en: 'Measured and extrapolated by Raid Relay (global client, 16 Oct 2026): all Kina sources of an account, dungeon time and travel. Kina per week free 11.3 / 18.6 / 25.5 / 30.6M, with Membership 10.3 / 17.4 / 24.5 / 31.6M – almost the same Kina in half the time.',
+          type: 'text',
+          text: {
+            de: 'Farmzeit pro Woche für die volle Kina-Routine (alle Quellen), eigene Werte wie im PDF. Gratis-Twinks bringen mehr Kina, aber nicht mehr Tempo – **Membership verdoppelt fast das Kina pro Stunde.**',
+            en: 'Farming time per week for the full Kina routine (all sources), own values as in the PDF. Free alts add Kina but not speed – **Membership almost doubles Kina per hour.**',
           },
-          x: { label: { de: 'Aufbau', en: 'Setup' }, ticks: ['Main', 'Main + 1', 'Main + 2', 'Main + 3'] },
-          y: { label: { de: 'Stunden pro Woche', en: 'hours per week' }, unit: 'h', min: 0 },
-          series: [
-            { label: { de: 'Gratis', en: 'Free' }, values: [6.8, 11.0, 15.2, 19.3], tone: 'slate' },
-            { label: both('Membership'), values: [3.5, 5.7, 7.8, 10.0], tone: 'gold' },
+        },
+        {
+          type: 'table',
+          caption: { de: 'Stunden pro Woche für die volle Kina-Routine', en: 'Hours per week for the full Kina routine' },
+          head: [{ de: 'Aufbau', en: 'Setup' }, { de: 'Stunden/Woche gratis', en: 'Hours/week free' }, { de: 'Stunden/Woche Member', en: 'Hours/week Member' }, { de: 'Kina/Std. gratis', en: 'Kina/hour free' }, { de: 'Kina/Std. Member', en: 'Kina/hour Member' }],
+          rows: [
+            ['Main', num('6.8 h'), num('5.2 h'), num('1.7M'), num('2.9M')],
+            ['Main + 1', num('11 h'), num('7.7 h'), num('1.7M'), num('3.0M')],
+            ['Main + 2', num('15.2 h'), '–', num('1.7M'), '–'],
           ],
         },
         { type: 'heading', text: { de: 'Wähle deinen Aufbau nach deiner Zeit', en: 'Pick your setup by available time' } },
         {
           type: 'table',
-          head: [{ de: 'Zeit pro Woche', en: 'Time per week' }, { de: 'Aufbau', en: 'Setup' }, { de: 'Kina/Woche', en: 'Kina/week' }, { de: 'Kina/Std.', en: 'Kina/hour' }, { de: 'Hinweis', en: 'Note' }],
+          head: [{ de: 'Zeit pro Woche', en: 'Time per week' }, { de: 'Aufbau', en: 'Setup' }, { de: 'Erwartetes Kina/Woche', en: 'Expected Kina/week' }, { de: 'Hinweis', en: 'Note' }],
           rows: [
-            [num('≈3.5 h'), { de: 'Nur Main + Membership', en: 'Main only + Membership' }, num('≈10.3M'), num('≈2.9M'), { de: 'Höchster Wert pro Stunde', en: 'Highest value per hour' }],
-            [num('≈7 h'), { de: 'Nur Main, gratis', en: 'Main only, free' }, num('≈11.3M'), num('≈1.7M'), { de: 'Solide ohne Kosten', en: 'Solid at no cost' }],
-            [num('≈8 h'), { de: 'Main + 2 Twinks + Membership', en: 'Main + 2 alts + Membership' }, num('≈24.5M'), num('≈3.1M'), { de: 'Die Empfehlung von Raid Relay', en: 'Raid Relay’s recommendation' }],
-            [num('≈10 h'), { de: 'Main + 3 Twinks + Membership', en: 'Main + 3 alts + Membership' }, num('≈31.6M'), num('≈3.2M'), { de: 'Gratis wären es 19 Std.', en: 'Free it would take 19 h' }],
-            [num('20 h+'), { de: 'Alle 8 Charaktere + Membership', en: 'All 8 characters + Membership' }, { de: '≈50 Mio. nur aus Würfeln', en: '≈50M from cubes alone' }, '–', { de: 'Die Obergrenze – hochgerechnet', en: 'The ceiling – extrapolated' }],
+            [num('≈5 h'), { de: 'Nur Main + Membership', en: 'Main only + Membership' }, { de: '≈15 Mio. (alle Quellen)', en: '≈15M (all sources)' }, { de: 'Höchster Wert pro Stunde', en: 'Highest value per hour' }],
+            [num('≈8 h'), { de: 'Main + 1 Twink + Membership', en: 'Main + 1 alt + Membership' }, { de: '≈23 Mio.', en: '≈23M' }, { de: 'Bester Start für die meisten', en: 'Best start for most players' }],
+            [num('≈12–14 h'), { de: 'Main + 3 Twinks + Membership', en: 'Main + 3 alts + Membership' }, { de: '≈30 Mio.+', en: '≈30M+' }, { de: 'Hier ist für Gratis-Spieler ohnehin Schluss', en: 'Free players stop here anyway' }],
+            [num('20 h+'), { de: 'Alle 8 Charaktere + Membership', en: 'All 8 characters + Membership' }, { de: '≈45–60 Mio. aus Würfeln', en: '≈45–60M from cubes' }, { de: 'Die Obergrenze – nur mit Membership', en: 'The ceiling – only with Membership' }],
           ],
-        },
-        {
-          type: 'callout',
-          tone: 'info',
-          text: {
-            de: 'Raid Relays eigene Zahlen gehen nicht ganz auf (z. B. 6,3 Mio. aus 21 Abholungen in 3,5 Std. gegenüber 10,3 Mio. in der Tabelle) – lies sie als Größenordnung. Belastbar ist das Verhältnis: Membership halbiert die Zeit fast, Twinks erhöhen das Kina, nicht das Tempo.',
-            en: 'Raid Relay’s own figures don’t quite add up (e.g. 6.3M from 21 claims in 3.5 h against 10.3M in the table) – read them as an order of magnitude. The ratio is solid: Membership almost halves the time, alts raise the Kina, not the speed.',
-          },
         },
       ],
     },
@@ -606,15 +596,15 @@ export const farmingPower: Guide = {
           type: 'bars',
           title: { de: 'Kina pro Abholung (40 Odyle)', en: 'Kina per claim (40 Odyle)' },
           caption: {
-            de: 'Raid Relay, globaler Client, 16.10.2026; Laufzeit nur im Dungeon, vom Autor gestoppt oder geschätzt (≈). Mal 21 ergibt das Kina pro Woche und Charakter: 4,2 Mio. (1★) bis ≈10 Mio. (Transcendence 4). Blau: Conquest, violett: Transcendence.',
-            en: 'Raid Relay, global client, 16 Oct 2026; run time inside the dungeon only, timed by the author or estimated (≈). Times 21 gives the Kina per week and character: 4.2M (1★) to ≈10M (Transcendence 4). Blue: Conquest, violet: Transcendence.',
+            de: 'Eigene Werte (wie im PDF), globaler Client. Mal 21 ergibt das Kina pro Woche und Charakter: 4,2 Mio. (1★) bis 8,4 Mio. (3★). Transcendence (ab 1.600) zahlt ebenfalls pro Abholung; belegte Werte dafür haben wir noch nicht.',
+            en: 'Own values (as in the PDF), global client. Times 21 gives the Kina per week and character: 4.2M (1★) to 8.4M (3★). Transcendence (from 1,600) pays per claim too; we have no confirmed values for it yet.',
           },
           items: CLAIMS.map((c) => ({
             label: c.label,
             value: c.kina,
-            display: `${c.kina}K`,
-            note: num(`iLv ${c.ilv} · ${c.time} min`),
-            tone: c.transcendence ? 'violet' : 'blue',
+            display: `≈${c.kina}K`,
+            note: num(`iLv ${c.ilv}`),
+            tone: 'blue',
           })),
         },
         {
@@ -626,14 +616,14 @@ export const farmingPower: Guide = {
         },
         {
           type: 'table',
-          caption: { de: 'Läufe pro Woche und Server (alle Charaktere)', en: 'Runs per week per server (all characters)' },
+          caption: { de: 'Läufe pro Woche und Server (alle Charaktere), eigene Werte wie im PDF. Transcendence: 55 volle Läufe, danach dieselben Stufen 80 → 20 %; wie viele Läufe jede Stufe umfasst, ist nicht belegt.', en: 'Runs per week per server (all characters), own values as in the PDF. Transcendence: 55 full runs, then the same steps 80 → 20%; how many runs each step covers is not confirmed.' },
           head: [{ de: 'Kina', en: 'Kina paid' }, 'Conquest', 'Transcendence'],
           rows: [
-            [{ de: '100 %', en: '100%' }, { de: 'Lauf 1–84', en: 'runs 1–84' }, { de: 'Lauf 1–56', en: 'runs 1–56' }],
-            [{ de: '80 %', en: '80%' }, '85–105', '57–70'],
-            [{ de: '60 %', en: '60%' }, '106–126', '71–84'],
-            [{ de: '40 %', en: '40%' }, '127–147', '85–98'],
-            [{ de: '20 %', en: '20%' }, '148+', '99+'],
+            [{ de: '100 %', en: '100%' }, { de: 'Lauf 1–84', en: 'runs 1–84' }, { de: 'Lauf 1–55', en: 'runs 1–55' }],
+            [{ de: '80 %', en: '80%' }, '85–105', '?'],
+            [{ de: '60 %', en: '60%' }, '106–126', '?'],
+            [{ de: '40 %', en: '40%' }, '127–147', '?'],
+            [{ de: '20 %', en: '20%' }, '148+', '?'],
           ],
           grid: true,
         },
@@ -684,7 +674,7 @@ export const farmingPower: Guide = {
           type: 'table',
           head: ['', { de: 'Solo (1 Charakter)', en: 'Solo (1 character)' }, { de: 'Mit Twinks (gleicher Server + Fraktion)', en: 'With alts (same server + faction)' }],
           rows: [
-            [{ de: 'Kina pro Woche', en: 'Kina / week' }, { de: '≈6,3 Mio. aus Würfeln (Conquest 2★); ≈10–11 Mio. mit allen Quellen', en: '≈6.3M from cubes (Conquest 2★); ≈10–11M with all sources' }, { de: '+4,2 Mio. (1★) bis +8,4 Mio. (3★) pro Twink', en: '+4.2M (1★) to +8.4M (3★) per alt' }],
+            [{ de: 'Kina pro Woche', en: 'Kina / week' }, { de: '≈6,3 Mio. aus Würfeln (Conquest 2★); mit allen Quellen ≈11 Mio. gratis, ≈15 Mio. mit Membership', en: '≈6.3M from cubes (Conquest 2★); with all sources ≈11M free, ≈15M with Membership' }, { de: '+4,2 Mio. (1★) bis +8,4 Mio. (3★) pro Twink', en: '+4.2M (1★) to +8.4M (3★) per alt' }],
             [{ de: 'Wichtigster Schritt', en: 'Key move' }, { de: 'Gegenstandsstufe 1.400 erreichen – Conquest 2★ zahlt 1,5× so viel wie 1★', en: 'Reach item level 1,400 – Conquest 2★ pays 1.5× as much as 1★' }, { de: 'Einen Twink nach dem anderen auf 700, dann 1.400 bringen', en: 'Push one alt at a time to 700, then 1,400' }],
             [{ de: 'Odyle-Extras', en: 'Odyle extras' }, { de: '4 Morphs + 4 Wind-Breeze-Käufe (Membership) + 3 Season-Belohnungen', en: '4 Morphs + 4 Wind Breeze buys (Membership) + 3 Season rewards' }, { de: 'Je Charakter dasselbe, Morph und Laden höchstens 16 pro Server', en: 'The same per character, Morph and shop at most 16 per server' }],
             [{ de: 'Kina-Fluss', en: 'Kina flow' }, { de: 'Gratis: gesammeltes Odyle morphen. Membership: Odyle und Materialien am Market verkaufen (2 % Gebühr + 10 % Steuer)', en: 'Free: morph gathered Odyle. Membership: sell Odyle and materials on the Market (2% fee + 10% tax)' }, { de: 'Handelbares Kina über das Server Storage zum Main; gebundenes über Ausrüstung, die der Twink verzaubert', en: 'Tradeable Kina to the main via Server Storage; bound Kina via gear the alt enhances' }],
@@ -721,8 +711,8 @@ export const farmingPower: Guide = {
           type: 'line',
           title: { de: 'Kina pro Woche nach Zahl der Charaktere', en: 'Kina per week by number of characters' },
           caption: {
-            de: 'Modell: nur Conquest 2★ (300.000 Kina pro Abholung, Raid Relay), 21 Abholungen pro Charakter und Woche, gratis eine Abholung pro Lauf und ab Lauf 85 auf dem Server 80 → 60 → 40 → 20 %, mit Membership zwei pro Lauf. Wer Läufe über der Grenze nach Transcendence schickt (ab 1.600), verliert gratis weniger.',
-            en: 'Model: Conquest 2★ only (300,000 Kina per claim, Raid Relay), 21 claims per character and week, free one claim per run and from the server’s 85th run 80 → 60 → 40 → 20%, with Membership two per run. Sending runs past the limit to Transcendence (from 1,600) loses less when free.',
+            de: 'Modell: nur Conquest 2★ (≈300.000 Kina pro Abholung, eigener Wert), 21 Abholungen pro Charakter und Woche, gratis eine Abholung pro Lauf und ab Lauf 85 auf dem Server 80 → 60 → 40 → 20 %, mit Membership zwei pro Lauf. Wer Läufe über der Grenze nach Transcendence schickt (ab 1.600), verliert gratis weniger.',
+            en: 'Model: Conquest 2★ only (≈300,000 Kina per claim, own value), 21 claims per character and week, free one claim per run and from the server’s 85th run 80 → 60 → 40 → 20%, with Membership two per run. Sending runs past the limit to Transcendence (from 1,600) loses less when free.',
           },
           x: { label: { de: 'Charaktere auf dem Server', en: 'characters on the server' }, ticks: CHARS.map(String) },
           y: { label: { de: 'Kina pro Woche', en: 'Kina per week' }, unit: 'M', min: 0 },
@@ -737,7 +727,7 @@ export const farmingPower: Guide = {
             { de: '**Gratis lohnen die Charaktere 5–8 kaum:** Twink 4 bringt noch 80 % (≈5 Mio.), Twink 7 nur 20 % (≈1,3 Mio.) – zusammen ≈37,8 Mio. statt ≈50 Mio. mit Membership.', en: '**Free, characters 5–8 barely pay:** alt 4 still brings 80% (≈5M), alt 7 only 20% (≈1.3M) – ≈37.8M together instead of ≈50M with Membership.' },
             { de: 'Belohnungen pro Charakter (Nightmare, Ascension, Battlefield, Corridors, Morphs, AP) bekommst du 8-mal.', en: 'Per-character rewards (Nightmare, Ascension, Battlefield, Corridors, Morphs, AP) are collected 8 times.' },
             { de: 'Serverweite Inhalte (Duties, Daily Dungeon, Shugo-Schlüssel) und die Grenzen von Morph und Wind-Breeze-Laden (je 16) wachsen nicht mit.', en: 'Server-wide content (Duties, Daily Dungeon, Shugo keys) and the Morph and Wind Breeze limits (16 each) do not grow.' },
-            { de: 'Transcendence hat einen eigenen Zähler von 56 vollen Läufen – heb ihn für den Main und die stärksten Twinks auf.', en: 'Transcendence has its own counter of 56 full runs – keep it for the main and strongest alts.' },
+            { de: 'Transcendence hat einen eigenen Zähler von 55 vollen Läufen – heb ihn für den Main und die stärksten Twinks auf.', en: 'Transcendence has its own counter of 55 full runs – keep it for the main and strongest alts.' },
           ],
         },
       ],
@@ -756,16 +746,16 @@ export const farmingPower: Guide = {
           type: 'flow',
           title: { de: 'Was du in welcher Reihenfolge brauchst', en: 'What you need, in order' },
           caption: {
-            de: 'Freischaltungen aus der Dungeon-Liste von metabot.gg (Client-Daten, 15.10.2026), Kina pro Abholung von Raid Relay (16.10.2026). Gold: die Schritte, die das Kina am stärksten erhöhen.',
-            en: 'Unlocks from metabot.gg’s dungeon list (client data, 15 Oct 2026), Kina per claim from Raid Relay (16 Oct 2026). Gold: the steps that raise Kina the most.',
+            de: 'Freischaltungen aus der Dungeon-Liste von metabot.gg (Client-Daten, 15.10.2026), Kina pro Abholung aus eigener Recherche (wie im PDF). Gold: die Schritte, die das Kina am stärksten erhöhen.',
+            en: 'Unlocks from metabot.gg’s dungeon list (client data, 15 Oct 2026), Kina per claim from own research (as in the PDF). Gold: the steps that raise Kina the most.',
           },
           items: [
             { title: { de: 'iLv 700', en: 'iLv 700' }, text: { de: 'Conquest 1★ (Krao Cave, Draupnir): 200.000 Kina pro Abholung, Ausrüstung der Stufe 54.', en: 'Conquest 1★ (Krao Cave, Draupnir): 200,000 Kina per claim, level-54 gear.' }, tag: 'Kina', tone: 'blue' },
             { title: num('iLv 1,000'), text: { de: 'Abyss-Basen in Lower Reshanta (AP) und das Ascension Trial.', en: 'Abyss bases in Lower Reshanta (AP) and the Ascension Trial.' }, tag: 'AP · iLv', tone: 'teal' },
             { title: num('iLv 1,400'), text: { de: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300.000 pro Abholung, +50 %.', en: 'Conquest 2★ (Urugugu Canyon, Vakron Sky Island): 300,000 per claim, +50%.' }, tag: 'Kina', tone: 'gold' },
-            { title: num('iLv 1,600'), text: { de: 'Transcendence: Arcana, 300.000 pro Abholung und ein eigener Lauf-Zähler.', en: 'Transcendence: Arcana, 300,000 per claim and a run counter of its own.' }, tag: 'iLv · Kina', tone: 'violet' },
+            { title: num('iLv 1,600'), text: { de: 'Transcendence: Arcana, Kina pro Abholung und ein eigener Lauf-Zähler.', en: 'Transcendence: Arcana, Kina per claim and a run counter of its own.' }, tag: 'iLv · Kina', tone: 'violet' },
             { title: num('iLv 2,100'), text: { de: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400.000 pro Abholung, Ausrüstung der Stufe 86.', en: 'Conquest 3★ (Fire Temple, Ferocious Horn Den): 400,000 per claim, level-86 gear.' }, tag: 'Kina · iLv', tone: 'blue' },
-            { title: num('iLv 2,500'), text: { de: 'Transcendence Stufe 4: 480.000 pro Abholung – die beste Auszahlung im Spiel.', en: 'Transcendence stage 4: 480,000 per claim – the best payout in the game.' }, tag: 'Kina', tone: 'gold' },
+            { title: num('iLv 2,500'), text: { de: 'Transcendence Stufe 4 – die höchste Stufe; was sie pro Abholung zahlt, ist noch nicht belegt.', en: 'Transcendence stage 4 – the top stage; what it pays per claim is not confirmed yet.' }, tag: 'Kina', tone: 'gold' },
             { title: num('iLv 2,800'), text: { de: 'Sanctuary-Raid Ludra – auf Global entfernt, bis er überarbeitet zurückkommt.', en: 'Sanctuary raid Ludra – removed on Global until it returns reworked.' }, tag: 'Raid', tone: 'slate' },
           ],
         },
@@ -1082,7 +1072,6 @@ export const farmingPower: Guide = {
         {
           type: 'sources',
           items: [
-            { href: 'https://raidrelay.com/aion-2-kina-guide', label: 'Raid Relay – Kina guide for the global client (Kina per claim, run limits, hours)' },
             { href: 'https://metabot.gg/en/aion-2/guides/daily-weekly-checklist', label: 'metabot.gg – Daily & weekly checklist (entry caps and refills)' },
             { href: 'https://metabot.gg/en/aion-2/guides/dungeon-guide', label: 'metabot.gg – Dungeon list and item level gates' },
             { href: 'https://metabot.gg/en/aion-2/guides/kinah-farming-guide', label: 'metabot.gg – Kina farming (bound vs unbound, Duty rerolls)' },

@@ -2,15 +2,16 @@ import type { Guide, L10n } from '../types';
 
 /**
  * Several characters (alts) on the global client. Rests on NC's global notices (patch notes 7 and 14 Oct 2026, server
- * transfer Q&A and products), client-data guides (aion2maps, Fextralife), community guides (Raid Relay, AION2TIERLIST,
- * SPACE4GAMES, games.gg, AllThings.How, MetaBot) – all read 2026-10-19.
+ * transfer Q&A and products), community guides (SPACE4GAMES, games.gg, AllThings.How, MetaBot, daevaguides) and the
+ * author's own Farming & power guide (PDF of 18 Oct) – read 2026-10-19.
  *
  * The time and income charts are a model (see the captions):
- * - Kina: every character at Tier 2 claims 21 cubes a week, 14 × 300,000 + 7 × 200,000 = 5.6M tradeable Kina (farming-power.ts
- *   follows Raid Relay with 21 × 300,000 = 6.3M; the line chart caption says so). Server cut per week on Conquest runs: 1–84 full, 85–105 80%, 106–126 60%, 127–147 40%,
- *   148+ 20%. Free: 21 runs per character; Membership: 2 claims per run, 10.5 runs per character.
- * - Time: Conquest run 10 min (measured by Raid Relay), the rest estimated: an alt ≈360 min a week free, ≈245 min with
- *   Membership; the main ≈570 / ≈455 min (alt content + Duties, Daily Dungeon, Shugo Festa and Invasion).
+ * - Kina: a character at Tier 2 earns ≈5.6M tradeable cube Kina a week, as in the Farming & power PDF (21 claims × ≈300,000
+ *   would be 6.3M; farming-power.ts computes that, the line chart caption says so). Server cut per week on Conquest runs
+ *   (same PDF): 1–84 full, 85–105 80%, 106–126 60%, 127–147 40%, 148+ 20%. Free: 21 runs per character; Membership: 2
+ *   claims per run, 10.5 runs per character.
+ * - Time: a Conquest run is assumed at ≈10 min (no measured run time for Global), the rest estimated: an alt ≈360 min a week
+ *   free, ≈245 min with Membership; the main ≈570 / ≈455 min (alt content + Duties, Daily Dungeon, Shugo Festa and Invasion).
  */
 
 /** A number text in both languages: German swaps the separators ("1,400" → "1.400") and spells out M and h. */
@@ -46,8 +47,8 @@ export const multiCharacters: Guide = {
     { de: 'Membership', en: 'Membership' },
   ],
   basis: {
-    de: 'Offizielle Patch-Notes und Server-Transfer-Hinweise von NC (Oktober 2026), Guides auf Basis der Client-Daten und Community-Guides zum globalen Server, gemessene Laufzeiten aus einem Guide. Zeit und Ertrag sind ein Modell mit genannten Annahmen.',
-    en: 'NC’s official patch notes and server transfer notices (October 2026), guides based on the client data and community guides for the global server, run times measured by one guide. Time and income are a model with stated assumptions.',
+    de: 'Offizielle Patch-Notes und Server-Transfer-Hinweise von NC (Oktober 2026), Guides auf Basis der Client-Daten und Community-Guides zum globalen Server und die eigenen Werte aus dem Guide „Farming & Power“. Zeit und Ertrag sind ein Modell mit genannten Annahmen.',
+    en: 'NC’s official patch notes and server transfer notices (October 2026), guides based on the client data and community guides for the global server and the own values of the “Farming & power” guide. Time and income are a model with stated assumptions.',
   },
   sections: [
     {
@@ -140,9 +141,9 @@ export const multiCharacters: Guide = {
               points: [
                 { kind: 'pro', text: { de: '**Eigene Odyle-Energie:** 21 Beute-Würfel mehr pro Woche, auf Tier 2 ≈5,6 Mio. handelbares Kina – über das Server-Lager zum Main.', en: '**Own Odyle Energy:** 21 more loot claims a week, ≈5.6M tradeable Kina at Tier 2 – sent to the main via Server Storage.' } },
                 { kind: 'pro', text: { de: '**Eigene Wochenbelohnungen:** Nightmare (14 Eintritte), Ascension Trial (3), Battleground-Siege (3), 7 Std. Abyss-Zeit pro Ebene, eigene Odyle-Morphs.', en: '**Own weekly rewards:** Nightmare (14 entries), Ascension Trial (3), battleground wins (3), 7 h of Abyss time per layer, own Odyle morphs.' } },
-                { kind: 'pro', text: { de: '**Füttert den gemeinsamen Fortschritt:** Haustiere, Pet Genus, Closet-Skins und Server-Titel gelten für alle Charaktere – was der Twink sammelt, hat auch der Main.', en: '**Feeds shared progress:** pets, Pet Genus, Closet skins and server titles count for every character – what the alt collects, the main has too.' } },
+                { kind: 'pro', text: { de: '**Füttert den gemeinsamen Fortschritt:** Haustiere, Pet Genus und Closet-Skins gelten für alle Charaktere des Servers – was der Twink sammelt, hat auch der Main.', en: '**Feeds shared progress:** pets, Pet Genus and Closet skins count for every character on the server – what the alt collects, the main has too.' } },
                 { kind: 'pro', text: { de: '**Eine zweite Rolle:** Ein Heiler oder Tank als Twink findet schneller Gruppen und füllt Lücken in deiner Legion.', en: '**A second role:** a healer or tank alt finds groups faster and fills gaps in your Legion.' } },
-                { kind: 'pro', text: { de: '**Einmal-Belohnungen pro Charakter:** Bezirks-Quests, versiegelte Dungeons, Strongholds – ≈+240 Gegenstandsstufe ohne Kina.', en: '**One-time rewards per character:** district quests, sealed dungeons, Strongholds – ≈+240 item level for no Kina.' } },
+                { kind: 'pro', text: { de: '**Einmal-Belohnungen pro Charakter:** Bezirks-Quests, versiegelte Dungeons, Strongholds – Gegenstandsstufe ohne Kina.', en: '**One-time rewards per character:** district quests, sealed dungeons, Strongholds – item level for no Kina.' } },
               ],
               verdict: { de: 'Lohnt sich, sobald der Main seine Woche schafft – als Farm für den Main.', en: 'Worth it once your main’s week is under control – as a farm for the main.' },
             },
@@ -219,17 +220,12 @@ export const multiCharacters: Guide = {
               { de: '4 gratis, jeder weitere 1.000 Quna. Gekaufte Plätze bleiben bei einem Server-Transfer zurück.', en: '4 free, each further one 1,000 Quna. Bought slots stay behind on a server transfer.' },
             ],
             [
-              { de: '**Server-Titel und Server-Erfolge**', en: '**Server titles and server achievements**' },
-              'Server',
-              { de: 'NC unterscheidet Charakter- und Server-Titel; welche welche sind, nennt die Ankündigung nicht.', en: 'NC separates character and server titles; the notice does not say which are which.' },
-            ],
-            [
               { de: '**Tages- und Wochengrenzen:** Duty Missions (5 pro Tag), Daily Dungeon (14 pro Woche), Shugo-Schlüssel (3 pro Tag, bis 12, mit Membership 21), Dimensional Invasion (1 Schlüssel pro Tag, bis 7), Commands (12 + 20), 20 Potential Stones', en: '**Daily and weekly limits:** Duty Missions (5 a day), Daily Dungeon (14 a week), Shugo keys (3 a day, up to 12, 21 with Membership), Dimensional Invasion (1 key a day, up to 7), Commands (12 + 20), 20 Potential Stones' },
               'Server',
               { de: 'Was ein Twink davon nutzt, fehlt dem Main – immer auf dem Main machen.', en: 'Whatever an alt uses of these is missing on the main – always do them on the main.' },
             ],
             [
-              { de: '**Würfel-Zähler:** 10 nicht abgeholte Würfel pro Woche, 84 Conquest- und 56 Transcendence-Läufe mit vollem Kina', en: '**Cube counters:** 10 unclaimed cubes a week, 84 Conquest and 56 Transcendence runs at full Kina' },
+              { de: '**Würfel-Zähler:** 10 nicht abgeholte Würfel pro Woche, 84 Conquest- und 55 Transcendence-Läufe mit vollem Kina', en: '**Cube counters:** 10 unclaimed cubes a week, 84 Conquest and 55 Transcendence runs at full Kina' },
               'Server',
               { de: 'Bei 0 nicht abgeholten Würfeln kommt kein Charakter des Servers mehr in Conquest oder Transcendence.', en: 'At 0 unclaimed cubes no character of the server can enter Conquest or Transcendence.' },
             ],
@@ -256,9 +252,8 @@ export const multiCharacters: Guide = {
             [{ de: 'Abyss-Zeit (7 Std. pro Ebene und Woche), Abyss Corridor, Abyss-Punkte (AP), Season-Ranglistenpunkte', en: 'Abyss time (7 h per layer a week), Abyss Corridor, Abyss Points (AP), season rank points' }, { de: 'Jeder Twink farmt und gibt seine eigenen AP aus.', en: 'Every alt farms and spends its own AP.' }],
             [{ de: 'Ausrüstung', en: 'Gear' }, { de: 'Bindet beim Anlegen, Dungeon-Beute schon beim Aufheben; hochgestufte Handwerks-Ausrüstung bindet an den Hersteller.', en: 'Binds when equipped, dungeon loot already on pickup; upcrafted gear binds to the crafter.' }],
             [{ de: 'Gebundenes Kina, Quna, Daeva Pass', en: 'Bound Kina, Quna, Daeva Pass' }, { de: 'Der Daeva Pass gilt nur für den Charakter, der ihn kauft.', en: 'The Daeva Pass only pays the character that buys it.' }],
-            [{ de: 'Flügel, Charakter-Titel und Charakter-Erfolge', en: 'Wings, character titles and character achievements' }, { de: 'Muss jeder Charakter selbst verdienen.', en: 'Every character has to earn them itself.' }],
+            [{ de: 'Flügel, Titel und Charakter-Erfolge', en: 'Wings, titles and character achievements' }, { de: 'Muss jeder Charakter selbst verdienen. In den Client-Daten gilt jeder Titel pro Charakter; nur die Titel aus dem Founder’s Pack gelten seit dem 7.10. auf allen Charakteren.', en: 'Every character has to earn them itself. In the client data every title is per character; only the Founder’s Pack titles work on all characters since 7 Oct.' }],
             [{ de: 'Sammel- und Handwerks-Meisterschaft, Sammel-Spezialisierungen', en: 'Gathering and crafting proficiency, gathering specialties' }, { de: 'Jeder Charakter baut 2 der 6 Sammel-Materialien voll aus.', en: 'Every character maxes 2 of the 6 gathering materials.' }],
-            [{ de: 'Tagesgrenze von 1 Mio. handelbarem Kina aus Monstern', en: 'Daily cap of 1M tradeable Kina from monsters' }, { de: 'Jeder Charakter hat seine eigene.', en: 'Every character has its own.' }],
             [{ de: 'Einmal-Belohnungen: Bezirks-Quests, versiegelte Dungeons, Strongholds', en: 'One-time rewards: district quests, sealed dungeons, Strongholds' }, { de: 'Gratis-Stärke für jeden neuen Twink.', en: 'Free power for every new alt.' }],
           ],
         },
@@ -338,15 +333,6 @@ export const multiCharacters: Guide = {
             en: 'NPC shops take “Kina (All)” and spend **bound Kina first**. So an alt’s bound Kina pays its enhancement fees, the 50,000 Kina of every Odyle morph and – with Membership – Odyle Energy at the Wind Breeze Merchants (100,000 Kina per 40 energy). 40 energy is one more claim, worth up to 300,000 **tradeable** Kina at Tier 2: 100,000 bound becomes up to three times as much tradeable Kina.',
           },
         },
-        {
-          type: 'callout',
-          tone: 'info',
-          title: { de: 'Der umgekehrte Weg', en: 'The reverse route' },
-          text: {
-            de: 'Ein Guide (Raid Relay) beschreibt, wie ein Twink mit seinem gebundenen Kina und seinen Enhance Stones ein Teil für den Main verzaubert und es zurückschickt. Das geht nur mit Ausrüstung, die noch **nicht seelengebunden** ist – angelegte Teile binden. Prüfe im Tooltip, ob das Teil nach dem Verzaubern noch ins Server-Lager darf, bevor du Material hineinsteckst.',
-            en: 'One guide (Raid Relay) describes an alt enhancing a piece for the main with its own bound Kina and Enhance Stones and sending it back. That only works with gear that is **not soul bound** yet – equipped pieces bind. Check in the tooltip that the piece can still go into Server Storage after enhancing before you put materials into it.',
-          },
-        },
       ],
     },
     {
@@ -355,20 +341,20 @@ export const multiCharacters: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Was ein Twink pro Woche kostet, hängt fast nur an seinen Inhalten pro Charakter. Gemessen ist nur die Dauer eines Conquest-Laufs (Raid Relay: 8 Min. auf Tier 1, 10 Min. auf Tier 2, ohne Warteschlange und Wege). Alles andere sind Schätzungen wie im Guide „Farming & Power“.',
-            en: 'What an alt costs per week depends almost only on its per-character content. Only the length of a Conquest run is measured (Raid Relay: 8 min at Tier 1, 10 min at Tier 2, without queues and travel). Everything else is an estimate as in the “Farming & power” guide.',
+            de: 'Was ein Twink pro Woche kostet, hängt fast nur an seinen Inhalten pro Charakter. Gemessen ist hier nichts: Für einen Conquest-Lauf nehmen wir ≈10 Min. an (ohne Warteschlange und Wege) – eine gemessene Laufzeit für Global gibt es noch nicht, die Annahme passt aber zu den Session-Zeiten im Guide „Farming & Power“. Alles andere sind Schätzungen wie dort.',
+            en: 'What an alt costs per week depends almost only on its per-character content. Nothing here is measured: we assume ≈10 min for a Conquest run (without queues and travel) – there is no measured run time for Global yet, but the assumption fits the session times in the “Farming & power” guide. Everything else is an estimate as there.',
           },
         },
         {
           type: 'shares',
           title: { de: 'Wohin die Woche eines Twinks geht (ohne Membership)', en: 'Where an alt’s week goes (no Membership)' },
           caption: {
-            de: 'Schätzung für einen Twink auf Tier 2 in 2 Sessions pro Woche: zusammen ≈360 Min. = 6 Std. Mit Membership braucht derselbe Twink nur ≈11 statt 21 Conquest-Läufe (2 Würfel pro Lauf) und eine statt zwei Sessions: ≈245 Min. ≈ 4 Std. Conquest-Laufzeit gemessen von Raid Relay, der Rest geschätzt.',
-            en: 'Estimate for an alt at Tier 2 in 2 sessions a week: ≈360 min = 6 h in total. With Membership the same alt needs only ≈11 instead of 21 Conquest runs (2 claims per run) and one session instead of two: ≈245 min ≈ 4 h. Conquest run time measured by Raid Relay, the rest estimated.',
+            de: 'Schätzung für einen Twink auf Tier 2 in 2 Sessions pro Woche: zusammen ≈360 Min. = 6 Std. Mit Membership braucht derselbe Twink nur ≈11 statt 21 Conquest-Läufe (2 Würfel pro Lauf) und eine statt zwei Sessions: ≈245 Min. ≈ 4 Std. Alles geschätzt, die Conquest-Laufzeit eingeschlossen.',
+            en: 'Estimate for an alt at Tier 2 in 2 sessions a week: ≈360 min = 6 h in total. With Membership the same alt needs only ≈11 instead of 21 Conquest runs (2 claims per run) and one session instead of two: ≈245 min ≈ 4 h. All estimated, the Conquest run time included.',
           },
           unit: { de: 'Min.', en: 'min' },
           items: [
-            { label: { de: 'Conquest-Würfel', en: 'Conquest claims' }, value: 210, note: { de: '21 Läufe × 10 Min. (gemessen)', en: '21 runs × 10 min (measured)' }, tone: 'gold' },
+            { label: { de: 'Conquest-Würfel', en: 'Conquest claims' }, value: 210, note: { de: '21 Läufe × ≈10 Min. (angenommen)', en: '21 runs × ≈10 min (assumed)' }, tone: 'gold' },
             { label: 'Nightmare', value: 70, note: { de: '14 Eintritte × ≈5 Min.', en: '14 entries × ≈5 min' }, tone: 'violet' },
             { label: 'Ascension Trial', value: 30, note: { de: '3 × ≈10 Min.', en: '3 × ≈10 min' }, tone: 'blue' },
             { label: { de: 'Supply Requests, Quests', en: 'Supply Requests, quests' }, value: 20, note: { de: 'Schätzung', en: 'estimate' }, tone: 'teal' },
@@ -395,8 +381,8 @@ export const multiCharacters: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Zum Vergleich: games.gg schätzt 10–15 Std. für den Main allein, 15–20 mit einem Twink, 20–25 mit zwei und 25+ mit drei. Raid Relay rechnet nur die Kina-Routine (Würfel plus Morphs) und kommt auf 6,8 / 11,0 / 15,2 / 19,3 Std. ohne und 3,5 / 5,7 / 7,8 / 10,0 Std. mit Membership.',
-            en: 'For comparison: games.gg estimates 10–15 h for the main alone, 15–20 with one alt, 20–25 with two and 25+ with three. Raid Relay counts only the Kina routine (cubes plus morphs) and gets 6.8 / 11.0 / 15.2 / 19.3 h without and 3.5 / 5.7 / 7.8 / 10.0 h with Membership.',
+            de: 'Zum Vergleich: games.gg schätzt 10–15 Std. für den Main allein, 15–20 mit einem Twink, 20–25 mit zwei und 25+ mit drei.',
+            en: 'For comparison: games.gg estimates 10–15 h for the main alone, 15–20 with one alt, 20–25 with two and 25+ with three.',
           },
         },
         { type: 'heading', text: { de: 'Einmalig: der Aufbau eines neuen Twinks', en: 'One-time: setting up a new alt' } },
@@ -404,9 +390,9 @@ export const multiCharacters: Guide = {
           type: 'facts',
           items: [
             { label: { de: 'Stufe 1 → 45', en: 'Level 1 → 45' }, value: { de: '≈5 Std. 14 Min. in unserem Speedrun (nur goldene Missionen); ≈10 Std. für die ganze Story laut games.gg (koreanischer Client)', en: '≈5 h 14 min in our speedrun (golden missions only); ≈10 h for the whole story according to games.gg (Korean client)' } },
-            { label: { de: 'Einmal-Belohnungen bei 45', en: 'One-time rewards at 45' }, value: { de: '≈+240 Gegenstandsstufe für 0 Kina – rechne mit ≈3–4 Std. (Schätzung)', en: '≈+240 item level for 0 Kina – plan ≈3–4 h (estimate)' } },
-            { label: { de: 'Bis Gegenstandsstufe 1.000', en: 'To item level 1,000' }, value: { de: 'unter 2 Mio. Kina: Gürtel und Amulett hoch, alles +5, Waffe +10', en: 'under 2M Kina: belt and amulet up, everything +5, weapon +10' } },
-            { label: { de: 'Bis 1.400 (Tier 2)', en: 'To 1,400 (Tier 2)' }, value: { de: '+≈3,2 Mio. Kina für Gürtel und Amulett auf Unique, dazu Teile aus Draupnir und dem Handwerk', en: '+≈3.2M Kina for belt and amulet to Unique, plus pieces from Draupnir and crafting' } },
+            { label: { de: 'Einmal-Belohnungen bei 45', en: 'One-time rewards at 45' }, value: { de: 'Gegenstandsstufe für 0 Kina – rechne mit ≈3–4 Std. (Schätzung)', en: 'Item level for 0 Kina – plan ≈3–4 h (estimate)' } },
+            { label: { de: 'Bis Gegenstandsstufe 1.000', en: 'To item level 1,000' }, value: { de: 'Gürtel und Amulett hoch, alles +5, Waffe +10', en: 'Belt and amulet up, everything +5, weapon +10' } },
+            { label: { de: 'Bis 1.400 (Tier 2)', en: 'To 1,400 (Tier 2)' }, value: { de: 'Gürtel und Amulett auf Unique, dazu Teile aus Draupnir und dem Handwerk', en: 'Belt and amulet to Unique, plus pieces from Draupnir and crafting' } },
           ],
         },
         {
@@ -426,16 +412,16 @@ export const multiCharacters: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Der Server zählt die Conquest-Läufe **aller** deiner Charaktere pro Woche. Die ersten **84** zahlen das volle Würfel-Kina, Lauf 85–105 nur 80 %, 106–126 60 %, 127–147 40 %, danach 20 %. Transcendence zählt getrennt: 56 voll, dann 80 % bis Lauf 70, 60 % bis 84, 40 % bis 98, danach 20 %. Gekürzt wird nur das Kina, nicht Ausrüstung oder Material. Wichtig: Gezählt werden **Läufe, nicht Würfel** – mit Membership öffnest du in einem Lauf zwei Würfel (80 Energie), also braucht jeder Charakter nur ≈10,5 statt 21 Läufe.',
-            en: 'The server counts the Conquest runs of **all** your characters per week. The first **84** pay full cube Kina, runs 85–105 only 80%, 106–126 60%, 127–147 40%, after that 20%. Transcendence counts separately: 56 full, then 80% up to run 70, 60% up to 84, 40% up to 98, then 20%. Only the Kina is cut, not gear or materials. Important: it counts **runs, not claims** – with Membership you open two cubes in one run (80 energy), so every character needs only ≈10.5 instead of 21 runs.',
+            de: 'Der Server zählt die Conquest-Läufe **aller** deiner Charaktere pro Woche. Die ersten **84** zahlen das volle Würfel-Kina, Lauf 85–105 nur 80 %, 106–126 60 %, 127–147 40 %, danach 20 %. Transcendence zählt getrennt: 55 Läufe voll, danach dieselben Stufen bis 20 %. Wichtig: Gezählt werden **Läufe, nicht Würfel** – mit Membership öffnest du in einem Lauf zwei Würfel (80 Energie), also braucht jeder Charakter nur ≈10,5 statt 21 Läufe.',
+            en: 'The server counts the Conquest runs of **all** your characters per week. The first **84** pay full cube Kina, runs 85–105 only 80%, 106–126 60%, 127–147 40%, after that 20%. Transcendence counts separately: 55 runs at full Kina, then the same steps down to 20%. Important: it counts **runs, not claims** – with Membership you open two cubes in one run (80 energy), so every character needs only ≈10.5 instead of 21 runs.',
           },
         },
         {
           type: 'line',
           title: { de: 'Würfel-Kina pro Woche nach Anzahl der Charaktere', en: 'Cube Kina per week by number of characters' },
           caption: {
-            de: 'Modell: Jeder Charakter steht auf Tier 2 (Gegenstandsstufe 1.400) und öffnet 21 Würfel pro Woche – 14 × 300.000 + 7 × 200.000 = 5,6 Mio. handelbares Kina (Würfelwerte: Fextralife, aion2maps; 14 Würfel auf dem höchsten Tier: AION2TIERLIST). Kürzung pro Server: aion2maps, Raid Relay. Ohne Morphs und gekaufte Energie – sie bringen mehr Würfel, erreichen die Kürzung aber auch früher. Gestrichelt: Schätzung, wenn Twinks ab Gegenstandsstufe 1.600 genug Würfel in Transcendence holen (eigener Topf von 56 Läufen). Der Guide „Farming & Power“ rechnet nach Raid Relay alle 21 Würfel zu 300.000 (≈6,3 Mio.) – stimmt das, liegen alle Werte hier rund 12 % höher.',
-            en: 'Model: every character is at Tier 2 (item level 1,400) and opens 21 cubes a week – 14 × 300,000 + 7 × 200,000 = 5.6M tradeable Kina (cube values: Fextralife, aion2maps; 14 claims at the top tier: AION2TIERLIST). Cut per server: aion2maps, Raid Relay. Without morphs and bought energy – they add claims but also reach the cut sooner. Dashed: estimate if alts at item level 1,600+ take enough claims in Transcendence (its own pool of 56 runs). The “Farming & power” guide follows Raid Relay and counts all 21 claims at 300,000 (≈6.3M) – if that holds, every value here is about 12% higher.',
+            de: 'Modell: Jeder Charakter steht auf Tier 2 (Gegenstandsstufe 1.400) und holt aus 21 Würfeln pro Woche ≈5,6 Mio. handelbares Kina – der Wert aus dem PDF zum Guide „Farming & Power“, die Kürzung pro Server ebenso. Ohne Morphs und gekaufte Energie – sie bringen mehr Würfel, erreichen die Kürzung aber auch früher. Gestrichelt: Schätzung, wenn Twinks ab Gegenstandsstufe 1.600 genug Würfel in Transcendence holen (eigener Topf von 55 Läufen). Die Seite „Farming & Power“ rechnet 21 Würfel zu ≈300.000 (≈6,3 Mio.) – dann liegen alle Werte hier rund 12 % höher.',
+            en: 'Model: every character is at Tier 2 (item level 1,400) and earns ≈5.6M tradeable Kina a week from 21 claims – the figure of the PDF to the “Farming & power” guide, and so is the cut per server. Without morphs and bought energy – they add claims but also reach the cut sooner. Dashed: estimate if alts at item level 1,600+ take enough claims in Transcendence (its own pool of 55 runs). The “Farming & power” page counts 21 claims at ≈300,000 (≈6.3M) – then every value here is about 12% higher.',
           },
           x: { label: { de: 'Charaktere auf dem Server', en: 'Characters on the server' }, ticks: ['1', '2', '3', '4', '5', '6', '7', '8'] },
           y: { label: { de: 'Handelbares Kina pro Woche (Mio.)', en: 'Tradeable Kina per week (millions)' }, min: 0 },
@@ -478,15 +464,6 @@ export const multiCharacters: Guide = {
           text: {
             de: '**Mehr Würfel pro Charakter:** Substance Morph macht Odyle-Energie (25 Odyle, 5 Fine Odyle, 1 Pure Odyle und 50.000 Kina für 40 Energie; 4 pro Charakter plus 16 pro Server und Woche). Mit Membership verkaufen die Wind Breeze Merchants 40 Energie für 100.000 Kina – normal 4 pro Charakter plus 16 pro Server, **während der Transfer-Phase bis zum 28.10. 20 pro Charakter ohne Server-Grenze**. Jeder Zusatz-Würfel ist auf Tier 2 bis zu 300.000 Kina wert, zählt aber ohne Membership auch als Lauf für die Kürzung.',
             en: '**More claims per character:** Substance Morph makes Odyle Energy (25 Odyle, 5 Fine Odyle, 1 Pure Odyle and 50,000 Kina for 40 energy; 4 per character plus 16 per server a week). With Membership the Wind Breeze Merchants sell 40 energy for 100,000 Kina – normally 4 per character plus 16 per server, **during the transfer period until 28 Oct 20 per character with no server limit**. Every extra claim is worth up to 300,000 Kina at Tier 2, but without Membership it also counts as a run toward the cut.',
-          },
-        },
-        {
-          type: 'callout',
-          tone: 'warn',
-          title: { de: 'Tagesgrenze für handelbares Kina', en: 'Daily cap on tradeable Kina' },
-          text: {
-            de: 'Laut aion2maps hat jeder Charakter auf Global eine Grenze von 1 Mio. handelbarem Kina pro Tag; danach lassen normale Monster nichts mehr fallen. Auf dem asiatischen Client stoppt diese Grenze auch das Kina aus Expeditionen. Ob sie auf Global auch für Würfel gilt, ist nicht belegt – steigt dein handelbares Kina nach ein paar Würfeln am selben Tag nicht mehr, verteile die Würfel auf mehr Tage.',
-            en: 'According to aion2maps every character on Global has a cap of 1M tradeable Kina a day; past it, normal monsters stop dropping loot. On the Asian client the same cap also stops Expedition Kina. Whether it covers cube Kina on Global is not confirmed – if your tradeable Kina stops rising after a few claims on one day, spread the claims over more days.',
           },
         },
         { type: 'links', items: [{ href: '#/guides/farming-power', label: { de: 'Würfelwerte und Odyle-Plan im Guide „Farming & Power“', en: 'Cube values and Odyle plan in “Farming & power”' } }] },
@@ -592,26 +569,6 @@ export const multiCharacters: Guide = {
           },
         },
         {
-          type: 'bars',
-          title: { de: 'Gegenstandsstufe pro 1 Mio. Kina', en: 'Item level per 1M Kina' },
-          caption: {
-            de: 'Wie viel Gegenstandsstufe jeder Schritt für 1 Mio. Kina bringt, billigster zuerst (aion2maps, aus den Client-Daten). Gratis und darum ganz vorne: Daevanion Crystals aus Quests (+1 pro Crystal) und zwei Clash Runes auf +1 (+80). Gold: auf jedem Twink; Blau: für den Schritt auf 1.400; Türkis: nur für einen Twink, der Tier 3 farmen soll; Rot: nie auf einem Twink.',
-            en: 'How much item level each step gives for 1M Kina, cheapest first (aion2maps, from the client data). Free and therefore first of all: Daevanion Crystals from quests (+1 per crystal) and two Clash Runes to +1 (+80). Gold: on every alt; blue: for the step to 1,400; teal: only for an alt meant to farm Tier 3; rose: never on an alt.',
-          },
-          items: [
-            { label: { de: 'Noble Belt (Rare) auf +10, dann Epic', en: 'Noble Belt (Rare) to +10, then Epic' }, value: 100, display: '≈100', note: { de: '232.000 Kina + 10 Schriftrollen', en: '232,000 Kina + 10 scrolls' }, tone: 'gold' },
-            { label: { de: 'Epic-Teil (Stufe 38) +0 → +5', en: 'Epic piece (level 38) +0 → +5' }, value: 70, display: '≈70', note: { de: '69.850 Kina für +5', en: '69,850 Kina for +5' }, tone: 'gold' },
-            { label: { de: 'Unique-Teil (Stufe 54) +0 → +5', en: 'Unique piece (level 54) +0 → +5' }, value: 50, display: '≈50', note: { de: '99.150 Kina für +5', en: '99,150 Kina for +5' }, tone: 'gold' },
-            { label: { de: 'Epic-Teil (Stufe 38) +5 → +10', en: 'Epic piece (level 38) +5 → +10' }, value: 18, display: '≈18', note: { de: '274.000 Kina für +5', en: '274,000 Kina for +5' }, tone: 'blue' },
-            { label: { de: 'Gürtel/Amulett Epic +10, dann Unique', en: 'Belt/amulet Epic +10, then Unique' }, value: 18, display: '≈18', note: { de: '1.579.000 Kina für +10, dann +19', en: '1,579,000 Kina for +10, then +19' }, tone: 'blue' },
-            { label: { de: 'Unique-Teil (Stufe 86) +0 → +10', en: 'Unique piece (level 86) +0 → +10' }, value: 13, display: '≈13', note: { de: '775.100 Kina für +10', en: '775,100 Kina for +10' }, tone: 'teal' },
-            { label: { de: 'Amp Stufe 1 (Unique auf +15)', en: 'Amp stage 1 (Unique at +15)' }, value: 6, display: '≈6', note: { de: '≈880.000 Kina für +5', en: '≈880,000 Kina for +5' }, tone: 'rose' },
-            { label: { de: 'Gürtel/Amulett Unique +0 → +10', en: 'Belt/amulet Unique +0 → +10' }, value: 2, display: '≈2', note: { de: '5.026.000 Kina für +10', en: '5,026,000 Kina for +10' }, tone: 'rose' },
-            { label: { de: 'Amp Stufen 2 und 3', en: 'Amp stages 2 and 3' }, value: 2, display: '≈2', note: { de: '≈5,4 Mio. Kina für +10', en: '≈5.4M Kina for +10' }, tone: 'rose' },
-            { label: { de: 'Unique-Teil (Stufe 86) +10 → +15', en: 'Unique piece (level 86) +10 → +15' }, value: 0.4, display: '< 0,5', note: { de: '≈11,9 Mio. Kina für +5', en: '≈11.9M Kina for +5' }, tone: 'rose' },
-          ],
-        },
-        {
           type: 'table',
           head: ['', { de: 'Rein in den Twink', en: 'Put into the alt' }, { de: 'Nie in den Twink', en: 'Never into the alt' }],
           rows: [
@@ -623,7 +580,7 @@ export const multiCharacters: Guide = {
             [
               { de: '**Verzaubern**', en: '**Enhancement**' },
               { de: 'Alles auf +5, Waffe und Guard auf +10 – bis +10 gelingt jede Stufe', en: 'Everything to +5, weapon and guard to +10 – every step up to +10 succeeds' },
-              { de: '+11 bis +15 und Amp: unter 0,5 bis 6 Gegenstandsstufen pro Mio. Kina', en: '+11 to +15 and Amp: below 0.5 to 6 item levels per million Kina' },
+              { de: '+11 bis +15 und Amp: die teuerste Gegenstandsstufe von allen', en: '+11 to +15 and Amp: the most expensive item level of all' },
             ],
             [
               { de: '**Arcana**', en: '**Arcana**' },
@@ -648,7 +605,7 @@ export const multiCharacters: Guide = {
             [
               { de: '**Runen**', en: '**Runes**' },
               { de: 'Zwei Clash Runes aus den Bezirks-Quests auf +1 (gelingt immer)', en: 'Two Clash Runes from the district quests to +1 (always succeeds)' },
-              { de: 'Clash Runes über +1: Ab dem Versuch auf +2 zerstört ein Fehlschlag die Rune', en: 'Clash Runes past +1: from the attempt at +2 a failure destroys the rune' },
+              { de: 'Clash Runes über +1: Ein Fehlschlag kostet eine Stufe, ohne Bonus', en: 'Clash Runes past +1: a failure costs a level, with no bonus' },
             ],
             [
               { de: '**Geld**', en: '**Money**' },
@@ -662,11 +619,17 @@ export const multiCharacters: Guide = {
           tone: 'info',
           title: { de: 'Tier 3 auf einem Twink?', en: 'Tier 3 on an alt?' },
           text: {
-            de: 'Auf Tier 3 (2.100) bringt ein Twink ≈7,7 statt ≈5,6 Mio. pro Woche, also ≈2,1 Mio. mehr. Die 700 Gegenstandsstufen dorthin kommen vor allem aus Drops und Arcana (Transcendence ab 1.600). Mit Verzaubern gekauft (Unique-Teil der Stufe 86 auf +10: ≈13 pro Mio.) kosteten sie grob geschätzt 50 Mio. Kina – rund 25 Wochen Mehrertrag. Lass den Twink also nur über Drops dorthin wachsen.',
-            en: 'At Tier 3 (2,100) an alt earns ≈7.7M instead of ≈5.6M a week, i.e. ≈2.1M more. The 700 item levels to get there come mostly from drops and Arcana (Transcendence from 1,600). Bought through enhancement (Unique level-86 piece to +10: ≈13 per million) they would cost roughly 50M Kina – about 25 weeks of the extra income. So let the alt grow there through drops only.',
+            de: 'Auf Tier 3 (2.100) bringt ein Twink ≈7,7 statt ≈5,6 Mio. pro Woche, also ≈2,1 Mio. mehr. Die 700 Gegenstandsstufen dorthin kommen vor allem aus Drops und Arcana (Transcendence ab 1.600). Mit Verzaubern gekauft kosten sie ein Vielfaches dieses Mehrertrags (was Gegenstandsstufe in Kina kostet, steht im Power-Sprint). Lass den Twink also nur über Drops dorthin wachsen.',
+            en: 'At Tier 3 (2,100) an alt earns ≈7.7M instead of ≈5.6M a week, i.e. ≈2.1M more. The 700 item levels to get there come mostly from drops and Arcana (Transcendence from 1,600). Bought through enhancement they cost many times that extra income (what item level costs in Kina is in the Power sprint). So let the alt grow there through drops only.',
           },
         },
-        { type: 'links', items: [{ href: '#/guides/combat-power', label: { de: 'Verzauberungs-Chancen und Kosten im Guide „Höchste Kampfkraft“', en: 'Enhancement odds and costs in “Highest Combat Power”' } }] },
+        {
+          type: 'links',
+          items: [
+            { href: '#/guides/power-sprint', label: { de: 'Gegenstandsstufe pro Kina im Power-Sprint', en: 'Item level per Kina in the Power sprint' } },
+            { href: '#/guides/combat-power', label: { de: 'Verzauberungs-Chancen und Kosten im Guide „Höchste Kampfkraft“', en: 'Enhancement odds and costs in “Highest Combat Power”' } },
+          ],
+        },
       ],
     },
     {
@@ -676,8 +639,8 @@ export const multiCharacters: Guide = {
           type: 'flow',
           title: { de: 'Vom neuen Charakter zum Tier-2-Farmer', en: 'From new character to Tier 2 farmer' },
           caption: {
-            de: 'Reihenfolge und Werte nach aion2maps („What to do at 45“, „Item level“); Zeiten geschätzt, Stufe 1–45 aus unserem Speedrun. Kina pro Woche: nur handelbares Würfel-Kina.',
-            en: 'Order and values after aion2maps (“What to do at 45”, “Item level”); times estimated, level 1–45 from our speedrun. Kina per week: tradeable cube Kina only.',
+            de: 'Reihenfolge wie im Power-Sprint (erst Einmal-Inhalte, dann Gürtel, Amulett und alles auf +10); Zeiten geschätzt, Stufe 1–45 aus unserem Speedrun. Kina pro Woche: nur handelbares Würfel-Kina, wie im PDF zum Guide „Farming & Power“.',
+            en: 'Order as in the Power sprint (one-time content first, then belt, amulet and everything to +10); times estimated, level 1–45 from our speedrun. Kina per week: tradeable cube Kina only, as in the PDF to the “Farming & power” guide.',
           },
           items: [
             {
@@ -695,17 +658,17 @@ export const multiCharacters: Guide = {
             {
               tag: { de: '≈5 Std.', en: '≈5 h' },
               title: { de: 'Auf 45: nur goldene Missionen', en: 'To 45: golden missions only' },
-              text: { de: 'Wie im Speedrun-Guide. Mit 45 hat der Twink ≈780 Gegenstandsstufe – Conquest Tier 1 (700) ist sofort offen.', en: 'As in the speedrun guide. At 45 the alt has ≈780 item level – Conquest Tier 1 (700) opens at once.' },
+              text: { de: 'Wie im Speedrun-Guide. Conquest Tier 1 öffnet bei Gegenstandsstufe 700.', en: 'As in the speedrun guide. Conquest Tier 1 opens at item level 700.' },
               tone: 'blue',
             },
             {
               tag: { de: '0 Kina', en: '0 Kina' },
               title: { de: 'Einmal-Belohnungen holen', en: 'Collect the one-time rewards' },
-              text: { de: 'Bezirks-Quests, 61 versiegelte Dungeons, 15 Strongholds, 2 Clash Runes auf +1, Monolith synchronisieren, alle Daevanion Crystals und Wisdom Stones ausgeben: ≈+240.', en: 'District quests, 61 sealed dungeons, 15 Strongholds, 2 Clash Runes to +1, sync the Monolith, spend every Daevanion Crystal and Wisdom Stone: ≈+240.' },
+              text: { de: 'Bezirks-Quests, versiegelte Dungeons, Strongholds, 2 Clash Runes auf +1, Monolith synchronisieren, alle Daevanion Crystals und Wisdom Stones ausgeben.', en: 'District quests, sealed dungeons, Strongholds, 2 Clash Runes to +1, sync the Monolith, spend every Daevanion Crystal and Wisdom Stone.' },
               tone: 'gold',
             },
             {
-              tag: { de: '< 2 Mio. Kina', en: '< 2M Kina' },
+              tag: { de: 'wenig Kina', en: 'little Kina' },
               title: { de: 'Billig auf 1.000', en: 'Cheaply to 1,000' },
               text: { de: 'Gürtel und Amulett auf +10 und eine Stufe hoch, alles +5, Waffe +10, billige Steine. Das gebundene Quest-Kina bezahlt es.', en: 'Belt and amulet to +10 and up a grade, everything +5, weapon +10, cheap stones. The bound quest Kina pays for it.' },
               tone: 'gold',
@@ -719,7 +682,7 @@ export const multiCharacters: Guide = {
             {
               tag: { de: '≈5,6 Mio./Woche', en: '≈5.6M/week' },
               title: { de: 'Auf 1.400 – und stoppen', en: 'To 1,400 – and stop' },
-              text: { de: 'Gürtel und Amulett auf Unique (je ≈1,58 Mio.), Picks aus Draupnir, Teile der Stufe 70 auf +5. Ab hier farmt der Twink Tier 2 für den Main.', en: 'Belt and amulet to Unique (≈1.58M each), Draupnir picks, level-70 pieces to +5. From here the alt farms Tier 2 for the main.' },
+              text: { de: 'Gürtel und Amulett auf Unique, Picks aus Draupnir, Teile der Stufe 70 auf +5. Ab hier farmt der Twink Tier 2 für den Main.', en: 'Belt and amulet to Unique, Draupnir picks, level-70 pieces to +5. From here the alt farms Tier 2 for the main.' },
               tone: 'gold',
             },
           ],
@@ -786,8 +749,8 @@ export const multiCharacters: Guide = {
           tone: 'tip',
           title: { de: 'In Kina pro Stunde rechnen', en: 'Count Kina per hour' },
           text: {
-            de: 'Eine Stunde Odyle-Sammeln in Lower Reshanta brachte Raid Relay ≈2,8 Mio. Kina nach Market-Gebühren (mit Membership zum Verkaufen) – mehr als die ≈0,9 Mio. pro Stunde eines Würfel-Twinks. Sie kostet aber Abyss-Zeit (7 Std. pro Ebene, Charakter und Woche) und hängt an den Preisen. Für Market-Spieler ist Sammeln darum oft die bessere Twink-Stunde, solange die Preise halten.',
-            en: 'One hour of Odyle gathering in Lower Reshanta earned Raid Relay ≈2.8M Kina after Market fees (with Membership to sell) – more than the ≈0.9M per hour of a cube alt. It costs Abyss time, though (7 h per layer, character and week), and depends on prices. For market players gathering is therefore often the better alt hour, as long as prices hold.',
+            de: 'Ein Würfel-Twink bringt ≈0,9 Mio. Kina pro Stunde (≈5,6 Mio. in ≈6 Std.). Odyle-Sammeln in Lower Reshanta kann am Market mehr bringen (mit Membership zum Verkaufen) – wie viel, hängt an den Preisen, gemessen haben wir es nicht. Es kostet Abyss-Zeit (7 Std. pro Ebene, Charakter und Woche). Für Market-Spieler kann Sammeln darum die bessere Twink-Stunde sein, solange die Preise halten.',
+            en: 'A cube alt earns ≈0.9M Kina an hour (≈5.6M in ≈6 h). Odyle gathering in Lower Reshanta can earn more on the Market (with Membership to sell) – how much depends on prices, we have not measured it. It costs Abyss time (7 h per layer, character and week). For market players gathering can therefore be the better alt hour, as long as prices hold.',
           },
         },
         {
@@ -962,13 +925,12 @@ export const multiCharacters: Guide = {
           type: 'list',
           items: [
             { de: '**Höchstens 8 Plätze:** Dass Plätze 1.000 Quna kosten, steht in NCs Transfer-Hinweis; die Grenze von 8 pro Server stammt aus NCs Livestream, wie Guides ihn wiedergeben.', en: '**At most 8 slots:** that slots cost 1,000 Quna is in NC’s transfer notice; the limit of 8 per server comes from NC’s livestream as guides report it.' },
-            { de: '**Würfel pro Tier:** Guides nennen 2 Würfel pro Tag (bis 14 angespart) auf dem höchsten Tier; NCs Transfer-Q&A bestätigt Würfel-Zähler pro Charakter, nennt aber keine Zahlen. Gehen alle 21 auf Tier 2, bringt ein Charakter 6,3 statt 5,6 Mio.', en: '**Claims per tier:** guides name 2 claims a day (banking up to 14) at the top tier; NC’s transfer Q&A confirms per-character claim counters but gives no numbers. If all 21 can be Tier 2, a character earns 6.3M instead of 5.6M.' },
-            { de: '**Tagesgrenze von 1 Mio. handelbarem Kina:** ob sie auf Global auch das Würfel-Kina stoppt.', en: '**Daily cap of 1M tradeable Kina:** whether it also stops cube Kina on Global.' },
+            { de: '**Würfel-Kina pro Woche:** Das PDF zum Guide „Farming & Power“ nennt ≈5,6 Mio. für einen Charakter auf Tier 2; 21 Würfel zu ≈300.000 wären 6,3 Mio. Woher der Unterschied kommt, ist offen. NCs Transfer-Q&A bestätigt Würfel-Zähler pro Charakter, nennt aber keine Zahlen.', en: '**Cube Kina per week:** the PDF to the “Farming & power” guide gives ≈5.6M for a character at Tier 2; 21 claims at ≈300,000 would be 6.3M. Where the gap comes from is open. NC’s transfer Q&A confirms per-character claim counters but gives no numbers.' },
             { de: '**Wind-Breeze-Odyle:** 20 pro Charakter gilt laut NC während der Transfer-Phase (bis 28.10.); ob danach wieder 4 pro Charakter + 16 pro Server gelten.', en: '**Wind Breeze Odyle:** 20 per character applies during the transfer period according to NC (until 28 Oct); whether 4 per character + 16 per server return afterwards.' },
-            { de: '**Odyle-Nachladung mit Membership:** games.gg schreibt +50 %, die Guides auf Basis der Client-Daten (aion2maps, Fextralife) 15 alle 3 Std. für alle – dieser Guide nimmt Letzteres.', en: '**Odyle refill with Membership:** games.gg writes +50%, the guides based on the client data (aion2maps, Fextralife) 15 every 3 h for everyone – this guide uses the latter.' },
-            { de: '**Odyle-Energie am Season-Ende:** Auf dem asiatischen Client verfällt sie mit dem Kapitel; Season 1 auf Global endet am 16.12.2026.', en: '**Odyle Energy at season end:** on the Asian client it expires with the chapter; Season 1 on Global ends on 16 Dec 2026.' },
-            { de: '**Titel:** NC unterscheidet Charakter- und Server-Titel, nennt aber nicht, welche welche sind.', en: '**Titles:** NC separates character and server titles but does not say which are which.' },
-            { de: '**Zeiten:** Gemessen ist nur die Dauer der Conquest-Läufe; alle anderen Zeiten sind Schätzungen.', en: '**Times:** only the length of Conquest runs is measured; every other time is an estimate.' },
+            { de: '**Odyle-Nachladung mit Membership:** games.gg schreibt +50 %, MetaBot und daevaguides 15 alle 3 Std. für alle – dieser Guide nimmt Letzteres.', en: '**Odyle refill with Membership:** games.gg writes +50%, MetaBot and daevaguides 15 every 3 h for everyone – this guide uses the latter.' },
+            { de: '**Odyle-Energie am Season-Ende:** ob sie verfällt, wenn Season 1 auf Global am 16.12.2026 endet.', en: '**Odyle Energy at season end:** whether it expires when Season 1 on Global ends on 16 Dec 2026.' },
+            { de: '**Titel:** In den Client-Daten gilt jeder Titel pro Charakter; nur die Titel aus dem Founder’s Pack gelten seit dem 7.10. auf allen Charakteren. Ob es Titel für den ganzen Server gibt, ist offen.', en: '**Titles:** in the client data every title is per character; only the Founder’s Pack titles work on all characters since 7 Oct. Whether any title applies to the whole server is open.' },
+            { de: '**Zeiten:** Keine Zeit hier ist gemessen, auch nicht die Dauer eines Conquest-Laufs (angenommen ≈10 Min.); alles sind Schätzungen.', en: '**Times:** no time here is measured, not even the length of a Conquest run (assumed ≈10 min); all are estimates.' },
           ],
         },
         {
@@ -991,24 +953,6 @@ export const multiCharacters: Guide = {
             { href: 'https://aion2.plaync.com/en-us/board/update/view?articleId=6ac5e6e8d97eae18cc40e34e', label: 'NCSOFT – Global patch notes 6/7 Oct 2026' },
             { href: 'https://aion2.plaync.com/en-us/board/notice/view?articleId=6ac7e128d97eae18cc40e3b7&isNotice=1', label: 'NCSOFT – Server Transfer Q&A' },
             { href: 'https://aion2.plaync.com/en-us/board/notice/view?articleId=6ac932a8fa34c1011d627bc9&isNotice=1', label: 'NCSOFT – Server Transfer products info' },
-            { href: 'https://aion2maps.com/guides/whats-bound/', label: 'aion2maps – What’s tied to your character, server or account' },
-            { href: 'https://aion2maps.com/guides/daily-and-weekly/', label: 'aion2maps – Daily and weekly' },
-            { href: 'https://aion2maps.com/guides/expeditions-and-odyle/', label: 'aion2maps – Expeditions and Odyle Energy' },
-            { href: 'https://aion2maps.com/guides/membership-and-shop/', label: 'aion2maps – Membership, Founder’s Packs and the shop' },
-            { href: 'https://aion2maps.com/guides/storage/', label: 'aion2maps – Storage' },
-            { href: 'https://aion2maps.com/guides/what-to-do-at-45/', label: 'aion2maps – What to do at 45' },
-            { href: 'https://aion2maps.com/guides/item-level/', label: 'aion2maps – Item level' },
-            { href: 'https://aion2maps.com/guides/progression-path/', label: 'aion2maps – Progression path' },
-            { href: 'https://aion2maps.com/guides/crafting/', label: 'aion2maps – Crafting' },
-            { href: 'https://aion2maps.com/guides/abyss/', label: 'aion2maps – The Abyss and rifts' },
-            { href: 'https://aion2maps.com/guides/arenas-and-battlegrounds/', label: 'aion2maps – Arenas and battlegrounds' },
-            { href: 'https://aion2maps.com/guides/dungeons-and-raids/', label: 'aion2maps – Dungeons and raids' },
-            { href: 'https://aion2maps.com/guides/hidden-cubes/', label: 'aion2maps – Hidden Cubes' },
-            { href: 'https://aion2maps.com/guides/pet-genus/', label: 'aion2maps – Pet Genus' },
-            { href: 'https://aion2maps.com/guides/rules-and-policies/', label: 'aion2maps – Rules and policies' },
-            { href: 'https://aion2.wiki.fextralife.com/Expeditions', label: 'Fextralife wiki – Expeditions' },
-            { href: 'https://raidrelay.com/aion-2-kina-guide', label: 'Raid Relay – Kina guide (main + alts, timed runs)' },
-            { href: 'https://aion2tierlist.com/guides/aion-2-alt-guide', label: 'AION2TIERLIST – Alt guide' },
             { href: 'https://space4games.com/en/games-en/aion-2-kina-farming-guide/', label: 'SPACE4GAMES – Kina farming and weekly reward adjustment' },
             { href: 'https://games.gg/aion-2/guides/alts-explained-should-you-make-an-alt-in-aion-2/', label: 'games.gg – Alts explained' },
             { href: 'https://allthings.how/?p=234805', label: 'AllThings.How – Class change and how alts work' },

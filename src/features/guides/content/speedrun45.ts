@@ -105,8 +105,8 @@ export const speedrun45: Guide = {
           type: 'flow',
           title: { de: 'Von Stufe 1 bis 45', en: 'From level 1 to 45' },
           caption: {
-            de: 'Freischaltungen laut den Spieldaten dieses Planers (Daevanion-Tafeln, Stigma-Plätze) und MetaBot; Sperren laut All Things How und Gaming Pro Max. Die Route ist für jede Klasse gleich.',
-            en: 'Unlocks from this planner’s game data (Daevanion boards, stigma slots) and MetaBot; gates from All Things How and Gaming Pro Max. The route is the same for every class.',
+            de: 'Freischaltungen laut den Spieldaten dieses Planers (Daevanion-Tafeln, Stigma-Plätze) und MetaBot; Sperren laut All Things How. Die Route ist für jede Klasse gleich.',
+            en: 'Unlocks from this planner’s game data (Daevanion boards, stigma slots) and MetaBot; gates from All Things How. The route is the same for every class.',
           },
           items: [
             {
@@ -257,8 +257,8 @@ export const speedrun45: Guide = {
           tone: 'tip',
           title: { de: 'So kostet eine Sperre nur Minuten', en: 'How a gate costs only minutes' },
           text: {
-            de: 'Nimm grüne Quests mit, die auf dem Weg zur Sperre liegen – laut Gaming Pro Max kostet eine Sperre dann 15–30 Minuten, wer vorher alles ausgelassen hat, braucht an der ersten 45–60. Jede grüne Quest füllt die Leiste gleich stark; nimm also die nahen und die mit Skillpunkt oder Schmuck als Belohnung. Alle fünf Beispiele oben geben einen Skillpunkt. Ist die Leiste voll, starte die Aufstiegs-Quest selbst – die Story geht nicht von allein weiter.',
-            en: 'Pick up green quests that lie on the way to the gate – according to Gaming Pro Max a gate then costs 15–30 minutes, while someone who skipped everything needs 45–60 at the first one. Every green quest fills the gauge by the same amount, so take the nearby ones and those with a skill point or jewellery as reward. All five examples above give a skill point. Once the gauge is full, start the Ascension quest yourself – the story does not continue on its own.',
+            de: 'Nimm grüne Quests mit, die auf dem Weg zur Sperre liegen – dann füllt sich die Leiste schon unterwegs. Jede grüne Quest füllt die Leiste gleich stark; nimm also die nahen und die mit Skillpunkt oder Schmuck als Belohnung. Alle fünf Beispiele oben geben einen Skillpunkt. Ist die Leiste voll, starte die Aufstiegs-Quest selbst – die Story geht nicht von allein weiter.',
+            en: 'Pick up green quests that lie on the way to the gate – then the gauge fills while you travel. Every green quest fills the gauge by the same amount, so take the nearby ones and those with a skill point or jewellery as reward. All five examples above give a skill point. Once the gauge is full, start the Ascension quest yourself – the story does not continue on its own.',
           },
         },
       ],
@@ -420,7 +420,6 @@ export const speedrun45: Guide = {
             { href: 'https://metabot.gg/en/aion-2/guides/leveling-guide', label: 'MetaBot – Levelling guide 1–45 for both factions: zones, EXP per level range, story share (2026-10-15)' },
             { href: 'https://allthings.how/aion-2-how-to-speedrun-to-level-45-in-under-4-hours/', label: 'All Things How – Speedrun to level 45: route, gate quests, sealed dungeons (2026-10-17)' },
             { href: 'https://daevaguides.com/en/guides/leveling-1-45/', label: 'Daeva Guides – Levelling guide 1–45: times, unlocks, mistakes (2026-10-06)' },
-            { href: 'https://gamingpromax.com/aion-2-how-to-increase-ascension-gauge/', label: 'Gaming Pro Max – How to fill the Ascension Gauge (2026-10-07)' },
             { href: 'https://gameplay.tips/guides/aion-2-speedrun-guide.html', label: 'Gameplay Tips – Speedrun guide level 1–45 by phases (2026-10-02)' },
             { href: 'https://mein-mmo.de/aion-2-schnell-leveln-guide-fuer-maximale-xp/', label: 'MeinMMO – Schnell leveln bis Stufe 45 (2026-09-02)' },
           ],

@@ -2,14 +2,13 @@ import type { Guide } from '../types';
 
 /**
  * Crafted gear on the global client (October 2026).
- * - Recipes, item levels, success chances: Fextralife (2026-10-09) and metabot.gg (global client data, updated
- *   2026-10-15); the transfer recipes from aion2hub's crafting calculator and wikily (Splendent Wise: the mace recipe –
- *   the weapon recipes of one tier list the same inputs).
+ * - Recipes, item levels, the 25 % great-success (Splendent) chance and the Amplify caps: metabot.gg (global client data,
+ *   updated 2026-10-15); the transfer recipes from aion2hub's crafting calculator (Splendent Wise: the mace recipe – the
+ *   weapon recipes of one tier list the same inputs).
  * - Experience per mastery level and per recipe: Inven (KR, 2026-01-20 and 2026-04-09). The Novice total (8,809) is the
  *   same as metabot's global number, the Professional total (82,734) is within 0.1 % of it (82,680).
- * - The Splendent model ("crafts behind one Splendent piece") is worked out, not measured: chance per attempt =
- *   success × 25 % × success again (Fextralife: the combo rolls for success once more), with Fextralife's chances at
- *   recipe level (74 / 76.8 / 79.6 %) and at the cap (93.1 / 94.6 / 96.8 %). Inven's 4,000-craft test fits that rule.
+ * - No source we use publishes the base success chances for Global, so the guide gives none and points to the
+ *   in-game Probability Info button instead.
  * - The top-80 numbers are counted from public/data/top (AION2 Index, 2026-10-18).
  * Wise / White Dragon Lord are the Elyos names, Ebony / Dark Dragon Lord the Asmodian names of the same items.
  */
@@ -24,8 +23,8 @@ export const craftingGear: Guide = {
     en: 'Crafting gear: weapons & armor up to Dragon Lord',
   },
   summary: {
-    de: 'Welcher Beruf welche Waffe und Rüstung herstellt, warum die Splendent-Kette so teuer wird, der schnellste Weg auf Meisterschaft 55/60/80 und die ganze Kette vom Orichalcum-Schwert bis zum Dragon-Lord-Teil auf Stufe 102 – mit Rechenmodell, Materiallisten und dem, was die Top 80 tragen.',
-    en: 'Which profession makes which weapon and armor, why the Splendent chain gets so expensive, the fastest way to mastery 55/60/80 and the whole chain from the Orichalcum sword to the item level 102 Dragon Lord piece – with a cost model, material lists and what the top 80 wear.',
+    de: 'Welcher Beruf welche Waffe und Rüstung herstellt, warum die Splendent-Kette so teuer wird, der schnellste Weg auf Meisterschaft 55/60/80 und die ganze Kette vom Orichalcum-Schwert bis zum Dragon-Lord-Teil auf Stufe 102 – mit Materiallisten und dem, was die Top 80 tragen.',
+    en: 'Which profession makes which weapon and armor, why the Splendent chain gets so expensive, the fastest way to mastery 55/60/80 and the whole chain from the Orichalcum sword to the item level 102 Dragon Lord piece – with material lists and what the top 80 wear.',
   },
   updated: '2026-10-19',
   tags: [
@@ -35,8 +34,8 @@ export const craftingGear: Guide = {
     { de: 'Dragon Lord', en: 'Dragon Lord' },
   ],
   basis: {
-    de: 'Rezepte und Chancen aus Client-Daten-Seiten und Community-Guides zum globalen Server (Oktober 2026), Erfahrungswerte aus koreanischen Tests (Inven), ein eigenes Rechenmodell für die Splendent-Kette und die Ausrüstung der Top 10 aller acht Klassen (AION2 Index, 18.10.2026)',
-    en: 'Recipes and odds from client-data pages and community guides for the global server (October 2026), experience values from Korean tests (Inven), our own cost model for the Splendent chain and the gear of the top 10 of all eight classes (AION2 Index, 2026-10-18)',
+    de: 'Rezepte und Chancen aus Client-Daten-Seiten und Community-Guides zum globalen Server (Oktober 2026), Erfahrungswerte aus koreanischen Tests (Inven) und die Ausrüstung der Top 10 aller acht Klassen (AION2 Index, 18.10.2026)',
+    en: 'Recipes and odds from client-data pages and community guides for the global server (October 2026), experience values from Korean tests (Inven) and the gear of the top 10 of all eight classes (AION2 Index, 2026-10-18)',
   },
   sections: [
     {
@@ -46,7 +45,7 @@ export const craftingGear: Guide = {
           type: 'stats',
           items: [
             { value: '102', label: { de: 'Höchste Gegenstandsstufe', en: 'Highest item level' }, note: { de: 'Splendent Wise/Ebony Dragon Lord, pro Teil', en: 'Splendent Wise/Ebony Dragon Lord, per piece' }, tone: 'gold' },
-            { value: { de: '67,5 %', en: '67.5%' }, label: { de: 'Erfolg an der Rezeptstufe', en: 'Success at recipe level' }, note: { de: 'das erste Dragon-Lord-Teil – ein Fehlschlag frisst alles Material', en: 'the first Dragon Lord piece – a failure eats all the material' }, tone: 'rose' },
+            { value: { de: '25 %', en: '25%' }, label: { de: 'Chance auf die Splendent-Version', en: 'chance of the Splendent version' }, note: { de: 'nach einer gelungenen Herstellung – ein Fehlschlag frisst alles Material', en: 'after a successful craft – a failure eats all the material' }, tone: 'rose' },
             { value: '3', label: { de: 'Artisan’s-Splendent-Teile pro Platz', en: 'Artisan’s Splendent pieces per slot' }, note: { de: 'für die ganze Kette bis Stufe 102', en: 'for the whole chain up to level 102' }, tone: 'violet' },
             { value: { de: '76 von 80', en: '76 of 80' }, label: { de: 'Top-Spieler mit Splendent-Wise/Ebony-Waffe', en: 'top players with a Splendent Wise/Ebony weapon' }, note: { de: 'hergestellt, Stufe 102 · 18.10.2026', en: 'crafted, level 102 · 18 Oct 2026' }, tone: 'green' },
           ],
@@ -174,8 +173,8 @@ export const craftingGear: Guide = {
           type: 'flow',
           title: { de: 'Die Kette eines Platzes', en: 'The chain of one slot' },
           caption: {
-            de: 'Gegenstandsstufen am Langschwert (Fextralife, metabot.gg). Bis Artisan’s braucht jeder Schritt einen Combo-Treffer, ab Dragon Lord geht Normal → Splendent per Transfer.',
-            en: 'Item levels of the longsword (Fextralife, metabot.gg). Up to Artisan’s each step needs a combo hit, from Dragon Lord normal → Splendent works by transfer.',
+            de: 'Gegenstandsstufen am Langschwert (metabot.gg). Bis Artisan’s braucht jeder Schritt einen Combo-Treffer, ab Dragon Lord geht Normal → Splendent per Transfer.',
+            en: 'Item levels of the longsword (metabot.gg). Up to Artisan’s each step needs a combo hit, from Dragon Lord normal → Splendent works by transfer.',
           },
           items: [
             { title: { de: 'Orichalcum', en: 'Orichalcum' }, tag: { de: 'Meisterschaft 3', en: 'Mastery 3' }, text: { de: '3 Ingots + 5 Refining Stones + 2 Odyle → Stufe 18, Splendent 22', en: '3 ingots + 5 Refining Stones + 2 Odyle → level 18, Splendent 22' }, tone: 'slate' },
@@ -190,8 +189,8 @@ export const craftingGear: Guide = {
           type: 'line',
           title: { de: 'Gegenstandsstufe pro Sprosse', en: 'Item level per rung' },
           caption: {
-            de: 'Langschwert, globaler Client (Fextralife, metabot.gg). Der große Sprung kommt mit Dragon Lord: von 44 auf 62. Zum Vergleich: Dungeons lassen Stufe 54 (Krao Cave, Draupnir), 70 (Urugugu, Vakron), 86 (Fire Temple, Ferocious Horn Den) und 102 (Ludra – auf Global seit 5.10. offline) fallen.',
-            en: 'Longsword, global client (Fextralife, metabot.gg). The big jump comes with Dragon Lord: from 44 to 62. For comparison: dungeons drop level 54 (Krao Cave, Draupnir), 70 (Urugugu, Vakron), 86 (Fire Temple, Ferocious Horn Den) and 102 (Ludra – offline on Global since 5 Oct).',
+            de: 'Langschwert, globaler Client (metabot.gg). Der große Sprung kommt mit Dragon Lord: von 44 auf 62. Zum Vergleich: Dungeons lassen Stufe 54 (Krao Cave, Draupnir), 70 (Urugugu, Vakron), 86 (Fire Temple, Ferocious Horn Den) und 102 (Ludra – auf Global seit 5.10. offline) fallen.',
+            en: 'Longsword, global client (metabot.gg). The big jump comes with Dragon Lord: from 44 to 62. For comparison: dungeons drop level 54 (Krao Cave, Draupnir), 70 (Urugugu, Vakron), 86 (Fire Temple, Ferocious Horn Den) and 102 (Ludra – offline on Global since 5 Oct).',
           },
           x: { label: { de: 'Sprosse', en: 'Rung' }, ticks: ['Orichalcum', 'Expert’s', 'Artisan’s', 'True/Star', 'White/Dark', 'Wise/Ebony'] },
           y: { label: { de: 'Gegenstandsstufe', en: 'Item level' }, min: 0 },
@@ -204,20 +203,20 @@ export const craftingGear: Guide = {
           type: 'list',
           items: [
             {
-              de: '**Combo:** Nach einem Erfolg gibt es eine feste Chance von **25 %** auf die Splendent-Version (Essen 30 %, manche Manasteine 20 %, Ingots und Armbänder gar nicht). Die Combo würfelt aber noch einmal auf Erfolg – an der Rezeptstufe ist das etwa **ein Splendent-Teil pro 6–7 Versuche** (mehr dazu im nächsten Abschnitt).',
-              en: '**Combo:** after a success there is a fixed **25%** chance for the Splendent version (food 30%, some manastones 20%, ingots and bracelets none). The combo rolls for success once more though – at recipe level that is about **one Splendent piece per 6–7 attempts** (more on that in the next section).',
+              de: '**Combo:** Nach einem Erfolg gibt es eine feste Chance von **25 %** auf die Splendent-Version (Essen 30 %, manche Manasteine 20 %; metabot.gg). Weil die Herstellung selbst auch scheitern kann, liegt die Chance pro Versuch darunter (mehr dazu im nächsten Abschnitt).',
+              en: '**Combo:** after a success there is a fixed **25%** chance for the Splendent version (food 30%, some manastones 20%; metabot.gg). Because the craft itself can fail too, the chance per attempt is lower (more on that in the next section).',
             },
             {
-              de: '**Erfolgschance** an der Rezeptstufe: normale Rezepte ≈ 74 %, Expert’s 76,8 %, Artisan’s 79,6 %, Dragon Lord nur **67,5 %**. Sie steigt mit jeder Meisterschaftsstufe über dem Rezept, bis 93,1 % (normal), 94,6 % (Expert’s, Dragon Lord) bzw. 96,8 % (Artisan’s) rund 42–50 Stufen darüber. Sicher ist nichts – im Spiel zeigt der Knopf **Probability Info** deine Chance.',
-              en: '**Success chance** at recipe level: normal recipes about 74%, Expert’s 76.8%, Artisan’s 79.6%, Dragon Lord only **67.5%**. It rises with every mastery level above the recipe, up to 93.1% (normal), 94.6% (Expert’s, Dragon Lord) or 96.8% (Artisan’s) some 42–50 levels above it. Nothing is guaranteed – in game the **Probability Info** button shows your chance.',
+              de: '**Erfolgschance:** Eine Herstellung kann scheitern; je weiter deine Meisterschaft über der Rezeptstufe liegt, desto sicherer gelingt sie. Belegte Werte für Global haben wir nicht – im Spiel zeigt der Knopf **Probability Info** deine Chance.',
+              en: '**Success chance:** a craft can fail; the further your mastery is above the recipe level, the more reliably it succeeds. We have no confirmed values for Global – in game the **Probability Info** button shows your chance.',
             },
             {
               de: '**Fehlschlag** heißt: Materialien weg. Du bekommst aber 30 % der Erfahrung. Ein Treffer während des Herstellens zählt als Fehlschlag.',
               en: 'A **failure** means the materials are gone. You still get 30% of the experience. Getting hit while crafting counts as a failure.',
             },
             {
-              de: '**Transfer-Herstellung** (Normal → Splendent bei Dragon Lord, White/Dark, Wise/Ebony): gelingt laut Fextralife **immer**, braucht keine Meisterschaft und behält Verzauberung, Amplify und Seelenbindung. Das Ergebnis ist an dich seelengebunden. Auch beim Transfer kann die Combo direkt die Splendent-Version der nächsten Stufe geben.',
-              en: '**Transfer crafting** (normal → Splendent for Dragon Lord, White/Dark, Wise/Ebony): according to Fextralife it **always succeeds**, needs no mastery and keeps enhancement, amplification and Soul Binding. The result is soul bound to you. A transfer can also combo straight into the Splendent version of the next tier.',
+              de: '**Transfer-Herstellung** (Normal → Splendent bei Dragon Lord, White/Dark, Wise/Ebony): braucht keine Meisterschaft und behält Verzauberung, Amplify und Seelenbindung (metabot.gg). Ob sie immer gelingt, ist nicht belegt. Das Ergebnis ist an dich seelengebunden. Auch beim Transfer kann die Combo direkt die Splendent-Version der nächsten Stufe geben.',
+              en: '**Transfer crafting** (normal → Splendent for Dragon Lord, White/Dark, Wise/Ebony): needs no mastery and keeps enhancement, amplification and Soul Binding (metabot.gg). Whether it always succeeds is not confirmed. The result is soul bound to you. A transfer can also combo straight into the Splendent version of the next tier.',
             },
           ],
         },
@@ -229,51 +228,17 @@ export const craftingGear: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Ein Splendent-Teil gibt es nur über die Combo: erst muss die Herstellung gelingen, dann die 25-%-Combo auslösen, dann die Combo selbst noch einmal gelingen. An der Rezeptstufe sind das 13,7 % (Orichalcum) bis 15,8 % (Artisan’s) pro Versuch. Das Gemeine: **Jeder Versuch der nächsten Stufe verbraucht ein Splendent-Teil der Stufe davor** – auch wenn er scheitert oder nur ein normales Teil ergibt. Die Chancen multiplizieren sich.',
-            en: 'A Splendent piece only comes from the combo: first the craft must succeed, then the 25% combo must trigger, then the combo itself must succeed once more. At recipe level that is 13.7% (Orichalcum) to 15.8% (Artisan’s) per attempt. The nasty part: **every attempt at the next tier uses up a Splendent piece of the tier below** – even when it fails or only gives a normal piece. The odds multiply.',
+            de: 'Ein Splendent-Teil gibt es nur über die Combo: Erst muss die Herstellung gelingen, dann die 25-%-Combo auslösen. Das Gemeine: **Jedes Rezept der nächsten Stufe nimmt das Splendent-Teil der Stufe davor als erste Zutat** (metabot.gg) – und jeder Versuch verbraucht es, auch wenn er scheitert oder nur ein normales Teil ergibt. Die Chancen multiplizieren sich: Hinter einem Artisan’s-Splendent-Teil stehen mehrere Splendent-Expert’s-Teile, hinter jedem davon wieder mehrere Splendent-Orichalcum-Teile.',
+            en: 'A Splendent piece only comes from the combo: first the craft must succeed, then the 25% combo must trigger. The nasty part: **every recipe of the next tier takes the Splendent piece of the tier below as its first ingredient** (metabot.gg) – and every attempt uses it up, even when it fails or only gives a normal piece. The odds multiply: behind one Artisan’s Splendent piece stand several Splendent Expert’s pieces, and behind each of those several Splendent Orichalcum ones.',
           },
-        },
-        {
-          type: 'bars',
-          title: { de: 'Orichalcum-Herstellungen hinter einem Splendent-Teil', en: 'Orichalcum crafts behind one Splendent piece' },
-          caption: {
-            de: 'Gerechnet, nicht gemessen: Erfolg × 25 % × Erfolg mit den Chancen von Fextralife (an der Rezeptstufe 74 / 76,8 / 79,6 %, an der Obergrenze 93,1 / 94,6 / 96,8 %). Ein Test mit 4.000 Herstellungen (Inven) passt zu dieser Regel. In echt liegst du dazwischen, weil deine Meisterschaft beim Herstellen steigt.',
-            en: 'Worked out, not measured: success × 25% × success with Fextralife’s chances (at recipe level 74 / 76.8 / 79.6%, at the cap 93.1 / 94.6 / 96.8%). A 4,000-craft test (Inven) fits this rule. In practice you land in between, because your mastery rises while you craft.',
-          },
-          items: [
-            { label: 'Splendent Orichalcum', value: 7.3, display: '≈ 7', note: { de: 'an der Rezeptstufe', en: 'at recipe level' }, tone: 'slate' },
-            { label: 'Splendent Expert’s', value: 49.5, display: '≈ 50', note: { de: '+ ≈ 7 Expert’s-Versuche', en: '+ ≈ 7 Expert’s attempts' }, tone: 'blue' },
-            { label: 'Splendent Artisan’s', value: 313, display: '≈ 313', note: { de: '+ ≈ 43 Expert’s- und ≈ 6 Artisan’s-Versuche', en: '+ ≈ 43 Expert’s and ≈ 6 Artisan’s attempts' }, tone: 'rose' },
-            { label: { de: 'Splendent Artisan’s an der Obergrenze', en: 'Splendent Artisan’s at the cap' }, value: 88, display: '≈ 88', note: { de: '+ ≈ 19 Expert’s- und ≈ 4 Artisan’s-Versuche', en: '+ ≈ 19 Expert’s and ≈ 4 Artisan’s attempts' }, tone: 'teal' },
-          ],
-        },
-        {
-          type: 'facts',
-          items: [
-            {
-              label: { de: 'Material für ein Artisan’s-Splendent-Langschwert', en: 'Material for one Artisan’s Splendent longsword' },
-              value: {
-                de: 'An der Rezeptstufe gerechnet: ≈ 940 Ingots (1.880 Erz + 940 Lösungsmittel ≈ 375.000 Kina) + 1.560 Refining Stones + 625 Odyle, dazu ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle und ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
-                en: 'Worked out at recipe level: ≈ 940 ingots (1,880 ore + 940 solvent ≈ 375,000 Kina) + 1,560 Refining Stones + 625 Odyle, plus ≈ 215 Expert’s Refining Stones, 255 Fine Ore, 130 Fine Odyle and ≈ 32 Artisan’s Refining Stones, 51 Pure Ore, 25 Pure Odyle',
-              },
-            },
-            {
-              label: { de: 'An der Obergrenze', en: 'At the cap' },
-              value: { de: 'Rund 30 % davon: ≈ 265 Ingots, 440 Refining Stones, 175 Odyle', en: 'About 30% of that: ≈ 265 ingots, 440 Refining Stones, 175 Odyle' },
-            },
-            {
-              label: { de: 'Für die ganze Kette', en: 'For the whole chain' },
-              value: { de: 'Drei solche Teile pro Platz – eins für True/Star, eins für White/Dark, eins für Wise/Ebony', en: 'Three such pieces per slot – one for True/Star, one for White/Dark, one for Wise/Ebony' },
-            },
-          ],
         },
         {
           type: 'callout',
           tone: 'tip',
           title: { de: 'Was daraus folgt', en: 'What follows from it' },
           text: {
-            de: '**1.** Splendent-Zwischenstufen kaufen, wenn sie billiger sind: Am 5.10. kostete ein Splendent Orichalcum Longsword selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kina. **2.** Das zweite und dritte Artisan’s-Splendent-Teil erst mit hoher Meisterschaft herstellen – die niedrigen Rezepte sind dann nahe an ihrer Obergrenze, und die Kette kostet bis zu 3,5-mal weniger Versuche. **3.** Normale Ergebnisse sind kein Abfall: Sie gehen in die Supply Requests oder auf den Markt.',
-            en: '**1.** Buy Splendent intermediates when they are cheaper: on 5 Oct a Splendent Orichalcum Longsword cost about 223,000 Kina to craft and about 100,000 to buy. **2.** Craft the second and third Artisan’s Splendent piece only at high mastery – the low recipes are near their cap by then, and the chain takes up to 3.5 times fewer attempts. **3.** Normal results are not waste: they go into Supply Requests or onto the market.',
+            de: '**1.** Splendent-Zwischenstufen kaufen, wenn sie billiger sind: Am 5.10. kostete ein Splendent Orichalcum Longsword selbst gemacht ≈ 223.000, gekauft ≈ 100.000 Kina. **2.** Das zweite und dritte Artisan’s-Splendent-Teil erst mit hoher Meisterschaft herstellen – dann gelingen die niedrigen Rezepte öfter, und jede Stufe der Kette braucht weniger Versuche. Vorher im Spiel mit **Probability Info** nachsehen. **3.** Normale Ergebnisse sind kein Abfall: Sie gehen in die Supply Requests oder auf den Markt.',
+            en: '**1.** Buy Splendent intermediates when they are cheaper: on 5 Oct a Splendent Orichalcum Longsword cost about 223,000 Kina to craft and about 100,000 to buy. **2.** Craft the second and third Artisan’s Splendent piece only at high mastery – the low recipes then succeed more often, and every tier of the chain takes fewer attempts. Check **Probability Info** in game first. **3.** Normal results are not waste: they go into Supply Requests or onto the market.',
           },
         },
       ],
@@ -329,8 +294,8 @@ export const craftingGear: Guide = {
             {
               title: { de: 'Dragon Lord herstellen – mit Abstand zur Rezeptstufe', en: 'Craft Dragon Lord – with some distance to the recipe level' },
               text: {
-                de: 'An der Rezeptstufe gelingt Dragon Lord nur zu **67,5 %**. Bei Meisterschaft 62 sind es ≈ 76 %, ganz oben 94,6 %. Ein Fehlschlag kostet das ganze Material samt 10 Wrathful Mind. Darum erst die Hörner, dann das Teil. Mit Glück gibt schon dieser Versuch die Splendent-Version (≈ 13 % an der Rezeptstufe) – dann sparst du den Transfer.',
-                en: 'At recipe level Dragon Lord only succeeds **67.5%** of the time. At mastery 62 it is about 76%, at the top 94.6%. A failure costs all the material including 10 Wrathful Mind. So horns first, then the piece. With luck this very attempt gives the Splendent version (about 13% at recipe level) – then you save the transfer.',
+                de: 'Dragon Lord kann scheitern, und ein Fehlschlag kostet das ganze Material samt 10 Wrathful Mind. Je mehr Meisterschaft über der Rezeptstufe, desto besser deine Chance – schau vorher auf **Probability Info**. Darum erst die Hörner, dann das Teil. Mit Glück gibt schon dieser Versuch die Splendent-Version – dann sparst du den Transfer.',
+                en: 'Dragon Lord can fail, and a failure costs all the material including 10 Wrathful Mind. The more mastery above the recipe level, the better your chance – check **Probability Info** first. So horns first, then the piece. With luck this very attempt gives the Splendent version – then you save the transfer.',
               },
             },
             {
@@ -588,8 +553,8 @@ export const craftingGear: Guide = {
           type: 'compare',
           title: { de: 'Drei Wege zu guter Ausrüstung', en: 'Three ways to good gear' },
           caption: {
-            de: 'Preise vom 5.10.2026 (Community), Chancen von Fextralife, Top-80-Zahlen vom 18.10.2026 (AION2 Index). Für den Markt brauchst du das Special-Quai-Abo.',
-            en: 'Prices from 5 Oct 2026 (community), odds from Fextralife, top-80 numbers from 18 Oct 2026 (AION2 Index). The market needs the Special Quai membership.',
+            de: 'Preise vom 5.10.2026 (Community), Top-80-Zahlen vom 18.10.2026 (AION2 Index). Für den Markt brauchst du das Special-Quai-Abo.',
+            en: 'Prices from 5 Oct 2026 (community), top-80 numbers from 18 Oct 2026 (AION2 Index). The market needs the Special Quai membership.',
           },
           items: [
             {
@@ -600,7 +565,7 @@ export const craftingGear: Guide = {
                 { kind: 'pro', text: { de: 'Der einzige Weg zu Rüstung und Schmuck auf Stufe 102', en: 'The only way to level 102 armor and jewelry' } },
                 { kind: 'pro', text: { de: 'Verzauberung, Amplify und Seelenbindung wandern bei jedem Transfer mit', en: 'Enhancement, amplification and Soul Binding move along with every transfer' } },
                 { kind: 'pro', text: { de: '5 Seelenbindungs-Zeilen, Waffen mit +5 % PvE Damage Boost', en: '5 Soul Binding lines, weapons with +5% PvE Damage Boost' } },
-                { kind: 'con', text: { de: '≈ 90–310 Orichalcum-Versuche pro Artisan’s-Splendent-Teil – und drei pro Platz', en: '≈ 90–310 Orichalcum attempts per Artisan’s Splendent piece – and three per slot' } },
+                { kind: 'con', text: { de: 'Viele Orichalcum-Versuche hinter jedem Artisan’s-Splendent-Teil – und drei davon pro Platz', en: 'Many Orichalcum attempts behind every Artisan’s Splendent piece – and three of those per slot' } },
                 { kind: 'con', text: { de: '278 Balaur’s Essence pro Waffe, Meisterschaft 80 für die letzten Hörner', en: '278 Balaur’s Essence per weapon, mastery 80 for the last horns' } },
               ],
               verdict: { de: 'Für die Waffe deines Mains und alle Plätze, die du bis zum Ende behältst.', en: 'For your main’s weapon and every slot you keep until the end.' },
@@ -663,8 +628,8 @@ export const craftingGear: Guide = {
           tone: 'warn',
           title: { de: 'Erst rechnen', en: 'Calculate first' },
           text: {
-            de: 'Allein die 10 Wrathful Mind für ein True-Dragon-Lord-Langschwert kosteten am 5.10. rund 3,5 Mio. Kina. An der Rezeptstufe scheitert jeder dritte Versuch – im Schnitt verlierst du so ≈ 1,1 Mio. Kina pro Versuch, bei Meisterschaft 62 ≈ 0,8 Mio. Vergleiche vorher: Was kostet das fertige Teil, was kosten die Zutaten, wie hoch ist deine Chance?',
-            en: 'The 10 Wrathful Mind for one True Dragon Lord longsword alone cost about 3.5 million Kina on 5 Oct. At recipe level one attempt in three fails – on average that is ≈ 1.1 million Kina lost per attempt, at mastery 62 ≈ 0.8 million. Compare first: what does the finished piece cost, what do the ingredients cost, how high is your chance?',
+            de: 'Allein die 10 Wrathful Mind für ein True-Dragon-Lord-Langschwert kosteten am 5.10. rund 3,5 Mio. Kina. Scheitert der Versuch, ist alles weg. Vergleiche vorher: Was kostet das fertige Teil, was kosten die Zutaten, wie hoch ist deine Chance?',
+            en: 'The 10 Wrathful Mind for one True Dragon Lord longsword alone cost about 3.5 million Kina on 5 Oct. If the attempt fails, it is all gone. Compare first: what does the finished piece cost, what do the ingredients cost, how high is your chance?',
           },
         },
         {
@@ -692,7 +657,7 @@ export const craftingGear: Guide = {
             { de: 'Nicht bei Novice 50 stehen bleiben – dort gibt es keine Erfahrung mehr', en: 'Do not sit at Novice 50 – there is no more experience there' },
             { de: 'Splendent-Teile nicht verkaufen oder zerlegen – sie sind die Zutat für die nächste Stufe', en: 'Do not sell or dismantle Splendent pieces – they are the ingredient for the next tier' },
             { de: 'Dragon Lord nicht direkt bei 55 versuchen, wenn du das Material nur einmal hast – erst die Hörner (≈ 62)', en: 'Do not try Dragon Lord right at 55 if you only have the material once – horns first (≈ 62)' },
-            { de: 'Das zweite und dritte Artisan’s-Splendent-Teil nicht an der Rezeptstufe herstellen – mit hoher Meisterschaft kostet es rund ein Drittel', en: 'Do not craft the second and third Artisan’s Splendent piece at recipe level – at high mastery it costs about a third' },
+            { de: 'Das zweite und dritte Artisan’s-Splendent-Teil nicht an der Rezeptstufe herstellen – mit hoher Meisterschaft brauchst du deutlich weniger Versuche', en: 'Do not craft the second and third Artisan’s Splendent piece at recipe level – at high mastery you need far fewer attempts' },
             { de: 'Balaur’s Essence und Wrathful Mind nicht für Erfahrung verbrennen', en: 'Do not burn Balaur’s Essence and Wrathful Mind for experience' },
             { de: 'Bogen und Stab sind Handwerk, Zauberbuch und Orb Alchemie – nicht Schmieden', en: 'Bow and staff are handicrafting, spellbook and orb alchemy – not blacksmithing' },
             { de: 'Dein True-Teil ruhig verstärken – Verstärkung und Seelenbindung gehen beim Transfer mit', en: 'Feel free to enhance your True piece – enhancement and Soul Binding carry over in the transfer' },
@@ -730,8 +695,8 @@ export const craftingGear: Guide = {
           type: 'callout',
           tone: 'info',
           text: {
-            de: 'Für Global noch nicht eindeutig belegt: die Erfahrung pro Rezept (hier stehen koreanische Werte – die Erfahrungskurve passt aber genau zu den globalen Client-Daten), ob Transfer wirklich nie scheitert (Fextralife und metabot sagen garantiert, eine Quelle meint, bei Fehlschlag sind die Zutaten weg), ob normale Herstellungen gebunden sind, ob Rezepte weit unter deiner Meisterschaft noch Erfahrung geben (ein Guide nennt eine Grenze von 40 Stufen), die Marktgebühr, ob man ohne Abo verkaufen kann, und wann der Ludra-Raid zurückkommt. Das Splendent-Rechenmodell ist gerechnet, nicht gemessen. Wenn du es im Spiel siehst, sag Bescheid – dann wird der Guide ergänzt.',
-            en: 'Not clearly confirmed for Global yet: the experience per recipe (Korean values are given here – the experience curve matches the global client data exactly though), whether transfers really never fail (Fextralife and metabot say guaranteed, one source says the ingredients are lost on failure), whether normal crafts are bound, whether recipes far below your mastery still give experience (one guide names a limit of 40 levels), the market fee, whether you can sell without the membership, and when the Ludra raid returns. The Splendent cost model is worked out, not measured. If you see it in game, let us know and the guide gets updated.',
+            de: 'Für Global noch nicht eindeutig belegt: die Erfahrung pro Rezept (hier stehen koreanische Werte – die Erfahrungskurve passt aber genau zu den globalen Client-Daten), die genauen Erfolgschancen pro Rezept und Meisterschaft, ob Transfer wirklich nie scheitert (keine unserer Quellen bestätigt das, eine meint, bei Fehlschlag sind die Zutaten weg), ob normale Herstellungen gebunden sind, ob Rezepte weit unter deiner Meisterschaft noch Erfahrung geben (ein Guide nennt eine Grenze von 40 Stufen), die Marktgebühr, ob man ohne Abo verkaufen kann, und wann der Ludra-Raid zurückkommt. Wenn du es im Spiel siehst, sag Bescheid – dann wird der Guide ergänzt.',
+            en: 'Not clearly confirmed for Global yet: the experience per recipe (Korean values are given here – the experience curve matches the global client data exactly though), the exact success chances per recipe and mastery, whether transfers really never fail (none of our sources confirms it, one says the ingredients are lost on failure), whether normal crafts are bound, whether recipes far below your mastery still give experience (one guide names a limit of 40 levels), the market fee, whether you can sell without the membership, and when the Ludra raid returns. If you see it in game, let us know and the guide gets updated.',
           },
         },
       ],
@@ -744,16 +709,12 @@ export const craftingGear: Guide = {
           items: [
             { href: 'https://metabot.gg/en/aion-2/guides/crafting-guide', label: 'metabot.gg – Crafting guide (global client data)' },
             { href: 'https://metabot.gg/en/aion-2/guides/gear-progression-guide', label: 'metabot.gg – Gear progression guide' },
-            { href: 'https://aion2.wiki.fextralife.com/Crafting', label: 'Fextralife wiki – Crafting (success and combo rates)' },
-            { href: 'https://aion2.wiki.fextralife.com/True_Dragon_Lord_Longsword', label: 'Fextralife wiki – True Dragon Lord Longsword' },
             { href: 'https://aion2hub.com/tools/crafting-calculator/wise-dragon-lord-longsword-110230102', label: 'AION2Hub – Crafting calculator: Wise Dragon Lord Longsword' },
             { href: 'https://aion2hub.com/tools/crafting-calculator/splendent-wise-dragon-lord-mace-110730104', label: 'AION2Hub – Crafting calculator: Splendent Wise Dragon Lord Mace' },
             { href: 'https://aion2hub.com/tools/crafting-calculator/star-dragon-lord-longsword-110230098', label: 'AION2Hub – Star Dragon Lord Longsword (KR/TW recipe with core)' },
-            { href: 'https://www.keengamer.com/articles/guides/aion-2-crafting-guide-professions-gear-materials/', label: 'KeenGamer – Crafting guide' },
             { href: 'https://space4games.com/en/games-en/aion-2-crafting-guide/', label: 'Space4Games – Crafting guide' },
             { href: 'https://corpus.gg/blog/aion-2/crafting-guide', label: 'corpus.gg – Crafting guide' },
             { href: 'https://timesaver.gg/blog/aion-2-crafting-guide', label: 'timesaver.gg – Crafting guide' },
-            { href: 'https://wikily.gg/aion-2/crafting', label: 'wikily.gg – Crafting' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/1161', label: 'Inven (KR) – Crafting experience per level' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/1624', label: 'Inven (KR) – Experience per recipe, mastery cap raised (April 2026)' },
             { href: 'https://www.inven.co.kr/board/aion2/6444/917', label: 'Inven (KR) – 4,000-craft combo test' },

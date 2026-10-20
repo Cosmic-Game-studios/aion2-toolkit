@@ -603,7 +603,6 @@ export const gladiatorGuide = classGuide({
   playstyles: gladiatorPlaystyles,
   sources: [
     { href: 'https://metabot.gg/en/aion-2/classes/gladiator', label: 'MetaBot – Gladiator class guide' },
-    { href: 'https://dbaion2.ru/en/guides/gayd-gladiator/', label: 'dbaion2 – Gladiator guide' },
     { href: 'https://allthings.how/aion-2-gladiator-pve-build-skills-stigmas-and-the-level-16-overhead-slam-rotation/', label: 'AllThings.How – Gladiator PvE build and rotation' },
     { href: 'https://www.inven.co.kr/board/aion2/6448/16354', label: 'Inven (KR) – Gladiator build post 1' },
     { href: 'https://www.inven.co.kr/board/aion2/6448/31551', label: 'Inven (KR) – Gladiator build post 2' },
@@ -614,11 +613,9 @@ export const gladiatorGuide = classGuide({
     { href: 'https://aion2vault.com/builds/gladiator/pve/', label: 'AION2 Vault – Gladiator PvE build' },
     { href: 'https://aion2-guides.info/en/gladiator/', label: 'AION 2 Guides – Gladiator (PvE and PvP)' },
     { href: 'https://aion2-meta.com/guides/gladiator/', label: 'Aion 2 Meta – Gladiator guide' },
-    { href: 'https://aion2.wiki.fextralife.com/Gladiator', label: 'Fextralife – Gladiator' },
-    { href: 'https://aion2.wiki.fextralife.com/Gladiator_Builds', label: 'Fextralife – Gladiator builds' },
   ],
   caveat: {
-    de: "Der globale Client entspricht etwa dem koreanischen Stand von Anfang September 2026. Guides von vor dem 12. August (Änderungen an [[11100000|Ruinous Blow]]) sind teils veraltet. Bei den Stigma-Stufen sind sich die Quellen nicht einig: Viele Guides nennen [[11390000|Rage Burst]] Stufe 5 und [[11250000|Zikel's Blessing]] Stufe 10, die Top 10 haben beide meist auf 15–20. Auch bei [[11280000|Sword Aura Rampage]] und der Spezialisierung von [[11020000|Keen Strike]] gehen die Meinungen auseinander. Dass [[11360000|Rush Strike]] nur nach einem Ausweichen und [[11200000|Ankle Slice]] nur nach einem Block geht, steht so im deutschen Skilltext und bei Fextralife – der englische Text ist an der Stelle unklar. Im Zweifel gilt, was im Spiel bei dir funktioniert.",
-    en: "The global client is roughly at the Korean state of early September 2026. Guides from before 12 August (changes to [[11100000|Ruinous Blow]]) are partly outdated. Sources disagree on stigma levels: many guides name [[11390000|Rage Burst]] level 5 and [[11250000|Zikel's Blessing]] level 10, while the top 10 mostly have both at 15–20. Opinions also differ on [[11280000|Sword Aura Rampage]] and on the specialisation of [[11020000|Keen Strike]]. That [[11360000|Rush Strike]] only works after a dodge and [[11200000|Ankle Slice]] only after a Block is what the German skill text and Fextralife say – the English text is unclear there. When in doubt, what works for you in game wins.",
+    de: "Der globale Client entspricht etwa dem koreanischen Stand von Anfang September 2026. Guides von vor dem 12. August (Änderungen an [[11100000|Ruinous Blow]]) sind teils veraltet. Bei den Stigma-Stufen sind sich die Quellen nicht einig: Viele Guides nennen [[11390000|Rage Burst]] Stufe 5 und [[11250000|Zikel's Blessing]] Stufe 10, die Top 10 haben beide meist auf 15–20. Auch bei [[11280000|Sword Aura Rampage]] und der Spezialisierung von [[11020000|Keen Strike]] gehen die Meinungen auseinander. Dass [[11360000|Rush Strike]] nur nach einem Ausweichen und [[11200000|Ankle Slice]] nur nach einem Block geht, steht so im deutschen Skilltext – der englische Text ist an der Stelle unklar. Im Zweifel gilt, was im Spiel bei dir funktioniert.",
+    en: "The global client is roughly at the Korean state of early September 2026. Guides from before 12 August (changes to [[11100000|Ruinous Blow]]) are partly outdated. Sources disagree on stigma levels: many guides name [[11390000|Rage Burst]] level 5 and [[11250000|Zikel's Blessing]] level 10, while the top 10 mostly have both at 15–20. Opinions also differ on [[11280000|Sword Aura Rampage]] and on the specialisation of [[11020000|Keen Strike]]. That [[11360000|Rush Strike]] only works after a dodge and [[11200000|Ankle Slice]] only after a Block is what the German skill text says – the English text is unclear there. When in doubt, what works for you in game wins.",
   },
 });

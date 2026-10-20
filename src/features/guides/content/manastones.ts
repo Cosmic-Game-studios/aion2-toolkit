@@ -8,8 +8,7 @@ import type { Guide, L10n } from '../types';
  *   (Bound), Superior Manastone, Superior Manastone (Bound)) and AllThings.How (Lesser, Intermediate, Superior,
  *   Superior Abyssal Manastone, Lesser Abyssal Soulstone, 13 Oct): roll grades and odds, slots and engrave fees, drop
  *   chances, recipes, achievements, Abyss Trade Shop prices and the weekly limit.
- * - Community guides: Raid Relay (alts, 14 Oct: alts send the shop stones through Server Storage), Corpus (stop rules,
- *   item level per line colour), ExpCarry, Daevahelper, Odealo (stats per class), Timesaver (gear transfer), ShowGamer,
+ * - Community guides: Corpus (stop rules, item level per line colour), ExpCarry, Daevahelper, Odealo (stats per class), Timesaver (gear transfer), ShowGamer,
  *   Codex, games.gg (item level), endgametools / NeonSect (Daeva Pass), aion2wiki.date (storage).
  * - Inven (KR, Nov 2025, marked as Korean): one stone per engrave, +1 to +4 per line by colour, sources.
  * - Repo: AION2 Index top 80 (public/data/top, 18 Oct): 1,119 of 1,120 main slots are Unique; each wears one Legend
@@ -18,8 +17,9 @@ import type { Guide, L10n } from '../types';
  * Models (captions say so):
  * - Item level per piece = lines × Σ(chance of colour × 1–4); the colour steps come from Inven (KR), Corpus and ExpCarry.
  * - Engraves for a target = 1 / (1 − (1 − p)^4): every engrave rolls all 4 lines of a Unique piece.
- * - Alchemy: Superior per attempt = success × 20% × success (the rule the crafting guide uses); success 72.9% at recipe
- *   level (AllThings), ≈93% at the cap (normal recipes, Fextralife via crafting-gear.ts).
+ * - Alchemy: the 20% combo comes after a successful Intermediate craft, so a Superior takes 5 successful crafts
+ *   (25 Lesser) on average, plus the failed ones; success 72.9% at recipe level (AllThings). No source we use gives
+ *   the chance at higher mastery, so the guide names none.
  * - Alts: every character empties both Abyss shop offers (150,000 AP a week).
  * No source publishes manastones per hour, and no global market prices were found – the guide says so.
  */
@@ -54,8 +54,8 @@ export const manastones: Guide = {
     { de: 'Twinks', en: 'Alts' },
   ],
   basis: {
-    de: 'Recherche zum globalen Client (Stand 19.10.2026): Client-Daten-Seiten (metabot.gg, AllThings.How), Community-Guides (Raid Relay, Corpus, Daevahelper, Odealo u. a.) und koreanische Werte von Inven (als solche markiert). Gravuren pro Ziel, Alchemie-Ausbeute und Steine pro Woche mit Twinks sind Rechnungen mit genannten Annahmen. Ertrag pro Stunde und Marktpreise sind nicht veröffentlicht.',
-    en: 'Research for the global client (as of 19 Oct 2026): client-data pages (metabot.gg, AllThings.How), community guides (Raid Relay, Corpus, Daevahelper, Odealo and others) and Korean values from Inven (marked as such). Engraves per target, alchemy yield and stones per week with alts are calculations with stated assumptions. Yield per hour and market prices are not published.',
+    de: 'Recherche zum globalen Client (Stand 19.10.2026): Client-Daten-Seiten (metabot.gg, AllThings.How), Community-Guides (Corpus, Daevahelper, Odealo u. a.) und koreanische Werte von Inven (als solche markiert). Gravuren pro Ziel, Alchemie-Ausbeute und Steine pro Woche mit Twinks sind Rechnungen mit genannten Annahmen. Ertrag pro Stunde und Marktpreise sind nicht veröffentlicht.',
+    en: 'Research for the global client (as of 19 Oct 2026): client-data pages (metabot.gg, AllThings.How), community guides (Corpus, Daevahelper, Odealo and others) and Korean values from Inven (marked as such). Engraves per target, alchemy yield and stones per week with alts are calculations with stated assumptions. Yield per hour and market prices are not published.',
   },
   sections: [
     {
@@ -68,7 +68,7 @@ export const manastones: Guide = {
             { value: { de: '+1 bis +4', en: '+1 to +4' }, label: { de: 'Gegenstandsstufe pro Sockel', en: 'item level per socket' }, note: { de: 'weiß · grün · blau · gold', en: 'white · green · blue · gold' }, tone: 'teal' },
             { value: '100', label: { de: 'Abyss-Steine pro Woche und Charakter', en: 'Abyss stones per week and character' }, note: num('50 × 1,000 AP + 50 × 2,000 AP'), tone: 'gold' },
             { value: '≈17', label: { de: 'Gravuren für eine goldene Angriffs-Zeile', en: 'engraves for one gold Attack line' }, note: { de: 'Superior-Steine, im Schnitt', en: 'Superior stones, on average' }, tone: 'rose' },
-            { value: '≈29–47', label: { de: 'Lesser pro Superior über die Combo', en: 'Lesser per Superior via the combo' }, note: { de: 'Alchemie, Rechnung', en: 'alchemy, calculated' }, tone: 'violet' },
+            { value: '25+', label: { de: 'Lesser pro Superior über die Combo', en: 'Lesser per Superior via the combo' }, note: { de: 'im Schnitt 5 gelungene Versuche, plus Fehlschläge', en: '5 successful crafts on average, plus failures' }, tone: 'violet' },
           ],
         },
         {
@@ -183,8 +183,8 @@ export const manastones: Guide = {
               en: '**Transfer:** an **Upgrade** in the Enhancement window keeps them – according to metabot.gg the game text says enhancement, manastones, Theostones and Soul Binding carry over. A **Gear Transfer** and a new piece do **not** keep them (Timesaver, AllThings, Corpus, Daevahelper, Odealo). For the transfer recipes of the Dragon Lord chain no source says the stones stay – plan as if they are gone.',
             },
             {
-              de: '**Gebunden oder handelbar:** Gedropte Lesser und alles Hergestellte ist handelbar. Steine mit „(Bound)“ – aus Quests, Pass, Shop, Dungeons und Erfolgen – nicht. Die gebundenen Abyss-Shop-Steine dürfen laut Raid Relay, AllThings und aion2wiki aber ins Server-Lager.',
-              en: '**Bound or tradeable:** dropped Lesser stones and everything crafted is tradeable. Stones marked “(Bound)” – from quests, the pass, the shop, dungeons and achievements – are not. According to Raid Relay, AllThings and aion2wiki the bound Abyss shop stones may still go into Server Storage.',
+              de: '**Gebunden oder handelbar:** Gedropte Lesser und alles Hergestellte ist handelbar. Steine mit „(Bound)“ – aus Quests, Pass, Shop, Dungeons und Erfolgen – nicht. Die gebundenen Abyss-Shop-Steine dürfen laut AllThings und aion2wiki aber ins Server-Lager.',
+              en: '**Bound or tradeable:** dropped Lesser stones and everything crafted is tradeable. Stones marked “(Bound)” – from quests, the pass, the shop, dungeons and achievements – are not. According to AllThings and aion2wiki the bound Abyss shop stones may still go into Server Storage.',
             },
           ],
         },
@@ -216,7 +216,7 @@ export const manastones: Guide = {
           rows: [
             [{ de: '**Abyss Trade Shop**', en: '**Abyss Trade Shop**' }, 'Lesser Abyssal Manastone · Lesser Abyssal Soulstone', { de: '1.000 bzw. 2.000 AP pro Stück', en: '1,000 or 2,000 AP each' }, { de: 'je 50 pro Charakter und Woche', en: '50 each per character and week' }, { de: 'gebunden, Server-Lager ✔', en: 'bound, Server Storage ✔' }],
             [{ de: 'Transcendence: Deus Research Base, Shattered Arkanis', en: 'Transcendence: Deus Research Base, Shattered Arkanis' }, 'Lesser, Intermediate', { de: 'Atiel, Talisra: 30 % Lesser, 6 % Intermediate; Nazmun, Gelcos, Siliator, Ruthilis: 2 % Intermediate', en: 'Atiel, Talisra: 30% Lesser, 6% Intermediate; Nazmun, Gelcos, Siliator, Ruthilis: 2% Intermediate' }, { de: '14 Belohnungen pro Woche', en: '14 rewards per week' }, { de: 'gebunden', en: 'bound' }],
-            ['Ascension Binding Chest', { de: '1 Stein pro Kiste', en: '1 stone per chest' }, { de: '45 % Lesser Manastone, 45 % Lesser Soulstone, je 5 % Intermediate', en: '45% Lesser Manastone, 45% Lesser Soulstone, 5% each Intermediate' }, { de: 'Ascension Trial (3 pro Woche), Nightmare Altar', en: 'Ascension Trial (3 a week), Nightmare Altar' }, { de: 'gebunden; Kiste ins Server-Lager (Raid Relay)', en: 'bound; chest into Server Storage (Raid Relay)' }],
+            ['Ascension Binding Chest', { de: '1 Stein pro Kiste', en: '1 stone per chest' }, { de: '45 % Lesser Manastone, 45 % Lesser Soulstone, je 5 % Intermediate', en: '45% Lesser Manastone, 45% Lesser Soulstone, 5% each Intermediate' }, { de: 'Ascension Trial (3 pro Woche), Nightmare Altar', en: 'Ascension Trial (3 a week), Nightmare Altar' }, { de: 'gebunden; ob die Kiste ins Server-Lager darf, ist nicht bestätigt', en: 'bound; whether the chest may go into Server Storage is not confirmed' }],
             ['Ludra (Abyssal Forge)', 'Lesser (Bound)', { de: 'keine Zahl veröffentlicht', en: 'no number published' }, { de: '1 Kill pro Woche', en: '1 kill a week' }, { de: 'gebunden', en: 'bound' }],
             [{ de: 'Elite-Monster in Chaotic Middle Reshanta', en: 'Elite monsters in Chaotic Middle Reshanta' }, 'Lesser Manastone', { de: 'bis 1,96 % pro Kill', en: 'up to 1.96% per kill' }, { de: 'mit deiner Abyss-Zeit (7 Std. pro Woche)', en: 'with your Abyss time (7 h a week)' }, { de: 'handelbar', en: 'tradeable' }],
             [{ de: 'Benannte Monster ab 45 in Verteron und Altgard, Chaotic Lower Reshanta', en: 'Named monsters 45+ in Verteron and Altgard, Chaotic Lower Reshanta' }, 'Lesser Manastone', { de: 'meist ≈0,6 % oder weniger', en: 'mostly ≈0.6% or less' }, '–', { de: 'handelbar', en: 'tradeable' }],
@@ -323,29 +323,15 @@ export const manastones: Guide = {
           ],
         },
         {
-          type: 'bars',
-          title: { de: 'Lesser Manastones hinter einem Superior Manastone', en: 'Lesser Manastones behind one Superior Manastone' },
-          caption: {
-            de: 'Gerechnet, nicht gemessen – mit der Regel aus „Handwerk: Waffen & Rüstung“: Superior pro Versuch = Erfolg × 20 % × Erfolg. Erfolg 72,9 % an der Rezeptstufe (AllThings), ≈93 % an der Obergrenze (normale Rezepte, Fextralife). Die Intermediates, die dabei nebenher entstehen (≈4,5–6 pro Superior), sind nicht abgezogen. Direktrezept: 30 Intermediates zu je ≈5,4 Lesser (ab Meisterschaft 85 läuft das Intermediate-Rezept an der Obergrenze), 72,9–93 % Erfolg.',
-            en: 'Worked out, not measured – with the rule from “Crafting gear”: Superior per attempt = success × 20% × success. Success 72.9% at recipe level (AllThings), ≈93% at the cap (normal recipes, Fextralife). The Intermediates you get along the way (≈4.5–6 per Superior) are not subtracted. Direct recipe: 30 Intermediates at ≈5.4 Lesser each (from mastery 85 the Intermediate recipe runs at the cap), 72.9–93% success.',
-          },
-          unit: 'Lesser',
-          items: [
-            { label: { de: 'Combo, an der Obergrenze', en: 'Combo, at the cap' }, value: 29, display: '≈29', note: { de: '≈3,5 Superior pro 100 Lesser', en: '≈3.5 Superior per 100 Lesser' }, tone: 'gold' },
-            { label: { de: 'Combo, an der Rezeptstufe', en: 'Combo, at recipe level' }, value: 47, display: '≈47', note: { de: '≈2,1 Superior pro 100 Lesser', en: '≈2.1 Superior per 100 Lesser' }, tone: 'teal' },
-            { label: { de: 'Direktrezept (30 Intermediate)', en: 'Direct recipe (30 Intermediate)' }, value: 221, display: '≈175–220', note: { de: 'erst ab Meisterschaft 85', en: 'only from mastery 85' }, tone: 'rose' },
-          ],
-        },
-        {
           type: 'list',
           items: [
             {
-              de: '**Die Combo ist der Weg, nicht das Direktrezept:** Pro Superior brauchst du über die Combo 6- bis 8-mal weniger Lesser. Das Direktrezept ist nur gut, um übrige Intermediates loszuwerden.',
-              en: '**The combo is the way, not the direct recipe:** per Superior the combo needs 6 to 8 times fewer Lesser. The direct recipe is only good for using up spare Intermediates.',
+              de: '**Die Combo ist der Weg, nicht das Direktrezept:** Das Direktrezept braucht 30 Intermediates, also mindestens 150 Lesser. Über die 20-%-Combo kostet ein Superior im Schnitt 5 gelungene Versuche – 25 Lesser plus die Fehlschläge. Das Direktrezept ist nur gut, um übrige Intermediates loszuwerden.',
+              en: '**The combo is the way, not the direct recipe:** the direct recipe needs 30 Intermediates, so at least 150 Lesser. Through the 20% combo a Superior takes 5 successful crafts on average – 25 Lesser plus the failures. The direct recipe is only good for using up spare Intermediates.',
             },
             {
-              de: '**Erst Meisterschaft, dann Masse:** Ein Intermediate gibt 60 Erfahrung (koreanische Werte). Je höher deine Alchemie über 20 steht, desto öfter gelingt der Versuch – und auch die Combo, weil sie noch einmal auf Erfolg würfelt: ≈3,5 statt ≈2,1 Superior pro 100 Lesser. Spar große Stapel also auf, bis die Meisterschaft hoch ist.',
-              en: '**Mastery first, then volume:** an Intermediate gives 60 experience (Korean values). The higher your alchemy is above 20, the more often the attempt succeeds – and the combo too, because it rolls for success once more: ≈3.5 instead of ≈2.1 Superior per 100 Lesser. So save big stacks until your mastery is high.',
+              de: '**Erst Meisterschaft, dann Masse:** Ein Intermediate gibt 60 Erfahrung (koreanische Werte). Je höher deine Alchemie über 20 steht, desto öfter gelingt der Versuch – und jeder Fehlschlag weniger spart die Zutaten eines Versuchs. Spar große Stapel also auf, bis die Meisterschaft hoch ist.',
+              en: '**Mastery first, then volume:** an Intermediate gives 60 experience (Korean values). The higher your alchemy is above 20, the more often the attempt succeeds – and every failure you avoid saves the materials of one attempt. So save big stacks until your mastery is high.',
             },
             {
               de: '**Ein Fehlschlag kostet die Zutaten** (du bekommst 30 % der Erfahrung). Lass dich beim Herstellen nicht treffen – das zählt als Fehlschlag.',
@@ -366,8 +352,8 @@ export const manastones: Guide = {
           tone: 'tip',
           title: { de: 'Herstellen oder kaufen?', en: 'Craft or buy?' },
           text: {
-            de: 'Ein Superior „kostet“ über die Combo ≈29–47 Lesser plus Powder und Ink für 6–9 Versuche. Kostet ein Superior am Market weniger als so viele Lesser zum Marktpreis, kauf ihn. Für Global gibt es keine veröffentlichten Marktpreise – schau in die Preis-Historie am Market. Und nie an Händler verkaufen: Sie zahlen 3 Kina (Lesser), 17 (Intermediate) und 34 (Superior).',
-            en: 'Through the combo a Superior “costs” ≈29–47 Lesser plus Powder and Ink for 6–9 attempts. If a Superior on the market costs less than that many Lesser at market price, buy it. There are no published market prices for Global – check the price history on the market. And never sell to vendors: they pay 3 Kina (Lesser), 17 (Intermediate) and 34 (Superior).',
+            de: 'Ein Superior „kostet“ über die Combo im Schnitt 25 Lesser plus Powder und Ink für 5 gelungene Versuche – jeder Fehlschlag kommt dazu. Kostet ein Superior am Market weniger als so viele Lesser zum Marktpreis, kauf ihn. Für Global gibt es keine veröffentlichten Marktpreise – schau in die Preis-Historie am Market. Und nie an Händler verkaufen: Sie zahlen 3 Kina (Lesser), 17 (Intermediate) und 34 (Superior).',
+            en: 'Through the combo a Superior “costs” 25 Lesser on average plus Powder and Ink for 5 successful crafts – every failure adds to it. If a Superior on the market costs less than that many Lesser at market price, buy it. There are no published market prices for Global – check the price history on the market. And never sell to vendors: they pay 3 Kina (Lesser), 17 (Intermediate) and 34 (Superior).',
           },
         },
         { type: 'links', items: [{ href: '#/guides/gathering-crafting', label: { de: 'Alchemie leveln: Sammeln & Handwerk', en: 'Level alchemy: Gathering & crafting' } }] },
@@ -421,7 +407,7 @@ export const manastones: Guide = {
               tone: 'teal',
               points: [
                 { kind: 'pro', text: { de: 'Der einzige Weg zu Superior in Menge – und handelbar', en: 'The only way to Superior in volume – and tradeable' } },
-                { kind: 'pro', text: { de: '≈29–47 Lesser pro Superior über die Combo', en: '≈29–47 Lesser per Superior via the combo' } },
+                { kind: 'pro', text: { de: 'Im Schnitt 25 Lesser pro Superior über die Combo, plus Fehlschläge', en: '25 Lesser per Superior via the combo on average, plus failures' } },
                 { kind: 'con', text: { de: 'Braucht handelbare Lesser als Futter und Meisterschaft', en: 'Needs tradeable Lesser as feed and mastery' } },
                 { kind: 'con', text: { de: 'Fehlschlag = Zutaten weg', en: 'Failure = materials gone' } },
               ],
@@ -483,7 +469,7 @@ export const manastones: Guide = {
           },
           items: [
             { title: { de: 'Abyss-Shop leeren', en: 'Empty the Abyss shop' }, text: { de: 'Auf jedem Charakter 50 + 50', en: '50 + 50 on every character' }, tag: 'AP', tone: 'gold' },
-            { title: { de: 'Ins Server-Lager', en: 'Into Server Storage' }, text: { de: 'Steine und Kisten der Twinks zum Main', en: 'The alts’ stones and chests to the main' }, tag: { de: 'Twinks', en: 'Alts' }, tone: 'violet' },
+            { title: { de: 'Ins Server-Lager', en: 'Into Server Storage' }, text: { de: 'Die Steine der Twinks zum Main', en: 'The alts’ stones to the main' }, tag: { de: 'Twinks', en: 'Alts' }, tone: 'violet' },
             { title: { de: 'Wochenzähler', en: 'Weekly counters' }, text: { de: 'Transcendence ×14, Ascension ×3, Ludra', en: 'Transcendence ×14, Ascension ×3, Ludra' }, tag: 'Drops', tone: 'blue' },
             { title: { de: 'Alchemie', en: 'Alchemy' }, text: { de: '5 Lesser → Intermediate, Combo → Superior', en: '5 Lesser → Intermediate, combo → Superior' }, tag: { de: 'Handwerk', en: 'Craft' }, tone: 'teal' },
             { title: { de: 'Gravieren', en: 'Engrave' }, text: { de: 'Erst leere Sockel, dann das schwächste Endteil', en: 'Empty sockets first, then the weakest final piece' }, tag: 'iLv', tone: 'green' },
@@ -514,8 +500,8 @@ export const manastones: Guide = {
         {
           type: 'text',
           text: {
-            de: 'Abyss-Punkte bleiben auf dem Charakter, der sie verdient. Die Steine, die er damit kauft, aber nicht: Laut Raid Relay (globaler Client, 14.10.) gehen die gebundenen Lesser Abyssal Manastones und Soulstones eines Twinks über das **Server-Lager** zum Main. Damit wird jeder Twink zur Steinquelle.',
-            en: 'Abyss Points stay on the character that earns them. The stones it buys with them don’t: according to Raid Relay (global client, 14 Oct) an alt’s bound Lesser Abyssal Manastones and Soulstones go to the main through **Server Storage**. That turns every alt into a source of stones.',
+            de: 'Abyss-Punkte bleiben auf dem Charakter, der sie verdient. Die Steine, die er damit kauft, aber nicht: Laut AllThings und aion2wiki gehen die gebundenen Lesser Abyssal Manastones und Soulstones eines Twinks über das **Server-Lager** zum Main. Damit wird jeder Twink zur Steinquelle.',
+            en: 'Abyss Points stay on the character that earns them. The stones it buys with them don’t: according to AllThings and aion2wiki an alt’s bound Lesser Abyssal Manastones and Soulstones go to the main through **Server Storage**. That turns every alt into a source of stones.',
           },
         },
         {
@@ -546,12 +532,12 @@ export const manastones: Guide = {
               en: '**Where the alt gets 150,000 AP:** Ascension Trials (3 a week), Abyss Corridor (from 1,000, 5 minutes a run), Battlegrounds (3 match and 3 win rewards = 12,000 AP) and uncapped Supply Requests – details in “Several characters” and “Farming & power”.',
             },
             {
-              de: '**Was der Twink nicht kaufen soll:** Stigma Shards, Azphel-Kristalle und Flügel bleiben auf ihm. Seine AP sind beim Main als Steine am meisten wert (Raid Relay).',
-              en: '**What the alt should not buy:** Stigma Shards, Azphel crystals and wings stay on it. Its AP is worth the most to the main as stones (Raid Relay).',
+              de: '**Was der Twink kaufen soll:** Die Steine, denn die erreichen den Main. Ob Stigma Shards, Azphel-Kristalle oder Flügel ins Server-Lager dürfen, ist nicht bestätigt – schau in den Tooltip, bevor du sie für den Main kaufst.',
+              en: '**What the alt should buy:** the stones, because they reach the main. Whether Stigma Shards, Azphel crystals or wings may go into Server Storage is not confirmed – check the tooltip before you buy them for the main.',
             },
             {
-              de: '**Ascension-Kisten** der Twinks gehen ebenfalls über das Server-Lager (Raid Relay). Handelbare Drops und Hergestelltes wandern ohnehin frei; gebundenes Kina nicht.',
-              en: '**Ascension chests** of the alts also go through Server Storage (Raid Relay). Tradeable drops and crafted stones move freely anyway; bound Kina does not.',
+              de: 'Ob die **Ascension-Kisten** der Twinks ins Server-Lager dürfen, ist nicht bestätigt – der Tooltip sagt es. Handelbare Drops und Hergestelltes wandern ohnehin frei; gebundenes Kina nicht.',
+              en: 'Whether the alts’ **Ascension chests** may go into Server Storage is not confirmed – the tooltip tells you. Tradeable drops and crafted stones move freely anyway; bound Kina does not.',
             },
             {
               de: '**Ein Alchemist für alle:** Die Meisterschaft zählt pro Charakter – schick alle handelbaren Lesser zu einem Charakter und verwandle sie dort.',
@@ -564,8 +550,8 @@ export const manastones: Guide = {
           tone: 'warn',
           title: { de: 'Vorher im Spiel prüfen', en: 'Check in game first' },
           text: {
-            de: 'Ob ein Gegenstand ins Server-Lager darf, steht im Tooltip („Can be placed in Server Storage“). Raid Relay, AllThings und aion2wiki sagen Ja für die Abyss-Shop-Steine, eine Tabelle bei Game8 widerspricht sich selbst. Leg zuerst einen Stein hinein, bevor du einen Twink-Plan darauf baust.',
-            en: 'Whether an item may go into Server Storage is in its tooltip (“Can be placed in Server Storage”). Raid Relay, AllThings and aion2wiki say yes for the Abyss shop stones, a table at Game8 contradicts itself. Put one stone in first before you build an alt plan on it.',
+            de: 'Ob ein Gegenstand ins Server-Lager darf, steht im Tooltip („Can be placed in Server Storage“). AllThings und aion2wiki sagen Ja für die Abyss-Shop-Steine, aber nicht jede Quelle ist sich einig. Leg zuerst einen Stein hinein, bevor du einen Twink-Plan darauf baust.',
+            en: 'Whether an item may go into Server Storage is in its tooltip (“Can be placed in Server Storage”). AllThings and aion2wiki say yes for the Abyss shop stones, but not every source agrees. Put one stone in first before you build an alt plan on it.',
           },
         },
         {
@@ -683,7 +669,7 @@ export const manastones: Guide = {
             { de: '**Die Seelensteine vergessen** – Halskette, Ohrringe, Ringe und Armreifen haben auch Sockel: 7 der 16 Teile.', en: '**Forgetting soulstones** – necklace, earrings, rings and bracelets have sockets too: 7 of the 16 pieces.' },
             { de: '**Den Abyss-Shop auf Twinks liegen lassen** – 50 + 50 Steine pro Woche und Charakter verfallen nicht als Steine, sondern als Gelegenheit: Das Limit gilt pro Woche.', en: '**Leaving the Abyss shop on alts** – 50 + 50 stones per week and character are not lost as stones but as a chance: the limit is per week.' },
             { de: '**Monster nach Steinen farmen** – selbst bei 1,96 % sind es ≈51 Kills pro Stein.', en: '**Farming monsters for stones** – even at 1.96% it is ≈51 kills per stone.' },
-            { de: '**Das Direktrezept statt der Combo** – 30 Intermediates für einen Superior kosten 6- bis 8-mal mehr Lesser als die 20-%-Combo.', en: '**The direct recipe instead of the combo** – 30 Intermediates for one Superior cost 6 to 8 times more Lesser than the 20% combo.' },
+            { de: '**Das Direktrezept statt der Combo** – 30 Intermediates für einen Superior kosten mindestens 150 Lesser, die 20-%-Combo im Schnitt 25 plus Fehlschläge.', en: '**The direct recipe instead of the combo** – 30 Intermediates for one Superior cost at least 150 Lesser, the 20% combo 25 on average plus failures.' },
             { de: '**Einen bestimmten goldenen Boost jagen** – im Schnitt ≈334 Superior-Gravuren. Nimm, was die Stopp-Regel erlaubt.', en: '**Chasing one specific gold boost** – ≈334 Superior engraves on average. Take what the stop rule allows.' },
             { de: '**Eine gute Zeile überschreiben** – vor dem Bestätigen prüfen, welche Sockel angehakt sind. Es gibt kein Zurück.', en: '**Overwriting a good line** – check which sockets are ticked before you confirm. There is no undo.' },
             { de: '**Steine an Händler verkaufen oder als Supply Request abgeben** – Händler zahlen 3–34 Kina; Intermediate und Superior gehören in Ausrüstung.', en: '**Selling stones to vendors or turning them in as Supply Requests** – vendors pay 3–34 Kina; Intermediate and Superior belong in gear.' },
@@ -700,7 +686,7 @@ export const manastones: Guide = {
           type: 'checklist',
           items: [
             { de: 'Abyss-Shop auf jedem Charakter: 50 Lesser Abyssal Manastones (je 1.000 AP) und 50 Soulstones (je 2.000 AP)', en: 'Abyss shop on every character: 50 Lesser Abyssal Manastones (1,000 AP each) and 50 Soulstones (2,000 AP each)' },
-            { de: 'Steine und Ascension-Kisten der Twinks über das Server-Lager zum Main', en: 'The alts’ stones and Ascension chests to the main through Server Storage' },
+            { de: 'Steine der Twinks über das Server-Lager zum Main (Ascension-Kisten nur, wenn der Tooltip es erlaubt)', en: 'The alts’ stones to the main through Server Storage (Ascension chests only if the tooltip allows it)' },
             { de: 'Transcendence-Zähler (14), Ascension ×3 und Ludra genutzt', en: 'Transcendence counter (14), Ascension ×3 and Ludra used' },
             { de: 'Alle handelbaren Lesser beim Alchemisten: 5 → Intermediate, Combo → Superior', en: 'Every tradeable Lesser to the alchemist: 5 → Intermediate, combo → Superior' },
             { de: 'Kein leerer Sockel an einem Teil, das du trägst', en: 'No empty socket on any piece you wear' },
@@ -729,8 +715,8 @@ export const manastones: Guide = {
           type: 'callout',
           tone: 'info',
           text: {
-            de: 'Für Global nicht offiziell belegt: dass eine Gravur genau einen Stein verbraucht (Inven KR, ShowGamer und AllThings sagen es; die Rechnungen hier nehmen es an) · ob sich gute Zeilen per Haken behalten lassen (neuere Guides ja, ältere nein) · die Gegenstandsstufe pro Farbe (+1 bis +4 laut Inven KR, Corpus und ExpCarry; games.gg sagt, sie hänge vom Wert ab) · ob 100 % Seelenbindung einen fünften Sockel gibt (Corpus, ExpCarry) · wie viele Sockel Armreifen der Stufe Legend haben (jeder der Top 80 trägt einen) · ob gebundene Steine in die Alchemie-Rezepte passen · ob die Transfer-Rezepte der Dragon-Lord-Kette Steine mitnehmen · ob der Daeva Pass auf Global Seelensteine gibt (endgametools ja, NeonSect nennt gar keine Steine) · die Menge pro Drop bei Transcendence und Ludra · Steine pro Stunde für jede Route und Marktpreise (nirgends veröffentlicht). Wenn du etwas im Spiel prüfst, sag Bescheid – dann wird der Guide ergänzt.',
-            en: 'Not officially confirmed for Global: that an engrave uses exactly one stone (Inven KR, ShowGamer and AllThings say so; the calculations here assume it) · whether good lines can be kept with tick boxes (newer guides yes, older ones no) · the item level per colour (+1 to +4 according to Inven KR, Corpus and ExpCarry; games.gg says it depends on the stat) · whether 100% Soul Binding adds a fifth socket (Corpus, ExpCarry) · how many sockets Legend bracelets have (each of the top 80 wears one) · whether bound stones fit the alchemy recipes · whether the transfer recipes of the Dragon Lord chain keep stones · whether the Daeva Pass gives soulstones on Global (endgametools yes, NeonSect lists no stones at all) · the amount per drop in Transcendence and Ludra · stones per hour for any route and market prices (published nowhere). If you check something in game, let us know and the guide gets updated.',
+            de: 'Für Global nicht offiziell belegt: dass eine Gravur genau einen Stein verbraucht (Inven KR, ShowGamer und AllThings sagen es; die Rechnungen hier nehmen es an) · ob sich gute Zeilen per Haken behalten lassen (neuere Guides ja, ältere nein) · die Gegenstandsstufe pro Farbe (+1 bis +4 laut Inven KR, Corpus und ExpCarry; games.gg sagt, sie hänge vom Wert ab) · ob 100 % Seelenbindung einen fünften Sockel gibt (Corpus, ExpCarry) · wie viele Sockel Armreifen der Stufe Legend haben (jeder der Top 80 trägt einen) · ob gebundene Steine in die Alchemie-Rezepte passen · wie stark die Erfolgschance mit der Meisterschaft steigt · ob Ascension-Kisten ins Server-Lager dürfen · ob die Transfer-Rezepte der Dragon-Lord-Kette Steine mitnehmen · ob der Daeva Pass auf Global Seelensteine gibt (endgametools ja, NeonSect nennt gar keine Steine) · die Menge pro Drop bei Transcendence und Ludra · Steine pro Stunde für jede Route und Marktpreise (nirgends veröffentlicht). Wenn du etwas im Spiel prüfst, sag Bescheid – dann wird der Guide ergänzt.',
+            en: 'Not officially confirmed for Global: that an engrave uses exactly one stone (Inven KR, ShowGamer and AllThings say so; the calculations here assume it) · whether good lines can be kept with tick boxes (newer guides yes, older ones no) · the item level per colour (+1 to +4 according to Inven KR, Corpus and ExpCarry; games.gg says it depends on the stat) · whether 100% Soul Binding adds a fifth socket (Corpus, ExpCarry) · how many sockets Legend bracelets have (each of the top 80 wears one) · whether bound stones fit the alchemy recipes · how far the success chance rises with mastery · whether Ascension chests may go into Server Storage · whether the transfer recipes of the Dragon Lord chain keep stones · whether the Daeva Pass gives soulstones on Global (endgametools yes, NeonSect lists no stones at all) · the amount per drop in Transcendence and Ludra · stones per hour for any route and market prices (published nowhere). If you check something in game, let us know and the guide gets updated.',
           },
         },
       ],
@@ -751,7 +737,6 @@ export const manastones: Guide = {
             { href: 'https://allthings.how/aion-2-superior-manastone-effects-and-how-to-get-it/', label: 'AllThings.How – Superior Manastone' },
             { href: 'https://allthings.how/aion-2-superior-abyssal-manastone-effects-and-how-to-get/', label: 'AllThings.How – Superior Abyssal Manastone' },
             { href: 'https://allthings.how/aion-2-how-to-get-the-lesser-abyssal-soulstone-and-its-effects/', label: 'AllThings.How – Lesser Abyssal Soulstone' },
-            { href: 'https://raidrelay.com/aion-2-alts-guide', label: 'Raid Relay – Alts guide (Abyss shop stones through Server Storage)' },
             { href: 'https://aion2wiki.date/items/531351001', label: 'aion2wiki – Lesser Abyssal Manastone (Bound) (storage)' },
             { href: 'https://corpus.gg/blog/aion-2/manastones-guide', label: 'Corpus – Manastones: which stones and when to stop rolling' },
             { href: 'https://expcarry.com/aion-2-manastone-guide', label: 'ExpCarry – Manastone guide (item level per line grade)' },

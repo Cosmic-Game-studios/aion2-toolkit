@@ -2,7 +2,7 @@ import type { GuideBlock } from '../types';
 
 /**
  * Playstyles of the Assassin: boss burst (the core build), PvP hunter, open world with evasion
- * (sources: GamerBlurb, aion2-guides.info, MetaBot, OSLink, Daeva Guides, Game8, AION2 Builds, Space4Games – skill data
+ * (sources: GamerBlurb, aion2-guides.info, MetaBot, OSLink, Daeva Guides, AION2 Builds, Space4Games – skill data
  * of the global client – AION2 Index top 10 of 2026-10-18)
  */
 export const assassinPlaystyles: GuideBlock[] = [
@@ -244,7 +244,6 @@ export const assassinPlaystyles: GuideBlock[] = [
       { href: 'https://metabot.gg/en/aion-2/guides/stigma-guide', label: 'MetaBot – Stigma guide (PvP swaps)' },
       { href: 'https://www.oslink.io/blog/guide/aion-2-class-guide-and-tier-list.html', label: 'OSLink – Class guide and tier list (roles)' },
       { href: 'https://daevaguides.com/en/guides/stigmas-guide/', label: 'Daeva Guides – Stigma guide (shard costs, reset cost)' },
-      { href: 'https://game8.co/games/Aion-2/archives/629160', label: 'Game8 – How to respec skills and Daevanion' },
       { href: 'https://aion2builds.org/guides/respec/', label: 'AION2 Builds – Respec guide (free skill reset, Daevanion refund)' },
       { href: 'https://space4games.com/en/games-en/aion-2-stigma-guide/', label: 'Space4Games – Stigma guide (presets on the global client)' },
     ],

@@ -2,7 +2,7 @@ import type { GuideBlock } from '../types';
 
 /**
  * Playstyles of the Ranger: boss crit (the core build), solo and packs, PvP with distance and defence
- * (sources: aion2-guides.info, MetaBot, OSLink, Daeva Guides, Game8, AION2 Builds, Space4Games – skill data of the global
+ * (sources: aion2-guides.info, MetaBot, OSLink, Daeva Guides, AION2 Builds, Space4Games – skill data of the global
  * client – AION2 Index top 10 of 2026-10-18)
  */
 export const rangerPlaystyles: GuideBlock[] = [
@@ -229,7 +229,6 @@ export const rangerPlaystyles: GuideBlock[] = [
       { href: 'https://metabot.gg/en/aion-2/guides/stigma-guide', label: 'MetaBot – Stigma guide (PvP swaps)' },
       { href: 'https://www.oslink.io/blog/guide/aion-2-class-guide-and-tier-list.html', label: 'OSLink – Class guide and tier list (Ranger in large fights and up close)' },
       { href: 'https://daevaguides.com/en/guides/stigmas-guide/', label: 'Daeva Guides – Stigma guide (shard costs, reset cost)' },
-      { href: 'https://game8.co/games/Aion-2/archives/629160', label: 'Game8 – How to respec skills and Daevanion' },
       { href: 'https://aion2builds.org/guides/respec/', label: 'AION2 Builds – Respec guide (free skill reset, Daevanion refund)' },
       { href: 'https://space4games.com/en/games-en/aion-2-stigma-guide/', label: 'Space4Games – Stigma guide (presets on the global client)' },
     ],

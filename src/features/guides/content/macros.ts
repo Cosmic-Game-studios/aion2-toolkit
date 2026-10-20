@@ -701,7 +701,6 @@ export const macros: Guide = {
             { href: 'https://aion2tools.xyz/macro/', label: 'Aion2Tools – Skill macro, delay range and Skill Queue (2026-10-15)' },
             { href: 'https://gamerstogether.cz/en/aion-2-macros/', label: 'Gamers Together – Macros: setup, delay and presets' },
             { href: 'https://couga54.github.io/aion2-guides/en/settings/', label: 'AION 2 Guides (couga54) – Settings (2026-10-10)' },
-            { href: 'https://aion2.wiki.fextralife.com/Controls', label: 'Fextralife – Controls (default keys)' },
             { href: 'https://www.inven.co.kr/board/aion2/6388/202449', label: 'Inven – patch notes 2026-05-27 (macro steps = hotbar keys, minimum delay 10 ms)' },
             { href: 'https://www.ddaily.co.kr/page/view/2026012017472594505', label: 'Digital Daily – NCSOFT files criminal complaints against AION 2 macro program users (2026-01-20)' },
             { href: 'https://www.pcgamesn.com/aion-2/bots-gold-farming-bans', label: 'PCGamesN – Almost 5,000 accounts restricted for bots and unauthorised programs (2026-10-11)' },
