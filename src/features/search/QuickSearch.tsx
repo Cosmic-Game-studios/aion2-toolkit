@@ -107,7 +107,7 @@ const LIMIT: Record<GroupId, number> = { recent: 5, pages: 6, guides: 6, skills:
 const PAGE_WORDS: Record<string, StringKey> = {
   '/': 'qsWordsHome', '/skills': 'qsWordsSkills', '/stigma': 'qsWordsStigma', '/daevanion': 'qsWordsDaevanion',
   '/hotbar': 'qsWordsHotbar', '/combos': 'qsWordsCombos', '/database': 'qsWordsDatabase', '/guides': 'qsWordsGuides',
-  '/top': 'qsWordsTop', '/farm': 'qsWordsFarm', '/community': 'qsWordsCommunity',
+  '/top': 'qsWordsTop', '/farm': 'qsWordsFarm', '/crit': 'qsWordsCrit', '/community': 'qsWordsCommunity',
 };
 
 const RECENT_KEY = 'qs:recent';
